@@ -2,13 +2,14 @@
   "id": "ch02",
   "number": 2,
   "title": "The Kitchen Laws",
-  "subtitle": "Design your home so the lean choice is the lazy choice",
+  "subtitle": "Your kitchen is sabotaging you and you're letting it.",
   "law": "You don't rise to your willpower. You fall to your kitchen.",
-  "intro": "You make hundreds of tiny food choices every day. Most of them you don't even notice. You grab what you see. You eat what is easy. You finish what is in front of you.\n\nThat sounds bad, but it is actually great news. If your choices are mostly automatic, you can change them by changing your space, not by trying harder.\n\nThis chapter is about setting up your kitchen so it works for you, even on your laziest, most tired day. Set it up once, and it keeps working while you sleep.",
+  "intro": "\"I just have no willpower.\" Babe, the cookies are on the counter, the chips are at eye level and you eat standing at the fridge. That's not a willpower problem. That's an interior design problem.\n\nYou're not gonna like this, but most of your food choices happen on autopilot. You grab what you see. You eat what's easy. You finish what's in front of you.\n\nHere's the good news: if your choices are mostly automatic, you can change them by changing your space, not by trying harder.\n\nSo here's what actually works: set your kitchen up once, so it works for you even on your laziest, most tired day. Then let it do the heavy lifting while you sleep.",
   "hacks": [
     {
       "title": "The Invisible Shelf",
-      "hook": "Out of sight really does mean out of mouth. Make your trigger foods boring to look at.",
+      "hook": "Out of sight really means out of mouth. Make your trigger foods boring.",
+      "callout": "'Just one' from the see-through cookie jar on the counter? We both know how that ends.",
       "what": "Move your trigger foods (the ones you can't stop eating once you start) into opaque containers or boxes, and put them on a high shelf or at the back of a cupboard. You are not banning them. You are just making them quiet.",
       "why": "Seeing food is a strong cue to want food. Bright packaging is designed by experts to grab your attention. When you can't see the chips or cookies, you think about them less, so you eat them less often, without needing to fight yourself.",
       "how": [
@@ -18,11 +19,16 @@
         "Put a healthy snack in the spot they used to be."
       ],
       "pro": "Use clear containers for healthy food and opaque ones for treats. Let the good stuff be the pretty stuff.",
-      "tags": ["kitchen", "cravings", "quick-win"]
+      "tags": [
+        "kitchen",
+        "cravings",
+        "quick-win"
+      ]
     },
     {
       "title": "Bowl It, Never Bag It",
       "hook": "Eating from the bag has no bottom. A bowl does.",
+      "callout": "You didn't eat 'a few chips'. You ate until your fingers hit the bottom of the bag.",
       "what": "Never eat straight from a bag, box or tub. Always put a portion into a bowl or on a plate, close the package, and put it away before you take the first bite.",
       "why": "A package gives you no stop signal. You keep reaching in until it is gone or you feel sick. A bowl gives your brain a clear end point. Putting the package away also adds a small step if you want more, which gives you time to ask if you are really still hungry.",
       "how": [
@@ -32,11 +38,15 @@
         "If you still want more after, you can have more. Just repeat the whole process."
       ],
       "pro": "Buy a set of small, pretty snack bowls. Make portioning feel like a treat, not a rule.",
-      "tags": ["kitchen", "quick-win"]
+      "tags": [
+        "kitchen",
+        "quick-win"
+      ]
     },
     {
       "title": "Serve at the Stove",
-      "hook": "When the pot is on the table, seconds happen without you deciding.",
+      "hook": "When the pot is on the table, seconds happen before you even decide.",
+      "callout": "Seconds you didn't want, just because the pot was right there winking at you? Classic.",
       "what": "Put food on plates in the kitchen and leave the pots and dishes on the stove. Bring only the plates to the table. Veggies and salad are the one exception: those can go on the table.",
       "why": "When serving dishes sit in front of you, grabbing more is effortless and often automatic. When you have to get up and walk to the kitchen, you actually decide if you want more. Many times you won't, because the fullness signal has had time to arrive.",
       "how": [
@@ -45,11 +55,16 @@
         "If you want seconds, wait 10 minutes first, then get up and serve yourself."
       ],
       "pro": "Put leftovers into storage containers right after serving, before you sit down. No leftovers, no picking.",
-      "tags": ["kitchen", "hunger", "social"]
+      "tags": [
+        "kitchen",
+        "hunger",
+        "social"
+      ]
     },
     {
       "title": "The Kitchen Closed Ritual",
-      "hook": "Restaurants close. Your kitchen can too. Give your evening a clear finish line.",
+      "hook": "Restaurants close. Your kitchen can too. Stop running a 24-hour diner.",
+      "callout": "Your kitchen doesn't need a night shift. Grazing till midnight is a habit, not hunger.",
       "what": "After dinner, do a short 'closing' routine: clean up, wipe the counter, turn off the kitchen light and say (even just to yourself) 'kitchen closed.' It tells your brain that eating time is over for the day.",
       "why": "A lot of extra eating happens at night out of habit, boredom or tiredness, not hunger. A ritual creates a clear line between 'eating time' and 'rest time.' Rituals are powerful because they turn a decision into a habit, so you don't have to fight yourself every night.",
       "how": [
@@ -59,11 +74,16 @@
         "If you are truly hungry later, have a planned protein snack like Greek yogurt. Real hunger is allowed."
       ],
       "pro": "Brush your teeth soon after dinner. Minty mouth plus a closed kitchen is a double lock.",
-      "tags": ["kitchen", "cravings", "sleep"]
+      "tags": [
+        "kitchen",
+        "cravings",
+        "sleep"
+      ]
     },
     {
       "title": "Shop Fed, Shop Listed",
       "hook": "A hungry brain in a grocery store is a salesperson's dream customer.",
+      "callout": "Shopping starving with no list and coming home with three kinds of cookies? The math ain't mathing.",
       "what": "Only go food shopping after a meal, and always with a list. Stick to the list. Better yet, order groceries online, where you can't smell the bakery or see the checkout candy.",
       "why": "When you are hungry, high-calorie food looks and smells more rewarding, so it is much easier to grab things you never planned to buy. Stores are also designed to make you buy on impulse. A full stomach and a list protect you from both.",
       "how": [
@@ -73,11 +93,15 @@
         "Try online ordering for one week and notice how much less junk ends up in your cart."
       ],
       "pro": "If a treat isn't on the list, it doesn't go in the cart. Decide at home, not in the aisle.",
-      "tags": ["shopping", "kitchen"]
+      "tags": [
+        "shopping",
+        "kitchen"
+      ]
     },
     {
       "title": "The Eye-Level Fridge",
-      "hook": "Whatever you see first when you open the fridge is what you'll eat.",
+      "hook": "Whatever you see first in the fridge is what you eat. Choose wisely.",
+      "callout": "The veggies you 'bought to be healthy' are dying in the crisper drawer. Rest in peace.",
       "what": "Wash and cut your fruit and veggies as soon as you get home, put them in clear containers and place them on the middle shelf, right at eye level. Move sauces, leftovers and treats lower or to the back.",
       "why": "When you're hungry, you grab what is easy and ready. Whole, unwashed produce hidden in the crisper drawer loses to a ready-to-eat snack every time. Make the healthy choice the fastest one and you'll pick it without thinking.",
       "how": [
@@ -87,11 +111,16 @@
         "Move treats and high-calorie leftovers to the bottom drawer or the back."
       ],
       "pro": "Keep a bowl of washed fruit on the counter too. Make it the only food out in the open.",
-      "tags": ["kitchen", "quick-win", "shopping"]
+      "tags": [
+        "kitchen",
+        "quick-win",
+        "shopping"
+      ]
     },
     {
       "title": "The 20-Second Rule",
-      "hook": "Add 20 seconds of hassle to a snack and you'll eat it far less often.",
+      "hook": "Add 20 seconds of hassle to a snack and you'll eat it way less often.",
+      "callout": "If your trigger snack is easier to reach than a glass of water, that's a setup.",
       "what": "Add small bits of friction to the foods you overeat. Freeze them, wrap them tightly, store them in another room, or buy them only in single servings. Remove friction from healthy foods at the same time.",
       "why": "Happiness researcher Shawn Achor wrote about this idea: small barriers of about 20 seconds are often enough to stop an automatic habit. You can still have the treat. But you have to want it, not just grab it on autopilot.",
       "how": [
@@ -101,11 +130,15 @@
         "Do the opposite for healthy food: pre-cut, washed and in plain sight."
       ],
       "pro": "Ask someone you live with to keep their snacks in their own drawer, out of your view.",
-      "tags": ["kitchen", "cravings"]
+      "tags": [
+        "kitchen",
+        "cravings"
+      ]
     },
     {
       "title": "Sunday Decision Day",
-      "hook": "Tired you makes bad food decisions. So let rested you decide in advance.",
+      "hook": "Tired 7pm you makes terrible food decisions. Let rested you decide in advance.",
+      "callout": "'What do I want for dinner?' at 7pm, starving, is how takeout wins every single time.",
       "what": "Once a week, plan your dinners and lunches for the week ahead and write them down. You're not deciding what to eat at 7pm when you're starving. You already decided on Sunday.",
       "why": "By the end of a long day, your brain is tired of making choices. That is when takeout and snacking win. Deciding ahead of time removes the choice when you're weakest. Research on 'if-then' planning, led by psychologist Peter Gollwitzer, shows that deciding in advance makes people much more likely to follow through.",
       "how": [
@@ -115,11 +148,16 @@
         "Keep 2 'backup meals' you can make in 10 minutes for chaotic nights."
       ],
       "pro": "Stick your meal plan on the fridge. Seeing it every day makes it feel like a promise.",
-      "tags": ["kitchen", "shopping", "mindset"]
+      "tags": [
+        "kitchen",
+        "shopping",
+        "mindset"
+      ]
     },
     {
       "title": "The Clean Counter Law",
-      "hook": "Your counter is a billboard. Only let healthy food advertise there.",
+      "hook": "Your counter is a billboard. Stop letting cookies buy ad space.",
+      "callout": "A candy dish on the counter isn't decor. It's an all-day invitation you keep accepting.",
       "what": "Clear every food off your kitchen counters except fruit and maybe a jar of nuts. No cereal boxes, no bread, no cookie jar, no candy dish.",
       "why": "Food you see many times a day becomes food you eat many times a day. Each glance is a small nudge to eat. When the only thing in sight is fruit, the nudges push you in a good direction instead.",
       "how": [
@@ -129,11 +167,15 @@
         "Check the counters again every night as part of your kitchen-closed routine."
       ],
       "pro": "Do the same in your car, desk and bag. Every place you spend time is a mini kitchen.",
-      "tags": ["kitchen", "quick-win"]
+      "tags": [
+        "kitchen",
+        "quick-win"
+      ]
     },
     {
       "title": "The One Seat Rule",
       "hook": "If you eat everywhere, you'll want to eat everywhere. Give food one home.",
+      "callout": "Eating in bed, on the couch, at your desk... your whole apartment is a snack zone now.",
       "what": "Only eat sitting down at a table, with no phone, TV or laptop. No eating on the couch, in bed, standing in the kitchen or at your desk while working.",
       "why": "A 2013 review in the American Journal of Clinical Nutrition, led by Eric Robinson, found that eating while distracted led people to eat more, both at that meal and later. When your attention is somewhere else, your brain doesn't fully register the food. Eating in the same spot also stops the couch and bed from becoming cues to snack.",
       "how": [
@@ -143,7 +185,11 @@
         "At work, take your lunch away from your keyboard, even for 10 minutes."
       ],
       "pro": "Set the table even when eating alone. It turns a meal into an event you actually notice.",
-      "tags": ["kitchen", "mindset", "hunger"]
+      "tags": [
+        "kitchen",
+        "mindset",
+        "hunger"
+      ]
     }
   ],
   "mythBust": {
@@ -159,5 +205,5 @@
     "Where in my home do I usually eat without thinking?",
     "What is one piece of friction I can add to my biggest trigger food?"
   ],
-  "quote": "Stop fighting your kitchen. Redesign it, and let it fight for you."
+  "quote": "Stop arguing with your kitchen. Redesign it and let it win for you."
 }

@@ -2,13 +2,14 @@
   "id": "ch10",
   "number": 10,
   "title": "The De-Bloat Laws",
-  "subtitle": "Look leaner by tomorrow, the safe way",
-  "law": "Bloat is not fat. Treat it like weather: it passes faster when you stop panicking.",
-  "intro": "Here is a secret that will save you so much stress: a lot of what you see in the mirror on a \"fat day\" is not fat at all. It is water, gas, and posture. And all three can change in hours, not weeks.\n\nFat takes time to lose. Bloat does not. That means you have real power over how you look and feel tomorrow morning, without starving, without weird teas, and without drinking less water.\n\nThis chapter gives you the safe, smart moves. No diuretics. No laxatives. No detox anything. Just the tricks that actually work with your body instead of against it.",
+  "subtitle": "Put down the detox tea, bestie. Bloat has a simpler fix.",
+  "law": "Bloat is not fat. It's weather, and it passes faster when you stop panicking.",
+  "intro": "\"I'm so bloated, I need a detox.\" Put down the laxative tea, bestie. That 'fat day' feeling is mostly water, gas and posture, and all three can change in hours, not weeks.\n\nYou're not gonna like this, but the panic moves make it worse. Skipping water, crash dieting, weird teas. Fat takes time to lose. Bloat does not. So you have real power over how you feel tomorrow morning, without starving and without drinking less water.\n\nSo here's what actually works: the safe, smart moves. No diuretics. No laxatives. No detox anything. Just tricks that work with your body instead of against it.",
   "hacks": [
     {
       "title": "The Potassium Payback",
-      "hook": "Ate a salty dinner? Don't drink less water. Eat a banana and drink more.",
+      "hook": "Salty dinner? Drinking less water is the wrong move. Eat a banana and drink more.",
+      "callout": "Cutting water after a salty meal to 'de-bloat' is like closing the window to air out the room.",
       "what": "After a salty meal, add a potassium-rich food and keep drinking water normally. Good picks are a banana, a baked potato, avocado, spinach, white beans, yogurt or coconut water. Then just let your body do the rest.",
       "why": "Sodium makes your body hold extra water. Potassium helps your kidneys balance that sodium out, and drinking enough water tells your body it does not need to hoard. Cutting water does the opposite: your body holds on even tighter.",
       "how": [
@@ -27,6 +28,7 @@
     {
       "title": "Decode The Whoosh",
       "hook": "Stuck scale for 10 days, then suddenly down overnight? That's the whoosh. Here's why.",
+      "callout": "Quitting your whole plan because the scale didn't move for a week? That's quitting mid-whoosh, babe.",
       "what": "When you lose fat, your body sometimes holds water in its place for a while. So the scale freezes even though you are doing everything right. Then one day, it drops all at once. Your job is to know this so you never quit during the freeze.",
       "why": "Your body stores carbs as glycogen, and each gram of glycogen is stored with roughly three grams of water. Stress hormones like cortisol can also make you hold water. Add salty meals, hard workouts and your cycle, and the scale can hide real fat loss for days. When stress drops and water releases, you see the whoosh.",
       "how": [
@@ -44,6 +46,7 @@
     {
       "title": "The Fiber Staircase",
       "hook": "Going from 10 to 35 grams of fiber overnight? Hello, balloon belly.",
+      "callout": "Going from zero veggies to three bean salads a day and blaming 'healthy food' for the bloat. Pace yourself.",
       "what": "Fiber is amazing for staying lean, but your gut needs time to adjust. Add fiber slowly, like climbing stairs, not jumping off a building. Raise it a little each week and drink more water as you go.",
       "why": "Your gut bacteria eat fiber and make gas while they do it. When you add a lot at once, the bacteria party gets loud and you bloat. Go slowly and your gut adapts, so you get all the fullness benefits without the puff.",
       "how": [
@@ -61,6 +64,7 @@
     {
       "title": "The Air-Swallow Audit",
       "hook": "Your 'bloat' might literally be air you swallowed through a straw.",
+      "callout": "Gum all day, fizzy drink through a straw, then shocked your belly feels like a balloon? The math ain't mathing.",
       "what": "Some belly bloat is just swallowed air. Straws, chewing gum, fizzy drinks, eating fast and talking while chewing all push air into your stomach. Before an important day, cut these out.",
       "why": "Every time you sip through a straw or chew gum, you swallow small bits of air. Fizzy drinks add gas directly. That air has to go somewhere, and often it sits in your belly and makes it look rounder. Sugar-free gum can also contain sugar alcohols like sorbitol that cause gas in some people.",
       "how": [
@@ -78,7 +82,8 @@
     },
     {
       "title": "The 10-Minute Digest Stroll",
-      "hook": "A short walk after eating does more for your belly than a sit-up ever will.",
+      "hook": "A short walk after eating does more for your digestion than any sit-up ever will.",
+      "callout": "Big meal, instant nap on the couch, then complaining about feeling heavy all evening. Hmm.",
       "what": "Walk for 10 to 15 minutes after your biggest meal. Slow and easy is fine. You do not need to sweat. Just move.",
       "why": "Gentle movement helps food and gas move through your gut, so you feel less stuffed and puffy. Research on post-meal walking also shows it can lower the blood sugar spike after eating. That means fewer energy crashes and fewer cravings later.",
       "how": [
@@ -96,7 +101,8 @@
     },
     {
       "title": "The FODMAP Pause",
-      "hook": "Big event tomorrow? Beans, onion and garlic tonight might be the reason your dress feels tight.",
+      "hook": "Big event tomorrow? Beans, onion and garlic tonight might be why you feel so gassy.",
+      "callout": "Triple bean chilli with extra onion the night before the big day? Bold choice, bestie.",
       "what": "FODMAPs are certain carbs found in foods like beans, lentils, onion, garlic, wheat, apples and some dairy. They are healthy, but they can cause a lot of gas in some people. The day before a big event, pick lower-gas options instead.",
       "why": "Some carbs are not fully absorbed in your small intestine. They move to your large intestine, where bacteria ferment them and make gas. Researchers at Monash University in Australia created the low-FODMAP approach for people with sensitive guts. You don't need the full diet, just a smart swap before big days.",
       "how": [
@@ -114,7 +120,8 @@
     },
     {
       "title": "Ribs Down, Instantly Leaner",
-      "hook": "Change one thing about how you stand and your waist looks smaller in 3 seconds.",
+      "hook": "Change one thing about how you stand and feel taller and more upright in 3 seconds.",
+      "callout": "Ribs flared, back arched, belly pushed forward, then blaming your abs? It's your posture, babe.",
       "what": "Many people stand with their ribs flared out and their lower back arched. This pushes the belly forward. Pull your ribs down, stack them over your hips, and roll your shoulders back. You will look taller and flatter right away.",
       "why": "When your ribs flare up, your belly muscles stretch and your stomach pops forward. Bringing the ribs down lets your deep core muscles do their job, which pulls your midsection in. Rolling the shoulders back opens your chest and makes your whole shape look longer.",
       "how": [
@@ -132,7 +139,8 @@
     },
     {
       "title": "The 24-Hour Event Plan",
-      "hook": "Crash dieting before an event makes you look worse. Do this instead.",
+      "hook": "Crash dieting before an event backfires every time. Do this instead.",
+      "callout": "Skipping meals before the big night so you can overeat at it? That's not a plan, that's chaos.",
       "what": "Starving the day before a big event makes you tired, cranky and often more bloated, because you overeat later. Instead, follow a calm, simple plan: normal meals, lower salt, lower gas, lots of water, sleep, and a walk.",
       "why": "Skipping food raises stress hormones, which can make you hold water. Then when you finally eat, you often eat fast and a lot, which means more air and more bloat. Steady meals, less salt, and good sleep let your body release extra water naturally.",
       "how": [
@@ -150,7 +158,8 @@
     },
     {
       "title": "The Cycle Calendar",
-      "hook": "Up 3 pounds the week before your period? That's not fat. Stop punishing yourself for it.",
+      "hook": "Up 3 pounds the week before your period? That's water, not fat. Stop punishing yourself.",
+      "callout": "Panicking over period water weight every single month like it's never happened before? Track it, girl.",
       "what": "Many women hold extra water in the days before their period. Track your cycle and your weight together so you know what is normal for you. Then you can ignore the fake gain and keep going.",
       "why": "Hormone changes during your cycle can make your body hold more water and salt, and can slow digestion. This is normal and it usually goes away a few days after your period starts. It has nothing to do with fat gain.",
       "how": [
@@ -167,7 +176,8 @@
     },
     {
       "title": "Sleep Off The Puff",
-      "hook": "One bad night can make your face and belly look puffier. Sleep is your cheapest de-bloater.",
+      "hook": "One bad night can leave you puffy. Sleep is your cheapest de-bloater.",
+      "callout": "Doom scrolling till 2am then buying a 'de-puffing' serum? Sleep is free, babe.",
       "what": "Short sleep can make you look and feel puffy the next day. Aim for 7 to 9 hours. Also, finish your last big meal 2 to 3 hours before bed so your stomach is not working all night.",
       "why": "Poor sleep raises stress hormones, which can increase water retention. It also makes you hungrier for salty and sugary food the next day, which adds even more bloat. Eating a huge meal right before bed can also cause reflux and a heavy, puffy feeling in the morning.",
       "how": [
