@@ -100,6 +100,8 @@ main{max-width:760px;margin:0 auto;padding:0 16px 80px}
 .hack-num{font:700 12px var(--sans);letter-spacing:.1em;color:#fff;background:var(--hot);border-radius:99px;padding:3px 9px}
 .tag{font-size:12px;color:var(--muted);background:var(--blush2);border-radius:99px;padding:3px 9px}
 .hook{font:italic 400 20px/1.35 var(--serif);color:var(--plum)}
+.callout{background:var(--ink);color:#fff;border-radius:14px;padding:12px 16px;font-size:16px;margin:0 0 14px}
+.callout b{display:block;font:800 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#FFC2CF;margin-bottom:4px}
 .why{background:var(--blush2);border-radius:14px;padding:14px 16px;margin:0 0 12px}
 .why p{margin:0}
 .how ol{margin:0 0 12px;padding-left:22px}

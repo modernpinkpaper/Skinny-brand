@@ -59,6 +59,7 @@ def hack_card(h, ch):
   <div class="hack-top"><span class="hack-num">#{h['n']:03d}</span>{tags}</div>
   <h3>{e(h['title'])}</h3>
   <p class="hook">{e(h['hook'])}</p>
+  {f'<p class="callout"><b>🔥 The Call-Out</b>{e(h["callout"])}</p>' if h.get("callout") else ""}
   <p>{e(h['what'])}</p>
   <div class="why"><h4>Why it works</h4><p>{e(h['why'])}</p></div>
   <div class="how"><h4>How to do it</h4><ol>{steps}</ol></div>

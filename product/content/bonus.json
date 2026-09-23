@@ -1,25 +1,177 @@
 {
-  "welcome": "Hi, and welcome to the Vault.\n\nThis is not a diet. There are no meal plans you will quit by Thursday, no \"never eat carbs again\" rules, and no starving. The Skinny Laws are small, sneaky changes that make being lean feel easy and normal. Stack a few of them and your body stops fighting you.\n\nThere are 120 hacks inside, split into 12 Laws. You don't need all of them. Most people find 5 to 10 that fit their life, and that is enough to change everything.\n\nTap the menu at any time to jump to a section. Tick \"I tried this\" on the hacks you test, and your progress saves on this device.",
+  "welcome": "Let's be honest. You've tried the \"just eat less\" thing. You've downloaded the app, bought the green powder, and started again on Monday more times than you can count. And yet here we are.\n\nGood news: you're not broken, your metabolism isn't \"ruined\", and you don't need more willpower. You need better tricks. The people who stay lean without trying aren't saints. They're just running on systems they don't even notice anymore.\n\nThis Vault is those systems. 120 of them, split into 12 Laws. No starving, no crash diets, no detox tea nonsense. You don't need all 120. Most people find 5 to 10 that fit their life, and that's enough to change everything.\n\nTap the menu to jump anywhere. Tick \"I tried this\" as you go, and your progress saves on this device. Now stop scrolling TikTok for diet tips and start here.",
   "howTo": [
-    {"t": "Take the 60-second quiz", "d": "Find your eating type. It tells you which Laws to read first."},
-    {"t": "Pick 3 hacks only", "d": "Start small. Three hacks you actually do beat thirty you read about."},
-    {"t": "Do the 30-Day Challenge", "d": "One tiny action a day. By day 30 the Laws run on autopilot."},
-    {"t": "Come back when you get stuck", "d": "Use search or the tag filters to find the right hack for the problem you have today."}
+    {
+      "t": "Take the 60-second quiz",
+      "d": "Find your eating type. It tells you which Laws to read first."
+    },
+    {
+      "t": "Pick 3 hacks only",
+      "d": "Start small. Three hacks you actually do beat thirty you read about."
+    },
+    {
+      "t": "Do the 30-Day Challenge",
+      "d": "One tiny action a day. By day 30 the Laws run on autopilot."
+    },
+    {
+      "t": "Come back when you get stuck",
+      "d": "Use search or the tag filters to find the right hack for the problem you have today."
+    }
   ],
   "quiz": {
     "intro": "Answer 5 quick questions. Pick the answer that sounds most like you. No wrong answers.",
     "types": {
-      "grazer": {"name": "The Grazer", "emoji": "🍿", "desc": "You don't eat huge meals. You nibble all day: a handful here, a bite there. It adds up without you noticing, and you rarely feel truly full.", "read": ["ch01", "ch02", "ch07"], "first": "Start with The Hunger Laws. Big, protein-packed meals will switch off the all-day nibbling."},
-      "stress": {"name": "The Stress Eater", "emoji": "😮‍💨", "desc": "Food is your off-switch. A hard day, a tense text, a long to-do list and suddenly you're in the snack cupboard. It's not about hunger, it's about relief.", "read": ["ch05", "ch03", "ch09"], "first": "Start with The Sleep & Stress Laws. When you have other ways to calm down, the cravings lose their power."},
-      "night": {"name": "The Night Nibbler", "emoji": "🌙", "desc": "You are \"good\" all day, then evening hits and it all falls apart. Most of your extra eating happens after dinner, often in front of a screen.", "read": ["ch01", "ch03", "ch05"], "first": "Start with The Craving Laws, then build a proper \"kitchen closed\" ritual from The Kitchen Laws."},
-      "weekend": {"name": "The Weekend Rebounder", "emoji": "🥂", "desc": "Monday to Friday you're on point. Then the weekend comes with brunches, drinks and takeout, and Monday you start again. Every week.", "read": ["ch06", "ch08", "ch12"], "first": "Start with The Eating-Out & Social Laws. You don't need to skip the fun, you need a game plan for it."}
+      "grazer": {
+        "name": "The Grazer",
+        "emoji": "🍿",
+        "desc": "You don't eat huge meals. You nibble all day: a handful here, a bite there. It adds up without you noticing, and you rarely feel truly full.",
+        "read": [
+          "ch01",
+          "ch02",
+          "ch07"
+        ],
+        "first": "Start with The Hunger Laws. Big, protein-packed meals will switch off the all-day nibbling."
+      },
+      "stress": {
+        "name": "The Stress Eater",
+        "emoji": "😮‍💨",
+        "desc": "Food is your off-switch. A hard day, a tense text, a long to-do list and suddenly you're in the snack cupboard. It's not about hunger, it's about relief.",
+        "read": [
+          "ch05",
+          "ch03",
+          "ch09"
+        ],
+        "first": "Start with The Sleep & Stress Laws. When you have other ways to calm down, the cravings lose their power."
+      },
+      "night": {
+        "name": "The Night Nibbler",
+        "emoji": "🌙",
+        "desc": "You are \"good\" all day, then evening hits and it all falls apart. Most of your extra eating happens after dinner, often in front of a screen.",
+        "read": [
+          "ch01",
+          "ch03",
+          "ch05"
+        ],
+        "first": "Start with The Craving Laws, then build a proper \"kitchen closed\" ritual from The Kitchen Laws."
+      },
+      "weekend": {
+        "name": "The Weekend Rebounder",
+        "emoji": "🥂",
+        "desc": "Monday to Friday you're on point. Then the weekend comes with brunches, drinks and takeout, and Monday you start again. Every week.",
+        "read": [
+          "ch06",
+          "ch08",
+          "ch12"
+        ],
+        "first": "Start with The Eating-Out & Social Laws. You don't need to skip the fun, you need a game plan for it."
+      }
     },
     "questions": [
-      {"q": "When do you usually eat more than you meant to?", "a": [["All day, a little at a time", "grazer"], ["After a stressful moment", "stress"], ["After dinner, on the couch", "night"], ["Friday to Sunday", "weekend"]]},
-      {"q": "What is most often in your hand?", "a": [["A snack I grabbed without thinking", "grazer"], ["Something sweet or crunchy to calm down", "stress"], ["A bowl of something while I watch TV", "night"], ["A drink with friends", "weekend"]]},
-      {"q": "How does your breakfast usually look?", "a": [["Small or on the go, then I pick all morning", "grazer"], ["Depends on my mood and my day", "stress"], ["Light or nothing, I'm not hungry in the morning", "night"], ["Good on weekdays, huge brunch on weekends", "weekend"]]},
-      {"q": "Finish the sentence: \"I'd be lean if only...\"", "a": [["I could stop picking at food", "grazer"], ["life was less stressful", "stress"], ["I could stop snacking at night", "night"], ["weekends didn't exist", "weekend"]]},
-      {"q": "After you overeat, you usually feel...", "a": [["Confused, I didn't even eat a 'meal'", "grazer"], ["Calmer for a minute, then guilty", "stress"], ["Annoyed, I was so good all day", "night"], ["Like I have to start over on Monday", "weekend"]]}
+      {
+        "q": "When do you usually eat more than you meant to?",
+        "a": [
+          [
+            "All day, a little at a time",
+            "grazer"
+          ],
+          [
+            "After a stressful moment",
+            "stress"
+          ],
+          [
+            "After dinner, on the couch",
+            "night"
+          ],
+          [
+            "Friday to Sunday",
+            "weekend"
+          ]
+        ]
+      },
+      {
+        "q": "What is most often in your hand?",
+        "a": [
+          [
+            "A snack I grabbed without thinking",
+            "grazer"
+          ],
+          [
+            "Something sweet or crunchy to calm down",
+            "stress"
+          ],
+          [
+            "A bowl of something while I watch TV",
+            "night"
+          ],
+          [
+            "A drink with friends",
+            "weekend"
+          ]
+        ]
+      },
+      {
+        "q": "How does your breakfast usually look?",
+        "a": [
+          [
+            "Small or on the go, then I pick all morning",
+            "grazer"
+          ],
+          [
+            "Depends on my mood and my day",
+            "stress"
+          ],
+          [
+            "Light or nothing, I'm not hungry in the morning",
+            "night"
+          ],
+          [
+            "Good on weekdays, huge brunch on weekends",
+            "weekend"
+          ]
+        ]
+      },
+      {
+        "q": "Finish the sentence: \"I'd be lean if only...\"",
+        "a": [
+          [
+            "I could stop picking at food",
+            "grazer"
+          ],
+          [
+            "life was less stressful",
+            "stress"
+          ],
+          [
+            "I could stop snacking at night",
+            "night"
+          ],
+          [
+            "weekends didn't exist",
+            "weekend"
+          ]
+        ]
+      },
+      {
+        "q": "After you overeat, you usually feel...",
+        "a": [
+          [
+            "Confused, I didn't even eat a 'meal'",
+            "grazer"
+          ],
+          [
+            "Calmer for a minute, then guilty",
+            "stress"
+          ],
+          [
+            "Annoyed, I was so good all day",
+            "night"
+          ],
+          [
+            "Like I have to start over on Monday",
+            "weekend"
+          ]
+        ]
+      }
     ]
   },
   "challenge": [
@@ -55,22 +207,103 @@
     "Look back: write what changed. You did it."
   ],
   "grocery": {
-    "Protein": ["Eggs / liquid egg whites", "Greek yogurt or skyr (plain)", "Cottage cheese", "Rotisserie chicken", "Chicken breast or thighs", "Canned tuna or salmon", "Shrimp (frozen)", "Lean ground turkey or beef", "Tofu or tempeh", "Protein powder you actually like"],
-    "Volume foods": ["Bagged salad greens", "Frozen stir-fry vegetables", "Frozen cauliflower rice", "Cucumbers & cherry tomatoes", "Bell peppers", "Zucchini", "Mushrooms", "Broth-based soups", "Air-popped popcorn kernels"],
-    "Smart carbs": ["Oats", "Potatoes (fill you up for their calories)", "Rice (cook, cool, reheat)", "Wholegrain wraps", "Beans & lentils", "Berries (fresh or frozen)", "Apples & oranges", "Frozen grapes (dessert hack)"],
-    "Flavor without the calories": ["Hot sauce", "Salsa", "Mustard", "Everything-bagel seasoning", "Lemon & lime", "Fresh herbs", "Rice vinegar / apple cider vinegar", "Soy sauce or coconut aminos", "Cinnamon"],
-    "Drinks & snacks": ["Sparkling water", "Herbal teas", "Dark chocolate (85%)", "Pickles", "Seaweed snacks", "Edamame (frozen)", "Pistachios in shells", "Beef or turkey jerky"]
+    "Protein": [
+      "Eggs / liquid egg whites",
+      "Greek yogurt or skyr (plain)",
+      "Cottage cheese",
+      "Rotisserie chicken",
+      "Chicken breast or thighs",
+      "Canned tuna or salmon",
+      "Shrimp (frozen)",
+      "Lean ground turkey or beef",
+      "Tofu or tempeh",
+      "Protein powder you actually like"
+    ],
+    "Volume foods": [
+      "Bagged salad greens",
+      "Frozen stir-fry vegetables",
+      "Frozen cauliflower rice",
+      "Cucumbers & cherry tomatoes",
+      "Bell peppers",
+      "Zucchini",
+      "Mushrooms",
+      "Broth-based soups",
+      "Air-popped popcorn kernels"
+    ],
+    "Smart carbs": [
+      "Oats",
+      "Potatoes (fill you up for their calories)",
+      "Rice (cook, cool, reheat)",
+      "Wholegrain wraps",
+      "Beans & lentils",
+      "Berries (fresh or frozen)",
+      "Apples & oranges",
+      "Frozen grapes (dessert hack)"
+    ],
+    "Flavor without the calories": [
+      "Hot sauce",
+      "Salsa",
+      "Mustard",
+      "Everything-bagel seasoning",
+      "Lemon & lime",
+      "Fresh herbs",
+      "Rice vinegar / apple cider vinegar",
+      "Soy sauce or coconut aminos",
+      "Cinnamon"
+    ],
+    "Drinks & snacks": [
+      "Sparkling water",
+      "Herbal teas",
+      "Dark chocolate (85%)",
+      "Pickles",
+      "Seaweed snacks",
+      "Edamame (frozen)",
+      "Pistachios in shells",
+      "Beef or turkey jerky"
+    ]
   },
   "restaurant": [
-    {"place": "Italian", "order": "Grilled fish or chicken with veg; share a pasta as a side, not a main.", "watch": "Bread basket + creamy sauces."},
-    {"place": "Mexican", "order": "Fajitas or a burrito bowl: double protein, salsa, lettuce, half rice.", "watch": "Chips before the meal, sour cream, cheese sauce."},
-    {"place": "Sushi", "order": "Sashimi, edamame, miso soup, one roll.", "watch": "Tempura and 'crunchy' or mayo rolls."},
-    {"place": "Burger place", "order": "Burger with lettuce wrap or open-faced, side salad or shared fries.", "watch": "Milkshakes and double sauce."},
-    {"place": "Chinese / Thai", "order": "Steamed or stir-fried protein with veg; ask for sauce on the side.", "watch": "Fried rice, sweet and sour, anything 'crispy'."},
-    {"place": "Brunch", "order": "Eggs any style, smoked salmon, side of fruit; share the pancakes.", "watch": "Bottomless mimosas + the pastry basket."},
-    {"place": "Coffee shop", "order": "Latte with milk of choice, no syrup or 1 pump; protein box if hungry.", "watch": "Frappes and 'seasonal' drinks (often dessert in a cup)."},
-    {"place": "Pizza night", "order": "Thin crust, veg + chicken topping, big side salad first.", "watch": "Stuffed crust and garlic dips."}
+    {
+      "place": "Italian",
+      "order": "Grilled fish or chicken with veg; share a pasta as a side, not a main.",
+      "watch": "Bread basket + creamy sauces."
+    },
+    {
+      "place": "Mexican",
+      "order": "Fajitas or a burrito bowl: double protein, salsa, lettuce, half rice.",
+      "watch": "Chips before the meal, sour cream, cheese sauce."
+    },
+    {
+      "place": "Sushi",
+      "order": "Sashimi, edamame, miso soup, one roll.",
+      "watch": "Tempura and 'crunchy' or mayo rolls."
+    },
+    {
+      "place": "Burger place",
+      "order": "Burger with lettuce wrap or open-faced, side salad or shared fries.",
+      "watch": "Milkshakes and double sauce."
+    },
+    {
+      "place": "Chinese / Thai",
+      "order": "Steamed or stir-fried protein with veg; ask for sauce on the side.",
+      "watch": "Fried rice, sweet and sour, anything 'crispy'."
+    },
+    {
+      "place": "Brunch",
+      "order": "Eggs any style, smoked salmon, side of fruit; share the pancakes.",
+      "watch": "Bottomless mimosas + the pastry basket."
+    },
+    {
+      "place": "Coffee shop",
+      "order": "Latte with milk of choice, no syrup or 1 pump; protein box if hungry.",
+      "watch": "Frappes and 'seasonal' drinks (often dessert in a cup)."
+    },
+    {
+      "place": "Pizza night",
+      "order": "Thin crust, veg + chicken topping, big side salad first.",
+      "watch": "Stuffed crust and garlic dips."
+    }
   ],
   "safety": "This guide is for healthy adults who want to get leaner in a kind, sustainable way. It is general education, not medical advice. Talk to a doctor or registered dietitian before big changes, especially if you are pregnant, breastfeeding, under 18, take medication, or have a health condition.\n\nBeing lean should make your life bigger, not smaller. If food, weight or your body is taking up most of your thoughts, if you feel out of control around food, or if you are cutting out meals or feel you have to \"make up\" for eating, please reach out for support. In the US you can contact the ANAD helpline (anad.org) or talk to your doctor. In the UK, contact Beat (beateatingdisorders.org.uk). You deserve help, and it works.",
-  "closing": "You made it to the end of the Vault. Here's the secret: the people who stay lean forever are not stricter than you. They just have better systems. You now have 120 of them.\n\nPick your favorites. Make them boring and automatic. Come back when life changes. And when someone asks what you're doing differently, you can just smile.\n\nWith love,\nThe Skinny Laws"
+  "closing": "You made it to the end. Most people don't, which is exactly why most people are still starting over on Monday.\n\nHere's the secret: the people who stay lean forever aren't stricter than you. They just have better systems. You now have 120 of them. No excuses left, bestie.\n\nPick your favorites. Make them boring and automatic. Come back when life gets messy. And when someone asks what you're doing differently? Just smile and say nothing.\n\nWith love (and a little sass),\nThe Skinny Laws"
 }
