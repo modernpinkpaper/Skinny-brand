@@ -25,7 +25,7 @@ await c.evaluate(() => {
     <div style="width:440px;height:600px;border-radius:10px 28px 28px 10px;background:radial-gradient(120% 80% at 50% 0%,#fff 0%,#FCEDEA 50%,#F6DCD8 100%);box-shadow:-16px 0 0 #E7A1A6 inset,0 40px 90px rgba(74,34,51,.35);padding:56px 60px 56px 66px;display:flex;flex-direction:column;justify-content:center;position:relative">
       <div style="font:800 17px Inter;letter-spacing:.24em;color:#C8325F;margin-bottom:22px">@THESKINNYLAWS</div>
       <div style="font:400 78px/.98 'DM Serif Display';color:#2B1E23">The Skinny Laws<br><em style="color:#C8325F">Vault</em></div>
-      <div style="margin-top:26px;font:500 21px/1.4 Inter;color:#4A2233">120 unusual hacks to get lean & stay lean — without starving</div>
+      <div style="margin-top:26px;max-width:270px;font:500 21px/1.4 Inter;color:#4A2233">120 unusual hacks to get lean & stay lean — without starving</div>
       <div style="position:absolute;right:40px;bottom:34px;font-size:46px">🔐</div></div>
     <div style="width:360px;font:500 24px/1.5 Inter;color:#2B1E23">
       <div style="font:400 50px/1.05 'DM Serif Display';margin-bottom:20px">Everything inside</div>
