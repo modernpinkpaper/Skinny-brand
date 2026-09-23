@@ -1,0 +1,114 @@
+{
+  "id": "ch12",
+  "number": 12,
+  "title": "The Stay-Skinny-Forever Laws",
+  "subtitle": "Losing it is the easy part. Keeping it is the flex.",
+  "law": "Maintenance isn't the end of the plan. It IS the plan.",
+  "intro": "\"I lost it before, I'll just lose it again.\" Bestie, that's not a strategy, that's a subscription.\n\nYou're not gonna like this, but most people who lose weight regain a big chunk of it. Not because they're weak, but because they treat the finish line like a finish line. Diet ends, old habits come back, weight comes back. Then they blame their metabolism.\n\nThe people who stay lean for years do a few boring things really well: they keep an eye on the trend, they have a plan for when things creep up, and they keep a handful of habits forever. No drama, no panic, no restarts.\n\nHere's what actually works: 10 laws for staying lean for life, without living on a diet.",
+  "hacks": [
+    {
+      "title": "Find Your Maintenance Slowly",
+      "hook": "The day you hit your goal is the most dangerous day. Here's how to land the plane.",
+      "callout": "Hit your goal weight, celebrated with a 3-week food festival. Now you're back where you started.",
+      "what": "When you reach your goal, add food back slowly over a few weeks: a little extra at one meal, then watch your weekly average for 2 weeks before adding more.",
+      "why": "Jumping straight back to your old eating is the fastest route to regain. Adding food back gradually lets you find how much you can eat while keeping your weight steady. Your body and your hunger adjust more smoothly too.",
+      "how": ["Add one extra portion of something (e.g. a slice of toast or some fruit) per day.", "Keep all your protein and veggie habits.", "Watch your weekly average for 2 weeks.", "Stable? Add a little more. Creeping up? Go back one step."],
+      "pro": "",
+      "tags": ["maintenance"]
+    },
+    {
+      "title": "The Weekly Average Rule",
+      "hook": "Up 3 lbs overnight? Relax. It's water. Here's the only number that matters.",
+      "callout": "Weighed yourself after a salty dinner, saw +3 lbs, and ate a whole pizza 'because what's the point'.",
+      "what": "Weigh yourself most mornings, same conditions, then look only at the 7-day average. Compare this week's average with last week's.",
+      "why": "Daily weight swings with water, salt, carbs, hormones and digestion. The average smooths out the noise and shows the real trend. Some research suggests regular self-weighing helps people maintain weight loss.",
+      "how": ["Weigh first thing in the morning, after the bathroom, before eating.", "Log it (the Vault's Weekly Average Tracker does the math).", "Only react to the weekly average, never one day.", "If weighing stresses you out, measure your waist monthly instead."],
+      "pro": "",
+      "tags": ["maintenance"]
+    },
+    {
+      "title": "The Alarm Zone",
+      "hook": "Lean people don't 'let themselves go'. They have an alarm. Set yours.",
+      "callout": "'Just a couple of pounds' turned into 15 because you stopped looking for 6 months.",
+      "what": "Choose an 'alarm zone' about 3 to 5 lbs (1.5 to 2 kg) above your maintenance weekly average. If your average enters it, switch on your action plan for 2 to 4 weeks.",
+      "why": "Small gains are much easier to reverse than big ones. A clear number means you act early, calmly, before a few pounds turn into a whole new starting point.",
+      "how": ["Write down your maintenance average and your alarm number.", "Write your 3-step action plan now (e.g. protein at every meal, kitchen closed at 8pm, daily walk).", "If the alarm goes off, follow it for 2 to 4 weeks.", "Back in range? Go back to normal. No drama."],
+      "pro": "",
+      "tags": ["maintenance"]
+    },
+    {
+      "title": "Your 3 Forever Habits",
+      "hook": "You don't need 120 hacks forever. You need 3 you never drop.",
+      "callout": "Did 30 hacks for a month, then zero. Let's keep 3 forever instead.",
+      "what": "Pick 3 habits from this Vault that you'll keep for life, no matter what. These are your anchors.",
+      "why": "Research on people who keep weight off long term, like the US National Weight Control Registry, shows they tend to keep a small set of consistent habits, such as regular breakfast, regular activity and self-monitoring. A few solid anchors beat lots of shaky rules.",
+      "how": ["Look at your ticked and favourite hacks in the Vault.", "Choose 3 that feel easy and make the biggest difference.", "Write them on a card or your lock screen.", "On chaotic weeks, do just these 3."],
+      "pro": "Popular anchors: The Protein Anchor, the 10-Minute Walk, and the Kitchen Closed Ritual.",
+      "tags": ["maintenance", "mindset"]
+    },
+    {
+      "title": "The Weekend Pattern Fix",
+      "hook": "If Monday-to-Friday you is lean and weekend you is chaos, this is your hack.",
+      "callout": "Perfect all week, then Friday to Sunday undoes it all. Every week. For 3 years.",
+      "what": "Keep weekends fun but give them 2 rules: keep your protein breakfast and keep your daily walk. Everything else can be flexible.",
+      "why": "Studies tracking people's weight across the week show many people gain a little on weekends and lose it during the week. When weekends get too big, the week can't balance it out. Two small anchors keep weekends in check without killing the fun.",
+      "how": ["Saturday and Sunday: protein breakfast, no matter what.", "Walk every weekend day, even 20 minutes.", "Use the Pick One Treat rule when out.", "Plan Sunday dinner as a normal, easy meal."],
+      "pro": "",
+      "tags": ["maintenance", "social"]
+    },
+    {
+      "title": "The Holiday Game Plan",
+      "hook": "Vacation doesn't have to mean coming home 8 lbs heavier. Here's the easy version.",
+      "callout": "'Calories don't count on vacation.' Your jeans the week after disagreed.",
+      "what": "On holiday, focus on maintenance, not loss. Keep protein at breakfast, walk a lot, choose your one treat per meal, and enjoy it.",
+      "why": "Trying to diet on holiday usually fails and makes you miserable. Trying to maintain is realistic, and the walking most people do on holiday helps a lot.",
+      "how": ["Book or pick places where you'll walk a lot.", "Protein-rich breakfast every day (the buffet has eggs!).", "One treat per meal: drinks, bread or dessert.", "Back home: go straight back to your 3 forever habits on day one."],
+      "pro": "Expect the scale to be up a bit after flying and restaurant salt. Give it a week before judging.",
+      "tags": ["maintenance", "eating-out"]
+    },
+    {
+      "title": "The Planned Diet Break",
+      "hook": "Been dieting for months and feel exhausted? A planned break might help you keep going.",
+      "callout": "Dieting non-stop for 8 months and wondering why you're cranky, hungry and stuck.",
+      "what": "If you're losing weight for a long time, take a planned 1 to 2-week break at maintenance level every couple of months.",
+      "why": "Long, non-stop dieting can increase hunger and fatigue. Some studies, such as the MATADOR study (Byrne and colleagues, 2018), found that planned breaks helped people stick with their plan. A break also lets you practise maintenance.",
+      "how": ["Every 8 to 12 weeks of fat loss, plan a 1 to 2-week break.", "Eat at your estimated maintenance level, still with good habits.", "Expect a small bump on the scale from water. It's normal.", "Restart fat loss after the break if you still want to."],
+      "pro": "",
+      "tags": ["maintenance", "mindset"]
+    },
+    {
+      "title": "The Maintenance Plate",
+      "hook": "Maintenance doesn't need an app. It needs one simple plate you can build anywhere.",
+      "callout": "You need a calorie app, a food scale and a spreadsheet just to eat lunch. That's not a life.",
+      "what": "Build most meals like this: a palm or two of protein, half the plate veggies, a fist of smart carbs, a thumb of fat, and something tasty on top.",
+      "why": "A simple plate is easy to remember and works at home, at restaurants and on holiday. It naturally keeps protein and fiber high, which keeps you full, without constant tracking.",
+      "how": ["Start with protein.", "Fill half the plate with veggies or salad.", "Add a fist-sized portion of carbs: rice, potatoes, pasta, bread.", "Add a small amount of fat and your favourite sauce or seasoning."],
+      "pro": "",
+      "tags": ["maintenance", "hunger"]
+    },
+    {
+      "title": "Too Strict? Read This",
+      "hook": "If staying lean is taking over your whole life, something is wrong. Here are the signs.",
+      "callout": "Skipping friends' dinners because you're scared of the menu is not 'discipline'. It's a warning sign.",
+      "what": "Check in with yourself every month. Signs you're being too strict: thinking about food all day, skipping social events because of food, feeling panic or guilt after eating, cutting out whole food groups out of fear, or feeling tired and cold all the time. If you notice these, ease up and get support.",
+      "why": "Being lean should make your life bigger, not smaller. Very strict eating can harm your health and your relationship with food. Eating disorders are serious, and getting help early makes a real difference.",
+      "how": ["Once a month, read the list above honestly.", "If 2 or more sound like you, add more food and flexibility back in.", "Talk to your doctor or a registered dietitian.", "For support: ANAD (anad.org) in the US or Beat (beateatingdisorders.org.uk) in the UK."],
+      "pro": "",
+      "tags": ["maintenance", "mindset"]
+    },
+    {
+      "title": "Know When to Get a Pro",
+      "hook": "Doing everything right and nothing is changing? It might not be you. Get checked.",
+      "callout": "Blaming yourself for 2 years when it could've been a thyroid check. Go to the doctor, babe.",
+      "what": "If you're truly consistent for 2 to 3 months and nothing changes, or you have unusual symptoms, see a doctor or registered dietitian.",
+      "why": "Some medical conditions (like thyroid issues or PCOS) and some medications can affect weight and hunger. A professional can check for these and give you advice made for your body.",
+      "how": ["Keep notes of your habits and weekly averages for 8 to 12 weeks.", "Book a doctor's appointment and bring the notes.", "Ask about blood tests if you have symptoms like tiredness, hair changes or irregular periods.", "Ask for a referral to a registered dietitian if you want personal help."],
+      "pro": "",
+      "tags": ["maintenance"]
+    }
+  ],
+  "mythBust": { "myth": "Once you lose the weight, you're done.", "truth": "Keeping it off is a skill of its own. The people who succeed keep a few habits, watch the trend, and act early when things creep up. It gets easier and more automatic with time." },
+  "tryThis": { "title": "This Week's Try-This", "text": "Choose your 3 forever habits and write them on your phone lock screen. Then set your alarm zone number." },
+  "journal": ["Which 3 habits will I keep forever, no matter what?", "What usually happens after I 'finish' a diet?", "What does a happy, relaxed, lean life look like for me?"],
+  "quote": "Anyone can lose it. Keeping it is the real flex."
+}

@@ -1,0 +1,114 @@
+{
+  "id": "ch05",
+  "number": 5,
+  "title": "The Sleep & Stress Laws",
+  "subtitle": "You're not hungry. You're exhausted and scrolling at 1am.",
+  "law": "A tired brain shops for snacks. A rested brain doesn't need to.",
+  "intro": "\"I'll sleep when I'm dead\" — okay, but you'll be snacking the whole time until then.\n\nYou're not gonna like this, but your 1am TikTok spiral is doing more damage to your waistline than that slice of cake. One bad night messes with the hormones that control hunger, and the next day you're a bottomless pit wondering why nothing fills you up.\n\nStress does the same thing. A rough day, a tense text, a long to-do list, and suddenly you're standing in front of the pantry like it owes you money.\n\nHere's what actually works: 10 sneaky fixes for sleep and stress. Nothing here needs a 5am wake-up or an hour of meditation. Just small, smart changes that turn your hunger down without you even trying.",
+  "hacks": [
+    {
+      "title": "The Tired-Hungry Check",
+      "hook": "The day after bad sleep you're a bottomless pit. Here's why, and what to do instead.",
+      "callout": "You didn't lack willpower yesterday. You lacked 3 hours of sleep. Different problem.",
+      "what": "After a bad night, expect to feel hungrier and plan for it. Eat a bigger protein breakfast, keep easy healthy snacks ready, and don't make big food decisions on no sleep.",
+      "why": "Short sleep raises ghrelin (the hunger hormone) and lowers leptin (the fullness hormone). A study by Dr. Hanlon and colleagues at the University of Chicago found that sleep-restricted people snacked more, especially on high-calorie treats. Knowing this stops you blaming yourself and helps you plan.",
+      "how": ["Bad night? Tell yourself: \"Today I'll be hungrier. That's normal.\"", "Add extra protein to breakfast and lunch.", "Pre-pack two healthy snacks so you don't raid the vending machine.", "Aim for an earlier night tonight to reset."],
+      "pro": "",
+      "tags": ["sleep", "hunger"]
+    },
+    {
+      "title": "The Caffeine Curfew",
+      "hook": "That 4pm coffee is still in your body at bedtime. And it's why you're starving tomorrow.",
+      "callout": "'Coffee doesn't affect me.' Then why are you awake at midnight eating cereal?",
+      "what": "Set a caffeine cut-off time: 8 hours before bed, or around 2pm for most people. Switch to decaf or herbal tea after that.",
+      "why": "Caffeine has a half-life of about 5 hours in many adults, so half of your afternoon coffee can still be working at bedtime. Research has shown caffeine taken even 6 hours before bed can cut sleep time. Worse sleep means more hunger the next day.",
+      "how": ["Work out your bedtime and count back 8 hours. That's your curfew.", "Put a reminder in your phone.", "Swap the afternoon coffee for decaf, sparkling water or a walk.", "Watch hidden caffeine: some teas, energy drinks, pre-workout, and chocolate."],
+      "pro": "Many people who say they 'can't sleep' fix it with this one change within a week.",
+      "tags": ["sleep", "drinks"]
+    },
+    {
+      "title": "The Morning Light Hit",
+      "hook": "10 minutes of morning sunlight can make tonight's sleep better. Free. No app needed.",
+      "callout": "You spend your morning in a dark room under a blanket, then wonder why your body clock is a mess.",
+      "what": "Get outside within an hour of waking for 5 to 15 minutes. Drink your coffee on the balcony, walk to get it, or stand by an open window.",
+      "why": "Morning light helps set your body clock (circadian rhythm), which helps you feel sleepy at the right time at night. Daylight is far brighter than indoor lighting, even on a cloudy day. Better-timed sleep means better appetite control.",
+      "how": ["Put your shoes by the door the night before.", "Take your coffee or tea outside.", "Stay out 5 to 15 minutes (longer if it's cloudy).", "Don't wear sunglasses for this bit if it's safe and comfy."],
+      "pro": "Combine it with a short walk and you've also hit your first movement of the day.",
+      "tags": ["sleep", "quick-win"]
+    },
+    {
+      "title": "Phone Sleeps Outside",
+      "hook": "Your phone is the reason you're up at 1am and snacking at 11pm. Evict it.",
+      "callout": "'Just 5 more minutes' of scrolling. 2 hours later. A bowl of cereal. Every night.",
+      "what": "Charge your phone outside your bedroom. Buy a cheap alarm clock if you need one.",
+      "why": "Late-night scrolling pushes your bedtime later and keeps your brain wired. Screens in bed are also linked to more late-night snacking, because you're awake, bored and a few steps from the kitchen. No phone in bed means less of all of it.",
+      "how": ["Pick a charging spot outside the bedroom (kitchen or hallway).", "Buy a basic alarm clock.", "Set a 'phone goes to bed' alarm 30 minutes before your bedtime.", "Keep a book or journal by your bed instead."],
+      "pro": "",
+      "tags": ["sleep", "quick-win"]
+    },
+    {
+      "title": "The Physiological Sigh",
+      "hook": "A 30-second breathing trick can calm you down faster than a cookie. Science says so.",
+      "callout": "Stress-eating chips over the sink is not self-care, babe.",
+      "what": "When stress hits, do the physiological sigh: take a deep breath in through your nose, then a second short sip of air on top, then a long, slow breath out through your mouth. Repeat 3 to 5 times.",
+      "why": "A 2023 Stanford study led by David Spiegel and Andrew Huberman found that daily cyclic sighing improved mood and lowered breathing rate better than mindfulness meditation. A long exhale helps switch on your body's calm-down system, so you don't need food to calm down.",
+      "how": ["Breathe in deeply through your nose.", "Take one more short breath in on top of it.", "Breathe out slowly through your mouth, as long as you can.", "Repeat 3 to 5 times, then decide if you still want the snack."],
+      "pro": "Do it in the car before you walk into the house after work. It stops the 'walk in, open fridge' habit.",
+      "tags": ["stress", "cravings", "quick-win"]
+    },
+    {
+      "title": "The Cool Room Rule",
+      "hook": "If your bedroom feels cozy-warm, it's probably too warm to sleep well.",
+      "callout": "Sleeping in a sauna under 3 blankets and wondering why you wake up at 3am.",
+      "what": "Keep your bedroom cool, around 60 to 67°F (16 to 19°C), dark and quiet.",
+      "why": "Your body temperature needs to drop a little for you to fall and stay asleep. Sleep experts often suggest a cool room for better sleep. Better sleep = better control of hunger hormones.",
+      "how": ["Turn the heating down or crack a window at night.", "Use lighter bedding or breathable sheets.", "Block light with blackout curtains or an eye mask.", "Try a warm shower an hour before bed. Your body cools afterward, which helps sleep."],
+      "pro": "",
+      "tags": ["sleep"]
+    },
+    {
+      "title": "The Weekend Jet Lag Fix",
+      "hook": "Sleeping till noon on Sunday is why Monday you eats everything in sight.",
+      "callout": "Bed at 3am Saturday, up at noon, then 'why am I so hungry on Mondays?'",
+      "what": "Keep your wake-up time within about an hour of your weekday time, even on weekends.",
+      "why": "Big sleep swings between weekdays and weekends create \"social jet lag,\" where your body clock is thrown off like you've flown across time zones. Studies have linked it to worse metabolic health. A steady wake time keeps your appetite and energy steadier too.",
+      "how": ["Set a weekend alarm no more than 1 hour after your weekday one.", "If you went to bed late, nap for 20 minutes in the afternoon instead of sleeping in.", "Get morning light on weekends too.", "Plan something fun for the morning so getting up feels worth it."],
+      "pro": "",
+      "tags": ["sleep", "maintenance"]
+    },
+    {
+      "title": "The 3-Hour Runway",
+      "hook": "Eating a big meal right before bed is like trying to sleep during a party in your stomach.",
+      "callout": "Dinner at 7, 'second dinner' at 10:30, and a mystery toast at midnight. Babe.",
+      "what": "Try to finish your last proper meal about 2 to 3 hours before bed. If you're truly hungry later, have a small protein snack, like Greek yogurt.",
+      "why": "A big, heavy meal close to bedtime can cause reflux and make sleep worse for some people. A clear end to eating also cuts out mindless night-time snacking, which is often a big source of extra food.",
+      "how": ["Work out your bedtime and set your 'kitchen closes' time 2 to 3 hours before.", "Make dinner filling, with protein and veggies.", "If hungry later, have a small yogurt or a few slices of turkey, not the cereal box.", "Use a closing ritual: tea, teeth, lights off in the kitchen."],
+      "pro": "",
+      "tags": ["sleep", "hunger"]
+    },
+    {
+      "title": "The Stress Menu",
+      "hook": "Food works for stress because it's fast. So make a list of other fast fixes.",
+      "callout": "Your only stress tool is the snack cupboard. That's not a coping skill, that's a pantry.",
+      "what": "Write a 'Stress Menu': 5 things that calm you down in under 5 minutes that aren't food. Keep it on your phone and use it before you reach for snacks.",
+      "why": "Stress eating happens because food is a quick, reliable comfort. If you have other quick comforts ready, your brain has options. Planning them ahead matters, because stressed brains don't think creatively.",
+      "how": ["Write 5 quick non-food calmers: a walk, a shower, a song, a friend, a stretch.", "Save the list as your phone's lock screen or a note.", "When stressed, pick one before eating anything.", "Still want food after? Have a real portion on a plate."],
+      "pro": "",
+      "tags": ["stress", "cravings"]
+    },
+    {
+      "title": "The Brain Dump",
+      "hook": "Can't sleep because your brain won't shut up? Put it on paper. 5 minutes. Done.",
+      "callout": "Lying awake planning tomorrow's to-do list at 1am, then snacking because you're up anyway.",
+      "what": "Before bed, spend 5 minutes writing tomorrow's to-do list and anything on your mind.",
+      "why": "A study from Baylor University (Scullin and colleagues, 2018) found that people who wrote a specific to-do list before bed fell asleep faster than people who wrote about things they'd already done. Emptying your head helps it switch off.",
+      "how": ["Keep a notebook and pen by your bed (not your phone).", "Write down everything you need to do tomorrow.", "Add one line: \"Tomorrow I'm going to...\" and one thing you're looking forward to.", "Close the notebook. It's handled."],
+      "pro": "",
+      "tags": ["sleep", "stress"]
+    }
+  ],
+  "mythBust": { "myth": "Sleep has nothing to do with weight. It's all diet and exercise.", "truth": "Sleep affects the hormones that control hunger and fullness, your cravings and your energy to move. Poor sleep makes every other habit harder, so it's one of the easiest levers to pull." },
+  "tryThis": { "title": "Tonight's Try-This", "text": "Put your phone on charge outside your bedroom tonight. Write tomorrow's to-do list on paper, then go to bed." },
+  "journal": ["What time do I actually go to sleep, and what keeps me up?", "What does my body really want when I stress eat?", "Which 3 things are on my personal Stress Menu?"],
+  "quote": "You can't out-diet a 4-hour sleep. Go to bed, babe."
+}

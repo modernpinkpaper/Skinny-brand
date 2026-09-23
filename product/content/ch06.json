@@ -1,0 +1,114 @@
+{
+  "id": "ch06",
+  "number": 6,
+  "title": "The Eating-Out & Social Laws",
+  "subtitle": "Brunch isn't the problem. Brunch with no game plan is.",
+  "law": "You can go out every weekend. You just can't go out on autopilot.",
+  "intro": "\"I was so good all week, then the weekend happened.\" Yeah, it happens every week, bestie. That's not an accident, that's a pattern.\n\nYou're not gonna like this, but restaurants, parties and friends' houses are built to make you eat more: big plates, bread baskets, \"one more round\", and that one friend who says \"you only live once\" at every single dinner.\n\nThe answer isn't staying home with a salad and missing out. That's miserable, and it doesn't last. The answer is going out with a plan so good that nobody even notices you have one.\n\nHere's what actually works: 10 social hacks that let you keep your life AND your progress.",
+  "hacks": [
+    {
+      "title": "Order First",
+      "hook": "The person who orders last usually orders the worst thing on the menu. Be first.",
+      "callout": "You wanted the salmon. Then everyone got burgers, so you got a burger. Classic.",
+      "what": "At restaurants, offer to order first. Decide what you want before anyone else talks, and say it.",
+      "why": "People copy each other's food choices, especially in groups. Studies on social eating show we tend to match what others order and how much they eat. Ordering first means your choice is yours, not the table's.",
+      "how": ["Decide your order before the waiter arrives.", "When they come, say \"I'll go first!\" with a smile.", "Order exactly what you planned.", "Put the menu down so you're not tempted to rethink it."],
+      "pro": "",
+      "tags": ["eating-out", "social", "quick-win"]
+    },
+    {
+      "title": "Menu Stalking",
+      "hook": "Lean people check the menu online before they go. It's not weird. It's strategy.",
+      "callout": "Deciding your order while starving and 2 cocktails in? That's how 'loaded fries for the table' happens.",
+      "what": "Look up the menu online before you go out and pick your meal at home, when you're calm and not hungry.",
+      "why": "Decisions made while hungry, distracted and social tend to be more impulsive. Deciding at home means your calm brain makes the choice, not your hungry one.",
+      "how": ["Search the restaurant menu the day before or on the way.", "Pick a main with a good protein and some veg.", "Choose your one treat (see next hack).", "Screenshot your choice if you want to be extra."],
+      "pro": "",
+      "tags": ["eating-out", "quick-win"]
+    },
+    {
+      "title": "Pick One Treat",
+      "hook": "Drinks OR bread OR dessert. Not all three. That's the whole rule.",
+      "callout": "Bread basket, three cocktails, a main AND the 'shared' dessert you ate 80% of.",
+      "what": "When you eat out, choose ONE extra: drinks, the bread basket, a starter or dessert. Enjoy that one fully and skip the rest.",
+      "why": "Most of the extra food at restaurants isn't the main meal. It's the add-ons that pile up. One planned treat lets you enjoy yourself without all the extras stacking up.",
+      "how": ["Before you go, decide on your one treat.", "Enjoy it properly, no guilt.", "Politely skip the others (\"I'm saving myself for dessert!\").", "Rotate it: dessert this time, cocktails next time."],
+      "pro": "",
+      "tags": ["eating-out", "social"]
+    },
+    {
+      "title": "The Bread Basket Move",
+      "hook": "The bread basket is a trap set before you're even hungry for real food.",
+      "callout": "Three pieces of bread with butter before your meal even arrived. And you 'weren't that hungry.'",
+      "what": "If bread isn't your one treat, ask the server not to bring it, or take one piece and push the basket to the other end of the table.",
+      "why": "Food that is within easy reach gets eaten more often, just because it's there. Moving it out of reach adds friction, and friction beats willpower.",
+      "how": ["Ask: \"Could we skip the bread today?\" if the table agrees.", "Or take one piece, then slide the basket away from you.", "Order a side salad or soup to arrive first instead.", "Sip sparkling water while you wait."],
+      "pro": "",
+      "tags": ["eating-out", "quick-win"]
+    },
+    {
+      "title": "Box Half First",
+      "hook": "Restaurant portions are often huge. Pack half before you start, not after.",
+      "callout": "'I'll just eat until I'm full.' Then you look down and the plate is clean. Every time.",
+      "what": "When a big meal arrives, ask for a to-go box straight away and put half in it before you take a bite.",
+      "why": "People eat more when they're served more. That's one of the most repeated findings in nutrition research. Once food is off the plate, you're far less likely to keep picking at it.",
+      "how": ["When ordering, ask for a box to come with the meal.", "Move half into it before you start eating.", "Close it and put it to the side.", "Enjoy tomorrow's lunch. Free meal."],
+      "pro": "",
+      "tags": ["eating-out", "quick-win"]
+    },
+    {
+      "title": "The Drink Strategy",
+      "hook": "You don't have to stop drinking. You just need a system for your night out.",
+      "callout": "Four margaritas and a 2am drive-thru is not a 'little night out'. It's a whole meal plan.",
+      "what": "Alternate every alcoholic drink with a glass of water. Pick lower-sugar drinks: spirits with soda water and lime, or dry wine, instead of sugary cocktails.",
+      "why": "Alcohol has calories and lowers your guard around food, which is why the late-night snack happens. Alternating with water slows you down, and choosing less sugary mixers cuts a lot of extra sugar.",
+      "how": ["Decide your drink limit before you go.", "Order a water with every drink.", "Choose vodka soda, gin and slimline tonic, or dry wine.", "Eat a proper meal with protein before or during drinking."],
+      "pro": "Plan tomorrow's breakfast before you go out, so hungover you doesn't order a double burger.",
+      "tags": ["eating-out", "drinks", "social"]
+    },
+    {
+      "title": "Pre-Party Protein",
+      "hook": "Never walk into a party hungry. That's how you end up best friends with the snack table.",
+      "callout": "'Saving calories for the party' = arriving starving and eating 40 mini sausage rolls.",
+      "what": "Eat a normal meal or a solid protein snack before you go to a party or event, so you arrive satisfied, not starving.",
+      "why": "Arriving very hungry makes grazing on easy party food much more likely. \"Saving up\" usually backfires, because extreme hunger leads to eating quickly and eating more.",
+      "how": ["Eat a proper meal 1 to 2 hours before you leave.", "Or have a protein snack: Greek yogurt, eggs, a protein shake.", "At the party, take one plate and fill it once.", "Enjoy the food you really love, and skip the boring stuff."],
+      "pro": "",
+      "tags": ["social", "hunger"]
+    },
+    {
+      "title": "The Snack Table Distance",
+      "hook": "Where you stand at a party decides how much you eat. Seriously.",
+      "callout": "You spent the entire party 'chatting' next to the chips. We saw you.",
+      "what": "At parties, fill a plate once, then move away from the food table. Stand and chat somewhere you can't reach it.",
+      "why": "The easier food is to reach, the more of it people eat, often without noticing. Moving a few steps away adds friction, so you eat when you decide to, not just because it's there.",
+      "how": ["Take a plate and choose what you really want.", "Walk to the other side of the room.", "Hold a drink in your main hand. It keeps you from grabbing.", "Face away from the food table while you talk."],
+      "pro": "",
+      "tags": ["social", "quick-win"]
+    },
+    {
+      "title": "The Food Pusher Script",
+      "hook": "\"Just have one more!\" — here's how to say no without making it weird.",
+      "callout": "You ate a second helping because your aunt looked sad. Your aunt is fine, babe.",
+      "what": "Have a few friendly, ready-made lines for when people push food on you. Say them with a smile.",
+      "why": "Social pressure is one of the biggest reasons people eat past fullness. Having a script ready means you don't have to think on the spot, and a friendly compliment usually ends the conversation.",
+      "how": ["\"That was SO good. I'm completely full, but can I take some home?\"", "\"I'm saving room for dessert!\"", "\"I'll grab some in a bit!\" (then don't)", "Compliment the food first. People mostly want to know you liked it."],
+      "pro": "",
+      "tags": ["social"]
+    },
+    {
+      "title": "The Fast Food Hack Order",
+      "hook": "Sometimes it's the drive-thru. Here's how to order without the regret.",
+      "callout": "'Just a burger' became a large meal, a milkshake and nuggets 'for the car'.",
+      "what": "When you get fast food, have a go-to 'better order' ready: a grilled chicken option or a single burger, water or diet soda, and a side salad or small fries.",
+      "why": "Choosing on the spot at a drive-thru, when you're hungry and rushed, usually means going bigger. Having one planned order removes the decision, and small switches like the drink and the size of the side add up.",
+      "how": ["Look up your 2 most-visited fast food places.", "Pick one 'better order' at each and save it in your notes.", "Always choose water, diet soda or unsweetened iced tea.", "Skip 'meal deal' upgrades unless you actually want them."],
+      "pro": "",
+      "tags": ["eating-out"]
+    }
+  ],
+  "mythBust": { "myth": "You have to give up your social life to get lean.", "truth": "You don't. People who stay lean long-term still go out. They just have a few simple defaults for restaurants, drinks and parties, so going out doesn't undo their whole week." },
+  "tryThis": { "title": "This Week's Try-This", "text": "Before your next meal out, look up the menu, choose your meal and your ONE treat at home. Then order first." },
+  "journal": ["Which social situations throw me off the most?", "Who in my life pushes food on me, and what will I say next time?", "What is my go-to healthy order at my favourite restaurant?"],
+  "quote": "Go out. Have fun. Just don't let the bread basket make your decisions."
+}

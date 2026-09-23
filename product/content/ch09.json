@@ -1,0 +1,114 @@
+{
+  "id": "ch09",
+  "number": 9,
+  "title": "The Mindset Laws",
+  "subtitle": "'I'll start Monday' has started 52 Mondays a year. Let's fix the brain bit.",
+  "law": "Lean isn't something you do on Mondays. It's who you are on Wednesdays.",
+  "intro": "\"I just need more motivation.\" No, babe. You've had motivation. It shows up every January, stays for 9 days, then ghosts you.\n\nYou're not gonna like this, but the problem isn't your willpower, your genes or your \"slow metabolism\". It's the all-or-nothing loop: be perfect, slip once, decide the day is ruined, eat everything, start again Monday. Repeat forever.\n\nThe people who stay lean without drama don't have better discipline. They think differently. They don't do \"perfect\", they don't do \"ruined\", and they don't punish themselves. Weirdly, that's exactly why they're consistent.\n\nHere's what actually works: 10 mindset shifts that stop the restart cycle for good. Be kind to yourself here. Guilt has never made anyone leaner.",
+  "hacks": [
+    {
+      "title": "Never Miss Twice",
+      "hook": "One bad meal doesn't ruin anything. Two in a row starts a new habit. Here's the rule.",
+      "callout": "Ate one cookie, decided the day was 'ruined', ate the whole box. The math ain't mathing.",
+      "what": "Slips are allowed. The only rule is: the very next meal is a normal one. Not a skipped one, not a punishment, not a Monday restart. Just normal.",
+      "why": "Missing once barely affects your progress. What hurts is the spiral that follows. The idea, popularised by James Clear in Atomic Habits, works because it gives you a clear, easy way back instead of a guilt trip.",
+      "how": ["After a slip, say: \"Okay. Next meal is normal.\"", "Make that next meal your usual: protein, veg, some carbs.", "Don't skip it or shrink it to 'make up for' anything.", "Move on. No diary of shame."],
+      "pro": "Write \"Never miss twice\" somewhere you'll see it on your worst days.",
+      "tags": ["mindset", "maintenance"]
+    },
+    {
+      "title": "The Identity Sentence",
+      "hook": "Stop saying 'I'm trying to lose weight'. Start saying this instead.",
+      "callout": "'I'm on a diet' is a sentence with an end date. And you know exactly what happens after it.",
+      "what": "Write one sentence starting with \"I'm someone who...\", like \"I'm someone who walks after dinner\" or \"I'm someone who eats protein at breakfast.\" Then prove it once today.",
+      "why": "Habits stick better when they're part of who you think you are. Every small action is a 'vote' for that identity. \"I'm someone who...\" feels like a choice, while \"I'm not allowed to...\" feels like a rule you'll want to break.",
+      "how": ["Pick one habit that matters most right now.", "Write: \"I'm someone who ___.\"", "Do the smallest possible version of it today.", "Every time you do it, tell yourself: \"That's who I am.\""],
+      "pro": "",
+      "tags": ["mindset"]
+    },
+    {
+      "title": "Kill the What-The-Hell Effect",
+      "hook": "Scientists literally named the 'I already ruined it so I might as well' feeling. Here's the fix.",
+      "callout": "'I already had pizza at lunch so dinner doesn't count.' Babe, dinner counts.",
+      "what": "When you catch yourself thinking \"I've blown it, so who cares\", stop and zoom out: one meal is one meal. Then choose the next best option, not the worst one.",
+      "why": "Researchers Janet Polivy and Peter Herman described the \"what-the-hell effect\": strict dieters who think they've broken their rules often eat more afterwards than people who weren't dieting. Strict rules make small slips feel huge.",
+      "how": ["Notice the words \"ruined\", \"blown it\" or \"might as well\".", "Say: \"It was one meal. The day isn't over.\"", "Choose the next small good thing: water, a walk, a normal dinner.", "Swap strict rules for flexible ones (next hacks)."],
+      "pro": "",
+      "tags": ["mindset", "cravings"]
+    },
+    {
+      "title": "The 80/20 Plate",
+      "hook": "The leanest people you know are not eating perfectly. They're eating 'mostly'.",
+      "callout": "Perfect for 4 days, then a 3-day 'treat weekend'. That's 57/43, not 80/20.",
+      "what": "Aim for roughly 80% of your food to be simple, filling, whole foods and leave 20% for things you just enjoy. Think in weeks, not single meals.",
+      "why": "Flexible approaches tend to be easier to stick to long-term than strict ones. Research on flexible vs rigid dieting has linked rigid rules with more overeating and more stress around food.",
+      "how": ["Most meals: protein, veg, a smart carb.", "Plan your treats into the week: a few per week, enjoyed properly.", "Don't 'save up' 20% for one wild weekend.", "Check your week on Sunday, not your day at 3pm."],
+      "pro": "",
+      "tags": ["mindset", "maintenance"]
+    },
+    {
+      "title": "No More 'Good' and 'Bad' Food",
+      "hook": "Calling food 'bad' makes you feel bad when you eat it. Then you eat more. Funny how that works.",
+      "callout": "'I was so bad today' — you ate a croissant, not a crime.",
+      "what": "Drop the words \"good\", \"bad\", \"clean\" and \"cheat\" when you talk about food. Try \"more filling / less filling\" or \"everyday food / sometimes food\" instead.",
+      "why": "Moral labels turn eating into a test you pass or fail, which feeds guilt and the all-or-nothing loop. Neutral words help you make practical choices without the drama.",
+      "how": ["Notice when you say \"bad\" or \"cheat\" about food.", "Replace it with \"sometimes food\" or \"less filling\".", "Never describe yourself as good or bad based on what you ate.", "Say it out loud when friends do it too. It's contagious."],
+      "pro": "",
+      "tags": ["mindset"]
+    },
+    {
+      "title": "The 2-Minute Version",
+      "hook": "Too tired to work out? Too busy to cook? Do the tiny version. It still counts.",
+      "callout": "You skipped the walk because you didn't have 45 minutes. You had 5. You always have 5.",
+      "what": "For every habit, have a \"2-minute version\" for bad days. No time for a workout? Do 10 squats. No time to cook? Rotisserie chicken and a bag of salad.",
+      "why": "Habits are built by repetition, not intensity. Doing a tiny version keeps the habit alive, and on most days, starting is the hardest part. You'll often do more once you've started.",
+      "how": ["List your 3 key habits.", "Write a 2-minute version of each.", "On bad days, do only the 2-minute version and call it a win.", "Tick it off. The streak matters more than the size."],
+      "pro": "",
+      "tags": ["mindset", "quick-win"]
+    },
+    {
+      "title": "Delete the Finish Line",
+      "hook": "The reason diets 'work' and then stop working? They have an end date.",
+      "callout": "'Once I hit my goal I can relax.' And that's how the weight comes back. Every time.",
+      "what": "Only do things you'd be happy to keep doing for years. Before you start any new habit, ask: \"Could I still do this next summer?\"",
+      "why": "Most weight regain happens when people go back to their old habits after a diet \"ends\". If the habit is livable, there's nothing to go back from.",
+      "how": ["Look at your current plan. Circle anything you'd hate doing for a year.", "Swap it for something easier you actually like.", "Keep the hacks that feel almost boring. Boring is sustainable.", "Stop counting days on a plan. Count habits you keep."],
+      "pro": "",
+      "tags": ["mindset", "maintenance"]
+    },
+    {
+      "title": "Talk to Yourself Like a Best Friend",
+      "hook": "Beating yourself up doesn't make you consistent. Science says the opposite.",
+      "callout": "You'd never call your best friend 'disgusting' for eating a donut. So why do you say it to yourself?",
+      "what": "After a slip, talk to yourself the way you'd talk to a friend: kind, honest and practical. \"That happened. What's the plan for tomorrow?\"",
+      "why": "Research on self-compassion, including work by Dr. Kristin Neff and a study by Adams and Leary, suggests that being kind to yourself after a slip leads to less overeating afterward than being harsh. Shame makes people want to escape, often with food.",
+      "how": ["Notice harsh self-talk after eating.", "Ask: \"What would I say to my best friend right now?\"", "Say that to yourself, ideally out loud.", "Then make one small plan for the next meal."],
+      "pro": "",
+      "tags": ["mindset"]
+    },
+    {
+      "title": "The Comparison Unfollow",
+      "hook": "Your feed is quietly making you feel worse about your body. Clean it up.",
+      "callout": "Scrolling 'what I eat in a day' videos for 2 hours, then wondering why you feel awful.",
+      "what": "Unfollow accounts that make you feel bad about yourself or push extreme diets. Follow people who post practical, kind, realistic content.",
+      "why": "Studies on social media and body image link comparing yourself to edited, filtered images with lower body satisfaction. Feeling bad about your body tends to push people toward unhelpful extremes, not steady habits.",
+      "how": ["Scroll your feed and notice how each account makes you feel.", "Mute or unfollow anything that leaves you feeling worse.", "Watch out for 'what I eat in a day' videos that are very low in food.", "Follow a few accounts that make you feel motivated and calm."],
+      "pro": "",
+      "tags": ["mindset"]
+    },
+    {
+      "title": "Track Wins, Not Just Weight",
+      "hook": "If the scale is your only measure of success, you'll quit in week 3. Track this instead.",
+      "callout": "10 great days, the scale went up half a pound, and you quit. Iconic self-sabotage.",
+      "what": "Keep a simple list of non-scale wins: sleeping better, clothes fitting, more energy, walking more, less snacking at night.",
+      "why": "Weight goes up and down with water, so it's a noisy daily measure. Seeing other progress keeps you motivated through slow weeks, and motivation is what keeps the habits going.",
+      "how": ["Start a note called \"Wins\".", "Add one win every day, no matter how small.", "Read it when the scale is annoying you.", "Tick off the hacks you've tried in this Vault. That's progress too."],
+      "pro": "",
+      "tags": ["mindset", "maintenance"]
+    }
+  ],
+  "mythBust": { "myth": "If you just had more willpower, you'd be lean.", "truth": "Willpower runs out. People who stay lean long-term rely on habits, routines and a kind, flexible mindset. Systems beat willpower every single time." },
+  "tryThis": { "title": "Today's Try-This", "text": "Write your \"I'm someone who...\" sentence and do the 2-minute version of it before bed tonight." },
+  "journal": ["What story have I been telling myself about why I can't stay lean?", "What does my 'all-or-nothing' loop usually look like?", "How would I talk to my best friend after a messy day of eating?"],
+  "quote": "You don't need a fresh start on Monday. You need a normal next meal."
+}

@@ -1,0 +1,114 @@
+{
+  "id": "ch11",
+  "number": 11,
+  "title": "The Shape Laws",
+  "subtitle": "Smaller isn't the goal. Firm, strong and snatched is.",
+  "law": "The scale shows your weight. Your muscles decide your shape.",
+  "intro": "\"I don't want to lift, I'll get bulky.\" Babe. People train for YEARS to get bulky. Two sessions a week with dumbbells is not going to do it by accident.\n\nYou're not gonna like this, but if all you do is eat less and do cardio, you can lose muscle along with fat. That's how people end up smaller but softer, and frustrated that they don't \"look toned\". Toned is just muscle with less fat on top.\n\nHere's the plot twist: protein plus a little strength training changes your shape more than any 30-day ab challenge ever will. And you don't need a gym membership or 6 days a week.\n\nHere's what actually works: 10 beginner-friendly laws for a firm, strong body that looks good in jeans and feels good climbing stairs.",
+  "hacks": [
+    {
+      "title": "The Skinny-Fat Escape",
+      "hook": "Lost weight but still don't look 'toned'? You didn't lose enough fat. You lost muscle.",
+      "callout": "Eating like a bird and doing 2 hours of cardio, then wondering why you look 'soft'. It's the muscle, babe.",
+      "what": "Protect your muscle while you lose fat: eat enough protein, lift something heavy-ish twice a week, and avoid very aggressive diets.",
+      "why": "When you lose weight, some of it can be muscle, especially with low protein, no strength training and big calorie cuts. Research shows that strength training and higher protein help people keep muscle while losing fat, which is what makes you look firmer.",
+      "how": ["Get protein at every meal (see the next hacks).", "Start two short strength sessions a week.", "Lose slowly: a small, steady deficit, not a crash.", "Measure your waist and take photos, not just weight."],
+      "pro": "",
+      "tags": ["shape"]
+    },
+    {
+      "title": "The Two-Session Start",
+      "hook": "You don't need 6 days in the gym. Two short full-body sessions a week is a great start.",
+      "callout": "Planned 5 gym days, went once, quit for 3 months. Let's try 2, bestie.",
+      "what": "Do two 20 to 30-minute full-body strength sessions a week. Choose 4 to 5 moves: a squat, a hinge (like a deadlift or hip thrust), a push, a pull and a core move.",
+      "why": "Studies suggest that training each muscle group about twice a week works well for building strength and muscle. For beginners, consistency matters far more than having a fancy plan.",
+      "how": ["Pick two fixed days, e.g. Monday and Thursday.", "Do: goblet squat, dumbbell deadlift or hip thrust, push-ups (on knees is fine), dumbbell rows, plank.", "Do 3 rounds of 8 to 12 reps each.", "Put it in your calendar like a meeting."],
+      "pro": "Learn good form from a trainer or reliable video before adding weight. Stop if something hurts.",
+      "tags": ["shape", "movement"]
+    },
+    {
+      "title": "Progressive Overload, Simply",
+      "hook": "Doing the same workout forever? Your body got bored months ago.",
+      "callout": "Same pink 2lb dumbbells since 2019. Babe, they're ornaments now.",
+      "what": "Make your workouts slightly harder over time: one more rep, a little more weight, or one more set. Small steps, every week or two.",
+      "why": "Muscles grow and get stronger when they're challenged a bit more than they're used to. This is called progressive overload, and it's the core principle of strength training.",
+      "how": ["Write down your weights and reps each session.", "When you can do 12 good reps, increase the weight a little.", "If you can't go heavier, add a rep or a set.", "Keep your form clean. Never add weight at the cost of form."],
+      "pro": "",
+      "tags": ["shape", "movement"]
+    },
+    {
+      "title": "The Palm Rule for Protein",
+      "hook": "No tracking app needed. Your hand tells you how much protein to eat.",
+      "callout": "Your 'high-protein' lunch was 3 cherry tomatoes and a sprinkle of feta. Come on.",
+      "what": "Aim for 1 to 2 palm-sized portions of protein at each meal. As a general guide, many evidence-based sources suggest around 1.6 grams per kg of body weight a day for people who strength train.",
+      "why": "Protein gives your muscles the building blocks to recover and grow, keeps you full, and helps protect muscle when losing fat. A 2018 review by Morton and colleagues found around 1.6 g/kg/day was helpful for muscle gains with training.",
+      "how": ["Palm of protein at each meal: chicken, fish, eggs, tofu, Greek yogurt.", "Add a protein snack if you're short: cottage cheese, a shake, edamame.", "Spread it through the day instead of one huge dinner.", "Check with a doctor first if you have kidney problems."],
+      "pro": "",
+      "tags": ["shape", "hunger"]
+    },
+    {
+      "title": "Trust the Tape, Not the Scale",
+      "hook": "The scale might not move while your jeans get looser. That's a win, not a fail.",
+      "callout": "Dropped a dress size, scale didn't move, cried in the bathroom. The scale lied, babe.",
+      "what": "Track your shape with a tape measure and photos every 2 to 4 weeks, as well as (or instead of) the scale.",
+      "why": "When you're losing fat and building muscle at the same time, your weight might change slowly while your shape changes a lot. Waist size is also a useful health marker.",
+      "how": ["Measure your waist at belly-button height, morning, relaxed.", "Take front, side and back photos in the same light and outfit.", "Repeat every 2 to 4 weeks, not daily.", "Keep one pair of jeans as your 'test jeans'."],
+      "pro": "",
+      "tags": ["shape", "maintenance"]
+    },
+    {
+      "title": "Creatine: The Boring Supplement That Works",
+      "hook": "It's one of the most-researched supplements in the world, and it isn't just for gym bros.",
+      "callout": "Spent $60 on a 'fat burner' tea but scared of the most studied supplement ever. Interesting.",
+      "what": "Creatine monohydrate (usually 3 to 5 grams a day) is a well-researched supplement that can help with strength training performance. It's optional, not magic.",
+      "why": "Research, including position papers from the International Society of Sports Nutrition, shows creatine can improve strength and training performance and is generally safe for healthy adults. It may add a little water weight in your muscles, which is not fat.",
+      "how": ["Only consider it if you're doing strength training.", "Choose plain creatine monohydrate from a tested brand.", "Take 3 to 5 grams daily with water, any time of day.", "Ask your doctor first if you have any health conditions, are pregnant or take medication."],
+      "pro": "If the scale goes up a pound or two when you start creatine, that's water in the muscle. Your waist tape will prove it.",
+      "tags": ["shape"]
+    },
+    {
+      "title": "The Posture Builders",
+      "hook": "Train your back and glutes and you'll stand taller without even trying.",
+      "callout": "'Tech neck' from 9 hours of scrolling and zero back exercises. Your shoulders are begging.",
+      "what": "Add back and glute exercises to every session: rows, band pull-aparts, hip thrusts and glute bridges.",
+      "why": "Many people train the 'mirror muscles' and forget their back and glutes. Stronger back and glute muscles help you hold a more upright posture, which changes how your shape looks and feels.",
+      "how": ["Add 3 sets of rows (dumbbell or band) to each session.", "Add 3 sets of hip thrusts or glute bridges.", "Do 20 band pull-aparts on work breaks.", "Check your posture every time you sit down: ribs down, shoulders back."],
+      "pro": "",
+      "tags": ["shape", "movement"]
+    },
+    {
+      "title": "Lift + Walk = The Combo",
+      "hook": "The most underrated body-changing combo? Strength training plus lots of walking.",
+      "callout": "Hardcore HIIT 6 days a week, then you're starving and exhausted. Walk, babe. Walk.",
+      "what": "Do your two strength sessions, then get lots of easy walking on the other days. Save intense cardio for when you enjoy it.",
+      "why": "Strength training builds and keeps muscle. Walking adds daily movement without spiking your hunger or wiping you out. It's easy to recover from and easy to do every day.",
+      "how": ["2 strength sessions a week.", "Walk every day, including 10 minutes after meals.", "Add one fun cardio class a week if you like it.", "Take it easy on rest days, but still walk."],
+      "pro": "",
+      "tags": ["shape", "movement"]
+    },
+    {
+      "title": "Rest Days Are Growth Days",
+      "hook": "Your muscles don't grow in the gym. They grow while you rest.",
+      "callout": "Training 7 days a week on 5 hours of sleep and wondering why nothing changes.",
+      "what": "Take at least one day off between strength sessions for the same muscles, and aim for 7+ hours of sleep.",
+      "why": "Training creates the signal. Recovery, sleep and food are when your body actually rebuilds. Too little rest can hurt performance and results.",
+      "how": ["Never train the same muscles hard two days in a row.", "On rest days, walk and stretch.", "Prioritise sleep: see the Sleep & Stress Laws.", "If you're always sore and tired, do less, not more."],
+      "pro": "",
+      "tags": ["shape", "sleep"]
+    },
+    {
+      "title": "The Toned Arm Truth",
+      "hook": "No, 100 tricep dips won't burn the fat off your arms. Here's what does.",
+      "callout": "500 crunches for a flat stomach. Your abs are strong now. They're just hiding.",
+      "what": "Forget 'spot-reducing'. To look more toned in one area, lose some overall body fat and build muscle everywhere, including that area.",
+      "why": "Studies show that exercising one body part doesn't burn more fat from that specific spot. Fat loss happens across the whole body. But building the muscle underneath helps the area look firmer as fat comes down.",
+      "how": ["Do full-body strength sessions, not just 'problem areas'.", "Include a few moves for areas you want to shape (arms, glutes).", "Follow your protein and hunger laws for steady fat loss.", "Be patient: it takes months, not weeks."],
+      "pro": "",
+      "tags": ["shape"]
+    }
+  ],
+  "mythBust": { "myth": "Lifting weights will make women bulky.", "truth": "Building big muscles takes years of heavy, focused training and eating a lot. Two sessions a week with moderate weights will make you look firmer and stronger, not bulky." },
+  "tryThis": { "title": "This Week's Try-This", "text": "Pick two days this week and put a 20-minute strength session in your calendar. Do 3 rounds of squats, push-ups, rows, glute bridges and a plank." },
+  "journal": ["What would 'strong' look like for me, not just 'small'?", "What has stopped me from strength training before?", "Which non-scale changes do I want to notice first?"],
+  "quote": "Stop shrinking yourself. Build something instead."
+}

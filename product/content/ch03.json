@@ -1,0 +1,114 @@
+{
+  "id": "ch03",
+  "number": 3,
+  "title": "The Craving Laws",
+  "subtitle": "Your cravings aren't a personality trait. They're a pattern. Break it.",
+  "law": "A craving is a wave, not a command. Let it pass and you win.",
+  "intro": "\"I have zero self-control around sweets.\" Babe, you have zero PLAN around sweets. That's different.\n\nYou're not gonna like this, but most cravings have nothing to do with hunger. They're about being tired, bored, stressed, or standing in the exact spot where you always eat the thing. Your brain has learned a routine, and it's just pressing play.\n\nThe good news? Routines can be hacked. You don't need to ban chocolate forever or white-knuckle your way through every evening. You need to understand how a craving works, and then get sneaky with it.\n\nHere's what actually works: 10 ways to outsmart a craving without feeling deprived. And yes, sometimes the answer is \"eat the thing, just properly.\"",
+  "hacks": [
+    {
+      "title": "The 10-Minute Wave",
+      "hook": "That craving that feels like an emergency? It usually fades in about 10 minutes. Time it.",
+      "callout": "You didn't 'need' the cookies. You needed 10 minutes and a distraction.",
+      "what": "When a craving hits, don't say no. Say \"not yet.\" Set a 10-minute timer and do something else. When the timer goes off, decide again.",
+      "why": "Cravings rise, peak and fall like a wave. Psychologists call riding it out \"urge surfing,\" and it's used in habit and addiction research because it works. Saying \"later\" feels less like losing than saying \"never,\" so you don't rebel against yourself.",
+      "how": ["Say out loud: \"I can have it in 10 minutes if I still want it.\"", "Set a timer on your phone.", "Leave the kitchen and do something with your hands: text someone, tidy, shower, walk.", "When the timer rings, check in. If you still want it, have a portion on a plate and enjoy it."],
+      "pro": "Keep a note of how often you still want it after 10 minutes. Most people are shocked how often the answer is no.",
+      "tags": ["cravings", "quick-win"]
+    },
+    {
+      "title": "The Hunger or Craving Test",
+      "hook": "If you wouldn't eat a plain chicken breast right now, you're not hungry. You're craving.",
+      "callout": "Real hunger isn't that picky. It doesn't 'only want chips'.",
+      "what": "Before you eat outside your meals, ask one question: \"Would I eat a plain, boring meal right now?\" If yes, you're hungry, so eat a real meal. If you only want one specific food, it's a craving.",
+      "why": "Physical hunger builds slowly and is open to lots of foods. Cravings arrive fast, want one exact thing (usually sweet, salty or crunchy) and are often tied to an emotion or a time of day. Knowing which one you're dealing with tells you what to do.",
+      "how": ["Picture a plain boring meal, like chicken, rice and broccoli.", "Hungry for it? Eat a proper meal with protein.", "Only want the specific snack? Go to the 10-Minute Wave hack.", "Notice the time and your mood, and write it down. Patterns show up fast."],
+      "pro": "",
+      "tags": ["cravings", "hunger"]
+    },
+    {
+      "title": "The HALT Check",
+      "hook": "Half your 'cravings' are actually one of four other problems in disguise.",
+      "callout": "You're not craving chocolate. You're tired and you had a horrible meeting.",
+      "what": "When you want to snack, run the HALT check: am I Hungry, Angry (or stressed), Lonely or Tired? Then fix the real problem, not just the symptom.",
+      "why": "HALT is an old recovery-group tool because these four states make any habit harder to control. Food is the fastest, easiest fix for all of them, so your brain reaches for it. But food only helps one of the four.",
+      "how": ["Hungry: eat a real meal or a protein snack.", "Angry or stressed: 2 minutes of slow breathing, or a quick walk.", "Lonely: text or call someone.", "Tired: rest, lie down, or go to bed early. Snacks don't fix tired."],
+      "pro": "Put \"HALT?\" on a sticky note inside your snack cupboard door.",
+      "tags": ["cravings", "stress", "mindset"]
+    },
+    {
+      "title": "Eat the Real Thing",
+      "hook": "Eating 5 'healthy swaps' to avoid one brownie is how you end up eating the brownie too.",
+      "callout": "Rice cakes, then yogurt, then almonds, then the brownie anyway. Iconic. Also exhausting.",
+      "what": "When you truly want a specific treat, have a normal portion of the real thing. Put it on a plate, sit down, and enjoy every bite. No sad substitutes.",
+      "why": "Substitutes that don't hit the spot leave the craving switched on, so you keep grazing around it and often eat more calories than the treat itself. Eating a portion of the real thing mindfully satisfies it and closes the loop.",
+      "how": ["Decide on the portion before you start (one brownie, two squares).", "Put it on a plate. Never eat it from the box.", "Sit down, no screen, and eat it slowly.", "Then do something that signals \"done\": brush teeth, make tea, leave the kitchen."],
+      "pro": "Buy single portions of your favourite treats instead of family packs.",
+      "tags": ["cravings", "mindset"]
+    },
+    {
+      "title": "The Mint Full-Stop",
+      "hook": "There's a reason nothing tastes good after you brush your teeth. Use it on purpose.",
+      "callout": "Dinner ended at 7. Your 'little bites' ended at 11. Something's off.",
+      "what": "Brush your teeth (or use a strong mint) right after dinner. It works like a full stop at the end of your eating day.",
+      "why": "Mint changes how food tastes for a while, so snacking just isn't as appealing. It also creates a clear routine that tells your brain \"eating is over.\" Rituals like this take away the nightly decision of \"should I have something?\"",
+      "how": ["Keep a toothbrush and toothpaste in the kitchen or downstairs bathroom.", "Brush straight after you clear dinner, not just before bed.", "If you can't brush, keep strong mints or mint tea ready.", "Pair it with the Kitchen Closed Ritual for double power."],
+      "pro": "",
+      "tags": ["cravings", "quick-win"]
+    },
+    {
+      "title": "The If-Then Script",
+      "hook": "Willpower in the moment is weak. A plan you made earlier is scary strong.",
+      "callout": "'I'll just be strong tonight' has failed you 400 times. Time for a script.",
+      "what": "Write down your most common craving moment and plan exactly what you'll do: \"If it's 9pm and I want chips, then I'll make a cup of tea and eat a bowl of berries.\"",
+      "why": "Psychologist Peter Gollwitzer's research on \"implementation intentions\" found that if-then plans make people much more likely to follow through than just setting a goal. The decision is made in advance, so the moment doesn't get a vote.",
+      "how": ["Name your top 2 craving moments (time + place + feeling).", "Write one \"If ___, then I will ___\" line for each.", "Make the \"then\" easy and ready to go.", "Put the script where the craving happens (fridge, phone lock screen)."],
+      "pro": "Say your if-then out loud once in the morning. It sounds silly and works better than you think.",
+      "tags": ["cravings", "mindset"]
+    },
+    {
+      "title": "The Frozen Dessert Upgrade",
+      "hook": "Frozen grapes taste like sorbet. Nobody believes it until they try it.",
+      "callout": "Eating ice cream from the tub 'until it looks even' is not portion control.",
+      "what": "Keep a freezer stash of sweet things that take a long time to eat: frozen grapes, frozen mango, or Greek yogurt bark with berries. Cold food forces you to slow down.",
+      "why": "Frozen fruit is sweet, cold and takes time to eat, so the sweet craving gets answered slowly with fewer calories and more fiber than most desserts. Slower eating also gives your fullness signals time to arrive.",
+      "how": ["Wash grapes, dry them, and freeze them on a tray, then bag them.", "Make yogurt bark: spread Greek yogurt on baking paper, add berries, freeze, and snap it.", "Serve a portion in a small bowl.", "Keep it at the front of the freezer so it's the first thing you see."],
+      "pro": "Add a sprinkle of cinnamon or a few dark chocolate chips to yogurt bark for 'real dessert' energy.",
+      "tags": ["cravings", "kitchen"]
+    },
+    {
+      "title": "The Trigger Map",
+      "hook": "Your cravings run on a schedule. Once you see it, you can't unsee it.",
+      "callout": "Every. Single. Day. at 3:30pm you 'randomly' want something sweet. That's not random.",
+      "what": "For 5 days, jot down every craving: time, place, mood and what you wanted. Then look for your pattern and change just that moment.",
+      "why": "Habits follow a loop of cue, routine and reward, as described in habit research and made famous by Charles Duhigg's book The Power of Habit. You can't change what you can't see. Once you know the cue, you can swap the routine and keep a reward.",
+      "how": ["Make a note in your phone called \"Cravings\".", "Log each one: time, place, mood, food.", "After 5 days, circle the most common time or place.", "Change just that cue: move the snack, change the route, plan a new reward."],
+      "pro": "Most people find 1 or 2 moments cause most of their extra eating. Fix those and you're mostly done.",
+      "tags": ["cravings", "mindset"]
+    },
+    {
+      "title": "The Flavor Fatigue Trick",
+      "hook": "The first 3 bites taste amazing. Bite 12 is just habit. Stop when the magic stops.",
+      "callout": "You stopped tasting that pizza 4 slices ago. You were just finishing the box.",
+      "what": "With treats, pay attention to the first few bites. When the taste stops being exciting, stop. Leave the rest or save it.",
+      "why": "Scientists call it sensory-specific satiety: the pleasure you get from a food drops as you keep eating it. Those first bites give most of the joy. Everything after is mostly autopilot.",
+      "how": ["Take the first bite slowly and rate it out of 10.", "Rate it again every few bites.", "When the score drops by a few points, put it down.", "Wrap it up for later. You're allowed to have it again tomorrow."],
+      "pro": "",
+      "tags": ["cravings", "hunger"]
+    },
+    {
+      "title": "Kill the Forbidden Food",
+      "hook": "Banning a food makes you want it more. That's not weakness. That's psychology.",
+      "callout": "'I'm never eating carbs again' has a shelf life of about 3 days. And then it's bread o'clock.",
+      "what": "Stop labelling foods as forbidden. Plan your favourite treats into your week in normal portions, so they lose their power.",
+      "why": "Research on restraint and food cravings suggests that strict banning often makes cravings stronger and leads to a rebound. When a food is allowed, you're less likely to overeat it \"before the diet starts again.\"",
+      "how": ["Pick 2 or 3 favourite treats.", "Plan them into your week: e.g. Friday pizza night, Sunday dessert.", "Enjoy them fully, without guilt.", "Notice how much calmer you feel around them after a few weeks."],
+      "pro": "Say \"I'm having that on Friday\" instead of \"I can't have that.\" Your brain relaxes when it knows it's coming.",
+      "tags": ["cravings", "mindset"]
+    }
+  ],
+  "mythBust": { "myth": "Cravings mean your body needs something, like chocolate means you need magnesium.", "truth": "There's little good evidence for this. Most cravings are learned habits linked to time, place, mood and tiredness. That's actually great news, because learned habits can be changed." },
+  "tryThis": { "title": "Tonight's Try-This", "text": "The next time a craving hits, set a 10-minute timer and leave the kitchen. When it goes off, decide again. Write down what happened." },
+  "journal": ["When and where do my cravings usually show up?", "What am I really feeling right before I reach for food?", "Which food do I 'forbid', and what happens when I finally eat it?"],
+  "quote": "You don't need more willpower. You need a better plan than your craving has."
+}
