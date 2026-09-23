@@ -19,11 +19,7 @@
         "Size down one step and see if you even notice."
       ],
       "pro": "Ask for 'half sweet' or '1 pump'. Most people cannot taste the difference after a week.",
-      "tags": [
-        "drinks",
-        "quick-win",
-        "eating-out"
-      ]
+      "tags": ["drinks", "quick-win", "eating-out"]
     },
     {
       "title": "Chew Your Fruit",
@@ -38,10 +34,7 @@
         "If you drink juice, use a small glass and have it with food."
       ],
       "pro": "A smoothie bowl you chew feels like a meal. The same smoothie in a straw feels like nothing.",
-      "tags": [
-        "drinks",
-        "hunger"
-      ]
+      "tags": ["drinks", "hunger"]
     },
     {
       "title": "The Protein Coffee",
@@ -56,11 +49,7 @@
         "Taste and adjust. Add cinnamon if you want more flavor."
       ],
       "pro": "A small milk frother makes protein powder silky smooth in 10 seconds.",
-      "tags": [
-        "drinks",
-        "hunger",
-        "quick-win"
-      ]
+      "tags": ["drinks", "hunger", "quick-win"]
     },
     {
       "title": "The Bubbles Ritual",
@@ -75,10 +64,7 @@
         "Drink it at your usual soda time or when you want an afternoon snack."
       ],
       "pro": "Add a splash of tart cherry or cranberry juice for color and flavor with very few calories.",
-      "tags": [
-        "drinks",
-        "cravings"
-      ]
+      "tags": ["drinks", "cravings"]
     },
     {
       "title": "The Tall Thin Glass",
@@ -93,11 +79,7 @@
         "Use wide glasses and jugs for water only."
       ],
       "pro": "Stop pouring wine when the glass is at its widest point. That is roughly one serving in most glasses.",
-      "tags": [
-        "drinks",
-        "kitchen",
-        "quick-win"
-      ]
+      "tags": ["drinks", "kitchen", "quick-win"]
     },
     {
       "title": "The Alcohol Triple Threat",
@@ -112,11 +94,7 @@
         "Plan a filling protein breakfast for the next morning so you are not hunting for greasy food."
       ],
       "pro": "Order your first drink as a sparkling water with lime. You arrive calm and you are not drinking on an empty stomach.",
-      "tags": [
-        "drinks",
-        "social",
-        "eating-out"
-      ]
+      "tags": ["drinks", "social", "eating-out"]
     },
     {
       "title": "The Mocktail Upgrade",
@@ -131,10 +109,7 @@
         "Alternate: one real drink, then one mocktail."
       ],
       "pro": "Use a cocktail glass at home. Presentation makes a simple drink feel like an event.",
-      "tags": [
-        "drinks",
-        "social"
-      ]
+      "tags": ["drinks", "social"]
     },
     {
       "title": "Electrolytes, Not Sports Drinks",
@@ -149,10 +124,7 @@
         "Read the label: look for low or zero sugar."
       ],
       "pro": "Sometimes a 'craving' in the afternoon is really thirst. Try a big glass of water with electrolytes first and see how you feel.",
-      "tags": [
-        "drinks",
-        "movement"
-      ]
+      "tags": ["drinks", "movement"]
     },
     {
       "title": "The Closing Tea",
@@ -167,11 +139,7 @@
         "Brush your teeth after for a double 'done' signal."
       ],
       "pro": "Choose caffeine-free teas at night so your sleep stays deep.",
-      "tags": [
-        "drinks",
-        "cravings",
-        "sleep"
-      ]
+      "tags": ["drinks", "cravings", "sleep"]
     },
     {
       "title": "The Water Anchor",
@@ -186,11 +154,7 @@
         "Keep a bottle on your desk in plain sight."
       ],
       "pro": "Use a bottle with a straw. Most people drink more through a straw without noticing.",
-      "tags": [
-        "drinks",
-        "hunger",
-        "quick-win"
-      ]
+      "tags": ["drinks", "hunger", "quick-win"]
     }
   ],
   "mythBust": {

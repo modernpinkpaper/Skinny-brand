@@ -19,11 +19,7 @@
         "Put a healthy snack in the spot they used to be."
       ],
       "pro": "Use clear containers for healthy food and opaque ones for treats. Let the good stuff be the pretty stuff.",
-      "tags": [
-        "kitchen",
-        "cravings",
-        "quick-win"
-      ]
+      "tags": ["kitchen", "cravings", "quick-win"]
     },
     {
       "title": "Bowl It, Never Bag It",
@@ -38,10 +34,7 @@
         "If you still want more after, you can have more. Just repeat the whole process."
       ],
       "pro": "Buy a set of small, pretty snack bowls. Make portioning feel like a treat, not a rule.",
-      "tags": [
-        "kitchen",
-        "quick-win"
-      ]
+      "tags": ["kitchen", "quick-win"]
     },
     {
       "title": "Serve at the Stove",
@@ -55,11 +48,7 @@
         "If you want seconds, wait 10 minutes first, then get up and serve yourself."
       ],
       "pro": "Put leftovers into storage containers right after serving, before you sit down. No leftovers, no picking.",
-      "tags": [
-        "kitchen",
-        "hunger",
-        "social"
-      ]
+      "tags": ["kitchen", "hunger", "social"]
     },
     {
       "title": "The Kitchen Closed Ritual",
@@ -74,11 +63,7 @@
         "If you are truly hungry later, have a planned protein snack like Greek yogurt. Real hunger is allowed."
       ],
       "pro": "Brush your teeth soon after dinner. Minty mouth plus a closed kitchen is a double lock.",
-      "tags": [
-        "kitchen",
-        "cravings",
-        "sleep"
-      ]
+      "tags": ["kitchen", "cravings", "sleep"]
     },
     {
       "title": "Shop Fed, Shop Listed",
@@ -93,10 +78,7 @@
         "Try online ordering for one week and notice how much less junk ends up in your cart."
       ],
       "pro": "If a treat isn't on the list, it doesn't go in the cart. Decide at home, not in the aisle.",
-      "tags": [
-        "shopping",
-        "kitchen"
-      ]
+      "tags": ["shopping", "kitchen"]
     },
     {
       "title": "The Eye-Level Fridge",
@@ -111,11 +93,7 @@
         "Move treats and high-calorie leftovers to the bottom drawer or the back."
       ],
       "pro": "Keep a bowl of washed fruit on the counter too. Make it the only food out in the open.",
-      "tags": [
-        "kitchen",
-        "quick-win",
-        "shopping"
-      ]
+      "tags": ["kitchen", "quick-win", "shopping"]
     },
     {
       "title": "The 20-Second Rule",
@@ -130,10 +108,7 @@
         "Do the opposite for healthy food: pre-cut, washed and in plain sight."
       ],
       "pro": "Ask someone you live with to keep their snacks in their own drawer, out of your view.",
-      "tags": [
-        "kitchen",
-        "cravings"
-      ]
+      "tags": ["kitchen", "cravings"]
     },
     {
       "title": "Sunday Decision Day",
@@ -148,11 +123,7 @@
         "Keep 2 'backup meals' you can make in 10 minutes for chaotic nights."
       ],
       "pro": "Stick your meal plan on the fridge. Seeing it every day makes it feel like a promise.",
-      "tags": [
-        "kitchen",
-        "shopping",
-        "mindset"
-      ]
+      "tags": ["kitchen", "shopping", "mindset"]
     },
     {
       "title": "The Clean Counter Law",
@@ -167,10 +138,7 @@
         "Check the counters again every night as part of your kitchen-closed routine."
       ],
       "pro": "Do the same in your car, desk and bag. Every place you spend time is a mini kitchen.",
-      "tags": [
-        "kitchen",
-        "quick-win"
-      ]
+      "tags": ["kitchen", "quick-win"]
     },
     {
       "title": "The One Seat Rule",
@@ -185,11 +153,7 @@
         "At work, take your lunch away from your keyboard, even for 10 minutes."
       ],
       "pro": "Set the table even when eating alone. It turns a meal into an event you actually notice.",
-      "tags": [
-        "kitchen",
-        "mindset",
-        "hunger"
-      ]
+      "tags": ["kitchen", "mindset", "hunger"]
     }
   ],
   "mythBust": {

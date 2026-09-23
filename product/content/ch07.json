@@ -19,10 +19,7 @@
         "Enter a middle aisle only if an item on your list lives there, then walk out."
       ],
       "pro": "Shop after a meal, never hungry. A full stomach writes a smarter cart.",
-      "tags": [
-        "shopping",
-        "quick-win"
-      ]
+      "tags": ["shopping", "quick-win"]
     },
     {
       "title": "The Frozen Veg Stash",
@@ -37,11 +34,7 @@
         "Restock when you get down to 2 bags."
       ],
       "pro": "Roast frozen broccoli straight from the bag at high heat with a little oil and salt. It gets crispy edges, not mushy.",
-      "tags": [
-        "kitchen",
-        "shopping",
-        "hunger"
-      ]
+      "tags": ["kitchen", "shopping", "hunger"]
     },
     {
       "title": "The 5-Second Protein Test",
@@ -56,10 +49,7 @@
         "Keep the winners, put the pretenders back."
       ],
       "pro": "Greek yogurt, cottage cheese, egg whites, tuna and chicken breast all pass easily. Most granola bars fail badly.",
-      "tags": [
-        "shopping",
-        "quick-win"
-      ]
+      "tags": ["shopping", "quick-win"]
     },
     {
       "title": "The Ready Protein Rule",
@@ -74,11 +64,7 @@
         "Put all of it at eye level at the front of the fridge."
       ],
       "pro": "Pull the chicken while it is still warm. It comes off the bone in 3 minutes instead of 15.",
-      "tags": [
-        "kitchen",
-        "hunger",
-        "quick-win"
-      ]
+      "tags": ["kitchen", "hunger", "quick-win"]
     },
     {
       "title": "Components, Not Meals",
@@ -93,10 +79,7 @@
         "Make one sauce and store everything in separate boxes."
       ],
       "pro": "Change just the sauce and spice each day and it feels like a totally new meal.",
-      "tags": [
-        "kitchen",
-        "maintenance"
-      ]
+      "tags": ["kitchen", "maintenance"]
     },
     {
       "title": "The Default Dinner Rotation",
@@ -111,11 +94,7 @@
         "Leave the weekend free and flexible."
       ],
       "pro": "Stick the list on the fridge. When someone asks what is for dinner, the fridge answers.",
-      "tags": [
-        "kitchen",
-        "maintenance",
-        "shopping"
-      ]
+      "tags": ["kitchen", "maintenance", "shopping"]
     },
     {
       "title": "The 3-Ingredient Protein Plate",
@@ -130,10 +109,7 @@
         "Cook or heat in one pan and eat."
       ],
       "pro": "Cottage cheese + everything bagel seasoning + sliced cucumber is a 2-minute lunch that tastes like a bagel.",
-      "tags": [
-        "kitchen",
-        "quick-win"
-      ]
+      "tags": ["kitchen", "quick-win"]
     },
     {
       "title": "The Portion Pack Sunday",
@@ -148,11 +124,7 @@
         "Put the packs in a basket so grabbing one is easy."
       ],
       "pro": "Make the portion packs for your favorite treats too. It is not about banning them, it is about giving them a clear finish line.",
-      "tags": [
-        "cravings",
-        "kitchen",
-        "shopping"
-      ]
+      "tags": ["cravings", "kitchen", "shopping"]
     },
     {
       "title": "The Big Batch Hour",
@@ -167,10 +139,7 @@
         "Cool everything and pack into clear boxes."
       ],
       "pro": "Use clear containers. If you can see the food, you remember to eat it.",
-      "tags": [
-        "kitchen",
-        "maintenance"
-      ]
+      "tags": ["kitchen", "maintenance"]
     },
     {
       "title": "The Flavor Cheat Shelf",
@@ -185,10 +154,7 @@
         "Measure oil with a spoon instead of pouring from the bottle."
       ],
       "pro": "A spray bottle of olive oil gives you crispy roasted veg with a fraction of the oil.",
-      "tags": [
-        "kitchen",
-        "cravings"
-      ]
+      "tags": ["kitchen", "cravings"]
     }
   ],
   "mythBust": {

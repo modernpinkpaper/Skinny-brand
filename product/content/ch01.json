@@ -19,10 +19,7 @@
         "Check lunch and dinner tonight: if you can't point to the protein, add some."
       ],
       "pro": "Keep 'emergency protein' ready: boiled eggs, yogurt cups or a rotisserie chicken in the fridge.",
-      "tags": [
-        "hunger",
-        "quick-win"
-      ]
+      "tags": ["hunger", "quick-win"]
     },
     {
       "title": "Veggies Go First",
@@ -37,11 +34,7 @@
         "At restaurants, order a side salad or veggie starter so the 'veggies first' part happens automatically."
       ],
       "pro": "Can't wait for the carbs? Even 10 minutes between the veggies and the bread helps.",
-      "tags": [
-        "hunger",
-        "quick-win",
-        "eating-out"
-      ]
+      "tags": ["hunger", "quick-win", "eating-out"]
     },
     {
       "title": "The Vinegar Shot",
@@ -56,10 +49,7 @@
         "Rinse your mouth with plain water afterwards."
       ],
       "pro": "If you have reflux, stomach problems or take diabetes medicine, skip this or ask your doctor first.",
-      "tags": [
-        "hunger",
-        "drinks"
-      ]
+      "tags": ["hunger", "drinks"]
     },
     {
       "title": "The Big Bowl Trick",
@@ -74,10 +64,7 @@
         "Choose fresh fruit over dried fruit. Same sugar, way more volume."
       ],
       "pro": "Mix 'half and half': half normal pasta, half veggie noodles. You barely notice the difference.",
-      "tags": [
-        "hunger",
-        "kitchen"
-      ]
+      "tags": ["hunger", "kitchen"]
     },
     {
       "title": "The 20-Minute Meal",
@@ -92,11 +79,7 @@
         "Set a 20-minute timer and try to still have food on your plate when it rings."
       ],
       "pro": "Eat with your non-dominant hand or with chopsticks. It slows you down with zero effort.",
-      "tags": [
-        "hunger",
-        "mindset",
-        "quick-win"
-      ]
+      "tags": ["hunger", "mindset", "quick-win"]
     },
     {
       "title": "The Hunger Scale",
@@ -111,10 +94,7 @@
         "If you often reach 1 or 2 during the day, add a snack with protein. Real hunger deserves food."
       ],
       "pro": "Write your before and after numbers in your phone notes for 3 days. Patterns show up fast.",
-      "tags": [
-        "hunger",
-        "mindset"
-      ]
+      "tags": ["hunger", "mindset"]
     },
     {
       "title": "Chew Your Calories",
@@ -129,10 +109,7 @@
         "Add toppings you have to chew, like berries or a few nuts."
       ],
       "pro": "Order your coffee 'one size smaller.' You still get your ritual.",
-      "tags": [
-        "hunger",
-        "drinks"
-      ]
+      "tags": ["hunger", "drinks"]
     },
     {
       "title": "The Fiber Stack",
@@ -147,10 +124,7 @@
         "Increase fiber slowly over a week and drink more water, so your stomach can adjust."
       ],
       "pro": "Going too fast with fiber can cause bloating. Add one new fiber food every few days.",
-      "tags": [
-        "hunger",
-        "bloat"
-      ]
+      "tags": ["hunger", "bloat"]
     },
     {
       "title": "The Flavor Fence",
@@ -164,11 +138,7 @@
         "Use variety on purpose with veggies: mix 3 or 4 colors in a salad to help you eat more of them."
       ],
       "pro": "Snack boards with 8 kinds of crackers and cheese are appetite resets in disguise. Pick two.",
-      "tags": [
-        "hunger",
-        "social",
-        "eating-out"
-      ]
+      "tags": ["hunger", "social", "eating-out"]
     },
     {
       "title": "The Real Food Default",
@@ -182,10 +152,7 @@
         "Aim for 'most meals real food,' not 'every bite perfect.'"
       ],
       "pro": "Quick rule: if it has a long ingredient list full of words you can't picture, it is probably ultra-processed.",
-      "tags": [
-        "hunger",
-        "shopping"
-      ]
+      "tags": ["hunger", "shopping"]
     }
   ],
   "mythBust": {
