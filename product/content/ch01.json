@@ -1,0 +1,162 @@
+{
+  "id": "ch01",
+  "number": 1,
+  "title": "The Hunger Laws",
+  "subtitle": "Turn hunger down instead of fighting it",
+  "law": "You don't beat hunger with willpower. You turn the volume down.",
+  "intro": "Here is the secret nobody tells you: lean people are not stronger than you. They are just less hungry. Their meals are built to switch hunger off, so they don't spend all day fighting it.\n\nHunger is not your enemy. It is a signal. And signals can be turned up or turned down by what you eat, what order you eat it in, and how fast you eat it.\n\nThis chapter gives you 10 ways to turn that volume down. No starving. No 'just ignore it.' You will eat real, filling food and feel satisfied. That is the whole point.",
+  "hacks": [
+    {
+      "title": "The Protein Anchor",
+      "hook": "Your body keeps you hungry until it gets enough protein. So give it protein first.",
+      "what": "Build every meal around a palm-to-hand-sized serving of protein, and put it on the plate first. Aim for roughly 25 to 40 grams per meal. Breakfast matters most, because that is where most people eat almost none.",
+      "why": "Scientists call this 'protein leverage.' Researchers Simpson and Raubenheimer found that many animals, and likely humans, keep eating until they hit a protein target. If your food is low in protein, you keep eating to get there. Protein also takes more energy to digest and keeps you full longer than carbs or fat.",
+      "how": [
+        "Pick your anchor for each meal: eggs, Greek yogurt, chicken, fish, tofu, cottage cheese, lean beef or lentils.",
+        "Put the protein on the plate before anything else, then add the rest around it.",
+        "Swap a toast-only or cereal-only breakfast for eggs plus toast, or Greek yogurt plus fruit.",
+        "Check lunch and dinner tonight: if you can't point to the protein, add some."
+      ],
+      "pro": "Keep 'emergency protein' ready: boiled eggs, yogurt cups or a rotisserie chicken in the fridge.",
+      "tags": ["hunger", "quick-win"]
+    },
+    {
+      "title": "Veggies Go First",
+      "hook": "Same food, different order, calmer blood sugar. The order you eat in really matters.",
+      "what": "Eat the vegetables on your plate first, then the protein, and save the bread, rice, pasta or potatoes for last. You don't eat less food. You just change the order.",
+      "why": "A 2015 study from Weill Cornell Medicine found that when people ate vegetables and protein before carbs, their blood sugar after the meal was much lower than when they ate the carbs first. Fiber and protein slow down how fast the carbs hit your blood. Smoother blood sugar often means fewer crashes and fewer 'I need a snack now' moments later.",
+      "how": [
+        "Look at your plate and split it into three zones: veggies, protein, carbs.",
+        "Eat most of the veggies first, then the protein.",
+        "Eat the carbs last and slowly.",
+        "At restaurants, order a side salad or veggie starter so the 'veggies first' part happens automatically."
+      ],
+      "pro": "Can't wait for the carbs? Even 10 minutes between the veggies and the bread helps.",
+      "tags": ["hunger", "quick-win", "eating-out"]
+    },
+    {
+      "title": "The Vinegar Shot",
+      "hook": "A splash of vinegar before your pasta night can soften the blood sugar spike.",
+      "what": "Before a meal that is heavy in carbs, have 1 tablespoon of vinegar mixed into a big glass of water, or eat a salad with a vinegar dressing first. Apple cider vinegar or any vinegar works. Never drink it straight.",
+      "why": "Several small studies, including work by Carol Johnston at Arizona State University, found that vinegar with a carb meal can lower the blood sugar rise afterwards. The acetic acid seems to slow down how fast your stomach empties and how fast starch turns into sugar. It is not magic fat-burning. It is just a smoother ride after a big carb meal.",
+      "how": [
+        "Mix 1 tablespoon of vinegar into a large glass of water.",
+        "Drink it with a straw just before your meal to protect your teeth.",
+        "Or start the meal with a salad dressed in oil and vinegar.",
+        "Rinse your mouth with plain water afterwards."
+      ],
+      "pro": "If you have reflux, stomach problems or take diabetes medicine, skip this or ask your doctor first.",
+      "tags": ["hunger", "drinks"]
+    },
+    {
+      "title": "The Big Bowl Trick",
+      "hook": "Eat a bigger plate of food for fewer calories. This is the loophole.",
+      "what": "Fill your plate with foods that are heavy with water and fiber, like soup, veggies, berries and salad. They take up lots of room in your stomach but carry few calories. You get a big, satisfying portion without overdoing it.",
+      "why": "Barbara Rolls at Penn State spent years studying 'energy density,' which means calories per bite. Her research found that people tend to eat about the same weight of food each day. So when that food is full of water and fiber, you feel full on fewer calories. Her team also found that starting a meal with a broth-based soup or a big salad helped people eat less at the meal overall.",
+      "how": [
+        "Add one extra cup of veggies to what you already eat: spinach in eggs, zucchini in pasta sauce, peppers in wraps.",
+        "Swap half the rice or pasta for cauliflower rice or zucchini noodles.",
+        "Start dinner with a cup of broth-based soup or a big side salad.",
+        "Choose fresh fruit over dried fruit. Same sugar, way more volume."
+      ],
+      "pro": "Mix 'half and half': half normal pasta, half veggie noodles. You barely notice the difference.",
+      "tags": ["hunger", "kitchen"]
+    },
+    {
+      "title": "The 20-Minute Meal",
+      "hook": "Your stomach sends the 'I'm full' message on a delay. Slow down and let it arrive.",
+      "what": "Make every main meal last at least 20 minutes. Set a timer if you have to. Slow eating lets your fullness signal catch up with your fork.",
+      "why": "When food reaches your gut, it releases fullness hormones that tell your brain you have had enough. This takes time, often around 20 minutes. If you finish a plate in 7 minutes, your brain has not got the message yet, so you go back for more. Eat slowly and the message shows up while you are still eating.",
+      "how": [
+        "Put your fork down between every bite.",
+        "Chew each bite until it is soft, then swallow before picking the fork back up.",
+        "Take a sip of water or say something to someone between bites.",
+        "Set a 20-minute timer and try to still have food on your plate when it rings."
+      ],
+      "pro": "Eat with your non-dominant hand or with chopsticks. It slows you down with zero effort.",
+      "tags": ["hunger", "mindset", "quick-win"]
+    },
+    {
+      "title": "The Hunger Scale",
+      "hook": "Rate your hunger from 1 to 10 and you will never eat on autopilot again.",
+      "what": "Before you eat, rate your hunger from 1 (starving and shaky) to 10 (painfully stuffed). Try to start eating at about a 3 or 4 and stop at about a 6 or 7. That is 'comfortably satisfied,' not stuffed.",
+      "why": "Most overeating happens because we don't check in. We eat because food is there or because the plate is not empty. A simple number makes you notice your body. Waiting until you are a 1 or 2 is also a trap, because being too hungry makes you eat fast and overshoot. So this hack is about eating when you are truly hungry, not waiting until you are starving.",
+      "how": [
+        "Before each meal today, silently give yourself a number from 1 to 10.",
+        "Halfway through the meal, pause and rate yourself again.",
+        "When you hit 6 or 7, stop and wait 10 minutes. You can always have more if you are still hungry.",
+        "If you often reach 1 or 2 during the day, add a snack with protein. Real hunger deserves food."
+      ],
+      "pro": "Write your before and after numbers in your phone notes for 3 days. Patterns show up fast.",
+      "tags": ["hunger", "mindset"]
+    },
+    {
+      "title": "Chew Your Calories",
+      "hook": "A smoothie and a bowl of the same fruit do not fill you up the same way.",
+      "what": "Get most of your calories from food you chew, not drinks. Swap juices, sweet coffees and big smoothies for whole food. If you love smoothies, make them thick and eat them from a bowl with a spoon.",
+      "why": "Drinks go down fast and skip a lot of the chewing and stomach stretch that tell your brain you are full. Studies comparing liquid and solid versions of similar calories often find that liquid calories are less filling, so people don't eat less later to make up for them. Chewing gives your body time and signals to register the food.",
+      "how": [
+        "List every drink you had yesterday that was not water, tea or black coffee.",
+        "Pick one to swap: orange juice becomes a whole orange, a sweet latte becomes a smaller or unsweetened one.",
+        "If you keep your smoothie, make it thicker, add Greek yogurt for protein, and eat it with a spoon.",
+        "Add toppings you have to chew, like berries or a few nuts."
+      ],
+      "pro": "Order your coffee 'one size smaller.' You still get your ritual.",
+      "tags": ["hunger", "drinks"]
+    },
+    {
+      "title": "The Fiber Stack",
+      "hook": "Fiber is the most underrated fullness tool in your kitchen. Stack it at every meal.",
+      "what": "Add one high-fiber food to every meal. Think beans, lentils, chia seeds, oats, berries, pears, raspberries, broccoli or whole grains. Small add-ons count.",
+      "why": "Fiber slows down digestion, adds bulk and feeds the good bacteria in your gut. It keeps food in your stomach longer, so you stay full longer. Most people eat far less fiber than the recommended amount, so this is an easy win for almost everyone.",
+      "how": [
+        "Stir 1 tablespoon of chia seeds or ground flax into yogurt or oats.",
+        "Add half a can of rinsed beans or lentils to soups, salads or sauces.",
+        "Pick raspberries or blackberries, some of the highest-fiber fruits.",
+        "Increase fiber slowly over a week and drink more water, so your stomach can adjust."
+      ],
+      "pro": "Going too fast with fiber can cause bloating. Add one new fiber food every few days.",
+      "tags": ["hunger", "bloat"]
+    },
+    {
+      "title": "The Flavor Fence",
+      "hook": "Buffets make you eat more because of variety. Use that same trick in reverse.",
+      "what": "Keep main meals simple, with a few flavors. Too many different foods on the table makes you keep eating long after you are full. Save variety for your veggies, where more is actually good.",
+      "why": "This is called 'sensory-specific satiety,' studied by Barbara Rolls and others. You get tired of a flavor as you eat it, which helps you stop. But a new flavor 'resets' your appetite. That is why you always have room for dessert. Fewer flavors per meal helps your natural stop signal work.",
+      "how": [
+        "Build meals with 1 protein, 1 or 2 veggies and 1 carb, instead of lots of little dishes.",
+        "At parties and buffets, pick 3 foods you love most, instead of a bite of everything.",
+        "Use variety on purpose with veggies: mix 3 or 4 colors in a salad to help you eat more of them."
+      ],
+      "pro": "Snack boards with 8 kinds of crackers and cheese are appetite resets in disguise. Pick two.",
+      "tags": ["hunger", "social", "eating-out"]
+    },
+    {
+      "title": "The Real Food Default",
+      "hook": "Ultra-processed food made people eat around 500 more calories a day. Without noticing.",
+      "what": "Make most of your meals from foods that still look like where they came from: meat, fish, eggs, beans, veggies, fruit, potatoes, rice, oats. You don't need to be perfect. Just shift the balance.",
+      "why": "In a 2019 study at the US National Institutes of Health, Kevin Hall had people live in a lab and eat either an ultra-processed diet or a minimally processed one. They could eat as much as they wanted. On the ultra-processed diet, they ate about 500 more calories a day and gained weight. On the less processed diet, they ate less and lost weight, without trying.",
+      "how": [
+        "Look at your 3 most common meals. Find the most processed part of each.",
+        "Swap just that part: a packaged snack bar becomes fruit plus nuts, flavored instant oats become plain oats with berries.",
+        "Aim for 'most meals real food,' not 'every bite perfect.'"
+      ],
+      "pro": "Quick rule: if it has a long ingredient list full of words you can't picture, it is probably ultra-processed.",
+      "tags": ["hunger", "shopping"]
+    }
+  ],
+  "mythBust": {
+    "myth": "Feeling hungry means your diet is working.",
+    "truth": "Constant hunger usually means your meals are missing protein, fiber or volume. Being hungry all day leads to overeating later, not to lasting results. The goal is to feel satisfied on nourishing food."
+  },
+  "tryThis": {
+    "title": "Tonight's Try-This",
+    "text": "At dinner tonight, eat your veggies first, protein second and carbs last. Put your fork down between bites and make the meal last 20 minutes."
+  },
+  "journal": [
+    "What did I eat today that kept me full the longest?",
+    "When did I feel most hungry today, and what had I eaten before it?",
+    "What number on the hunger scale do I usually stop eating at?"
+  ],
+  "quote": "Hunger is a message, not an emergency. Feed it well and it goes quiet."
+}

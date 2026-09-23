@@ -1,0 +1,114 @@
+{
+  "id": "ch07",
+  "number": 7,
+  "title": "The Grocery & Prep Laws",
+  "subtitle": "Win the week at the store, not at 9pm in front of the fridge",
+  "law": "Whatever is in your kitchen is what you will eat. So choose it at the store.",
+  "intro": "Here is a secret most diet plans skip. Most of your eating choices are made before you ever feel hungry. They are made in the grocery store, with a cart in your hand.\n\nIf chips are in the cupboard, you will eat chips. If ready-to-eat protein is in the fridge, you will eat protein. Your willpower at 9pm is tired. Your kitchen is not.\n\nThis chapter makes your kitchen do the hard work for you. Smarter lists, faster labels, lazy prep, and flavor tricks that make lean food taste like a treat. Less thinking. Less cooking. Better results.",
+  "hacks": [
+    {
+      "title": "The Ring + Freezer Route",
+      "hook": "Shop in a U shape and your cart gets leaner without a single hard decision.",
+      "what": "Walk the outer ring of the store first: produce, meat, fish, eggs, dairy. Then go straight to the frozen aisle for frozen veg, fruit and plain proteins. Only enter the middle aisles with a list, and only for the items on it.",
+      "why": "Stores put fresh, whole foods around the edges and the snacky, easy-to-overeat stuff in the middle. Every aisle you walk down is another chance for an impulse buy. Fewer aisles means fewer temptations, with zero willpower needed.",
+      "how": ["Start at produce and fill half your cart there.", "Hit the protein and dairy walls next.", "Go to the freezer section for bags of veg, fruit and plain shrimp or chicken.", "Enter a middle aisle only if an item on your list lives there, then walk out."],
+      "pro": "Shop after a meal, never hungry. A full stomach writes a smarter cart.",
+      "tags": ["shopping", "quick-win"]
+    },
+    {
+      "title": "The Frozen Veg Stash",
+      "hook": "The cheapest, fastest weight loss tool in the store is sitting in the freezer.",
+      "what": "Keep at least 4 bags of frozen vegetables in your freezer at all times. Add a handful to almost every meal: eggs, pasta, rice, soup, even instant noodles. Frozen fruit goes into yogurt and oats.",
+      "why": "Frozen veg is picked and frozen fast, so it keeps its nutrients. It never goes bad, so there is no guilt and no waste. Veg adds lots of volume and fiber for very few calories, so your plate looks big and you feel full.",
+      "how": ["Buy 4 different bags: broccoli, spinach, stir-fry mix, cauliflower rice.", "Microwave a cup while your main food cooks.", "Stir it into whatever you are already eating.", "Restock when you get down to 2 bags."],
+      "pro": "Roast frozen broccoli straight from the bag at high heat with a little oil and salt. It gets crispy edges, not mushy.",
+      "tags": ["kitchen", "shopping", "hunger"]
+    },
+    {
+      "title": "The 5-Second Protein Test",
+      "hook": "One tiny math trick tells you if a food is working for you or against you.",
+      "what": "Flip any package and find two numbers: calories and protein grams. Ask: does it have about 10 grams of protein for every 100 calories? If yes, it is a lean protein star. If it has less than 5 grams per 100, it is a snack pretending to be healthy.",
+      "why": "Protein keeps you full longer and helps you keep muscle while you lose fat. Many 'protein' bars and snacks are really just sweets with a little protein added. This test cuts through the marketing on the front of the box in seconds.",
+      "how": ["Look at calories per serving.", "Look at protein grams per serving.", "Move the decimal: 200 calories means you want about 20g protein.", "Keep the winners, put the pretenders back."],
+      "pro": "Greek yogurt, cottage cheese, egg whites, tuna and chicken breast all pass easily. Most granola bars fail badly.",
+      "tags": ["shopping", "quick-win"]
+    },
+    {
+      "title": "The Ready Protein Rule",
+      "hook": "If protein takes 30 minutes, you will grab chips. Make it take 30 seconds.",
+      "what": "Always have 3 kinds of protein in the fridge that need zero cooking. Think rotisserie chicken, hard boiled eggs, Greek yogurt, cottage cheese, canned tuna, smoked salmon or pre-cooked shrimp.",
+      "why": "Most people do not overeat because they love junk. They overeat because junk is faster. When protein is just as fast, you pick it more often, and it fills you up so the snacking stops.",
+      "how": ["Buy a rotisserie chicken and shred it the same day into a container.", "Boil 6 to 8 eggs at once and keep them peeled.", "Stock 2 tubs of Greek yogurt or cottage cheese.", "Put all of it at eye level at the front of the fridge."],
+      "pro": "Pull the chicken while it is still warm. It comes off the bone in 3 minutes instead of 15.",
+      "tags": ["kitchen", "hunger", "quick-win"]
+    },
+    {
+      "title": "Components, Not Meals",
+      "hook": "Meal prep fails because you get bored. Prep parts, not plates.",
+      "what": "Instead of 5 identical boxes of chicken and rice, prep separate parts: one protein, one carb, two veg, and one sauce. Each day you mix them in a new way. Bowl on Monday, wrap on Tuesday, salad on Wednesday.",
+      "why": "Eating the same exact meal five days in a row is why most meal prep ends up in the bin by Thursday. Components give you variety with the same hour of work. Variety keeps you on track.",
+      "how": ["Cook one big protein, like chicken thighs or ground turkey.", "Cook one carb, like rice, potatoes or pasta.", "Roast two trays of veg.", "Make one sauce and store everything in separate boxes."],
+      "pro": "Change just the sauce and spice each day and it feels like a totally new meal.",
+      "tags": ["kitchen", "maintenance"]
+    },
+    {
+      "title": "The Default Dinner Rotation",
+      "hook": "Decision fatigue is why you order takeout. Remove the decision.",
+      "what": "Pick 5 easy, lean dinners you already like. Give each one a day of the week. That is your default. You can always change it, but if you are tired, the default wins.",
+      "why": "At the end of a long day your brain is worn out, and the easiest choice wins. When you have no plan, the easiest choice is delivery. A default dinner makes the healthy choice the easy choice.",
+      "how": ["Write down 5 dinners that take under 20 minutes.", "Assign each to a weekday, like Taco Tuesday.", "Build your grocery list from those 5 meals every week.", "Leave the weekend free and flexible."],
+      "pro": "Stick the list on the fridge. When someone asks what is for dinner, the fridge answers.",
+      "tags": ["kitchen", "maintenance", "shopping"]
+    },
+    {
+      "title": "The 3-Ingredient Protein Plate",
+      "hook": "You do not need a recipe. You need a protein, a veg and a flavor bomb.",
+      "what": "Build fast meals from just three things: a lean protein, a vegetable, and one strong flavor. Examples: shrimp + frozen stir-fry veg + teriyaki. Eggs + spinach + salsa. Chicken + bagged salad + pesto.",
+      "why": "Complex recipes feel like work, so you skip them. Three items is simple enough to do on your worst day. Protein plus veg gives you fullness and fiber, and the flavor bomb makes it feel like real food, not diet food.",
+      "how": ["Choose a protein from your fridge.", "Grab a veg from the freezer or a bagged salad.", "Add one strong flavor: salsa, pesto, curry paste, hot sauce or everything seasoning.", "Cook or heat in one pan and eat."],
+      "pro": "Cottage cheese + everything bagel seasoning + sliced cucumber is a 2-minute lunch that tastes like a bagel.",
+      "tags": ["kitchen", "quick-win"]
+    },
+    {
+      "title": "The Portion Pack Sunday",
+      "hook": "Never eat straight from the big bag again. Future you will say thank you.",
+      "what": "When you get home from the store, split big bags of snacks into single portions right away. Nuts, crackers, popcorn, cheese, trail mix. Use small bags or boxes.",
+      "why": "When you eat from a big bag, you have no stop sign. You keep going until the bag feels 'done'. A small pack gives you a natural end point, so you enjoy your snack and stop without thinking about it.",
+      "how": ["Buy a box of small zip bags or mini containers.", "Read the serving size on the package.", "Split the whole bag into single servings as soon as you unpack.", "Put the packs in a basket so grabbing one is easy."],
+      "pro": "Make the portion packs for your favorite treats too. It is not about banning them, it is about giving them a clear finish line.",
+      "tags": ["cravings", "kitchen", "shopping"]
+    },
+    {
+      "title": "The Big Batch Hour",
+      "hook": "One hour of cooking on Sunday saves you from ten bad decisions during the week.",
+      "what": "Pick one hour a week to cook in bulk. Run the oven, the stove and the rice cooker at the same time. Make enough protein, carbs and veg for 3 to 4 days.",
+      "why": "Cooking every single day is where most people give up. Doing it all at once uses the same heat and the same cleanup for many meals. When food is ready, you eat it instead of ordering.",
+      "how": ["Put 2 trays of veg and a tray of chicken in the oven together.", "Cook a big pot of rice or potatoes on the stove.", "While it cooks, wash and chop fruit for the week.", "Cool everything and pack into clear boxes."],
+      "pro": "Use clear containers. If you can see the food, you remember to eat it.",
+      "tags": ["kitchen", "maintenance"]
+    },
+    {
+      "title": "The Flavor Cheat Shelf",
+      "hook": "Lean food is not boring. You are just missing the right shelf in your fridge.",
+      "what": "Create a shelf of low-calorie flavor boosters: hot sauce, mustard, salsa, pickles, lemon, garlic, vinegar, soy sauce, spice mixes, and plain Greek yogurt for creamy sauces. Use these first, and use creamy, oily dressings as a small extra.",
+      "why": "Most people quit healthy eating because the food tastes flat. Strong flavors like acid, heat and salt make food exciting without adding many calories. Butter, mayo and creamy dressings are not bad, but they add up fast when you pour freely.",
+      "how": ["Buy 3 new flavor boosters this week, like chili crisp, smoked paprika and a good salsa.", "Mix Greek yogurt with garlic, lemon and salt for a creamy dip.", "Squeeze lemon or lime on every plate before adding more salt.", "Measure oil with a spoon instead of pouring from the bottle."],
+      "pro": "A spray bottle of olive oil gives you crispy roasted veg with a fraction of the oil.",
+      "tags": ["kitchen", "cravings"]
+    }
+  ],
+  "mythBust": {
+    "myth": "Fresh vegetables are always healthier than frozen ones.",
+    "truth": "Frozen vegetables are usually picked ripe and frozen within hours, so they keep their nutrients well. Fresh veg can lose some nutrients while it sits in trucks and fridges. The best vegetable is the one you actually eat, and frozen ones never rot in your drawer."
+  },
+  "tryThis": {
+    "title": "Tonight's Try-This",
+    "text": "Open your fridge and freezer and count your zero-cook proteins and bags of frozen veg. If you have fewer than 3 of each, write them at the top of your next grocery list."
+  },
+  "journal": [
+    "Which food in my kitchen do I overeat most, and could I portion it or stop buying it for now?",
+    "What 5 dinners could become my easy default rotation?",
+    "When do I usually order takeout, and what ready food would stop that?"
+  ],
+  "quote": "Your kitchen is louder than your willpower. Make it say the right things."
+}

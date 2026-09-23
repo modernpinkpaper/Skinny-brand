@@ -1,0 +1,114 @@
+{
+  "id": "ch08",
+  "number": 8,
+  "title": "The Drink Laws",
+  "subtitle": "Stop drinking calories your body never notices",
+  "law": "Your stomach counts food. It barely counts drinks. So chew your calories.",
+  "intro": "Here is the sneaky part about drinks. You can sip a lot of calories and still feel just as hungry as before. Your body does not register liquid the same way it registers food you chew.\n\nThat means your latte, your juice, your smoothie and your weekend wine might be quietly adding up to a whole extra meal. And you still eat dinner on top of it.\n\nThis chapter is not about banning your favorite drinks. It is about knowing where the hidden calories hide, swapping smart, and building drink rituals that actually help you stay lean.",
+  "hacks": [
+    {
+      "title": "The Coffee Order Audit",
+      "hook": "Your daily coffee might have more sugar than a donut. Let's fix that without losing the joy.",
+      "what": "Look up the nutrition info for your usual coffee order today. Then change just one thing: fewer syrup pumps, a smaller size, or milk instead of cream. Keep the ritual, shrink the calories.",
+      "why": "Big café drinks with syrups, whipped cream and sweet creamers can have as many calories as a meal. But because you drink them, they do not fill you up. One small change repeated every day adds up to a big difference over a month.",
+      "how": ["Find your exact order on the café app or website and check the calories.", "Cut the syrup pumps in half. Most drinks have 3 to 6 pumps.", "Swap whipped cream for a sprinkle of cinnamon or cocoa.", "Size down one step and see if you even notice."],
+      "pro": "Ask for 'half sweet' or '1 pump'. Most people cannot taste the difference after a week.",
+      "tags": ["drinks", "quick-win", "eating-out"]
+    },
+    {
+      "title": "Chew Your Fruit",
+      "hook": "The same fruit fills you up way more when you eat it than when you drink it.",
+      "what": "Eat whole fruit instead of drinking juice. If you love smoothies, make them thick enough to eat with a spoon, and add protein. Treat juice like a treat, not a health drink.",
+      "why": "A Penn State study by Barbara Rolls found people who ate a whole apple before lunch ate less at the meal than people who had applesauce or apple juice with the same calories. Chewing takes time and whole fruit keeps its fiber, which helps you feel full. Juice removes most of the fiber and goes down in seconds.",
+      "how": ["Swap your morning juice for a piece of whole fruit.", "If you make a smoothie, add Greek yogurt or protein powder and use less liquid.", "Pour it into a bowl and eat it with a spoon, with toppings you can chew.", "If you drink juice, use a small glass and have it with food."],
+      "pro": "A smoothie bowl you chew feels like a meal. The same smoothie in a straw feels like nothing.",
+      "tags": ["drinks", "hunger"]
+    },
+    {
+      "title": "The Protein Coffee",
+      "hook": "Turn your morning coffee into a drink that actually keeps you full until lunch.",
+      "what": "Make your coffee with a scoop of protein powder or a ready-to-drink protein shake instead of creamer. Iced or hot, you get creamy and sweet with a big hit of protein.",
+      "why": "Protein is the most filling thing you can eat. Most people eat very little of it at breakfast. Adding it to a habit you already have (coffee) is the easiest way to get more of it without changing your routine.",
+      "how": ["Pour a vanilla or caramel protein shake over ice.", "Add a shot of espresso or cold brew on top.", "For hot coffee, whisk protein powder with a little cold milk first, then add the hot coffee so it does not clump.", "Taste and adjust. Add cinnamon if you want more flavor."],
+      "pro": "A small milk frother makes protein powder silky smooth in 10 seconds.",
+      "tags": ["drinks", "hunger", "quick-win"]
+    },
+    {
+      "title": "The Bubbles Ritual",
+      "hook": "Your soda habit is really a fizz habit. Keep the fizz, drop the sugar.",
+      "what": "Replace sugary soda with sparkling water that you make feel special. Use a nice glass, lots of ice, and real fruit or herbs. Have it at the times you usually reach for soda or a snack.",
+      "why": "A lot of soda drinking is about the feeling: cold, fizzy, a little treat. Sparkling water gives you the same feeling. Making it look pretty tells your brain this is a treat, not a punishment.",
+      "how": ["Buy a few flavors of unsweetened sparkling water.", "Fill a nice glass with ice.", "Add a squeeze of lime, a few berries, cucumber slices or fresh mint.", "Drink it at your usual soda time or when you want an afternoon snack."],
+      "pro": "Add a splash of tart cherry or cranberry juice for color and flavor with very few calories.",
+      "tags": ["drinks", "cravings"]
+    },
+    {
+      "title": "The Tall Thin Glass",
+      "hook": "Change the glass and you change how much you pour, without even trying.",
+      "what": "For any drink with calories, like juice, wine or soda, use a tall thin glass instead of a short wide one. Save the wide glasses for water.",
+      "why": "Our eyes are bad at judging volume. We look at how high the liquid goes, not how wide it is. So a wide glass tricks you into pouring more. A tall glass looks full with less.",
+      "how": ["Move the short wide glasses to the back of the cupboard.", "Put tall thin glasses in front.", "Pour wine into a smaller wine glass, not a huge one.", "Use wide glasses and jugs for water only."],
+      "pro": "Stop pouring wine when the glass is at its widest point. That is roughly one serving in most glasses.",
+      "tags": ["drinks", "kitchen", "quick-win"]
+    },
+    {
+      "title": "The Alcohol Triple Threat",
+      "hook": "Alcohol hits your goals three times: at the bar, in your body, and tomorrow morning.",
+      "what": "Know the three ways alcohol works against you. First, it lowers your guard so you eat more. Second, your body pauses fat burning while it clears the alcohol. Third, bad sleep after drinking makes you hungrier the next day. Plan for all three.",
+      "why": "Your body treats alcohol as a priority to clear out, so it burns that first and puts fat burning on hold. Alcohol also makes it easier to say yes to late-night food. And poor sleep can boost hunger and cravings the next day.",
+      "how": ["Decide how many drinks you will have before you go out.", "Eat a proper meal with protein before you drink.", "Have a glass of water between every drink.", "Plan a filling protein breakfast for the next morning so you are not hunting for greasy food."],
+      "pro": "Order your first drink as a sparkling water with lime. You arrive calm and you are not drinking on an empty stomach.",
+      "tags": ["drinks", "social", "eating-out"]
+    },
+    {
+      "title": "The Mocktail Upgrade",
+      "hook": "You don't need a drink. You need something fancy in your hand.",
+      "what": "When you want to join in without a lot of alcohol, order or make a real mocktail. Or try a spritz: a small pour of wine or spirit with lots of sparkling water and ice.",
+      "why": "At parties, a lot of drinking is about having something in your hand and feeling part of the fun. A great-looking mocktail or spritz gives you that feeling with much less alcohol and fewer calories.",
+      "how": ["Ask the bartender for soda water, lime, mint and a splash of bitters in a fancy glass.", "Make a wine spritz: half wine, half sparkling water, lots of ice.", "At home, mix sparkling water, crushed berries and fresh herbs in a nice glass.", "Alternate: one real drink, then one mocktail."],
+      "pro": "Use a cocktail glass at home. Presentation makes a simple drink feel like an event.",
+      "tags": ["drinks", "social"]
+    },
+    {
+      "title": "Electrolytes, Not Sports Drinks",
+      "hook": "Unless you are running a marathon, that sports drink is basically soda.",
+      "what": "For normal workouts and hot days, skip the sugary sports drinks. Use water with a sugar-free electrolyte packet or tablet, or just water and a salty snack after a long sweat.",
+      "why": "Sports drinks are made for long, hard exercise where your body needs quick sugar. For a normal gym session or walk, you do not need that sugar. Low-sugar electrolytes give you the salts without the extra calories.",
+      "how": ["Keep sugar-free electrolyte packets in your gym bag.", "Use plain water for workouts under an hour.", "Add electrolytes on very hot days or after a lot of sweating.", "Read the label: look for low or zero sugar."],
+      "pro": "Sometimes a 'craving' in the afternoon is really thirst. Try a big glass of water with electrolytes first and see how you feel.",
+      "tags": ["drinks", "movement"]
+    },
+    {
+      "title": "The Closing Tea",
+      "hook": "Give your kitchen a closing time with a warm cup that tells your brain 'we're done'.",
+      "what": "After dinner, make a cup of herbal tea like peppermint, chamomile or rooibos. This is your signal that eating is finished for the day. Sip it slowly on the couch.",
+      "why": "Lots of evening snacking is habit, not hunger. A warm drink gives your hands and mouth something to do. Peppermint also leaves a fresh taste that makes food less tempting. Over time, the tea becomes a routine that says the kitchen is closed.",
+      "how": ["Buy 2 or 3 herbal teas you enjoy, like peppermint, chamomile or cinnamon.", "Make one right after dinner or when you clean up.", "Drink it in your relaxing spot, away from the kitchen.", "Brush your teeth after for a double 'done' signal."],
+      "pro": "Choose caffeine-free teas at night so your sleep stays deep.",
+      "tags": ["drinks", "cravings", "sleep"]
+    },
+    {
+      "title": "The Water Anchor",
+      "hook": "Tie a glass of water to things you already do, and you'll never have to remember.",
+      "what": "Instead of trying to 'drink more water', attach one glass of water to moments that already happen every day: waking up, each meal, and each coffee. Water first, then the thing.",
+      "why": "Vague goals like 'drink more' do not stick. Linking a new habit to an old one makes it automatic. A glass before meals also starts filling your stomach so you feel satisfied a little sooner.",
+      "how": ["Put a glass by your bed and drink it when you wake up.", "Drink a glass of water before every meal.", "Have a glass of water with every coffee.", "Keep a bottle on your desk in plain sight."],
+      "pro": "Use a bottle with a straw. Most people drink more through a straw without noticing.",
+      "tags": ["drinks", "hunger", "quick-win"]
+    }
+  ],
+  "mythBust": {
+    "myth": "Smoothies and fresh juice are always a healthy choice.",
+    "truth": "Juice and many smoothies are full of fruit sugar with most of the fiber removed or broken down, and they go down fast. They are fine as a treat, but they do not fill you up like whole fruit. If you want a smoothie, add protein and eat it with a spoon."
+  },
+  "tryThis": {
+    "title": "Tonight's Try-This",
+    "text": "Write down everything you drank today that was not water, plain coffee or plain tea. Pick one and plan a lighter swap for tomorrow."
+  },
+  "journal": [
+    "Which drink do I have almost every day without thinking about it?",
+    "When do I drink for comfort or habit, not thirst?",
+    "What drink ritual could make my evenings feel calm and finished?"
+  ],
+  "quote": "Sip slowly, chew your fruit, and let your drinks work for you."
+}
