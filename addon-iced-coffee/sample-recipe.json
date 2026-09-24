@@ -1,0 +1,13 @@
+{
+  "n": 47,
+  "total": 187,
+  "name": "the brown sugar babe",
+  "tags": ["~70 cal at home", "5 min", "dairy-free option"],
+  "home": {
+    "ingredients": ["2 shots espresso (or 1/2 cup strong cold brew)", "1 tsp brown sugar (or 1 tbsp sugar-free brown sugar syrup)", "pinch of cinnamon", "ice", "1/2 cup unsweetened oat milk"],
+    "steps": ["shake espresso, brown sugar, cinnamon + ice in a jar for 10 sec", "pour into a glass of ice", "top with oat milk"]
+  },
+  "order": "can i get a grande iced shaken espresso with oat milk, just 1 pump of brown sugar, and cinnamon on top?",
+  "tip": "protein hack: swap half the oat milk for a vanilla protein shake = +15g protein",
+  "sass": "same vibe, way less syrup. your barista won't even blink."
+}
