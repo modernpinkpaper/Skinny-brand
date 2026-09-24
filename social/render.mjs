@@ -139,6 +139,26 @@ html,body{width:${W}px;height:${H}px;overflow:hidden;background:var(--cream);fon
 .cta .l1{font:400 76px/1.08 DMSerif}
 .cta .l2{margin-top:26px;font:500 36px/1.4 Inter;color:var(--plum)}
 .cta .btn{display:inline-block;margin-top:44px;background:var(--hot);color:#fff;font:800 40px Inter;padding:30px 60px;border-radius:99px;letter-spacing:.02em}
+/* photo layouts */
+.pbg{position:absolute;inset:-2px;background-size:cover;background-position:center;transform-origin:50% 45%}
+.shade-top{position:absolute;left:0;right:0;top:0;height:900px;background:linear-gradient(rgba(0,0,0,.28),rgba(0,0,0,0))}
+.shade-bot{position:absolute;left:0;right:0;bottom:0;height:1250px;background:linear-gradient(rgba(20,10,14,0) 0%,rgba(20,10,14,.62) 38%,rgba(20,10,14,.86) 100%)}
+.tt{position:absolute;left:70px;right:150px;top:250px;text-align:center}
+.tt .l{display:inline;background:#fff;color:#111;font:700 60px/1.48 Inter;padding:6px 20px;border-radius:14px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.tt .s{display:inline-block;margin-top:26px;background:rgba(0,0,0,.72);color:#fff;font:600 38px/1.4 Inter;padding:8px 20px;border-radius:12px}
+.pcard{position:absolute;left:70px;right:120px;bottom:470px;color:#fff}
+.pcard .pill{display:inline-block;background:var(--hot);color:#fff;font:800 25px Inter;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;border-radius:99px;margin-bottom:26px}
+.pcard h2{font:400 84px/1.04 DMSerif;margin-bottom:22px;text-shadow:0 2px 20px rgba(0,0,0,.3)}
+.pcard p{font:500 40px/1.42 Inter}
+.pcard .small{margin-top:22px;font:600 31px/1.4 Inter;color:#FFD1DC}
+.ph-handle{position:absolute;left:0;right:0;bottom:420px;text-align:center;font:700 24px Inter;letter-spacing:.2em;color:rgba(255,255,255,.7)}
+.ctaw{position:absolute;inset:0;background:rgba(20,10,14,.45)}
+.ctab{position:absolute;left:0;right:0;top:230px;text-align:center;color:#fff}
+.ctab .book{width:470px;height:640px;margin:0 auto 46px;padding:50px 56px 50px 66px}
+.ctab .book h3{font-size:78px}.ctab .book p{font-size:25px}
+.ctab .l1{font:400 78px/1.06 DMSerif;text-shadow:0 2px 24px rgba(0,0,0,.35)}
+.ctab .l2{margin-top:18px;font:600 34px/1.4 Inter;color:#FFE3EA}
+.ctab .btn{display:inline-block;margin-top:34px;background:var(--hot);color:#fff;font:800 40px Inter;padding:28px 58px;border-radius:99px}
 /* video overlay text (TikTok style boxes) */
 .ovl{position:absolute;left:90px;right:150px;top:560px;display:flex;flex-direction:column;align-items:center;text-align:center}
 .ovl span{display:inline;background:#fff;color:#111;font:700 58px/1.5 Inter;padding:6px 20px;border-radius:14px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
@@ -180,12 +200,37 @@ function windowBg(t = 0) {
 }
 const bgFor = (bg, t = 0) => bg === "window" ? windowBg(t) : bg === "green" ? `<div class="stage bg-green"></div>` : `<div class="stage bg-${bg || "blush"}"><div class="grain"></div></div>`;
 
+// ───────────────────────── media ─────────────────────────
+const MY = path.join(__dir, "my-photos", "named");
+function media(spec) {
+  const key = String(spec).split("@")[0];
+  for (const ext of [".png", ".jpg", ".jpeg", ".webp"]) {
+    const f = path.join(MY, key + ext);
+    if (fs.existsSync(f)) return "file://" + f;
+  }
+  throw new Error("missing photo: " + key + " (add social/my-photos/named/" + key + ".png)");
+}
+const pbg = (spec, style = "") => `<div class="pbg" style="background-image:url('${media(spec)}');${style}"></div>`;
+const ttBox = (text, sub) => `<div class="tt"><span class="l">${esc(text)}</span>${sub ? `<br><span class="s">${esc(sub)}</span>` : ""}</div>`;
+function photoCard(s) {
+  return `${pbg(s.img)}<div class="shade-bot"></div><div class="pcard">${s.kicker ? `<div class="pill">${esc(s.kicker)}</div>` : ""}<h2>${esc(s.title)}</h2>${s.text ? `<p>${esc(s.text)}</p>` : ""}${s.small ? `<p class="small">${esc(s.small)}</p>` : ""}</div>`;
+}
+function ctaPhoto(img) {
+  return `${pbg(img)}<div class="ctaw"></div><div class="ctab"><div class="book"><div class="k">@theskinnylaws</div><h3>The Skinny Laws<br><em>Vault</em></h3><p>120 unusual hacks to get lean & stay lean — without starving</p><div class="lock">🔐</div></div><div class="l1">Want the other 119?</div><div class="l2">12 Laws · 120 hacks · quiz · 30-day challenge</div><div class="btn">🔗 Link in bio</div></div>`;
+}
+
 // ───────────────────────── slide templates ─────────────────────────
 const bubbles = (msgs) => msgs.map(m => `<div class="b ${m.me ? "me" : "them"}">${esc(m.text)}</div>`).join("");
 function slideHTML(s, i, n) {
   const swipe = i < n - 1 ? `<div class="swipe">swipe →</div>` : "";
   const handle = `<div class="handle">@theskinnylaws</div>`;
   switch (s.t) {
+    case "meme":
+      return `${pbg(s.img)}<div class="shade-top"></div>${ttBox(s.text, s.sub)}`;
+    case "photo":
+      return photoCard(s);
+    case "search":
+      return searchHTML(s.query, s.answer, s.source, 1);
     case "hook": {
       const dark = s.bg === "ink";
       return `${bgFor(s.bg)}<div class="stage ${dark ? "dark" : ""}"><div class="center hook"><h1>${esc(s.text)}</h1>${s.sub ? `<div class="sub">${esc(s.sub)}</div>` : ""}</div>${handle}</div>`;
@@ -207,11 +252,12 @@ function slideHTML(s, i, n) {
     case "tweet":
       return `${bgFor("ink")}<div class="stage dark"><div class="center"><div class="tweet"><div class="who"><div class="pic">S</div><div><div class="n">The Skinny Laws</div><div class="h">@theskinnylaws</div></div></div><p>${esc(s.text)}</p><div class="meta">9:41 PM · the vault 🔐</div></div></div>${swipe}</div>`;
     case "type":
+      if (s.img) return photoCard({ img: s.img, kicker: "Which one are you?", title: s.name, text: s.text });
       return `${bgFor("blush")}<div class="stage"><div class="center typecard"><div class="em">${s.emoji}</div><h2>${esc(s.name)}</h2><p>${esc(s.text)}</p></div>${handle}${swipe}</div>`;
     case "toc":
       return `${bgFor("ink")}<div class="stage dark"><div class="center toc"><div class="kicker">The 12 Laws</div>${LAWS.map((l, k) => `<div class="row"><b>${String(k + 1).padStart(2, "0")}</b>${esc(l)}</div>`).join("")}</div></div>`;
     case "cta":
-      return ctaHTML();
+      return s.img ? ctaPhoto(s.img) : ctaHTML();
   }
   throw new Error("unknown slide type " + s.t);
 }
@@ -315,22 +361,44 @@ function overlayVideo(v, green) {
   });
 }
 
+function brollVideo(v, ctaImg) {
+  const starts = []; let tt = 0;
+  for (const sc of v.scenes) { starts.push(tt); tt += sc.d; }
+  const dur = tt;
+  const tl = (t) => {
+    let k = starts.findIndex((st, i) => t >= st && (i === starts.length - 1 || t < starts[i + 1]));
+    if (k < 0) k = starts.length - 1;
+    const sc = v.scenes[k], p = Math.min(1, (t - starts[k]) / sc.d);
+    // slow push-in with a gentle drift + tiny handheld sway so stills feel filmed
+    const dir = k % 2 ? -1 : 1, sc0 = 1.04 + 0.1 * p;
+    const sx = Math.sin(t * 1.7) * 3 + dir * 26 * p, sy = Math.cos(t * 1.3) * 3 - 12 * p;
+    const s2 = pop(Math.min(1, (t - starts[k]) / 0.32));
+    return `${pbg(sc.clip, `transform:translate(${sx.toFixed(1)}px,${sy.toFixed(1)}px) scale(${sc0.toFixed(4)})`)}<div class="shade-top"></div>` +
+      `<div class="tt" style="transform:scale(${(0.9 + 0.1 * s2).toFixed(3)});opacity:${Math.min(1, s2 * 1.5).toFixed(2)}"><span class="l">${esc(sc.text)}</span></div>`;
+  };
+  return { dur: dur + CTA_DUR, frame: (t) => t < dur ? tl(t) : `${tl(dur - 0.001)}<div class="stage" style="opacity:${ease((t - dur) / 0.35)}">${ctaPhoto(ctaImg)}</div>` };
+}
+
 // ───────────────────────── rendering ─────────────────────────
+const TMP = path.join(__dir, ".tmp-page.html");
+async function show(page, inner) {
+  fs.writeFileSync(TMP, page0(inner));
+  await page.goto("file://" + TMP, { waitUntil: "load" });
+  await page.evaluate(() => Promise.all([document.fonts.ready, ...[...document.querySelectorAll("img")].map(i => i.decode().catch(() => {}))]));
+}
 const page0 = (inner) => `<!doctype html><html><head><meta charset="utf-8"><style>${CSS}${ASSET_CSS}</style></head><body>${inner}</body></html>`;
 
 async function renderCarousel(page, post, dir) {
   const n = post.slides.length;
   for (let i = 0; i < n; i++) {
-    await page.setContent(page0(slideHTML(post.slides[i], i, n)), { waitUntil: "load" });
-    await page.evaluate(() => document.fonts.ready);
+    await show(page, slideHTML(post.slides[i], i, n) + preload(post));
     await page.screenshot({ path: path.join(dir, `slide-${String(i + 1).padStart(2, "0")}.png`) });
   }
   return `${n} slides`;
 }
 
 async function renderVideo(page, tl, file) {
-  await page.setContent(page0(`<div id="root"></div>`), { waitUntil: "load" });
-  await page.evaluate(() => document.fonts.ready);
+  await show(page, `<div id="root"></div>` + (tl.preload || ""));
   const frames = Math.ceil(tl.dur * FPS);
   const ff = spawn(FFMPEG, ["-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(FPS), "-i", "-",
     "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo", "-shortest",
@@ -352,19 +420,26 @@ async function renderVideo(page, tl, file) {
   return `${tl.dur.toFixed(1)}s`;
 }
 
+function preload(post) {
+  const specs = [...(post.slides || []).map(x => x.img), ...((post.video && post.video.scenes) || []).map(x => x.clip), post.video && (post.video.cta || "mirror_selfie")].filter(Boolean);
+  return `<div style="position:absolute;left:-9999px">${[...new Set(specs.map(media))].map(u => `<img src="${u}">`).join("")}</div>`;
+}
 function timelineFor(post, green = false) {
   const v = post.video;
   if (v.t === "notes") return notesVideo(v, post.onScreenHook);
   if (v.t === "imsg") return imsgVideo(v, post.onScreenHook);
-  if (v.t === "google") return searchVideo(v, post.onScreenHook);
+  if (v.t === "google" || v.t === "search") return searchVideo(v, post.onScreenHook);
   if (v.t === "overlay") return overlayVideo(v, green);
+  if (v.t === "broll") return brollVideo(v, v.cta || "mirror_selfie");
   throw new Error("unknown video type " + v.t);
 }
 
 function writeCaption(post, dir) {
   const typeLine = post.format === "carousel"
     ? `FORMAT: Photo carousel (${post.slides.length} slides). Upload the PNGs in order in TikTok "Photo" mode.`
-    : post.video.t === "overlay"
+    : post.video.t === "broll"
+      ? `FORMAT: Video — your photos with caption text (b-roll style). Post video.mp4 as is.`
+      : post.video.t === "overlay"
       ? `FORMAT: Video with b-roll + text overlay.\n  • READY TO POST: video.mp4 (text over a soft window-light background)\n  • WANT REAL B-ROLL? Film the shots below, then in CapCut add overlay-greenscreen.mp4 on top → Remove BG → Chroma key → pick the green.`
       : `FORMAT: Video (${post.video.t === "notes" ? "Notes-app typing" : post.video.t === "imsg" ? "text-message chat" : "search-bar typing"}). Post video.mp4 as is.`;
   const broll = post.video?.broll ? `\nB-ROLL SHOT LIST (3–4 sec each, phone vertical, no face needed):\n${post.video.broll.map((b, i) => `  ${i + 1}. ${b}`).join("\n")}\n` : "";
@@ -401,8 +476,9 @@ for (const post of POSTS) {
   let info;
   if (post.format === "carousel") info = await renderCarousel(page, post, dir);
   else {
-    info = await renderVideo(page, timelineFor(post), path.join(dir, "video.mp4"));
-    if (post.video.t === "overlay") await renderVideo(page, timelineFor(post, true), path.join(dir, "overlay-greenscreen.mp4"));
+    const tlx = timelineFor(post); tlx.preload = preload(post);
+    info = await renderVideo(page, tlx, path.join(dir, "video.mp4"));
+    if (post.video.t === "overlay" && false) await renderVideo(page, timelineFor(post, true), path.join(dir, "overlay-greenscreen.mp4"));
   }
   writeCaption(post, dir);
   console.log(`✓ ${post.id} — ${info} (${((Date.now() - t0) / 1000).toFixed(0)}s)`);

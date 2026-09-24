@@ -1,3 +1,6 @@
 __pycache__/
 *.log
 social/broll/*.mp4
+social/my-photos/raw/
+social/.tmp-page.html
+social/broll/

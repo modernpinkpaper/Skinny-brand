@@ -2,6 +2,11 @@
 
 Everything for your TikTok page **@theskinnylaws** and your paid product is in this folder.
 
+## Your links
+- **TikTok bio link (goes straight to checkout, no other products shown):** https://modernpinkpaper.com/cart/52535817404632:1
+- Product page (Unlisted, only people with the link can see it): https://modernpinkpaper.com/products/the-skinny-laws-vault
+- Price: $19. Shipping is off, and it's hidden from Google and your shop's search.
+
 ## 1. The product: *The Skinny Laws Vault*
 
 Folder: `product/dist/`
@@ -28,7 +33,6 @@ Folder: `tiktok-posts/day-1` … `day-7`. Every post has its own folder with:
 
 - **Carousels** → `slide-01.png`, `slide-02.png`… Upload them in order in TikTok **Photo** mode.
 - **Videos** → `video.mp4`, ready to post.
-- **B-roll videos** also have `overlay-greenscreen.mp4`. Use it if you'd rather show your own clips (see below).
 - `caption.txt` → post time, caption, hashtags, pinned comment, sound tip and (for b-roll posts) a shot list.
 
 ### Daily schedule
