@@ -3,7 +3,8 @@
 @font-face{font-family:Lora;font-style:italic;font-weight:400 600;src:url(../brand/fonts/Lora-italic.woff2)}
 @font-face{font-family:Inter;font-weight:400 800;src:url(../brand/fonts/Inter-normal.woff2)}
 @font-face{font-family:Caveat;src:url(../brand/fonts/Caveat-normal.woff2)}
-:root{--paper:#F8F4EE;--ink:#2F2A27;--soft:#8A7F78;--line:#DCD3C9;--accent:#B7867A;--calm:#EFE7DD}
+:root{--paper:#FFFFFF;--ink:#111111;--soft:#6b6b6b;--line:#bdbdbd;--accent:#333333;--calm:#FFFFFF}
+.cover{--calm:#EFE7DD;--accent:#B7867A;--paper:#F8F4EE}
 *{box-sizing:border-box;margin:0}
 body{background:#d9d4ce;font-family:Lora,Georgia,serif;color:var(--ink)}
 /* 6 x 9 in book page (KDP standard) at 150 dpi */
@@ -15,13 +16,13 @@ h1,h2,h3{font-weight:400}
 /* cover */
 .cover{display:flex;flex-direction:column;justify-content:center;text-align:center;background:var(--calm)}
 .cover h1{font-size:112px;line-height:1;letter-spacing:-.01em;margin:40px 0 36px}
-.cover .sub{font:italic 400 34px/1.45 Lora;color:#5d534d;max-width:620px;margin:0 auto}
+.cover .sub{font:italic 400 34px/1.45 Lora;color:#444;max-width:620px;margin:0 auto}
 .cover .by{position:absolute;bottom:110px;left:0;right:0;font:500 18px Inter;letter-spacing:.24em;color:var(--soft)}
 .rule{width:60px;height:2px;background:var(--accent);margin:0 auto}
 /* intro */
 .prose p{font-size:28px;line-height:1.75;margin-bottom:28px}
 .prose h2{font-size:52px;margin-bottom:50px}
-.note{margin-top:40px;padding:28px 32px;border-left:3px solid var(--accent);background:var(--calm);font:400 21px/1.6 Inter;color:#5d534d}
+.note{margin-top:40px;padding:28px 32px;border:1.5px solid #9a9a9a;font:400 21px/1.6 Inter;color:#444}
 /* contents */
 .toc h2{font-size:56px;margin-bottom:60px}
 .toc .row{display:flex;align-items:baseline;gap:18px;padding:22px 0;border-bottom:1px solid var(--line);font-size:29px}
@@ -30,22 +31,25 @@ h1,h2,h3{font-weight:400}
 .opener{display:flex;flex-direction:column;justify-content:center;text-align:center}
 .opener .num{font:400 150px Lora;color:var(--accent);line-height:1}
 .opener h2{font-size:66px;line-height:1.1;margin:30px 0}
-.opener p{font:italic 400 30px/1.6 Lora;color:#5d534d;max-width:600px;margin:0 auto}
+.opener p{font:italic 400 30px/1.6 Lora;color:#444;max-width:600px;margin:0 auto}
 /* entry */
 .entry .said{font-size:37px;line-height:1.5;margin:6px 0 20px}
 .entry .said::before{content:"“";display:block;font-size:110px;line-height:.6;color:var(--accent);height:52px}
 .entry .who{font:500 18px Inter;color:var(--soft);letter-spacing:.06em;margin-bottom:54px}
-.needed{background:var(--calm);border-radius:6px;padding:40px 44px;margin-bottom:56px}
+.needed{border:1.5px solid #9a9a9a;border-radius:6px;padding:40px 44px;margin-bottom:56px}
 .needed .small{margin-bottom:16px}.needed p{font:italic 400 31px/1.55 Lora}
 .turn .small{margin-bottom:14px}.turn .q{font-size:27px;line-height:1.55;margin-bottom:20px}
-.lines div{height:62px;border-bottom:1.5px solid var(--line);font:500 40px/62px Caveat;color:#4a5b8c;padding-left:6px}
+.lines div{height:66px;border-bottom:1.5px solid var(--line);font:500 40px/62px Caveat;color:#333;padding-left:6px}
 /* breathe page */
-.breathe{display:flex;flex-direction:column;justify-content:center;text-align:center;background:var(--calm)}
+.breathe{display:flex;flex-direction:column;justify-content:center;text-align:center}
 .breathe p{font:italic 400 58px/1.35 Lora;max-width:640px;margin:0 auto}
 .breathe .small{margin-top:60px}
 /* letter */
-.letter h2{font-size:52px;margin-bottom:14px}.letter .hint{font:italic 400 25px/1.55 Lora;color:#5d534d;margin-bottom:40px}
+.letter h2{font-size:52px;margin-bottom:14px}.letter .hint{font:italic 400 25px/1.55 Lora;color:#444;margin-bottom:40px}
 .letter .dear{font-size:30px;margin-bottom:6px}
+.write{padding-top:110px}.write .small{margin-bottom:10px}.write .q{font:italic 400 24px/1.5 Lora;color:#444;margin-bottom:26px}
+.write .lines div{height:66px}
+.spread{display:flex;gap:30px;justify-content:center;margin:30px auto}.spread .page{margin:0}
 </style></head><body>
 
 <!-- 1. COVER -->
@@ -92,7 +96,7 @@ h1,h2,h3{font-weight:400}
   <div class="folio">1</div>
 </section>
 
-<!-- 5. ENTRY (blank prompt) -->
+<div class="spread"><!-- 5. ENTRY (blank prompt) -->
 <section class="page entry">
   <div class="run">The Favorite &amp; the Forgotten</div>
   <p class="said">My brother died suddenly. At the funeral, my mother turned to me and said it should have been me instead — in front of my children.</p>
@@ -101,11 +105,11 @@ h1,h2,h3{font-weight:400}
     <p>You were never the spare. Losing him doesn't make you worth less. You are allowed to take up space here — and your grief counts too.</p></div>
   <div class="turn"><div class="small">Your turn</div>
     <p class="q">Have you ever felt like the “less important” one? What would you say to the younger you who felt that way?</p>
-    <div class="lines"><div></div><div></div><div></div><div></div><div></div></div></div>
+    <div class="lines"><div></div><div></div><div></div></div></div>
   <div class="folio">4</div>
-</section>
+</section><section class="page write"><div class="run">Your turn</div><p class="q" style="margin-bottom:6px">keep writing…</p><div class="lines"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div class="folio">5</div></section></div>
 
-<!-- 6. ENTRY (example of a filled-in answer) -->
+<div class="spread"><!-- 6. ENTRY (example of a filled-in answer) -->
 <section class="page entry">
   <div class="run">The Favorite &amp; the Forgotten</div>
   <p class="said">I was crying, and my mom turned to my brother with a smile — “Isn't she so dramatic?” My brother was the one who came over and hugged me.</p>
@@ -114,9 +118,9 @@ h1,h2,h3{font-weight:400}
     <p>Your feelings were never “too much.” And the person who comforted you showed you what love is supposed to look like.</p></div>
   <div class="turn"><div class="small">Your turn</div>
     <p class="q">Who was the kind one in your story? Write down one thing they did that you still remember.</p>
-    <div class="lines"><div>my grandma. she let me sleep over</div><div>every time things got bad at home and</div><div>never once asked me why.</div><div></div><div></div></div></div>
-  <div class="folio">5</div>
-</section>
+    <div class="lines"><div>my brother. he sat with me on the</div><div>stairs and didnt say anything, just</div><div>stayed. nobody else ever did that.</div></div></div>
+  <div class="folio">6</div>
+</section><section class="page write"><div class="run">Your turn</div><p class="q" style="margin-bottom:6px">keep writing…</p><div class="lines"><div>i didn't know it then but that was</div><div>the safest place i had.</div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div class="folio">7</div></section></div>
 
 <!-- 7. BREATHE / QUOTE PAGE -->
 <section class="page breathe">
