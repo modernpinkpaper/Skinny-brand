@@ -1,0 +1,136 @@
+<!doctype html><html><head><meta charset="utf-8"><title>What They Said — mockup</title><style>
+@font-face{font-family:Lora;font-weight:400 600;src:url(../brand/fonts/Lora-normal.woff2)}
+@font-face{font-family:Lora;font-style:italic;font-weight:400 600;src:url(../brand/fonts/Lora-italic.woff2)}
+@font-face{font-family:Inter;font-weight:400 800;src:url(../brand/fonts/Inter-normal.woff2)}
+@font-face{font-family:Caveat;src:url(../brand/fonts/Caveat-normal.woff2)}
+:root{--paper:#F8F4EE;--ink:#2F2A27;--soft:#8A7F78;--line:#DCD3C9;--accent:#B7867A;--calm:#EFE7DD}
+*{box-sizing:border-box;margin:0}
+body{background:#d9d4ce;font-family:Lora,Georgia,serif;color:var(--ink)}
+/* 6 x 9 in book page (KDP standard) at 150 dpi */
+.page{width:900px;height:1350px;background:var(--paper);position:relative;padding:130px 110px 120px;margin:30px auto;overflow:hidden}
+.folio{position:absolute;bottom:60px;left:0;right:0;text-align:center;font:500 18px Inter;color:var(--soft);letter-spacing:.1em}
+.run{position:absolute;top:60px;left:0;right:0;text-align:center;font:500 15px Inter;letter-spacing:.24em;text-transform:uppercase;color:var(--soft)}
+h1,h2,h3{font-weight:400}
+.small{font:500 16px Inter;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+/* cover */
+.cover{display:flex;flex-direction:column;justify-content:center;text-align:center;background:var(--calm)}
+.cover h1{font-size:112px;line-height:1;letter-spacing:-.01em;margin:40px 0 36px}
+.cover .sub{font:italic 400 34px/1.45 Lora;color:#5d534d;max-width:620px;margin:0 auto}
+.cover .by{position:absolute;bottom:110px;left:0;right:0;font:500 18px Inter;letter-spacing:.24em;color:var(--soft)}
+.rule{width:60px;height:2px;background:var(--accent);margin:0 auto}
+/* intro */
+.prose p{font-size:28px;line-height:1.75;margin-bottom:28px}
+.prose h2{font-size:52px;margin-bottom:50px}
+.note{margin-top:40px;padding:28px 32px;border-left:3px solid var(--accent);background:var(--calm);font:400 21px/1.6 Inter;color:#5d534d}
+/* contents */
+.toc h2{font-size:56px;margin-bottom:60px}
+.toc .row{display:flex;align-items:baseline;gap:18px;padding:22px 0;border-bottom:1px solid var(--line);font-size:29px}
+.toc .row b{font:600 18px Inter;color:var(--accent);min-width:44px}.toc .row span{flex:1}.toc .row i{font:500 20px Inter;color:var(--soft);font-style:normal}
+/* chapter opener */
+.opener{display:flex;flex-direction:column;justify-content:center;text-align:center}
+.opener .num{font:400 150px Lora;color:var(--accent);line-height:1}
+.opener h2{font-size:66px;line-height:1.1;margin:30px 0}
+.opener p{font:italic 400 30px/1.6 Lora;color:#5d534d;max-width:600px;margin:0 auto}
+/* entry */
+.entry .said{font-size:37px;line-height:1.5;margin:6px 0 20px}
+.entry .said::before{content:"“";display:block;font-size:110px;line-height:.6;color:var(--accent);height:52px}
+.entry .who{font:500 18px Inter;color:var(--soft);letter-spacing:.06em;margin-bottom:54px}
+.needed{background:var(--calm);border-radius:6px;padding:40px 44px;margin-bottom:56px}
+.needed .small{margin-bottom:16px}.needed p{font:italic 400 31px/1.55 Lora}
+.turn .small{margin-bottom:14px}.turn .q{font-size:27px;line-height:1.55;margin-bottom:20px}
+.lines div{height:62px;border-bottom:1.5px solid var(--line);font:500 40px/62px Caveat;color:#4a5b8c;padding-left:6px}
+/* breathe page */
+.breathe{display:flex;flex-direction:column;justify-content:center;text-align:center;background:var(--calm)}
+.breathe p{font:italic 400 58px/1.35 Lora;max-width:640px;margin:0 auto}
+.breathe .small{margin-top:60px}
+/* letter */
+.letter h2{font-size:52px;margin-bottom:14px}.letter .hint{font:italic 400 25px/1.55 Lora;color:#5d534d;margin-bottom:40px}
+.letter .dear{font-size:30px;margin-bottom:6px}
+</style></head><body>
+
+<!-- 1. COVER -->
+<section class="page cover">
+  <div class="small">real words · real healing</div>
+  <h1>What They<br>Said</h1>
+  <div class="rule"></div>
+  <p class="sub" style="margin-top:36px">200 things families said that we're still healing from — and what we needed to hear instead</p>
+  <div class="by">A GUIDED JOURNAL</div>
+</section>
+
+<!-- 2. INTRO -->
+<section class="page prose">
+  <div class="run">Before you begin</div>
+  <h2>I didn't write this book.</h2>
+  <p>Thousands of strangers did. One question was asked online — <i>“What's something a family member said that you'll never fully forgive?”</i> — and people answered with things they had never said out loud.</p>
+  <p>I read every answer. I kept the words that stayed. And under each one, I wrote what that person deserved to hear instead.</p>
+  <p>You don't have to read this in order. Open it anywhere. Write, or don't. Put it down when it gets heavy — that's allowed too.</p>
+  <div class="note">A gentle note: some pages touch on grief, rejection and hurtful family moments. Stories have been shortened and changed so no one can be identified. If this brings up something big, please reach out to someone you trust or a support line — there's a list at the back.</div>
+  <div class="folio">vii</div>
+</section>
+
+<!-- 3. CONTENTS -->
+<section class="page toc">
+  <div class="run">Contents</div>
+  <h2>Contents</h2>
+  <div class="row"><b>01</b><span>The Favorite &amp; the Forgotten</span><i>1</i></div>
+  <div class="row"><b>02</b><span>“You're Lying”</span><i>27</i></div>
+  <div class="row"><b>03</b><span>What They Said When We Were Grieving</span><i>51</i></div>
+  <div class="row"><b>04</b><span>About Our Bodies</span><i>77</i></div>
+  <div class="row"><b>05</b><span>Loved, or Just Useful?</span><i>101</i></div>
+  <div class="row"><b>06</b><span>Babies, Bellies &amp; the Things You Don't Say</span><i>125</i></div>
+  <div class="row"><b>07</b><span>The Kind Ones</span><i>149</i></div>
+  <div class="row"><b>08</b><span>…And Then I Did</span><i>169</i></div>
+  <div class="row"><b>—</b><span>Letters I'll Never Send</span><i>193</i></div>
+  <div class="row"><b>—</b><span>Where to Find Support</span><i>205</i></div>
+</section>
+
+<!-- 4. CHAPTER OPENER -->
+<section class="page opener">
+  <div class="num">01</div>
+  <h2>The Favorite<br>&amp; the Forgotten</h2>
+  <p>For everyone who grew up watching a sibling get the softness they were never given.</p>
+  <div class="folio">1</div>
+</section>
+
+<!-- 5. ENTRY (blank prompt) -->
+<section class="page entry">
+  <div class="run">The Favorite &amp; the Forgotten</div>
+  <p class="said">My brother died suddenly. At the funeral, my mother turned to me and said it should have been me instead — in front of my children.</p>
+  <div class="who">— shared by a daughter, 30s</div>
+  <div class="needed"><div class="small">What you needed to hear</div>
+    <p>You were never the spare. Losing him doesn't make you worth less. You are allowed to take up space here — and your grief counts too.</p></div>
+  <div class="turn"><div class="small">Your turn</div>
+    <p class="q">Have you ever felt like the “less important” one? What would you say to the younger you who felt that way?</p>
+    <div class="lines"><div></div><div></div><div></div><div></div><div></div></div></div>
+  <div class="folio">4</div>
+</section>
+
+<!-- 6. ENTRY (example of a filled-in answer) -->
+<section class="page entry">
+  <div class="run">The Favorite &amp; the Forgotten</div>
+  <p class="said">I was crying, and my mom turned to my brother with a smile — “Isn't she so dramatic?” My brother was the one who came over and hugged me.</p>
+  <div class="who">— shared by a sister, 20s</div>
+  <div class="needed"><div class="small">What you needed to hear</div>
+    <p>Your feelings were never “too much.” And the person who comforted you showed you what love is supposed to look like.</p></div>
+  <div class="turn"><div class="small">Your turn</div>
+    <p class="q">Who was the kind one in your story? Write down one thing they did that you still remember.</p>
+    <div class="lines"><div>my grandma. she let me sleep over</div><div>every time things got bad at home and</div><div>never once asked me why.</div><div></div><div></div></div></div>
+  <div class="folio">5</div>
+</section>
+
+<!-- 7. BREATHE / QUOTE PAGE -->
+<section class="page breathe">
+  <p>“Their words were a prediction.<br>Not a promise.”</p>
+  <div class="small">take a breath before you turn the page</div>
+</section>
+
+<!-- 8. LETTER -->
+<section class="page letter">
+  <div class="run">Letters I'll Never Send</div>
+  <h2>A letter you'll never send</h2>
+  <p class="hint">Say the thing you never got to say. No one will read this but you — so say it all.</p>
+  <p class="dear">Dear ______________________,</p>
+  <div class="lines"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  <div class="folio">194</div>
+</section>
+</body></html>
