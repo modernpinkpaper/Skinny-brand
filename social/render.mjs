@@ -159,6 +159,8 @@ html,body{width:${W}px;height:${H}px;overflow:hidden;background:var(--cream);fon
 .ctab .l1{font:400 78px/1.06 DMSerif;text-shadow:0 2px 24px rgba(0,0,0,.35)}
 .ctab .l2{margin-top:18px;font:600 34px/1.4 Inter;color:#FFE3EA}
 .ctab .btn{display:inline-block;margin-top:34px;background:var(--hot);color:#fff;font:800 40px Inter;padding:28px 58px;border-radius:99px}
+.say{position:absolute;left:64px;right:64px;text-align:center}
+.say span{display:inline;background:#fff;color:#111;font:600 54px/1.5 Inter;padding:5px 16px;border-radius:12px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 /* video overlay text (TikTok style boxes) */
 .ovl{position:absolute;left:90px;right:150px;top:560px;display:flex;flex-direction:column;align-items:center;text-align:center}
 .ovl span{display:inline;background:#fff;color:#111;font:700 58px/1.5 Inter;padding:6px 20px;border-radius:14px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
@@ -225,6 +227,8 @@ function slideHTML(s, i, n) {
   const swipe = i < n - 1 ? `<div class="swipe">swipe →</div>` : "";
   const handle = `<div class="handle">@theskinnylaws</div>`;
   switch (s.t) {
+    case "say":
+      return `${pbg(s.img)}<div class="say" style="top:${Math.round((s.y ?? 0.14) * H)}px"><span>${esc(s.text)}</span></div>`;
     case "meme":
       return `${pbg(s.img)}<div class="shade-top"></div>${ttBox(s.text, s.sub)}`;
     case "photo":
@@ -279,14 +283,7 @@ const hookBox = (text, t, until, top) => {
   const o = Math.min(ease(t / 0.4), until ? 1 - ease((t - until) / 0.4) : 1);
   return text && o > 0 ? `<div class="vhook" style="opacity:${o}${top ? `;top:${top}px` : ""}"><span>${esc(text)}</span></div>` : "";
 };
-const withCTA = (dur, frame) => ({
-  dur: dur + CTA_DUR,
-  frame: (t) => {
-    if (t < dur) return frame(t);
-    const o = ease((t - dur) / 0.35);
-    return `${frame(dur)}<div class="stage" style="opacity:${o}">${ctaHTML()}</div>`;
-  },
-});
+const withCTA = (dur, frame) => ({ dur: dur + 1.2, frame: (t) => frame(Math.min(t, dur)) }); // no designed end card — just let it sit a sec
 
 function notesVideo(v, hook) {
   const CPS = 26; // chars per second typing
@@ -388,9 +385,31 @@ async function show(page, inner) {
 }
 const page0 = (inner) => `<!doctype html><html><head><meta charset="utf-8"><style>${CSS}${ASSET_CSS}</style></head><body>${inner}</body></html>`;
 
+const VAULT = "file://" + path.join(ROOT, "product", "dist", "the-skinny-laws-vault.html");
+async function vaultShot(sel, text, file) {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 693 }, deviceScaleFactor: 1080 / 390, isMobile: true });
+  const pg = await ctx.newPage();
+  await pg.goto(VAULT);
+  await pg.addStyleTag({ content: `html{scroll-behavior:auto!important}.bar{top:30px!important}.fab{display:none}
+    #st{position:fixed;left:0;right:0;top:0;height:30px;z-index:9998;display:flex;justify-content:space-between;align-items:center;padding:0 22px;font:600 14px Inter,sans-serif;color:#111;background:rgba(251,245,239,.96)}
+    #cap{position:fixed;left:18px;right:18px;top:100px;z-index:9999;text-align:center}
+    #cap span{background:#fff;color:#111;font:600 19px/1.5 Inter,sans-serif;padding:3px 8px;border-radius:7px;-webkit-box-decoration-break:clone;box-decoration-break:clone;box-shadow:0 3px 14px rgba(0,0,0,.18)}` });
+  await pg.evaluate(([sel, text]) => {
+    document.body.insertAdjacentHTML("beforeend", `<div id="st"><span>9:41</span><span>▂▄▆ ᯤ 🔋</span></div><div id="cap"><span></span></div>`);
+    document.querySelector("#cap span").textContent = text;
+    const el = document.querySelector(sel);
+    const off = sel.startsWith("#hack") ? 250 : 170;
+    scrollTo(0, el.getBoundingClientRect().top + scrollY - off);
+  }, [sel, text]);
+  await pg.evaluate(() => document.fonts.ready);
+  await pg.screenshot({ path: file });
+  await ctx.close();
+}
+
 async function renderCarousel(page, post, dir) {
   const n = post.slides.length;
   for (let i = 0; i < n; i++) {
+    if (post.slides[i].t === "vault") { await vaultShot(post.slides[i].sel, post.slides[i].text, path.join(dir, `slide-${String(i + 1).padStart(2, "0")}.png`)); continue; }
     await show(page, slideHTML(post.slides[i], i, n) + preload(post));
     await page.screenshot({ path: path.join(dir, `slide-${String(i + 1).padStart(2, "0")}.png`) });
   }
@@ -437,7 +456,9 @@ function timelineFor(post, green = false) {
 function writeCaption(post, dir) {
   const typeLine = post.format === "carousel"
     ? `FORMAT: Photo carousel (${post.slides.length} slides). Upload the PNGs in order in TikTok "Photo" mode.`
-    : post.video.t === "broll"
+    : post.video.t === "demo"
+      ? `FORMAT: Video — screen recording of you scrolling through your guide. Post video.mp4 as is.`
+      : post.video.t === "broll"
       ? `FORMAT: Video — your photos with caption text (b-roll style). Post video.mp4 as is.`
       : post.video.t === "overlay"
       ? `FORMAT: Video with b-roll + text overlay.\n  • READY TO POST: video.mp4 (text over a soft window-light background)\n  • WANT REAL B-ROLL? Film the shots below, then in CapCut add overlay-greenscreen.mp4 on top → Remove BG → Chroma key → pick the green.`
@@ -477,6 +498,10 @@ for (const post of POSTS) {
   if (args.includes("--captions")) { writeCaption(post, dir); continue; }
   if (post.format === "carousel") info = await renderCarousel(page, post, dir);
   else {
+    if (post.video.t === "demo") {
+      fs.copyFileSync(path.join(OUT, "demos", post.video.name, "video.mp4"), path.join(dir, "video.mp4"));
+      writeCaption(post, dir); console.log(`✓ ${post.id} — demo copied`); continue;
+    }
     const tlx = timelineFor(post); tlx.preload = preload(post);
     info = await renderVideo(page, tlx, path.join(dir, "video.mp4"));
     if (post.video.t === "overlay" && false) await renderVideo(page, timelineFor(post, true), path.join(dir, "overlay-greenscreen.mp4"));

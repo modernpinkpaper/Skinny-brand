@@ -33,7 +33,9 @@ Folder: `tiktok-posts/day-1` … `day-7`. Every post has its own folder with:
 
 - **Carousels** → `slide-01.png`, `slide-02.png`… Upload them in order in TikTok **Photo** mode.
 - **Videos** → `video.mp4`, ready to post.
-- `caption.txt` → post time, caption, hashtags, pinned comment, sound tip and (for b-roll posts) a shot list.
+- `caption.txt` → post time, caption, hashtags, pinned comment and sound tip.
+
+**Style rules (keep these when you make more):** first person, like a friend sharing what worked for *her*. lowercase, casual, not perfect grammar. provocative hook on slide 1. plain white TikTok text boxes on your photos. one girl per carousel. videos are only: typing in Notes, a text chat, or scrolling through the guide. the guide is mentioned like an afterthought ("i put it in a lil guide, its in my bio").
 
 ### Daily schedule
 | Time | Slot |
@@ -41,13 +43,6 @@ Folder: `tiktok-posts/day-1` … `day-7`. Every post has its own folder with:
 | 7:30 AM | Post 1 |
 | 12:15 PM | Post 2 |
 | 8:00 PM | Post 3 |
-
-### Using your own b-roll (optional)
-1. Film the 4–5 short clips on the shot list in `caption.txt` (3–4 seconds each, phone held upright, no face needed).
-2. In CapCut: add your clips to the main track.
-3. Tap **Overlay → Add overlay** and pick `overlay-greenscreen.mp4`. Stretch it to fill the screen.
-4. Tap **Remove BG → Chroma key**, pick the green colour, and set strength to about 60.
-5. Export. The text now sits on top of your own clips.
 
 ### Tips
 - Add a trending sound inside TikTok and turn it down low.
