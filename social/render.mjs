@@ -474,6 +474,7 @@ for (const post of POSTS) {
   fs.mkdirSync(dir, { recursive: true });
   const t0 = Date.now();
   let info;
+  if (args.includes("--captions")) { writeCaption(post, dir); continue; }
   if (post.format === "carousel") info = await renderCarousel(page, post, dir);
   else {
     const tlx = timelineFor(post); tlx.preload = preload(post);
