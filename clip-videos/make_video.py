@@ -10,6 +10,8 @@ import os, sys, argparse, importlib.util, subprocess, tempfile, textwrap, reques
 import numpy as np, soundfile as sf
 from fontTools.ttLib import TTFont
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from motion_check import score as motion_score
 
 ap = argparse.ArgumentParser()
 ap.add_argument("folder"); ap.add_argument("--voice", default="af_heart"); ap.add_argument("--speed", type=float, default=1.0)
@@ -78,10 +80,11 @@ def typed_overlay(text, fnt, cy, type_time, dur, out, shadow=True, width=24):
 
 # ---- build ----
 sess = requests.Session(); sess.headers["User-Agent"] = "Mozilla/5.0"
-parts, audio = [], []
+parts, audio, stills = [], [], []
 for i, ((line, _), url) in enumerate(zip(LINES, CLIPS)):
     src = os.path.join(HERE, "clips", f"{i:02d}.mp4"); os.makedirs(os.path.dirname(src), exist_ok=True)
     if not os.path.exists(src): open(src, "wb").write(sess.get(url).content)
+    if motion_score(src)[1] < 1.5: stills.append(f"{i:02d} {line}")
     a = speak(line); dur = max(len(a) / SR + PAUSE, MIN_LEN)
     audio.append(np.concatenate([a, np.zeros(int(round(dur * SR)) - len(a), np.float32)]))
     ov = typed_overlay(line, SERIF, 1010, len(a) / SR * 0.85, dur, os.path.join(tmp, f"t{i}"))
@@ -111,3 +114,4 @@ subprocess.run([FF, "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-
                 "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-shortest",
                 "-movflags", "+faststart", final], check=True)
 print("saved", final)
+if stills: print("WARNING - these clips barely move (still image / zoom effect), swap them:\n  " + "\n  ".join(stills))
