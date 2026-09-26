@@ -3,7 +3,6 @@
 1. In this folder, tap **Add file → Create new file**.
 2. Name it after your video, e.g. `absent-parent.txt` (ending in `.txt` is best, but any name works).
 3. Paste your script. One line = one clip. A blank line = a short pause, two or more = a longer pause.
-   You can also tell the voice how to say each line: `[sad, slow]`, `*word*`, `(pause)`. See `../VOICE-DIRECTIONS.md`.
 4. Optional settings go at the very top, followed by a line of three dashes:
 
 ```
@@ -27,3 +26,9 @@ second line...
 6. About 20-25 minutes later it's on the repo's **Releases** page as **Video: your-file-name**, with the caption and the voiceover. Tap the .mp4 to watch or save it.
 
 Edit the file and commit again to remake the video.
+
+## Lots of videos from one TikTok post
+Put a TikTok link in `clip-maker/links/` instead. Claude writes a script for every good idea in the comments and they all become videos. See `../links/README.md`.
+
+## Google Drive
+To also get every video in your Google Drive automatically, see `../drive/README.md`.

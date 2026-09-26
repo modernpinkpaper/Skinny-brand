@@ -1,32 +1,47 @@
 name: Make video
-# Add or edit a .txt file in clip-maker/scripts/ on GitHub and this makes the video on GitHub's computers
-# (no PC needed). The finished video appears on the repo's Releases page, named after the file.
+# Add or edit a file in clip-maker/scripts/ on GitHub and this makes the video on GitHub's computers
+# (no PC needed). The finished video appears on the repo's Releases page, named after the file, and in
+# Google Drive (My Drive > Personal > TikTok Videos) if that is set up (clip-maker/drive/README.md).
+# "TikTok to videos" also starts this once per script, the moment each script is written.
+run-name: "Make video: ${{ inputs.name || inputs.file || github.event.head_commit.message }}"
 on:
   push:
-    paths: ["clip-maker/scripts/**", "!clip-maker/scripts/README.md"]
+    paths: ["clip-maker/scripts/**", "!clip-maker/scripts/README.md", "!clip-maker/scripts/**/README.md"]
   workflow_dispatch:
     inputs:
       file:
         description: "Script file name in clip-maker/scripts (e.g. my-video.txt or my video)"
-        required: true
+        required: false
+      name: { description: "(used by TikTok to videos) video name", required: false }
+      release: { description: "(used by TikTok to videos) add the video to this release", required: false }
+      script: { description: "(used by TikTok to videos) the script itself", required: false }
 permissions:
   contents: write
 concurrency:
-  group: make-video-${{ github.sha }}
+  group: make-video-${{ inputs.release || 'single' }}-${{ inputs.name || inputs.file || github.sha }}
   cancel-in-progress: false
 jobs:
   video:
+    # a push only makes videos on the main branch (test branches would overwrite the real videos' pages)
+    if: github.event_name != 'push' || github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
     timeout-minutes: 90
     defaults: { run: { working-directory: clip-maker } }
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
-      - name: Which scripts changed?
-        id: files
+        with: { fetch-depth: "${{ inputs.script && 1 || 0 }}" }
+      - name: Which scripts?
+        env:
+          FILE: ${{ inputs.file }}
+          NAME: ${{ inputs.name }}
+          SCRIPT: ${{ inputs.script }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            f="scripts/${{ github.event.inputs.file }}"; [ -f "$f" ] || f="scripts/${{ github.event.inputs.file }}.txt"
+          if [ -n "$SCRIPT" ]; then
+            n=$(printf '%s' "$NAME" | tr -cd 'A-Za-z0-9._ -' | cut -c1-80); [ -n "$n" ] || n=video
+            mkdir -p scripts/_batch; printf '%s\n' "$SCRIPT" > "scripts/_batch/$n.txt"
+            echo "scripts/_batch/$n.txt" > ../changed.txt
+          elif [ -n "$FILE" ]; then
+            f="scripts/$FILE"; [ -f "$f" ] || f="scripts/$FILE.txt"
             echo "$f" > ../changed.txt
           else
             before="${{ github.event.before }}"
@@ -35,7 +50,7 @@ jobs:
             else
               git -c core.quotepath=off diff --name-only --diff-filter=AMR "$before" ${{ github.sha }} > ../all.txt
             fi
-            # any file in scripts/ counts (with or without .txt), except the README
+            # any file in scripts/ counts (with or without .txt), except READMEs
             grep '^clip-maker/scripts/' ../all.txt | grep -v '/README\.md$' | sed 's#^clip-maker/##' > ../changed.txt || true
           fi
           echo "Scripts to make:"; cat ../changed.txt
@@ -46,7 +61,7 @@ jobs:
           path: |
             ~/.cache/huggingface
             ~/.local/share/ClipMaker
-          key: clipmaker-cache-${{ github.run_id }}
+          key: clipmaker-cache-v2-${{ hashFiles('clip-maker/requirements.txt') }}
           restore-keys: clipmaker-cache-
       - name: Install
         run: pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
@@ -54,20 +69,45 @@ jobs:
         run: |
           while read -r f; do
             [ -n "$f" ] && [ -f "$f" ] || continue
-            echo "::group::$f"; python make_from_file.py "$f" --out ../videos; echo "::endgroup::"
+            echo "::group::$f"
+            python make_from_file.py "$f" --out ../videos < /dev/null || { echo "::error::could not make $f"; echo "$f" >> ../failed.txt; }
+            echo "::endgroup::"
           done < ../changed.txt
+          for d in ../videos/*/; do [ -d "$d" ] && n=$(basename "$d") && cp "$d/caption.txt" "$d/$n-caption.txt"; done; true
       - name: Publish on the Releases page
+        env: { GH_TOKEN: "${{ github.token }}", REL: "${{ inputs.release }}" }
         run: |
           cd ../videos 2>/dev/null || { echo "no videos made"; exit 0; }
           for d in */; do
             n="${d%/}"
-            body="Made from clip-maker/scripts/$n.txt on $(date -u '+%Y-%m-%d %H:%M UTC'). Tap $n.mp4 to watch or save it; caption.txt has the post caption."
-            gh release delete "video-$n" --yes --cleanup-tag 2>/dev/null || true
-            gh release create "video-$n" "$n/$n.mp4" "$n/caption.txt" "$n/$n-voiceover.wav" \
-              --title "Video: $n" --notes "$body" --latest=false --target "${{ github.sha }}"
+            if [ -n "$REL" ]; then   # part of a TikTok batch: add it to the batch's page
+              for try in 1 2 3; do gh release upload "$REL" "$n/$n.mp4" "$n/$n-caption.txt" --clobber && break; sleep $((try * 10)); done
+              continue
+            fi
+            body="Made from clip-maker/scripts/$n on $(date -u '+%Y-%m-%d %H:%M UTC'). Tap $n.mp4 to watch or save it; caption.txt has the post caption."
+            if gh release view "video-$n" > /dev/null 2>&1; then   # made before: replace the files, keep the page
+              gh release upload "video-$n" "$n/$n.mp4" "$n/caption.txt" "$n/$n-voiceover.wav" --clobber
+              gh release edit "video-$n" --notes "$body"
+            else
+              gh release create "video-$n" "$n/$n.mp4" "$n/caption.txt" "$n/$n-voiceover.wav" \
+                --title "Video: $n" --notes "$body" --latest=false --target "${{ github.sha }}"
+            fi
             echo "Published: https://github.com/${{ github.repository }}/releases/tag/video-$n"
           done
-        env: { GH_TOKEN: "${{ github.token }}" }
+      - name: Put it in Google Drive
+        continue-on-error: true
+        env:
+          GDRIVE_URL: ${{ secrets.GDRIVE_URL }}
+          GDRIVE_PASSWORD: ${{ secrets.GDRIVE_PASSWORD }}
+          REL: ${{ inputs.release }}
+        run: |
+          folder="${REL#videos-}"; folder="${folder%%--part*}"; [ -n "$folder" ] || folder="Single videos"
+          for d in ../videos/*/; do
+            [ -d "$d" ] || continue; n=$(basename "$d")
+            python drive_upload.py "$folder" "$d/$n.mp4" "$d/$n-caption.txt"
+          done
+      - name: Any videos that failed?
+        run: if [ -s ../failed.txt ]; then echo "These could not be made:"; cat ../failed.txt; exit 1; fi
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: ${{ always() && !inputs.release }}
         with: { name: videos, path: videos/, if-no-files-found: ignore, retention-days: 30 }
