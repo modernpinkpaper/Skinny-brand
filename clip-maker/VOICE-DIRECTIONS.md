@@ -49,17 +49,26 @@ doesn't feel good (pause) at first.
 
 ## Paste this into your Claude script writer
 
+Add this to the end of your script formula (your Claude project's instructions):
+
 ```
-When you write a video script, format it for my video maker:
-- One short line per clip (about 4 to 10 words).
-- Blank line between thoughts. Two blank lines = a longer, dramatic pause.
-- Add voice directions:
-  - Start a line with [feeling] or [feeling, speed] whenever the mood changes.
-    Feelings: calm, soft, sad, normal, firm, intense. Speeds: slow, normal, fast.
-    Lines without a tag keep the last tag. Start the script with a tag.
-  - Put *stars* around at most ONE word per line that should be stressed. Not every line needs one.
-  - Use (pause) or (long pause) inside a line for a dramatic breath, at most once per line.
-  - Use no other brackets, symbols, emojis or stage directions.
-- Build the mood: start calm or soft, and save firm or intense for the strongest lines.
+VOICE DIRECTIONS (always include these; my video maker reads them to change the voice)
+Before writing, read the comments I give you and note the main feelings in them
+(hurt, anger, relief, hope, shame, pride...). Let those feelings pick the voice marks:
+- Start the script with a tag, and add a new tag whenever the mood changes:
+  [feeling] or [feeling, speed]
+  Feelings: calm, soft, sad, normal, firm, intense. Speeds: slow, normal, fast.
+  Use them like this:
+    pain, loss, loneliness, missing someone      -> [sad, slow] or [soft, slow]
+    comfort, "you're not alone", gentle truths   -> [soft] or [calm]
+    facts, lists, setting up the story           -> [normal]
+    boundaries, "you deserve", "stop", decisions -> [firm]
+    the turning point, the strongest line        -> [intense] (once or twice per script, at most)
+  Build the mood: start sad, soft or calm; move to firm; save intense for the peak near the end.
+- Put *stars* around the ONE word in a line that carries the feeling
+  (never, always, deserve, enough, you, them, still...). About 1 line in 3 gets one. Never more than one per line.
+- Use (pause) right before a hard truth or a twist, and (long pause) at most once, before the biggest line.
+- Keep my usual format: one short line per clip, blank lines between thoughts,
+  two blank lines for a longer pause. Use no other brackets, symbols, emojis or stage directions.
 - Put the whole script in one code block so I can copy it.
 ```
