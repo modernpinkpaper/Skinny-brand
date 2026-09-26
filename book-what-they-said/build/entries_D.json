@@ -464,6 +464,14 @@
   "strength": 4
  },
  {
+  "cid": "225f",
+  "story": "They told me I’d be the first one pregnant and I’d never amount to anything. I own my own home and car, I was the last to have my son, and I graduate with my master’s next year.",
+  "shared_by": "a daughter",
+  "needed": "Their words were a prediction, not a promise. You get to be the one who writes how your story goes.",
+  "prompt": "What did someone predict about you that turned out wrong? Write about who you became instead.",
+  "strength": 5
+ },
+ {
   "cid": "193b",
   "story": "I started my own business, and my dad laughed: \"How long is this gonna last?\" I've tried a lot of careers — EMT, surgical tech, real estate — and never lost my stability. Three years later, my business is still going.",
   "shared_by": "a daughter",

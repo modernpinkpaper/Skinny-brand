@@ -1,10 +1,10 @@
 [
  {
   "cid": 123,
-  "story": "My mother died when I was 18. My aunt told me an 18-year-old girl needs to hurry up and get over the death of her mother. I've never spoken to her since.",
+  "story": "My aunt told me to get over my mom’s death. I was 16. I’ve never talked to her since.",
   "shared_by": "a niece",
   "needed": "There was never a deadline on missing your mom. You were a girl who had just lost her mother, and your grief deserved room, not a clock.",
-  "prompt": "Has anyone ever rushed you through a loss? Write a letter to your 18-year-old self giving her all the time she needs.",
+  "prompt": "Has anyone ever rushed you through a loss? Write a letter to your 16-year-old self giving her all the time she needs.",
   "strength": 4
  },
  {
@@ -109,7 +109,7 @@
   "shared_by": "a daughter",
   "needed": "You were doing one of the hardest, most loving things a person can do. Being hurt in that moment doesn't take away from the care you gave.",
   "prompt": "What did you give to someone at the end that nobody thanked you for? Thank yourself for it here.",
-  "strength": 2
+  "strength": 0
  },
  {
   "cid": 128,
