@@ -9,10 +9,17 @@ on:
       file:
         description: "Script file name in clip-maker/scripts (e.g. my-video.txt or my video)"
         required: true
+  # used by "TikTok to videos": makes a few of its scripts and adds the videos to its batch release
+  workflow_call:
+    inputs:
+      files: { type: string, required: true, description: "script paths (relative to clip-maker), one per line" }
+      release: { type: string, required: true, description: "release tag to add the videos to" }
+      ref: { type: string, required: true, description: "commit that holds the scripts" }
+      part: { type: string, required: true, description: "which part of the batch this is" }
 permissions:
   contents: write
 concurrency:
-  group: make-video-${{ github.sha }}
+  group: make-video-${{ github.sha }}-${{ inputs.release || 'single' }}-${{ inputs.part || '0' }}
   cancel-in-progress: false
 jobs:
   video:
@@ -21,11 +28,14 @@ jobs:
     defaults: { run: { working-directory: clip-maker } }
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with: { fetch-depth: 0, ref: "${{ inputs.ref || github.sha }}" }
       - name: Which scripts changed?
         id: files
+        env: { FILES: "${{ inputs.files }}" }
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ -n "$FILES" ]; then
+            printf '%s\n' "$FILES" > ../changed.txt
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             f="scripts/${{ github.event.inputs.file }}"; [ -f "$f" ] || f="scripts/${{ github.event.inputs.file }}.txt"
             echo "$f" > ../changed.txt
           else
@@ -54,9 +64,12 @@ jobs:
         run: |
           while read -r f; do
             [ -n "$f" ] && [ -f "$f" ] || continue
-            echo "::group::$f"; python make_from_file.py "$f" --out ../videos; echo "::endgroup::"
+            echo "::group::$f"
+            python make_from_file.py "$f" --out ../videos < /dev/null || { echo "::error::could not make $f"; echo "$f" >> ../failed.txt; }
+            echo "::endgroup::"
           done < ../changed.txt
       - name: Publish on the Releases page
+        if: ${{ !inputs.release }}
         run: |
           cd ../videos 2>/dev/null || { echo "no videos made"; exit 0; }
           for d in */; do
@@ -68,6 +81,19 @@ jobs:
             echo "Published: https://github.com/${{ github.repository }}/releases/tag/video-$n"
           done
         env: { GH_TOKEN: "${{ github.token }}" }
+      - name: Add to the batch's Releases page
+        if: ${{ inputs.release }}
+        run: |
+          cd ../videos 2>/dev/null || { echo "no videos made"; exit 0; }
+          for d in */; do
+            n="${d%/}"; cp "$n/caption.txt" "$n/$n-caption.txt"
+            for try in 1 2 3; do
+              gh release upload "$REL" "$n/$n.mp4" "$n/$n-caption.txt" --clobber && break; sleep $((try * 10))
+            done
+          done
+        env: { GH_TOKEN: "${{ github.token }}", REL: "${{ inputs.release }}" }
+      - name: Any videos that failed?
+        run: if [ -s ../failed.txt ]; then echo "These could not be made:"; cat ../failed.txt; exit 1; fi
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: ${{ always() && !inputs.release }}
         with: { name: videos, path: videos/, if-no-files-found: ignore, retention-days: 30 }

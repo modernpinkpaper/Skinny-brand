@@ -27,3 +27,6 @@ second line...
 6. About 20-25 minutes later it's on the repo's **Releases** page as **Video: your-file-name**, with the caption and the voiceover. Tap the .mp4 to watch or save it.
 
 Edit the file and commit again to remake the video.
+
+## Lots of videos from one TikTok post
+Put a TikTok link in `clip-maker/links/` instead. Claude writes a script for every good idea in the comments and they all become videos. See `../links/README.md`.
