@@ -3,8 +3,8 @@
 Put a TikTok link here and GitHub does the rest:
 
 1. It grabs every comment on the post.
-2. Claude reads them and finds every different video idea in them. It skips jokes, spam and anything that doesn't fit your formula.
-3. Claude writes one script per idea, following `clip-maker/FORMULA.md` (voice marks included). Each script is checked against the formula's rules and sent back once if it breaks one.
+2. Claude studies the comments and groups them into topics, following `clip-maker/PICKING.md`. For each topic it notes what's happening on the surface, the deeper pain or need, whether it's Emotional, Practical or Educational, and every script format (A, B, C…) that fits. There's no limit on topics, and it never stops to ask.
+3. Claude writes **one script per fitting format** for each topic, following `clip-maker/SCRIPT-SYSTEM.md` (your formats) and `clip-maker/FORMULA.md` (voice marks included). So one topic can become several videos. Each script is checked against the rules and sent back once if it breaks one.
 4. **The moment each script is written, its video starts being made.** It doesn't wait for the other scripts. Up to 20 videos are made at the same time; the rest wait their turn, so it keeps going until every script has its video.
 5. Each finished video lands on one Releases page, **Videos: <name>**, with its own caption file. If Google Drive is set up, it also goes to My Drive → Clip Maker Videos → <name>. See `../drive/README.md`.
 6. At the end the scripts are also saved in `clip-maker/scripts/<name>/`, one file per video.
@@ -35,7 +35,8 @@ notes: focus on the comments about mothers
 
 | Setting | What it does |
 |---|---|
-| `videos` | The most videos to make. Leave it out (or write `all`) to make one for every good idea in the comments, up to 500. |
+| `videos` | The most videos to make. Leave it out (or write `all`) for every topic in every fitting format, up to 1,000. |
+| `versions` | The most formats per topic. Leave it out (or `all`) for every format that fits; `1` for just the best one. |
 | `look` | `auto` lets Claude pick per video. Or: moody, vintage, bright, pastel, black and white. |
 | `clips` | `auto` lets Claude pick per video. Or: animated, real, both. |
 | `speed` | normal, a bit slower, slower |
@@ -45,7 +46,7 @@ notes: focus on the comments about mothers
 4. Tap **Commit changes**. Watch it in **Actions → TikTok to videos**.
 
 ## How many videos, how long, what it costs
-- **How many:** one per different idea in the comments. A post with a few thousand real stories often gives 50 to 200 or more. A post full of jokes or one-word comments gives very few. It never makes the same idea twice, so the count depends on the comments.
+- **How many:** one video per topic for each format that fits. A post with a few thousand real comments can give hundreds. A post full of jokes or one-word comments gives very few. It never repeats a topic, so the count depends on the comments.
 - **How long:**
   - The first video is ready about 20 minutes after you add the link.
   - After that, about 20 videos finish every 15 minutes. So 100 videos take about 1.5 hours, and 300 take about 4 hours.

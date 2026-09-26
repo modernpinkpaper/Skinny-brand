@@ -4,7 +4,8 @@
   (needs the ANTHROPIC_API_KEY environment variable; on GitHub it comes from the repo's secret)
   --dispatch: on GitHub, start the "Make video" workflow for each script the moment it is written
 
-The link file holds the TikTok link, plus optional settings (see links/README.md).
+The link file holds the TikTok link, plus optional settings (see links/README.md). Claude follows
+SCRIPT-SYSTEM.md (the script formats A, B, C...), FORMULA.md and PICKING.md (how to pick topics from comments).
 Steps:
   1. grab every comment on the post (tools/tiktok_comments.py, the Comment Grabber's code)
   2. Claude reads the comments a few hundred at a time and lists the different video ideas they hold,
@@ -25,30 +26,37 @@ from clipmaker import direct                      # noqa: E402  (reads the voice
 MODEL = "claude-opus-5"
 CHUNK = 250            # comments Claude reads per planning request
 MAX_COMMENTS = 3000    # the most-liked comments that are read at all
-HARD_CAP = 500         # never more scripts than this from one link
+HARD_CAP = 1000        # never more videos than this from one link
 WORDS = (120, 190)     # script length allowed (the formula aims for 140-170)
 LOOKS = ["moody", "vintage", "bright", "pastel", "black and white"]
 
-WRITER_RULES = """You write TikTok voiceover scripts for my video maker. Follow the formula above exactly:
-the numbers, the 6-part structure, the hook templates, the speaking tricks, the tone rules and the voice directions.
+WRITER_RULES = """You write TikTok voiceover scripts for my video maker. Follow my script system and formula above
+exactly, using the script format you are told to use, and always include the voice directions.
 
 Rules for every script:
-- Build it from the real comments you are given: their situations, feelings and small details. Retell them in
-  your own words, speaking to the viewer ("you"). Never quote a username. Change small details so no one person
-  can be identified. Don't invent dramatic facts that no comment mentions.
+- Build it from the pattern in the real comments you are given: their situations, feelings, questions and small
+  details. Do not quote or copy the comments; say it in your own words, speaking to the viewer ("you"). Never use a
+  username. Don't invent dramatic facts that no comment supports.
+- Match the topic's kind: if the audience needs a practical solution, give them one; if it is educational, give
+  clear tips or explanations; use the emotional approach only for emotional topics.
 - Output only the script body: one short line per clip, voice marks included, blank lines between thoughts.
   No settings, no part labels, no title, no code block fences, no notes before or after."""
 
-PLAN_RULES = """You plan TikTok videos. Below is my script formula, then a batch of real comments from one TikTok post
-(id, likes, text). Find the different video ideas these comments hold that fit the formula: a feeling or truth
-the viewer has lived, told to "you", with enough real material for a 60-second script.
+PLAN_RULES = """You are going through real comments from one TikTok post (id, likes, text) to find script topics,
+following my picking instructions above. You get the comments a few hundred at a time; topics already found from
+earlier batches are listed so you don't repeat them.
 
-- Each idea needs its own angle. Don't repeat an idea already taken (listed below) or one another in this batch.
-- Back each idea with the comment ids it is built from (1 to 8 comments, the strongest first).
-- Skip jokes, spam, arguments, tags, and comments with nothing to build on. It is fine to return few or no ideas.
-- title: 3 to 7 words, plain, good as a file name. angle: 1 to 2 sentences saying what the video tells the viewer.
-- look: the clip mood that fits (moody, vintage, bright, pastel, black and white).
-- clips: animated, real (TV / movie scenes), or both."""
+For every strong topic in this batch, return:
+- title: the theme in 3 to 7 plain words (it becomes the file name)
+- surface, deeper: what is happening on the surface, and the deeper pain / problem / need
+- kind: Emotional, Practical or Educational
+- formats: every script format letter from my script system that fits, best first
+- why: one sentence on why this topic is worth making
+- comment_ids: the comments it is built from, strongest first (several when possible, up to 12)
+- look: the clip mood that fits (moody, vintage, bright, pastel, black and white)
+- clips: animated, real (TV / movie scenes), or both
+Return every strong topic, with no limit, and never repeat a topic already found. An empty list is fine if the
+batch has nothing new."""
 
 
 # ---------- the link file ----------
@@ -56,13 +64,16 @@ def read_link_file(path):
     text = open(path, encoding="utf-8-sig").read()
     m = re.search(r"https?://\S*tiktok\.com\S*", text)
     if not m: sys.exit(f"{path}: no TikTok link found in the file")
-    o = dict(link=m.group(0).rstrip(").,"), videos="all", look="auto", clips="auto", speed="", end="", tags="", notes="")
+    o = dict(link=m.group(0).rstrip(").,"), videos="all", versions="all", look="auto", clips="auto", speed="", end="",
+             tags="", notes="")
     for line in text.splitlines():
         if ":" not in line or line.strip().lower().startswith("http"): continue
         k, v = [x.strip() for x in line.split(":", 1)]; k = k.lower()
         if k in o and k != "link" and v: o[k] = v
     v = str(o["videos"]).lower()
     o["videos"] = HARD_CAP if not re.fullmatch(r"\d+", v) else max(1, min(int(v), HARD_CAP))
+    v = str(o["versions"]).lower()
+    o["versions"] = 99 if not re.fullmatch(r"\d+", v) else max(1, int(v))
     return o
 
 
@@ -71,6 +82,24 @@ def slug(s, n=60):
 
 
 # ---------- 1. comments ----------
+def guidance():
+    """The instruction files, in the order Claude reads them. SCRIPT-SYSTEM.md (the formats) is optional."""
+    parts = []
+    for f, title in (("SCRIPT-SYSTEM.md", "MY SCRIPT SYSTEM (the script formats)"), ("FORMULA.md", "MY SCRIPT FORMULA"),
+                     ("PICKING.md", "HOW I PICK TOPICS FROM COMMENTS")):
+        p = os.path.join(HERE, f)
+        if os.path.exists(p): parts.append(f"# {title}\n\n" + open(p, encoding="utf-8").read().strip())
+    return "\n\n---\n\n".join(parts)
+
+
+def format_letters():
+    """The format letters defined in SCRIPT-SYSTEM.md (e.g. A, B, C, D). Empty if there is no system file."""
+    p = os.path.join(HERE, "SCRIPT-SYSTEM.md")
+    if not os.path.exists(p): return []
+    found = re.findall(r"(?im)^\s*#*\s*\**\s*(?:format|method|version|option)\s+([A-Z])\b", open(p, encoding="utf-8").read())
+    return sorted({x.upper() for x in found})
+
+
 def good_comments(rows):
     """The comments worth reading: real sentences, no duplicates, most-liked first."""
     seen, out = set(), []
@@ -87,8 +116,12 @@ def good_comments(rows):
 from pydantic import BaseModel  # noqa: E402
 
 class Idea(BaseModel):
-    title: str
-    angle: str
+    title: str             # the theme, 3-7 words
+    surface: str           # what is happening on the surface
+    deeper: str            # the deeper pain / problem / need
+    kind: Literal["Emotional", "Practical", "Educational"]
+    formats: List[str]     # every script format that fits, best first (e.g. ["B", "A"])
+    why: str               # one sentence: why this topic is worth making
     comment_ids: List[str]
     look: Literal["moody", "vintage", "bright", "pastel", "black and white"]
     clips: Literal["animated", "real", "both"]
@@ -128,7 +161,7 @@ def plan(formula, comments, want, notes, say=print, on_idea=lambda idea: None):
     for start in range(0, len(comments), CHUNK):
         if len(ideas) >= want: break
         batch = comments[start:start + CHUNK]
-        taken = "\n".join(f"- {i['title']}: {i['angle']}" for i in ideas) or "(none yet)"
+        taken = "\n".join(f"- {i['title']}: {i['deeper']}" for i in ideas) or "(none yet)"
         user = (f"Notes from me: {notes or 'none'}\n\nIdeas already taken:\n{taken}\n\nComments:\n" +
                 "\n".join(f"[{c['id']}] ({c['likes']} likes) {c['text']}" for c in batch))
         res = ask(formula + "\n\n---\n\n" + PLAN_RULES, user, Ideas)
@@ -163,10 +196,12 @@ def check(script):
     return probs
 
 
-def write_one(formula, idea, comments):
+def write_one(formula, idea, comments, fmt=None):
     sys_ = formula + "\n\n---\n\n" + WRITER_RULES
     material = "\n".join(f"- ({comments[i]['likes']} likes) {comments[i]['text']}" for i in idea["comment_ids"])
-    user = f"Video idea: {idea['title']}\nWhat it tells the viewer: {idea['angle']}\n\nThe real comments it is built from:\n{material}"
+    user = (f"Topic: {idea['title']}\nOn the surface: {idea['surface']}\nThe deeper pain / problem / need: {idea['deeper']}\n"
+            f"Kind: {idea['kind']}\n" + (f"Use script format {fmt}.\n" if fmt else "") +
+            f"\nThe real comments this topic comes from (for research only, don't quote them):\n{material}")
     res = ask(sys_, user, Script)
     if not res: return None, ["Claude declined"]
     probs = check(res.script)
@@ -210,8 +245,9 @@ def main():
         sys.exit("No ANTHROPIC_API_KEY. On GitHub: Settings > Secrets and variables > Actions > New repository secret.")
     o = read_link_file(args.linkfile)
     batch = slug(os.path.splitext(os.path.basename(args.linkfile))[0], 40)
-    formula = open(os.path.join(HERE, "FORMULA.md"), encoding="utf-8").read()
-    print(f"{batch}: {o['link']} (up to {o['videos']} videos, look={o['look']}, clips={o['clips']})", flush=True)
+    formula, letters = guidance(), format_letters()
+    print(f"{batch}: {o['link']} (up to {o['videos']} topics, formats: {', '.join(letters) or 'none (no SCRIPT-SYSTEM.md)'}, "
+          f"look={o['look']}, clips={o['clips']})", flush=True)
 
     import tiktok_comments
     _, rows = tiktok_comments.scrape(o["link"], replies=True, progress=lambda m: None)
@@ -224,30 +260,34 @@ def main():
     made, report, lock = [], [], threading.Lock()
     ex = ThreadPoolExecutor(4)
 
-    def job(n, idea):
-        try: script, probs = write_one(formula, idea, by_id)
+    def job(n, idea, fmt):
+        try: script, probs = write_one(formula, idea, by_id, fmt)
         except Exception as e: script, probs = None, [f"error: {e}"]
         with lock:
             if not script:
                 report.append(f"- skipped: {idea['title']} ({'; '.join(probs)})"); return
-            path = os.path.join(folder, f"{n:03d}-{slug(idea['title'], 50)}.txt")
+            path = os.path.join(folder, f"{n:03d}-{fmt.lower() + '-' if fmt else ''}{slug(idea['title'], 50)}.txt")
             text = settings_header(o, idea) + script + "\n"
             open(path, "w", encoding="utf-8").write(text)
             made.append(path)
             off = f"  (still off: {'; '.join(probs)})" if probs else ""
-            report.append(f"- {os.path.basename(path)}: {idea['angle']}{off}")
+            report.append(f"- {os.path.basename(path)}: {idea['kind']}, format {fmt or '-'}. {idea['deeper']}{off}")
             print(f"script {len(made)}: {os.path.basename(path)}{off}", flush=True)
         if args.dispatch: start_video(path, text, args.dispatch)
 
     count = [0]
-    def on_idea(idea):   # write the script right away, while Claude keeps reading comments
-        count[0] += 1; ex.submit(job, count[0], idea)
+    def on_idea(idea):   # write the scripts right away, while Claude keeps reading comments
+        fmts = [f.strip().upper()[:1] for f in idea["formats"]]
+        fmts = list(dict.fromkeys(f for f in fmts if f in letters))[:o["versions"]] or [None]
+        for fmt in fmts:   # one video per fitting format (A, B, C...)
+            if count[0] >= o["videos"]: return
+            count[0] += 1; ex.submit(job, count[0], idea, fmt)
     ideas = plan(formula, comments, o["videos"], o["notes"], say=lambda m: print(m, flush=True), on_idea=on_idea)
-    print(f"{len(ideas)} video ideas; finishing the scripts", flush=True)
+    print(f"{len(ideas)} topics, {count[0]} scripts; finishing them", flush=True)
     ex.shutdown(wait=True)
     made.sort()
     open(os.path.join(folder, "README.md"), "w", encoding="utf-8").write(
-        f"# {batch}\n\nFrom {o['link']}: {len(rows)} comments, {len(comments)} read, {len(ideas)} ideas, "
+        f"# {batch}\n\nFrom {o['link']}: {len(rows)} comments, {len(comments)} read, {len(ideas)} topics, "
         f"{len(made)} scripts.\n\n" + "\n".join(sorted(report)) + "\n")
     if args.list: open(args.list, "w").write("\n".join(made) + ("\n" if made else ""))
     print(f"DONE: {len(made)} scripts in {folder}", flush=True)
