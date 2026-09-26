@@ -6,9 +6,8 @@ Paste a script and get a finished TikTok video: a clip for every line, the voice
 1. Download **ClipMaker-Windows.zip** (see "Getting the .exe" below) and unzip it anywhere, for example your Desktop.
 2. Open the `ClipMaker` folder and double-click **ClipMaker.exe**. A black window opens (keep it open) and the app opens in your web browser.
 3. Paste your script. One line = one clip. Leave a blank line where the voice should pause.
-4. Choose the websites, the type of clips, the look and the voice, then press **Find clips**.
-5. Check the clips. Press **Swap** on any you don't like to get the next best one.
-6. Press **Build video**. When it's done, press **Open folder**.
+4. Choose the websites, the type of clips, the look and the voice, then press **Make video**.
+5. It finds the clips and builds the video in one go. When it's done, the video plays in the app. Press **Open folder** to find the file.
 
 Videos are saved in `Documents\Clip Maker\<video name>\`, with the voiceover (.wav) and `caption.txt`.
 

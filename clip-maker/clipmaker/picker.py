@@ -4,7 +4,7 @@ Steps: search the chosen websites -> download small previews -> throw out clips 
 CLIP (image checker) scores each clip: animated or real, the chosen look, how well it fits each line ->
 colour/light numbers for the look -> best clip per line (never the same one twice) ->
 OCR (text reader) throws out any clip with words on it (CLIP can read, so it loves meme text).
-Every line keeps a ranked list of runner-ups for the "swap" button."""
+Every line also keeps a ranked list of runner-ups (saved in project.json)."""
 import os, re, json, subprocess, hashlib
 from concurrent.futures import ThreadPoolExecutor
 import numpy as np, imageio_ffmpeg
@@ -233,13 +233,3 @@ def find_clips(lines, sources, keys, kind, look, progress):
                     for k in ranked])
     return out
 
-
-def next_clip(cands, current, taken, progress=lambda *a: None):
-    """For the swap button: next runner-up for this line that isn't used elsewhere and has no text."""
-    mem = _Json("ocr.json")
-    for step in range(1, len(cands)):
-        k = (current + step) % len(cands)
-        if cands[k]["full"] in taken: continue
-        if cands[k]["file"] and os.path.exists(cands[k]["file"]) and has_words(cands[k], mem): continue
-        return k
-    return current

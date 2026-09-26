@@ -73,9 +73,10 @@ def save_settings():
     json.dump(s, open(SETTINGS, "w")); return jsonify(ok=True)
 
 
-@app.post("/api/find")
-def find():
-    from clipmaker import picker
+@app.post("/api/make")
+def make():
+    """One button: find the clips, then build the video right away (no checking step)."""
+    from clipmaker import picker, render
     o = request.json
     lines, breaks = picker.parse_script(o.get("script", ""))
     if not lines: return jsonify(error="Paste a script first."), 400
@@ -83,42 +84,18 @@ def find():
     keys = settings().get("keys", {})
     missing = [SOURCES[s][0] for s in o["sources"] if SOURCES[s][2] and not keys.get(s)]
     if missing: return jsonify(error="Add a key in Settings for: " + ", ".join(missing)), 400
-    name = o.get("name") or lines[0][:30]
+    name = slug(o.get("name") or lines[0][:30])
     def job():
-        cands = picker.find_clips(lines, o["sources"], keys, o["kind"], o["look"], progress)
-        p = dict(name=slug(name), script=o["script"], lines=lines, breaks=breaks, opts=o, cands=cands,
-                 cur=[0] * len(lines))
-        save_project(p); STATE.update(project=p["name"], video=None, pct=100, msg="clips picked - check them below")
-    return background("find", job)
-
-
-@app.get("/api/project/<name>")
-def project(name):
-    p = load_project(name)
-    rows = [dict(line=l, clip=c[k], n_alts=len(c)) for l, c, k in zip(p["lines"], p["cands"], p["cur"])]
-    vid = os.path.join(project_dir(name), p["name"] + ".mp4")
-    return jsonify(name=p["name"], rows=rows, opts=p["opts"], video=vid if os.path.exists(vid) else None)
-
-
-@app.post("/api/swap")
-def swap():
-    from clipmaker import picker
-    o = request.json; p = load_project(o["name"]); i = o["line"]
-    taken = {c[k]["full"] for n, (c, k) in enumerate(zip(p["cands"], p["cur"])) if n != i}
-    p["cur"][i] = picker.next_clip(p["cands"][i], p["cur"][i], taken)
-    save_project(p); return jsonify(clip=p["cands"][i][p["cur"][i]])
-
-
-@app.post("/api/build")
-def build():
-    from clipmaker import render
-    p = load_project(request.json["name"]); o = p["opts"]
-    def job():
-        v = render.build(project_dir(p["name"]), p["name"], p["lines"], p["breaks"],
-                         [c[k] for c, k in zip(p["cands"], p["cur"])], o.get("end", ""), o["look"],
-                         VOICES[o.get("voice", "guy")][1], o.get("tags", ""), progress, check_cancel)
-        STATE.update(video=v, project=p["name"], msg="your video is ready")
-    return background("build", job)
+        STATE.update(video=None, project=name)
+        cands = picker.find_clips(lines, o["sources"], keys, o["kind"], o["look"],
+                                  lambda p, m: progress(p * 0.4, "finding clips: " + m))
+        p = dict(name=name, script=o["script"], lines=lines, breaks=breaks, opts=o, cands=cands, cur=[0] * len(lines))
+        save_project(p)
+        v = render.build(project_dir(name), name, lines, breaks, [c[0] for c in cands], o.get("end", ""), o["look"],
+                         VOICES[o.get("voice", "guy")][1], o.get("tags", ""),
+                         lambda p, m: progress(40 + p * 0.6, m), check_cancel)
+        STATE.update(video=v, pct=100, msg="your video is ready")
+    return background("make", job)
 
 
 @app.post("/api/cancel")
@@ -176,15 +153,12 @@ button.ghost{background:transparent;color:var(--acc);border:1px solid var(--acc)
  <div><b>Video name</b><input type="text" id="name" placeholder="e.g. absent-parent"><br><br>
   <b>End screen line</b><input type="text" id="end" value="send this to someone who needs to hear it"></div>
  <div><b>Hashtags</b><input type="text" id="tags" value="#healing #selflove #relatable #fyp"></div>
-</div><br><button id="findBtn" onclick="find()">Find clips</button> <span class="hint">Clips with words on them are skipped automatically.</span></div>
+</div><br><button id="findBtn" onclick="make()">Make video</button> <span class="hint">It finds the clips and builds the video in one go. Clips with words on them are skipped.</span></div>
 
 <div id="prog" class="card hide"><h2 id="stage">Working…</h2><div class="bar"><i id="barFill"></i></div>
 <div id="msg" class="hint"></div><div id="err" class="err"></div><br><button class="ghost" onclick="post('/api/cancel',{})">Cancel</button></div>
 
-<div id="review" class="card hide"><div class="top"><h2>2. Check the clips</h2><button id="buildBtn" onclick="build()">Build video</button></div>
-<p class="hint">Don't like one? Press "Swap" for the next best clip for that line.</p><div id="rows" class="rows"></div></div>
-
-<div id="done" class="card hide"><h2>3. Your video</h2><video id="final" controls style="max-height:70vh;max-width:100%"></video><br><br>
+<div id="done" class="card hide"><h2>2. Your video</h2><video id="final" controls style="max-height:70vh;max-width:100%"></video><br><br>
 <button onclick="post('/api/open',{name:PROJECT})">Open folder</button> <span class="hint" id="where"></span></div>
 </main><script>
 let PROJECT=null,OPT=null,poll=null;
@@ -198,20 +172,15 @@ async function init(){OPT=await (await fetch('/api/options')).json();
  $('keys').innerHTML=OPT.sources.filter(s=>s.needs_key).map(s=>`<label>${s.name} <a href="${s.key_url}" target="_blank" style="color:var(--acc)">get key</a><input type="text" id="key_${s.id}" value="${OPT.settings.keys?.[s.id]||''}"></label>`).join('');
  const st=await (await fetch('/api/status')).json(); if(st.busy)watch();}
 async function saveKeys(){const keys={};OPT.sources.filter(s=>s.needs_key).forEach(s=>keys[s.id]=$('key_'+s.id).value);await post('/api/settings',{keys});init();toggle('settings')}
-async function find(){const b={script:$('script').value,name:$('name').value,end:$('end').value,tags:$('tags').value,look:$('look').value,voice:$('voice').value,
+async function make(){const b={script:$('script').value,name:$('name').value,end:$('end').value,tags:$('tags').value,look:$('look').value,voice:$('voice').value,
  kind:document.querySelector('input[name=kind]:checked').value,sources:[...document.querySelectorAll('#sources input:checked')].map(x=>x.value)};
- const j=await post('/api/find',b); if(j.ok){$('review').classList.add('hide');$('done').classList.add('hide');watch()}}
+ const j=await post('/api/make',b); if(j.ok){$('done').classList.add('hide');watch()}}
 function watch(){$('prog').classList.remove('hide');$('findBtn').disabled=true;clearInterval(poll);poll=setInterval(async()=>{
- const s=await (await fetch('/api/status')).json(); $('stage').textContent=s.stage=='build'?'Building your video…':'Finding clips…';
+ const s=await (await fetch('/api/status')).json(); $('stage').textContent='Making your video… (about 20-30 min on a normal PC)';
  $('barFill').style.width=s.pct+'%'; $('msg').textContent=s.msg; $('err').textContent=s.error||'';
- if(!s.busy){clearInterval(poll);$('findBtn').disabled=false;$('buildBtn').disabled=false;if(!s.error){$('prog').classList.add('hide');
-  if(s.project){PROJECT=s.project;await show()}}}},1000)}
-async function show(){const p=await (await fetch('/api/project/'+PROJECT)).json();$('review').classList.remove('hide');
- $('rows').innerHTML=p.rows.map((r,i)=>`<div class="row"><video id="v${i}" src="${media(r.clip.file)}" autoplay loop muted playsinline></video><p>${i+1}. ${r.line.replace(/</g,'&lt;')}</p>
- <div class="b"><span class="hint">${r.clip.source}</span><button class="ghost" onclick="swap(${i})">Swap</button></div></div>`).join('');
- if(p.video){$('done').classList.remove('hide');$('final').src=media(p.video)+'&t='+Date.now();$('where').textContent=p.video}}
-async function swap(i){const j=await post('/api/swap',{name:PROJECT,line:i});if(j.clip)$('v'+i).src=media(j.clip.file)}
-async function build(){$('buildBtn').disabled=true;const j=await post('/api/build',{name:PROJECT});if(j.ok)watch();else $('buildBtn').disabled=false}
+ if(!s.busy){clearInterval(poll);$('findBtn').disabled=false;
+  if(!s.error&&s.video){$('prog').classList.add('hide');PROJECT=s.project;$('done').classList.remove('hide');
+   $('final').src=media(s.video)+'&t='+Date.now();$('where').textContent=s.video}}},1000)}
 init();
 </script></body></html>"""
 

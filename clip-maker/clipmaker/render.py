@@ -61,7 +61,7 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
         for i, c in enumerate(clips):
             f = os.path.join(cdir, f"{i:02d}.mp4")
             have = os.path.exists(f) and os.path.exists(f + ".url") and open(f + ".url").read() == c["full"]
-            if not have:   # download the full-size clip (again only if the line's clip was swapped)
+            if not have:   # download the full-size clip (skipped if already there)
                 open(f, "wb").write(S.get(c["full"], timeout=90).content); open(f + ".url", "w").write(c["full"])
             files.append(f); progress(2 + 6 * i / len(clips), f"downloading clip {i + 1}/{len(clips)}")
         check_cancel()
