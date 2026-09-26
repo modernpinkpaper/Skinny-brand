@@ -21,7 +21,7 @@ To change the key later, open the same page, click the pencil next to `ANTHROPIC
 ## Making videos from a link
 1. In this folder, tap **Add file → Create new file**.
 2. Name it after the batch, e.g. `family post`.
-3. Paste the TikTok link. That's all you need. You can also add settings, one per line:
+3. Paste the TikTok link, or **several links, one per line**, to gather the comments of many small posts into one batch. Their comments are pooled, and repeated comments are dropped. That's all you need. You can also add settings, one per line:
 
 ```
 https://www.tiktok.com/@someone/video/1234567890

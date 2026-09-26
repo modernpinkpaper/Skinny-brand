@@ -68,9 +68,9 @@ batch has nothing new."""
 # ---------- the link file ----------
 def read_link_file(path):
     text = open(path, encoding="utf-8-sig").read()
-    m = re.search(r"https?://\S*tiktok\.com\S*", text)
-    if not m: sys.exit(f"{path}: no TikTok link found in the file")
-    o = dict(link=m.group(0).rstrip(").,"), videos="all", versions="3", writer="best", batch="yes", look="auto", clips="auto", speed="", end="",
+    links = list(dict.fromkeys(u.rstrip(").,") for u in re.findall(r"https?://\S*tiktok\.com\S*", text)))
+    if not links: sys.exit(f"{path}: no TikTok link found in the file")
+    o = dict(link=links[0], links=links, videos="all", versions="3", writer="best", batch="yes", look="auto", clips="auto", speed="", end="",
              tags="", notes="")
     for line in text.splitlines():
         if ":" not in line or line.strip().lower().startswith("http"): continue
@@ -382,13 +382,20 @@ def main():
     o = read_link_file(args.linkfile)
     batch = slug(os.path.splitext(os.path.basename(args.linkfile))[0], 40)
     formula = guidance()
-    print(f"{batch}: {o['link']} (up to {o['videos']} videos, {o['versions']} per topic, writer={o['writer']}, {'batch (half price)' if o['batch'] else 'one at a time (full price)'}, "
+    print(f"{batch}: {len(o['links'])} post(s) (up to {o['videos']} videos, {o['versions']} per topic, writer={o['writer']}, {'batch (half price)' if o['batch'] else 'one at a time (full price)'}, "
           f"look={o['look']}, clips={o['clips']})", flush=True)
 
     import tiktok_comments
-    _, rows = tiktok_comments.scrape(o["link"], replies=True, progress=lambda m: None)
+    rows = []
+    for link in o["links"]:   # one or many posts: all their comments go in one pile (repeats are dropped)
+        try:
+            _, got = tiktok_comments.scrape(link, replies=True, progress=lambda m: None)
+            rows += got; print(f"{link}: {len(got)} comments", flush=True)
+        except Exception as e:
+            print(f"::warning::could not grab {link} ({e}) - skipping it", flush=True)
     comments = good_comments(rows)
-    print(f"{len(rows)} comments grabbed, {len(comments)} worth reading", flush=True)
+    print(f"{len(rows)} comments grabbed from {len(o['links'])} post(s), {len(comments)} worth reading "
+          "(repeats and very short ones dropped)", flush=True)
     if not comments: sys.exit("No usable comments (the post may be private, or TikTok blocked the request).")
 
     by_id = {c["id"]: c for c in comments}
@@ -426,13 +433,14 @@ def main():
             count[0] += 1
             if bw: bw.add(count[0], idea, fmt)
             else: ex.submit(job, count[0], idea, fmt)
-    ideas = plan(formula, comments, o["videos"], o["notes"], say=lambda m: print(m, flush=True), on_idea=on_idea)
+    topics_needed = -(-o["videos"] // o["versions"])   # no need to find more topics than the videos can use
+    ideas = plan(formula, comments, topics_needed, o["notes"], say=lambda m: print(m, flush=True), on_idea=on_idea)
     print(f"{len(ideas)} topics, {count[0]} scripts; finishing them", flush=True)
     if bw: bw.finish()
     ex.shutdown(wait=True)
     made.sort()
     open(os.path.join(folder, "README.md"), "w", encoding="utf-8").write(
-        f"# {batch}\n\nFrom {o['link']}: {len(rows)} comments, {len(comments)} read, {len(ideas)} topics, "
+        f"# {batch}\n\nFrom {', '.join(o['links'])}: {len(rows)} comments, {len(comments)} read, {len(ideas)} topics, "
         f"{len(made)} scripts. Writer: {o['writer']}{' (batch)' if o['batch'] else ''}. Claude cost: ${spent['total']:.2f}.\n\n" + "\n".join(sorted(report)) + "\n")
     if args.list: open(args.list, "w").write("\n".join(made) + ("\n" if made else ""))
     print(f"DONE: {len(made)} scripts in {folder}. Claude cost: ${spent['total']:.2f} "
