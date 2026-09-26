@@ -3,11 +3,11 @@ name: Make video
 # (no PC needed). The finished video appears on the repo's Releases page, named after the file.
 on:
   push:
-    paths: ["clip-maker/scripts/**.txt"]
+    paths: ["clip-maker/scripts/**", "!clip-maker/scripts/README.md"]
   workflow_dispatch:
     inputs:
       file:
-        description: "Script file name in clip-maker/scripts (e.g. my-video.txt)"
+        description: "Script file name in clip-maker/scripts (e.g. my-video.txt or my video)"
         required: true
 permissions:
   contents: write
@@ -31,11 +31,12 @@ jobs:
           else
             before="${{ github.event.before }}"
             if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
-              git diff-tree --no-commit-id --name-only --diff-filter=AM -r ${{ github.sha }} > ../all.txt
+              git -c core.quotepath=off diff-tree --no-commit-id --name-only --diff-filter=AMR -r ${{ github.sha }} > ../all.txt
             else
-              git diff --name-only --diff-filter=AM "$before" ${{ github.sha }} > ../all.txt
+              git -c core.quotepath=off diff --name-only --diff-filter=AMR "$before" ${{ github.sha }} > ../all.txt
             fi
-            grep '^clip-maker/scripts/.*\.txt$' ../all.txt | sed 's#^clip-maker/##' > ../changed.txt || true
+            # any file in scripts/ counts (with or without .txt), except the README
+            grep '^clip-maker/scripts/' ../all.txt | grep -v '/README\.md$' | sed 's#^clip-maker/##' > ../changed.txt || true
           fi
           echo "Scripts to make:"; cat ../changed.txt
       - uses: actions/setup-python@v5
