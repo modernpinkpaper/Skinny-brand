@@ -108,17 +108,18 @@ def _fill(options, dur, used, stem):
     raise RuntimeError("Couldn't download any clip for one of the lines - check your internet.")
 
 
-def make_voice(lines, breaks, end, voice_ref, speed=1.0, progress=lambda p, m: None):
+def make_voice(lines, breaks, end, voice_ref, speed=1.0, progress=lambda p, m: None, dirs=None):
     """All the audio: one piece per line (+ word timings) and the end-screen line.
-    Can run while the clips are being found."""
-    pieces, times = voice.voice_lines(lines, breaks, voice_ref, speed, progress)
+    dirs: the script's voice marks (direct.parse). Can run while the clips are being found."""
+    pieces, times = voice.voice_lines(lines, breaks, voice_ref, speed, progress, dirs)
     end_audio = voice.clean(voice.trim(voice.speak(end, voice_ref, speed))) if end.strip() else None
     return pieces, times, end_audio
 
 
 def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progress, check_cancel=lambda: None,
-          audio_parts=None, speed=1.0):
+          audio_parts=None, speed=1.0, dirs=None):
     """clips: per line, a list of clip dicts best-first (or one dict). audio_parts: result of make_voice().
+    dirs: the script's voice marks (direct.parse), for the stressed words on screen.
     Returns the finished video path."""
     tmp = tempfile.mkdtemp(prefix="clipmaker-")
     try:
@@ -126,7 +127,7 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
         if audio_parts is None:
             progress(2, "making the voice (the slow part)")
             audio_parts = make_voice(lines, breaks, end, voice_ref, speed,
-                                     lambda p, m: (check_cancel(), progress(2 + 60 * p, m)))
+                                     lambda p, m: (check_cancel(), progress(2 + 60 * p, m)), dirs)
         pieces, times, end_audio = audio_parts
         sans = captions.font(90)
         grade = LOOKS[look]["grade"]; grade = grade + "," if grade else ""
@@ -153,7 +154,8 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
             lst = os.path.join(tmp, f"b{i:02d}.txt")
             open(lst, "w").write("".join(f"file '{x.replace(os.sep, '/')}'\n" for x in subs))
             _run([FF, "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", base])
-            ov = captions.line_overlay(line, wt, dur, os.path.join(tmp, f"t{i}"))   # words pop in as they're said
+            ov = captions.line_overlay(line, wt, dur, os.path.join(tmp, f"t{i}"),
+                                       dirs[i]["emph"] if dirs and i < len(dirs) else ())   # words pop in as they're said
             out = os.path.join(tmp, f"p{i:02d}.mp4")
             _run([FF, "-loglevel", "error", "-y", "-i", base, "-f", "concat", "-safe", "0", "-i", ov,
                   "-t", f"{dur:.3f}", "-filter_complex", f"[1:v]fps={FPS}[t];[0:v][t]overlay=0:0,format=yuv420p",
