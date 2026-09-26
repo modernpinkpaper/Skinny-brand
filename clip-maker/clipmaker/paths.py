@@ -22,3 +22,14 @@ def device():
         return "cuda" if torch.cuda.is_available() else "cpu"
     except Exception:
         return "cpu"
+
+
+def device_name():
+    """What the black window shows, so you can see whether the NVIDIA card is being used."""
+    try:
+        import torch
+        if torch.cuda.is_available(): return "NVIDIA graphics card: " + torch.cuda.get_device_name(0)
+        if torch.version.cuda: return "processor only (this is the NVIDIA build, but no working NVIDIA card/driver was found)"
+    except Exception:
+        pass
+    return "processor only (download the NVIDIA build to use an NVIDIA card)"

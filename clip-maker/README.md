@@ -18,7 +18,9 @@ Videos are saved in `Documents\Clip Maker\<video name>\`, with the voiceover (.w
 - Finding clips: about 10 minutes (faster when it has seen the clips before).
 - Building a video: about 10 to 20 minutes, most of it making the voice.
 
-With an NVIDIA card, the app uses it automatically and is much faster.
+**Have an NVIDIA graphics card?** Download **ClipMaker-Windows-NVIDIA** instead. It's a bigger download, but it uses the NVIDIA card, so the voice takes about 1 to 2 minutes instead of 10 to 20. The normal **ClipMaker-Windows** uses only the processor, even on a PC with NVIDIA.
+
+The black window says what it's using, for example `Using: NVIDIA graphics card: GeForce RTX 3050`. If the NVIDIA build says "processor only", update your NVIDIA driver (GeForce Experience or nvidia.com/drivers). On a laptop, keep it plugged in.
 
 ## Websites
 - **Tenor** works right away.
@@ -28,7 +30,7 @@ With an NVIDIA card, the app uses it automatically and is much faster.
 Clips with words on them (memes, captions) are skipped automatically.
 
 ## Getting the .exe
-Every change to this folder is built into a Windows .exe on GitHub and tested there by making a short real video. On GitHub, go to **Actions**, then **Build Clip Maker (Windows)**, open the latest green run, and download **ClipMaker-Windows** at the bottom.
+Every change to this folder is built into a Windows .exe on GitHub and tested there by making a short real video. On GitHub, go to **Actions**, then **Build Clip Maker (Windows)**, open the latest green run, and download **ClipMaker-Windows** (or **ClipMaker-Windows-NVIDIA**) at the bottom.
 
 ## Running from source (any computer)
 ```

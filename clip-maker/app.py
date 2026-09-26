@@ -3,7 +3,7 @@ Runs a small web page on this computer only (127.0.0.1) and opens it in your bro
 Run from source:  python app.py      Self-test (used by the Windows build):  python app.py --selftest"""
 import os, sys, json, re, socket, threading, traceback, webbrowser
 from flask import Flask, request, jsonify, send_file, abort
-from clipmaker.paths import PROJECTS, CACHE, SETTINGS, VOICES, device
+from clipmaker.paths import PROJECTS, CACHE, SETTINGS, VOICES, device, device_name
 from clipmaker.sources import SOURCES
 from clipmaker.looks import LOOKS
 
@@ -225,6 +225,7 @@ def selftest():
     d = os.path.join(PROJECTS, "selftest")
     v = render.build(d, "selftest", lines, breaks, [c[0] for c in cands], "", "moody", VOICES["guy"][1], "", say)
     ok = os.path.getsize(v) > 50000
+    print("Using:", device_name(), flush=True)
     print("SELFTEST", "OK" if ok else "FAILED", v, flush=True)
     sys.exit(0 if ok else 1)
 
@@ -234,6 +235,6 @@ if __name__ == "__main__":
     s = socket.socket(); s.bind(("127.0.0.1", 0)); port = s.getsockname()[1]; s.close()
     url = f"http://127.0.0.1:{port}"
     print(f"\n  Clip Maker is running: {url}\n  Keep this window open while you use it. Close it to quit.\n"
-          f"  Videos are saved in: {PROJECTS}\n  Using: {'NVIDIA graphics card' if device() == 'cuda' else 'processor (no NVIDIA card)'}\n", flush=True)
+          f"  Videos are saved in: {PROJECTS}\n  Using: {device_name()}\n", flush=True)
     threading.Timer(1.0, lambda: webbrowser.open(url)).start()
     app.run(host="127.0.0.1", port=port, threaded=True)
