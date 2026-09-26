@@ -36,7 +36,8 @@ notes: focus on the comments about mothers
 | Setting | What it does |
 |---|---|
 | `videos` | The most videos to make in total. Leave it out (or write `all`) for every topic, up to 2,000. |
-| `writer` | Which Claude writes the scripts: `best` (Opus 5, default), `sonnet` (Sonnet 5, about half the cost or less), `haiku` (cheapest, simpler). Topic picking always uses the best one. Each run prints the real cost. |
+| `writer` | Which Claude writes the scripts: `best` (Opus 5, default), `sonnet` (Sonnet 5, about 60% cheaper), `haiku` (cheapest, simpler). Topic picking always uses the best one. Each run prints the real cost. |
+| `batch` | `yes` (default): scripts are written through Claude's batch mode at **half price**. They come back in groups, usually within minutes, so videos start a little later. `no`: full price, one at a time, fastest. |
 | `versions` | How many videos per topic, each with a different hook. Default 3. `1` gives one video per topic; up to 13. |
 | `look` | `auto` lets Claude pick per video. Or: moody, vintage, bright, pastel, black and white. |
 | `clips` | `auto` lets Claude pick per video. Or: animated, real, both. |
@@ -53,6 +54,6 @@ notes: focus on the comments about mothers
   - After that, about 20 videos finish every 15 minutes. So 100 videos take about 1.5 hours, and 300 take about 4 hours.
 - **Cost:**
   - GitHub: free, because this repo is public.
-  - Claude: roughly 5 to 10 cents per script, plus about $1 for reading the comments. So about $5 to $10 for 100 scripts.
+  - Claude: about 2¢ per script with the defaults (best writer, batch half price), plus about 30¢ per link for picking the topics. So 300 videos cost about $6. Without batch it's about 4¢ per script. Each run's log and the scripts' README show the real cost.
 
 To edit a script afterwards, open it in `clip-maker/scripts/<name>/` and save it. That makes that one video again, on its own Releases page.

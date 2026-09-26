@@ -16,7 +16,7 @@ Steps:
   5. each script is saved as its own file, ready for make_from_file.py
 Scripts are written while Claude is still reading the rest of the comments, and (with --dispatch) each video
 starts being made as soon as its script is done."""
-import os, re, sys, time, argparse, subprocess, threading
+import os, re, sys, json, time, argparse, subprocess, threading
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Literal
 
@@ -70,7 +70,7 @@ def read_link_file(path):
     text = open(path, encoding="utf-8-sig").read()
     m = re.search(r"https?://\S*tiktok\.com\S*", text)
     if not m: sys.exit(f"{path}: no TikTok link found in the file")
-    o = dict(link=m.group(0).rstrip(").,"), videos="all", versions="3", writer="best", look="auto", clips="auto", speed="", end="",
+    o = dict(link=m.group(0).rstrip(").,"), videos="all", versions="3", writer="best", batch="yes", look="auto", clips="auto", speed="", end="",
              tags="", notes="")
     for line in text.splitlines():
         if ":" not in line or line.strip().lower().startswith("http"): continue
@@ -79,6 +79,7 @@ def read_link_file(path):
     v = str(o["videos"]).lower()
     o["videos"] = HARD_CAP if not re.fullmatch(r"\d+", v) else max(1, min(int(v), HARD_CAP))
     o["writer"] = next((k for k in WRITERS if k in str(o["writer"]).lower()), "best")
+    o["batch"] = str(o["batch"]).strip().lower() not in ("no", "off", "false", "0")
     v = str(o["versions"]).lower()
     o["versions"] = 13 if not re.fullmatch(r"\d+", v) else max(1, min(int(v), 13))
     return o
@@ -208,22 +209,126 @@ def check(script):
     return probs
 
 
-def write_one(formula, idea, comments, fmt=None, model=MODEL, cost=None):
-    sys_ = formula + "\n\n---\n\n" + WRITER_RULES
+def writer_system(formula):
+    return formula + "\n\n---\n\n" + WRITER_RULES
+
+
+def writer_prompt(idea, comments, fmt=None, draft=None, probs=None):
     material = "\n".join(f"- ({comments[i]['likes']} likes) {comments[i]['text']}" for i in idea["comment_ids"])
     user = (f"Topic: {idea['title']}\nOn the surface: {idea['surface']}\nThe deeper pain / problem / need: {idea['deeper']}\n"
             f"Kind: {idea['kind']}\n" + (f"Open with hook template {fmt} from the formula.\n" if fmt else "") +
             f"\nThe real comments this topic comes from (for research only, don't quote them):\n{material}")
-    res = ask(sys_, user, Script, model, cost)
+    if draft is not None:   # the second try, with the problems spelled out
+        user += ("\n\nYour first draft broke these rules:\n- " + "\n- ".join(probs) +
+                 "\n\nFirst draft:\n" + draft + "\n\nWrite the whole script again, fixed.")
+    return user
+
+
+def clean_script(text):
+    return text.strip().strip("`").strip()
+
+
+def write_one(formula, idea, comments, fmt=None, model=MODEL, cost=None):
+    """Writes one script right away (full price). Returns (script, problems still left)."""
+    sys_ = writer_system(formula)
+    res = ask(sys_, writer_prompt(idea, comments, fmt), Script, model, cost)
     if not res: return None, ["Claude declined"]
     probs = check(res.script)
     if probs:   # one second try with the problems spelled out
-        res2 = ask(sys_, user + "\n\nYour first draft broke these rules:\n- " + "\n- ".join(probs) +
-                   "\n\nFirst draft:\n" + res.script + "\n\nWrite the whole script again, fixed.", Script, model, cost)
+        res2 = ask(sys_, writer_prompt(idea, comments, fmt, res.script, probs), Script, model, cost)
         if res2:
             p2 = check(res2.script)
             if len(p2) < len(probs) or not p2: res, probs = res2, p2
-    return res.script.strip().strip("`").strip(), probs
+    return clean_script(res.script), probs
+
+
+class BatchWriter:
+    """Writes scripts through Claude's Batch API: half price, but results come back in groups (usually within
+    minutes, at most a day). Scripts are sent in groups of up to 25 while the comments are still being read; each
+    finished group is checked right away, rule-breakers go back once in the next group, and done(...) is called
+    for every finished script so its video can start."""
+    SCHEMA = {"type": "object", "properties": {"script": {"type": "string"}}, "required": ["script"],
+              "additionalProperties": False}
+
+    def __init__(self, formula, comments, model, done, group=25, wait=60):
+        import anthropic
+        self.client = anthropic.Anthropic(max_retries=8)
+        self.system = [{"type": "text", "text": writer_system(formula), "cache_control": {"type": "ephemeral"}}]
+        self.comments, self.model, self.done, self.group, self.wait = comments, model, done, group, wait
+        self.pending, self.jobs, self.open, self.lock = [], {}, [], threading.Lock()
+        self.first_pending, self.no_more = None, False
+        self.thread = threading.Thread(target=self.run, daemon=True); self.thread.start()
+
+    def add(self, n, idea, fmt, draft=None, probs=None, cost=0.0, tries=0):
+        with self.lock:
+            key = f"s{n}-{0 if draft is None else 1}-{tries}"
+            self.jobs[key] = dict(n=n, idea=idea, fmt=fmt, draft=draft, probs=probs, cost=cost, tries=tries)
+            self.pending.append(key)
+            self.first_pending = self.first_pending or time.time()
+
+    def finish(self):
+        """No more scripts are coming: send what's left and wait for everything."""
+        self.no_more = True; self.thread.join()
+
+    def submit(self):
+        from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
+        from anthropic.types.messages.batch_create_params import Request
+        with self.lock:
+            keys, self.pending, self.first_pending = self.pending, [], None
+        reqs = [Request(custom_id=k, params=MessageCreateParamsNonStreaming(
+                    model=self.model, max_tokens=16000, system=self.system,
+                    output_config={"format": {"type": "json_schema", "schema": self.SCHEMA}},
+                    messages=[{"role": "user", "content": writer_prompt(
+                        self.jobs[k]["idea"], self.comments, self.jobs[k]["fmt"], self.jobs[k]["draft"], self.jobs[k]["probs"])}]))
+                for k in keys]
+        b = self.client.messages.batches.create(requests=reqs)
+        self.open.append(b.id)
+        print(f"sent {len(keys)} scripts to Claude as batch {b.id}", flush=True)
+
+    def collect(self, batch_id):
+        for r in self.client.messages.batches.results(batch_id):
+            job = self.jobs.pop(r.custom_id)
+            n, idea, fmt, draft, probs0, cost = job["n"], job["idea"], job["fmt"], job["draft"], job["probs"], job["cost"]
+            if r.result.type != "succeeded":   # errored / expired / canceled: send it again (twice at most)
+                if job["tries"] < 2: self.add(n, idea, fmt, draft, probs0, cost, job["tries"] + 1)
+                elif draft: self.done(n, idea, fmt, draft, probs0, cost)
+                else: self.done(n, idea, fmt, None, [f"Claude batch {r.result.type}"], cost)
+                continue
+            msg = r.result.message
+            c = cost_of(self.model, msg.usage) * 0.5   # batch price
+            with _cost_lock: spent["total"] += c
+            cost += c
+            script = None
+            if msg.stop_reason == "end_turn":
+                text = next((b.text for b in msg.content if b.type == "text"), "")
+                try: script = clean_script(json.loads(text)["script"])
+                except (ValueError, KeyError, TypeError): script = None
+            if script is None:   # declined or unreadable
+                if draft: self.done(n, idea, fmt, draft, probs0, cost)
+                else: self.done(n, idea, fmt, None, [f"Claude declined ({msg.stop_reason})"], cost)
+                continue
+            probs = check(script)
+            if probs and draft is None:   # one second try with the problems spelled out, in the next group
+                self.add(n, idea, fmt, script, probs, cost); continue
+            if draft is not None and probs and len(probs) >= len(probs0):   # the second try wasn't better
+                script, probs = draft, probs0
+            self.done(n, idea, fmt, script, probs, cost)
+
+    def run(self):
+        while True:
+            with self.lock: npend, first = len(self.pending), self.first_pending
+            if npend and (npend >= self.group or self.no_more or time.time() - first > self.wait):
+                try: self.submit()
+                except Exception as e: print(f"could not send a batch ({e}), retrying", flush=True); time.sleep(30)
+            for bid in list(self.open):
+                try:
+                    if self.client.messages.batches.retrieve(bid).processing_status == "ended":
+                        self.open.remove(bid); self.collect(bid)
+                except Exception as e:
+                    print(f"could not check batch {bid} ({e})", flush=True)
+            with self.lock:
+                if self.no_more and not self.pending and not self.open: return
+            time.sleep(15)
 
 
 _pages, _page_lock = set(), threading.Lock()
@@ -277,7 +382,7 @@ def main():
     o = read_link_file(args.linkfile)
     batch = slug(os.path.splitext(os.path.basename(args.linkfile))[0], 40)
     formula = guidance()
-    print(f"{batch}: {o['link']} (up to {o['videos']} videos, {o['versions']} per topic, writer={o['writer']}, "
+    print(f"{batch}: {o['link']} (up to {o['videos']} videos, {o['versions']} per topic, writer={o['writer']}, {'batch (half price)' if o['batch'] else 'one at a time (full price)'}, "
           f"look={o['look']}, clips={o['clips']})", flush=True)
 
     import tiktok_comments
@@ -291,10 +396,7 @@ def main():
     made, report, lock = [], [], threading.Lock()
     ex = ThreadPoolExecutor(4)
 
-    def job(n, idea, fmt):
-        cost = []
-        try: script, probs = write_one(formula, idea, by_id, fmt, WRITERS[o["writer"]], cost)
-        except Exception as e: script, probs = None, [f"error: {e}"]
+    def finalize(n, idea, fmt, script, probs, cost):
         with lock:
             if not script:
                 report.append(f"- skipped: {idea['title']} ({'; '.join(probs)})"); return
@@ -304,8 +406,16 @@ def main():
             made.append(path)
             off = f"  (still off: {'; '.join(probs)})" if probs else ""
             report.append(f"- {os.path.basename(path)}: {idea['kind']}, hook {fmt or '-'}. {idea['deeper']}{off}")
-            print(f"script {len(made)}: {os.path.basename(path)} (${sum(cost):.3f}){off}", flush=True)
+            print(f"script {len(made)}: {os.path.basename(path)} (${cost:.3f}){off}", flush=True)
         if args.dispatch: start_video(path, text, args.dispatch, n)
+
+    def job(n, idea, fmt):   # full price, one at a time
+        cost = []
+        try: script, probs = write_one(formula, idea, by_id, fmt, WRITERS[o["writer"]], cost)
+        except Exception as e: script, probs = None, [f"error: {e}"]
+        finalize(n, idea, fmt, script, probs, sum(cost))
+
+    bw = BatchWriter(formula, by_id, WRITERS[o["writer"]], finalize) if o["batch"] else None
 
     count = [0]
     def on_idea(idea):   # write the scripts right away, while Claude keeps reading comments
@@ -313,14 +423,17 @@ def main():
         hooks += [h for h in range(1, 14) if h not in hooks]   # fewer fitting hooks than asked: use others too
         for fmt in hooks[:o["versions"]]:   # one video per hook: same topic, different opening
             if count[0] >= o["videos"]: return
-            count[0] += 1; ex.submit(job, count[0], idea, fmt)
+            count[0] += 1
+            if bw: bw.add(count[0], idea, fmt)
+            else: ex.submit(job, count[0], idea, fmt)
     ideas = plan(formula, comments, o["videos"], o["notes"], say=lambda m: print(m, flush=True), on_idea=on_idea)
     print(f"{len(ideas)} topics, {count[0]} scripts; finishing them", flush=True)
+    if bw: bw.finish()
     ex.shutdown(wait=True)
     made.sort()
     open(os.path.join(folder, "README.md"), "w", encoding="utf-8").write(
         f"# {batch}\n\nFrom {o['link']}: {len(rows)} comments, {len(comments)} read, {len(ideas)} topics, "
-        f"{len(made)} scripts. Writer: {o['writer']}. Claude cost: ${spent['total']:.2f}.\n\n" + "\n".join(sorted(report)) + "\n")
+        f"{len(made)} scripts. Writer: {o['writer']}{' (batch)' if o['batch'] else ''}. Claude cost: ${spent['total']:.2f}.\n\n" + "\n".join(sorted(report)) + "\n")
     if args.list: open(args.list, "w").write("\n".join(made) + ("\n" if made else ""))
     print(f"DONE: {len(made)} scripts in {folder}. Claude cost: ${spent['total']:.2f} "
           f"(${spent['total'] / max(len(made), 1):.3f} per script, including picking the topics)", flush=True)
