@@ -10,7 +10,7 @@ Steps:
   1. grab every comment on the post (tools/tiktok_comments.py, the Comment Grabber's code)
   2. Claude reads the comments a few hundred at a time and lists the different video ideas they hold,
      skipping jokes, spam and anything that doesn't fit the formula
-  3. Claude writes one script per idea, following FORMULA.md (voice marks included)
+  3. Claude writes one script per idea, following FORMULA.md
   4. each script is checked against the formula's rules; one that fails is sent back once with the problems
   5. each script is saved as its own file, ready for make_from_file.py
 Scripts are written while Claude is still reading the rest of the comments, and (with --dispatch) each video
@@ -21,7 +21,6 @@ from typing import List, Literal
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(os.path.dirname(HERE), "tools"))
-from clipmaker import direct                      # noqa: E402  (reads the voice marks, like the video maker does)
 
 MODEL = "claude-opus-5"
 CHUNK = 250            # comments Claude reads per planning request
@@ -31,7 +30,7 @@ WORDS = (120, 190)     # script length allowed (the formula aims for 140-170)
 LOOKS = ["moody", "vintage", "bright", "pastel", "black and white"]
 
 WRITER_RULES = """You write TikTok voiceover scripts for my video maker. Follow my script system and formula above
-exactly, using the script format you are told to use, and always include the voice directions.
+exactly, using the script format you are told to use.
 
 Rules for every script:
 - Build it from the pattern in the real comments you are given: their situations, feelings, questions and small
@@ -39,7 +38,8 @@ Rules for every script:
   username. Don't invent dramatic facts that no comment supports.
 - Match the topic's kind: if the audience needs a practical solution, give them one; if it is educational, give
   clear tips or explanations; use the emotional approach only for emotional topics.
-- Output only the script body: one short line per clip, voice marks included, blank lines between thoughts.
+- Output only the script body: one short line per clip, a blank line between thoughts (two blank lines for a
+  longer pause). Plain words only: no brackets, stars, stage directions or voice notes.
   No settings, no part labels, no title, no code block fences, no notes before or after."""
 
 PLAN_RULES = """You are going through real comments from one TikTok post (id, likes, text) to find script topics,
@@ -177,22 +177,18 @@ def plan(formula, comments, want, notes, say=print, on_idea=lambda idea: None):
 
 # ---------- 3 + 4. scripts ----------
 def check(script):
-    """The formula's rules the video maker can check. Returns a list of problems (empty = good)."""
+    """The formula's rules that can be checked. Returns a list of problems (empty = good)."""
     probs = []
     body = script.strip().strip("`").strip()
-    lines, _, dirs = direct.parse(body)
-    words = sum(len(l.split()) for l in lines)
+    lines = [l.strip() for l in body.splitlines() if l.strip()]
     if not lines: return ["the script is empty"]
+    words = sum(len(l.split()) for l in lines)
     if not (WORDS[0] <= words <= WORDS[1]): probs.append(f"it has {words} words; it must have 140-170")
-    first = next(l for l in body.splitlines() if l.strip())
-    if not first.strip().startswith("["): probs.append("the first line must start with a voice tag like [calm, slow]")
-    raw = [l for l in body.splitlines() if l.strip()]
-    if any(l.count("*") > 2 for l in raw): probs.append("a line has more than one *stressed* word")
-    if body.lower().count("(long pause)") > 1: probs.append("more than one (long pause)")
-    if any(re.match(r"\s*(\[[^\]]*\]\s*)?[A-Z][A-Z ]{2,}:", l) for l in raw): probs.append("remove part labels like HOOK:")
+    if any(re.search(r"[\[\]*]|\((?:long )?pause\)", l) for l in lines):
+        probs.append("remove brackets, stars and notes like [calm] or (pause): plain words only")
+    if any(re.match(r"[A-Z][A-Z ]{2,}:", l) for l in lines): probs.append("remove part labels like HOOK:")
     long = [l for l in lines if len(l.split()) > 14]
     if long: probs.append(f"{len(long)} lines are too long for one clip (keep lines under 12 words), e.g. \"{long[0]}\"")
-    if sum(d["feel"] == "intense" for d in dirs) > max(2, len(lines) // 6): probs.append("too many [intense] lines")
     return probs
 
 
