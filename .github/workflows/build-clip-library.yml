@@ -1,0 +1,50 @@
+name: Build clip library
+# Searches Tenor for every topic in clip-maker/library/topics.py, checks each clip (moves? words on it? look,
+# animated or real) and publishes only the data as library.zip on the "clip-library" release,
+# which Clip Maker downloads. Runs on GitHub's computers - no AI chat involved.
+on:
+  push:
+    paths: ["clip-maker/library/**", ".github/workflows/build-clip-library.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  shard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    defaults: { run: { working-directory: clip-maker } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -r library/requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+      - run: python library/build_library.py --shard ${{ matrix.shard }} --shards 16 --out out
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: "shard-${{ matrix.shard }}", path: clip-maker/out/, retention-days: 30 }
+  merge:
+    needs: shard
+    if: always()
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: clip-maker } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install -r library/requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+      - uses: actions/download-artifact@v4
+        with: { path: clip-maker/shards, pattern: "shard-*" }
+      - run: python library/merge_library.py shards lib
+      - uses: actions/upload-artifact@v4
+        with: { name: clip-library, path: clip-maker/lib/library.zip, retention-days: 90 }
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: clip-library
+          name: Clip library (used by Clip Maker)
+          body: "Data for Clip Maker's clip picker (links, looks and image fingerprints of checked Tenor clips). Rebuilt by the 'Build clip library' workflow."
+          files: clip-maker/lib/library.zip
+          make_latest: false

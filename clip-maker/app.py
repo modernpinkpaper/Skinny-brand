@@ -6,6 +6,7 @@ from flask import Flask, request, jsonify, send_file, abort
 from clipmaker.paths import PROJECTS, CACHE, SETTINGS, VOICES, device, device_name
 from clipmaker.sources import SOURCES
 from clipmaker.looks import LOOKS
+from clipmaker import library
 
 app = Flask(__name__)
 STATE = dict(busy=False, stage="", pct=0, msg="", error="", project=None, video=None)
@@ -64,7 +65,7 @@ def options():
     return jsonify(sources=[dict(id=k, name=v[0], needs_key=v[2], key_url=v[3]) for k, v in SOURCES.items()],
                    looks=[dict(id=k, name=v["label"]) for k, v in LOOKS.items()],
                    voices=[dict(id=k, name=v[0]) for k, v in VOICES.items()],
-                   settings=settings(), device=device(), projects=sorted(os.listdir(PROJECTS)))
+                   settings=settings(), device=device(), projects=sorted(os.listdir(PROJECTS)), library=library.info())
 
 
 @app.post("/api/settings")
@@ -102,13 +103,14 @@ def make():
         import torch, torchaudio, transformers, chatterbox.tts, faster_whisper, noisereduce, rapidocr_onnxruntime  # noqa
         vt = threading.Thread(target=voice_job, daemon=True); vt.start()
         cands = picker.find_clips(lines, o["sources"], keys, o["kind"], o["look"],
-                                  lambda p, m: progress(p * 0.6, f"finding clips: {m}  |  {vstate['msg']}"))
+                                  lambda p, m: progress(p * 0.6, f"finding clips: {m}  |  {vstate['msg']}"),
+                                  live=bool(o.get("live")))
         p = dict(name=name, script=o["script"], lines=lines, breaks=breaks, opts=o, cands=cands, cur=[0] * len(lines))
         save_project(p)
         while vt.is_alive():
             progress(60, "clips found, finishing the voice: " + vstate["msg"]); vt.join(2)
         if vstate["error"]: raise vstate["error"]
-        v = render.build(project_dir(name), name, lines, breaks, [c[0] for c in cands], end, o["look"], ref,
+        v = render.build(project_dir(name), name, lines, breaks, cands, end, o["look"], ref,
                          o.get("tags", ""), lambda p, m: progress(60 + p * 0.4, m), check_cancel,
                          audio_parts=vstate["result"])
         STATE.update(video=v, pct=100, msg="your video is ready")
@@ -161,7 +163,9 @@ button.ghost{background:transparent;color:var(--acc);border:1px solid var(--acc)
 <div class="card"><h2>1. Script</h2><p class="hint">One line = one clip. A blank line = a short pause. Two or more blank lines = a longer pause.</p>
 <textarea id="script" placeholder="Paste your script here"></textarea>
 <div class="grid" style="margin-top:12px">
- <div><b>Websites</b><div id="sources"></div></div>
+ <div><b>Websites</b><div id="sources"></div>
+  <label><input type="checkbox" id="live"> Also search live <span class="hint">(slower, finds newer clips)</span></label>
+  <div class="hint" id="libinfo"></div></div>
  <div><b>Type of clips</b>
   <label><input type="radio" name="kind" value="animated" checked> Animated / cartoon</label>
   <label><input type="radio" name="kind" value="real"> Real people</label>
@@ -185,12 +189,13 @@ const media=f=>'/media?f='+encodeURIComponent(f);
 async function post(u,b){const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)});const j=await r.json();if(j.error)alert(j.error);return j}
 async function init(){OPT=await (await fetch('/api/options')).json();
  $('sources').innerHTML=OPT.sources.map(s=>`<label><input type="checkbox" value="${s.id}" ${s.id=='tenor'?'checked':''}> ${s.name}${s.needs_key&&!OPT.settings.keys?.[s.id]?' <span class="hint">(needs key)</span>':''}</label>`).join('');
+ $('libinfo').textContent=OPT.library?`Clip library: ${OPT.library.clips.toLocaleString()} ready-checked clips (${OPT.library.built})`:'Clip library: downloading… (until then it searches live)';
  $('look').innerHTML=OPT.looks.map(l=>`<option value="${l.id}">${l.name}</option>`).join('');
  $('voice').innerHTML=OPT.voices.map(v=>`<option value="${v.id}">${v.name}</option>`).join('');
  $('keys').innerHTML=OPT.sources.filter(s=>s.needs_key).map(s=>`<label>${s.name} <a href="${s.key_url}" target="_blank" style="color:var(--acc)">get key</a><input type="text" id="key_${s.id}" value="${OPT.settings.keys?.[s.id]||''}"></label>`).join('');
  const st=await (await fetch('/api/status')).json(); if(st.busy)watch();}
 async function saveKeys(){const keys={};OPT.sources.filter(s=>s.needs_key).forEach(s=>keys[s.id]=$('key_'+s.id).value);await post('/api/settings',{keys});init();toggle('settings')}
-async function make(){const b={script:$('script').value,name:$('name').value,end:$('end').value,tags:$('tags').value,look:$('look').value,voice:$('voice').value,speed:$('speed').value,
+async function make(){const b={script:$('script').value,name:$('name').value,end:$('end').value,tags:$('tags').value,look:$('look').value,voice:$('voice').value,speed:$('speed').value,live:$('live').checked,
  kind:document.querySelector('input[name=kind]:checked').value,sources:[...document.querySelectorAll('#sources input:checked')].map(x=>x.value)};
  const j=await post('/api/make',b); if(j.ok){$('done').classList.add('hide');watch()}}
 function watch(){$('prog').classList.remove('hide');$('findBtn').disabled=true;clearInterval(poll);poll=setInterval(async()=>{
@@ -206,6 +211,7 @@ init();
 def selftest():
     """Makes a tiny real video through the app's own Make video button; used to test the Windows .exe."""
     import time
+    library.update()
     c = app.test_client()
     r = c.post("/api/make", json=dict(script="Sometimes the quiet nights\nare where you heal the most.\n", name="selftest",
                                       sources=["tenor"], kind="animated", look="moody", voice="guy", end="", tags=""))
@@ -225,5 +231,6 @@ if __name__ == "__main__":
     url = f"http://127.0.0.1:{port}"
     print(f"\n  Clip Maker is running: {url}\n  Keep this window open while you use it. Close it to quit.\n"
           f"  Videos are saved in: {PROJECTS}\n  Using: {device_name()}\n", flush=True)
+    threading.Thread(target=library.update, daemon=True).start()   # get / refresh the clip library
     threading.Timer(1.0, lambda: webbrowser.open(url)).start()
     app.run(host="127.0.0.1", port=port, threaded=True)

@@ -123,31 +123,46 @@ def txt_emb(t):
 
 
 _ocr = None
-def has_words(item, memory):
-    """Reads 3 frames with OCR; a clip with 5+ letters of text on it is not used (tiny logos are ok)."""
+def read_text(file):
+    """OCR on 3 frames of a clip; returns the words it could read ("" = no text)."""
     global _ocr
-    url = item["full"]
-    if url not in memory.d:
-        if _ocr is None:
-            from rapidocr_onnxruntime import RapidOCR
-            _ocr = RapidOCR()
-        raw = subprocess.run([FF, "-loglevel", "error", "-t", "12", "-i", item["file"], "-vf", "fps=2",
-                              "-f", "image2pipe", "-vcodec", "png", "-"], capture_output=True, creationflags=NOWIN).stdout
-        pngs = [b"\x89PNG" + x for x in raw.split(b"\x89PNG")[1:]]
+    if _ocr is None:
+        from rapidocr_onnxruntime import RapidOCR
+        _ocr = RapidOCR()
+    import tempfile, glob, shutil
+    d = tempfile.mkdtemp()
+    try:
+        subprocess.run([FF, "-loglevel", "error", "-t", "12", "-i", file, "-vf", "fps=2", os.path.join(d, "%03d.png")],
+                       capture_output=True, creationflags=NOWIN)
+        pngs = sorted(glob.glob(os.path.join(d, "*.png")))
         found = []
         for k in (np.linspace(0, len(pngs) - 1, min(3, len(pngs))).astype(int) if pngs else []):
-            res, _ = _ocr(pngs[k])
+            try: res, _ = _ocr(pngs[k])
+            except Exception: continue
             found += [r[1] for r in res or [] if r[2] > 0.6]
-        memory.d[url] = " | ".join(found); memory.save()
-    return len(re.findall(r"[A-Za-z]", memory.d[url])) >= 5
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+    return " | ".join(found)
 
 
-def find_clips(lines, sources, keys, kind, look, progress):
-    """kind: 'animated' | 'real' | 'both'. Returns one ranked candidate list per line (best first)."""
+def too_much_text(text): return len(re.findall(r"[A-Za-z]", text)) >= 5   # tiny logos/watermarks are ok
+
+
+def has_words(item, memory):
+    """A clip with words on it (memes, captions) is not used."""
+    if item.get("checked"): return False          # already checked when the library was built
+    if item["full"] not in memory.d:
+        memory.d[item["full"]] = read_text(item["file"]); memory.save()
+    return too_much_text(memory.d[item["full"]])
+
+
+def _live_clips(lines, sources, keys, kind, look, progress, themes=True):
+    """Searches the websites right now and checks the clips found (remembering everything it works out).
+    Returns (clips, fingerprints)."""
     lk = LOOKS[look]
     suffix = {"animated": [" anime", " cartoon"], "real": [""], "both": [" anime", ""]}[kind]
     queries = set()
-    for t in lk["themes"]:
+    for t in (lk["themes"] if themes else []):
         for s in suffix: queries.add(t + s)
     for l in lines:
         k = keywords(l)
@@ -171,7 +186,7 @@ def find_clips(lines, sources, keys, kind, look, progress):
             if n % 10 == 0: progress(2 + 8 * n / len(jobs), f"searching ({n}/{len(jobs)})")
     searches.save()
     items = list(cands.values())
-    if not items: raise RuntimeError("No clips found - check your internet and the website keys in Settings.")
+    if not items: return [], np.zeros((0, 512), np.float32)
 
     progress(10, f"downloading {len(items)} small previews")
     with ThreadPoolExecutor(12) as ex:
@@ -211,8 +226,33 @@ def find_clips(lines, sources, keys, kind, look, progress):
         if not os.path.exists(f): continue
         z = np.load(f); c.update({k: float(z[k]) for k in ("bright", "sat", "contrast", "white")})
         E.append(z["emb"].astype(np.float32)); good.append(c)
-    items = good
-    E = torch.from_numpy(np.stack(E)); E = E / E.norm(dim=-1, keepdim=True)
+    E = np.stack(E) if E else np.zeros((0, 512), np.float32)
+    return good, E / (np.linalg.norm(E, axis=1, keepdims=True) + 1e-6)
+
+
+def find_clips(lines, sources, keys, kind, look, progress, live=False):
+    """kind: 'animated' | 'real' | 'both'. Returns one ranked candidate list per line (best first).
+    Uses the ready-made clip library when there is one (seconds); live=True (or no library) also searches
+    the websites right now (minutes, but can find newer clips)."""
+    import torch
+    from . import library
+    lk = LOOKS[look]
+    lib = library.load() if "tenor" in sources else None
+    items, Es = [], []
+    if lib:
+        _, clips, LE = lib
+        progress(5, f"clip library: {len(clips)} clips")
+        items += [dict(c, source="tenor", file=None) for c in clips]; Es.append(LE)
+    others = [s for s in sources if s != "tenor"]
+    if live or not lib or others:
+        srcs = sources if (live or not lib) else others
+        li, le = _live_clips(lines, srcs, keys, kind, look,
+                             (lambda p, m: progress(5 + 0.75 * p, m)), themes=not lib)
+        known = {c["full"] for c in items}
+        keep = [n for n, c in enumerate(li) if c["full"] not in known]
+        items += [li[n] for n in keep]; Es.append(le[keep])
+    if not items: raise RuntimeError("No clips found - check your internet and the website keys in Settings.")
+    E = torch.from_numpy(np.concatenate(Es).astype(np.float32))
 
     def prob(pos, neg):
         T = txt_emb(pos + neg); p = (100 * E @ T.T).softmax(-1)
@@ -223,7 +263,7 @@ def find_clips(lines, sources, keys, kind, look, progress):
     for k, c in enumerate(items):
         if kind == "animated" and cartoon[k] < 0.75: continue
         if kind == "real" and cartoon[k] > 0.3: continue
-        if c["white"] > 0.35: continue
+        if c.get("white", 0) > 0.35: continue
         tone = 0.0
         if lk["target"]:
             tb, ts = lk["target"]
@@ -240,18 +280,18 @@ def find_clips(lines, sources, keys, kind, look, progress):
     total = rel + (0.9 * look_s if lk["target"] else 0)
 
     ocr_mem = _Json("ocr.json")
-    pick, used, banned = [None] * len(lines), set(), set()
+    pick, banned = [None] * len(lines), set()
+    grid = total.copy()
     while None in pick:  # best line/clip pair first, so strong matches aren't stolen by weak ones
-        _, i, j = max((total[i, j], i, j) for i in range(len(lines)) if pick[i] is None
-                      for j in range(len(items)) if j not in used)
-        used.add(j)
+        i, j = np.unravel_index(np.argmax(grid), grid.shape)
+        grid[:, j] = -np.inf
         if has_words(items[j], ocr_mem): banned.add(j); continue
-        pick[i] = j
+        pick[i] = j; grid[i, :] = -np.inf
         progress(85 + 12 * sum(p is not None for p in pick) / len(lines), "checking picked clips for text")
     out = []
     for i, j in enumerate(pick):
         ranked = [j] + [k for k in np.argsort(-total[i]) if k != j and k not in banned][:ALTS]
-        out.append([dict(full=items[k]["full"], small=items[k]["small"], file=items[k]["file"],
+        out.append([dict(full=items[k]["full"], small=items[k]["small"], file=items[k].get("file"),
                          desc=items[k]["desc"], source=items[k]["source"], fit=round(float(rel[i, k]), 2))
                     for k in ranked])
     return out

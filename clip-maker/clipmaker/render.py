@@ -54,18 +54,28 @@ def make_voice(lines, breaks, end, voice_ref, speed=1.0, progress=lambda p, m: N
 
 def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progress, check_cancel=lambda: None,
           audio_parts=None, speed=1.0):
-    """clips: one dict per line with 'full' (link). audio_parts: result of make_voice() if already made.
+    """clips: per line, a list of clip dicts best-first (or one dict). audio_parts: result of make_voice().
     Returns the finished video path."""
     tmp = tempfile.mkdtemp(prefix="clipmaker-")
     try:
         cdir = os.path.join(project, "clips"); os.makedirs(cdir, exist_ok=True)
-        files = []
-        for i, c in enumerate(clips):
+        files, used = [], set()
+        for i, options in enumerate(clips):
+            options = options if isinstance(options, list) else [options]
             f = os.path.join(cdir, f"{i:02d}.mp4")
-            have = os.path.exists(f) and os.path.exists(f + ".url") and open(f + ".url").read() == c["full"]
-            if not have:   # download the full-size clip (skipped if already there)
-                open(f, "wb").write(S.get(c["full"], timeout=90).content); open(f + ".url", "w").write(c["full"])
-            files.append(f); progress(2 + 6 * i / len(clips), f"downloading clip {i + 1}/{len(clips)}")
+            for c in options:   # a clip that's gone from the website is replaced by the line's next best one
+                if c["full"] in used: continue
+                if os.path.exists(f) and os.path.exists(f + ".url") and open(f + ".url").read() == c["full"]: break
+                try:
+                    r = S.get(c["full"], timeout=90)
+                    if r.status_code == 200 and len(r.content) > 5000:
+                        open(f, "wb").write(r.content); open(f + ".url", "w").write(c["full"]); break
+                except Exception:
+                    pass
+            else:
+                raise RuntimeError(f"Couldn't download any clip for line {i + 1} - check your internet.")
+            used.add(c["full"]); files.append(f)
+            progress(2 + 6 * i / len(clips), f"downloading clip {i + 1}/{len(clips)}")
         check_cancel()
         if audio_parts is None:
             progress(8, "making the voice (the slow part)")

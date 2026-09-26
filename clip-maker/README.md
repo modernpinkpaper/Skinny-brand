@@ -26,6 +26,9 @@ The black window says what it's using, for example `Using: NVIDIA graphics card:
 - Each line of your script gets its own clip, which changes exactly when the voice starts that line.
 - **Voice speed** can be Normal, A bit slower (default) or Slower.
 
+## The clip library
+The app downloads a ready-made library of Tenor clips that were already checked on GitHub's computers: each one moves, has no words on it, and is tagged animated or real, with its colours and what's in it. Picking clips from it takes about a second. Tick **Also search live** to also search Tenor right now (slower, but finds newer clips). The library covers the topics in `library/topics.py` and is rebuilt by the **Build clip library** workflow on GitHub.
+
 ## Faster every time
 The app remembers every clip it has checked (its colours, what it shows, whether it moves or has words on it) and your searches for 3 days. The first video takes the longest; after that it mostly reuses what it already knows.
 
