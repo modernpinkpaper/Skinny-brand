@@ -1,0 +1,27 @@
+name: Build Comment Grabber (Windows)
+on:
+  push:
+    paths: ["comment-grabber/**", "tools/tiktok_comments.py", "tools/comment_report.py", ".github/workflows/build-comment-grabber.yml"]
+  workflow_dispatch:
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    defaults: { run: { working-directory: comment-grabber } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pyinstaller
+      - name: Build CommentGrabber.exe
+        run: pyinstaller commentgrabber.spec --noconfirm
+      - name: Test the .exe (makes a report, then grabs 50 real comments)
+        run: dist\CommentGrabber.exe --selftest
+      - uses: actions/upload-artifact@v4
+        with: { name: CommentGrabber-Windows, path: comment-grabber/dist/CommentGrabber.exe, retention-days: 90 }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: selftest-output, path: ~/Documents/Comment Grabber/, if-no-files-found: ignore }

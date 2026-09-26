@@ -37,25 +37,23 @@ def rows_from(comments, parent=""):
         })
     return out
 
-def main():
-    link = sys.argv[1]
-    out = sys.argv[2] if len(sys.argv) > 2 and not sys.argv[2].startswith("--") else "comments.csv"
-    want_replies = "--no-replies" not in sys.argv
+def scrape(link, replies=True, limit=None, progress=print):
+    """Return (post_url, rows). progress(msg) is called as it goes. limit = stop after this many top-level comments."""
     final, pid = resolve(link)
-    print("post:", final.split("?")[0])
+    post = final.split("?")[0]
+    progress(f"post: {post}")
     rows, cursor, total = [], 0, None
     while True:
         d = get(f"https://www.tiktok.com/api/comment/list/?aid=1988&aweme_id={pid}&count=50&cursor={cursor}")
         total = total or d.get("total")
         batch = rows_from(d.get("comments"))
         rows += batch
-        print(f"  top-level comments: {len([r for r in rows if not r['reply_to']])} / {total}", end="\r")
-        if not d.get("has_more") or not batch:
+        progress(f"comments so far: {len(rows):,} (TikTok shows {total:,} including replies)" if total else f"comments so far: {len(rows):,}")
+        if not d.get("has_more") or not batch or (limit and len(rows) >= limit):
             break
         cursor = d.get("cursor", cursor + 50)
         time.sleep(0.4)
-    print()
-    if want_replies:
+    if replies:
         parents = [r for r in rows if not r["reply_to"] and r["replies"]]
         for i, p in enumerate(parents):
             rc = 0
@@ -67,11 +65,20 @@ def main():
                     break
                 rc = d.get("cursor", rc + 50)
                 time.sleep(0.3)
-            print(f"  replies: fetched for {i+1}/{len(parents)} comments", end="\r")
-        print()
+            progress(f"replies: fetched for {i+1}/{len(parents)} comments")
+    return post, rows
+
+def save_csv(rows, out):
     with open(out, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
         w.writeheader(); w.writerows(rows)
+
+def main():
+    link = sys.argv[1]
+    out = sys.argv[2] if len(sys.argv) > 2 and not sys.argv[2].startswith("--") else "comments.csv"
+    _, rows = scrape(link, replies="--no-replies" not in sys.argv, progress=lambda m: print(m.ljust(60), end="\n" if m.startswith("post") else "\r"))
+    print()
+    save_csv(rows, out)
     print(f"saved {len(rows)} comments to {out}")
 
 if __name__ == "__main__":

@@ -1,0 +1,9 @@
+# only what the library build needs (no voice tools)
+torch==2.6.0
+transformers==5.2.0
+numpy<2
+setuptools<81
+rapidocr-onnxruntime==1.4.4
+imageio-ffmpeg==0.6.0
+pillow
+requests
