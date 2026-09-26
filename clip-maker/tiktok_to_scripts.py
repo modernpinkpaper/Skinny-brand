@@ -1,7 +1,8 @@
 """TikTok link -> every comment -> video ideas -> finished scripts, written by Claude with FORMULA.md.
 
-  python tiktok_to_scripts.py links/my-post --out scripts/
+  python tiktok_to_scripts.py links/my-post --out scripts/ [--dispatch videos-my-post]
   (needs the ANTHROPIC_API_KEY environment variable; on GitHub it comes from the repo's secret)
+  --dispatch: on GitHub, start the "Make video" workflow for each script the moment it is written
 
 The link file holds the TikTok link, plus optional settings (see links/README.md).
 Steps:
@@ -10,8 +11,10 @@ Steps:
      skipping jokes, spam and anything that doesn't fit the formula
   3. Claude writes one script per idea, following FORMULA.md (voice marks included)
   4. each script is checked against the formula's rules; one that fails is sent back once with the problems
-  5. each script is saved as its own file, ready for make_from_file.py"""
-import os, re, sys, argparse
+  5. each script is saved as its own file, ready for make_from_file.py
+Scripts are written while Claude is still reading the rest of the comments, and (with --dispatch) each video
+starts being made as soon as its script is done."""
+import os, re, sys, time, argparse, subprocess, threading
 from concurrent.futures import ThreadPoolExecutor
 from typing import List, Literal
 
@@ -119,7 +122,8 @@ def ask(system, user, schema):
 
 
 # ---------- 2. ideas ----------
-def plan(formula, comments, want, notes, say=print):
+def plan(formula, comments, want, notes, say=print, on_idea=lambda idea: None):
+    """on_idea(idea) is called for each new idea as soon as it is found."""
     ideas, by_id = [], {c["id"]: c for c in comments}
     for start in range(0, len(comments), CHUNK):
         if len(ideas) >= want: break
@@ -132,7 +136,8 @@ def plan(formula, comments, want, notes, say=print):
         for i in (res.ideas if res else []):
             ids = [x.strip("[] ") for x in i.comment_ids if x.strip("[] ") in by_id]
             if not ids or any(slug(i.title) == slug(t["title"]) for t in ideas): continue
-            ideas.append(dict(i.model_dump(), comment_ids=ids)); new += 1
+            if len(ideas) >= want: break
+            ideas.append(dict(i.model_dump(), comment_ids=ids)); new += 1; on_idea(ideas[-1])
         say(f"read comments {start + 1}-{start + len(batch)} of {len(comments)}: {new} new ideas ({len(ideas)} total)")
     return ideas[:want]
 
@@ -174,6 +179,19 @@ def write_one(formula, idea, comments):
     return res.script.strip().strip("`").strip(), probs
 
 
+def start_video(path, text, release):
+    """Starts the "Make video" workflow on GitHub for one script (the script text goes with it)."""
+    name = os.path.splitext(os.path.basename(path))[0]
+    cmd = ["gh", "workflow", "run", "make-video.yml", "--ref", os.environ.get("GITHUB_REF_NAME", "main"),
+           "-f", f"name={name}", "-f", f"release={release}", "-f", f"script={text}"]
+    for attempt in range(4):
+        r = subprocess.run(cmd, capture_output=True, text=True)
+        if r.returncode == 0: print(f"  video started: {name}", flush=True); return
+        print(f"  could not start the video yet ({r.stderr.strip()[:200]}), retrying", flush=True)
+        time.sleep(10 * (attempt + 1))
+    print(f"::error::could not start the video for {name}", flush=True)
+
+
 def settings_header(o, idea):
     look = o["look"] if o["look"] != "auto" else idea["look"]
     clips = o["clips"] if o["clips"] != "auto" else idea["clips"]
@@ -186,6 +204,7 @@ def settings_header(o, idea):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("linkfile"); ap.add_argument("--out", default="scripts")
     ap.add_argument("--list", help="write the new script paths (one per line) to this file")
+    ap.add_argument("--dispatch", metavar="RELEASE", help="start a Make video run for each script, adding it to RELEASE")
     args = ap.parse_args()
     if not os.environ.get("ANTHROPIC_API_KEY"):
         sys.exit("No ANTHROPIC_API_KEY. On GitHub: Settings > Secrets and variables > Actions > New repository secret.")
@@ -200,25 +219,32 @@ def main():
     print(f"{len(rows)} comments grabbed, {len(comments)} worth reading", flush=True)
     if not comments: sys.exit("No usable comments (the post may be private, or TikTok blocked the request).")
 
-    ideas = plan(formula, comments, o["videos"], o["notes"], say=lambda m: print(m, flush=True))
-    print(f"{len(ideas)} video ideas; writing the scripts", flush=True)
     by_id = {c["id"]: c for c in comments}
     folder = os.path.join(args.out, batch); os.makedirs(folder, exist_ok=True)
-    made, report = [], []
+    made, report, lock = [], [], threading.Lock()
+    ex = ThreadPoolExecutor(4)
 
-    def job(n_idea):
-        n, idea = n_idea
-        try: return n, idea, *write_one(formula, idea, by_id)
-        except Exception as e: return n, idea, None, [f"error: {e}"]
-    with ThreadPoolExecutor(4) as ex:
-        for n, idea, script, probs in ex.map(job, enumerate(ideas, 1)):
+    def job(n, idea):
+        try: script, probs = write_one(formula, idea, by_id)
+        except Exception as e: script, probs = None, [f"error: {e}"]
+        with lock:
             if not script:
-                report.append(f"- skipped: {idea['title']} ({'; '.join(probs)})"); continue
+                report.append(f"- skipped: {idea['title']} ({'; '.join(probs)})"); return
             path = os.path.join(folder, f"{n:03d}-{slug(idea['title'], 50)}.txt")
-            open(path, "w", encoding="utf-8").write(settings_header(o, idea) + script + "\n")
+            text = settings_header(o, idea) + script + "\n"
+            open(path, "w", encoding="utf-8").write(text)
             made.append(path)
-            report.append(f"- {os.path.basename(path)}: {idea['angle']}" + (f"  (still off: {'; '.join(probs)})" if probs else ""))
-            print(f"[{len(made)}/{len(ideas)}] {os.path.basename(path)}" + (f"  (still off: {'; '.join(probs)})" if probs else ""), flush=True)
+            off = f"  (still off: {'; '.join(probs)})" if probs else ""
+            report.append(f"- {os.path.basename(path)}: {idea['angle']}{off}")
+            print(f"script {len(made)}: {os.path.basename(path)}{off}", flush=True)
+        if args.dispatch: start_video(path, text, args.dispatch)
+
+    count = [0]
+    def on_idea(idea):   # write the script right away, while Claude keeps reading comments
+        count[0] += 1; ex.submit(job, count[0], idea)
+    ideas = plan(formula, comments, o["videos"], o["notes"], say=lambda m: print(m, flush=True), on_idea=on_idea)
+    print(f"{len(ideas)} video ideas; finishing the scripts", flush=True)
+    ex.shutdown(wait=True)
     made.sort()
     open(os.path.join(folder, "README.md"), "w", encoding="utf-8").write(
         f"# {batch}\n\nFrom {o['link']}: {len(rows)} comments, {len(comments)} read, {len(ideas)} ideas, "

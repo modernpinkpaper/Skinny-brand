@@ -1,7 +1,7 @@
 name: Build Clip Maker (Windows)
 on:
   push:
-    paths: ["clip-maker/**", "!clip-maker/scripts/**", "!clip-maker/library/**", "!clip-maker/links/**", "!clip-maker/FORMULA.md", "!clip-maker/tiktok_to_scripts.py", ".github/workflows/build-clip-maker.yml"]
+    paths: ["clip-maker/**", "!clip-maker/scripts/**", "!clip-maker/library/**", "!clip-maker/links/**", "!clip-maker/FORMULA.md", "!clip-maker/tiktok_to_scripts.py", "!clip-maker/drive_upload.py", "!clip-maker/drive/**", ".github/workflows/build-clip-maker.yml"]
   workflow_dispatch:
 jobs:
   windows:

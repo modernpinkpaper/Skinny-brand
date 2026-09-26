@@ -5,8 +5,9 @@ Put a TikTok link here and GitHub does the rest:
 1. It grabs every comment on the post.
 2. Claude reads them and finds every different video idea in them. It skips jokes, spam and anything that doesn't fit your formula.
 3. Claude writes one script per idea, following `clip-maker/FORMULA.md` (voice marks included). Each script is checked against the formula's rules and sent back once if it breaks one.
-4. The scripts are saved in `clip-maker/scripts/<name>/`, one file per video.
-5. All the videos are made, up to 20 at a time. They land on one Releases page called **Videos: <name>**, each with its own caption file.
+4. **The moment each script is written, its video starts being made.** It doesn't wait for the other scripts. Up to 20 videos are made at the same time; the rest wait their turn, so it keeps going until every script has its video.
+5. Each finished video lands on one Releases page, **Videos: <name>**, with its own caption file. If Google Drive is set up, it also goes to My Drive → Clip Maker Videos → <name>. See `../drive/README.md`.
+6. At the end the scripts are also saved in `clip-maker/scripts/<name>/`, one file per video.
 
 ## One-time setup: your Claude API key
 The key is kept in a GitHub **secret**, never in a file. This repo is public, so a key in a file could be read and used by anyone.
@@ -46,8 +47,8 @@ notes: focus on the comments about mothers
 ## How many videos, how long, what it costs
 - **How many:** one per different idea in the comments. A post with a few thousand real stories often gives 50 to 200 or more. A post full of jokes or one-word comments gives very few. It never makes the same idea twice, so the count depends on the comments.
 - **How long:**
-  - Scripts: about 30 minutes for 100.
-  - Videos: about 15 minutes each, 20 at a time, so about 1.5 hours for 100 videos and about 4 hours for 300.
+  - The first video is ready about 20 minutes after you add the link.
+  - After that, about 20 videos finish every 15 minutes. So 100 videos take about 1.5 hours, and 300 take about 4 hours.
 - **Cost:**
   - GitHub: free, because this repo is public.
   - Claude: roughly 5 to 10 cents per script, plus about $1 for reading the comments. So about $5 to $10 for 100 scripts.

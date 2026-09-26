@@ -1,8 +1,10 @@
 name: TikTok to videos
-# Add a file with a TikTok link to clip-maker/links/ and this: grabs every comment, has Claude write a script
-# for every good video idea in them (using clip-maker/FORMULA.md), saves the scripts in clip-maker/scripts/<name>/,
-# then makes all the videos, up to 20 at a time. They all land on one Releases page: "Videos: <name>".
-# Needs the ANTHROPIC_API_KEY repository secret (Settings > Secrets and variables > Actions).
+# Add a file with a TikTok link to clip-maker/links/ and this grabs every comment and has Claude write a script
+# for every good video idea in them (using clip-maker/FORMULA.md). The moment each script is written, a
+# "Make video" run starts for it (up to 20 run at once, the rest wait their turn). Every video lands on one
+# Releases page, "Videos: <name>", and in Google Drive if that is set up. The scripts are saved in
+# clip-maker/scripts/<name>/ at the end. Needs the ANTHROPIC_API_KEY secret (see clip-maker/links/README.md).
+run-name: "TikTok to videos: ${{ inputs.file || github.event.head_commit.message }}"
 on:
   push:
     paths: ["clip-maker/links/**", "!clip-maker/links/README.md"]
@@ -13,21 +15,21 @@ on:
         required: true
 permissions:
   contents: write
+  actions: write
+concurrency:
+  group: tiktok-to-videos-${{ inputs.file || github.sha }}
+  cancel-in-progress: false
 jobs:
   scripts:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
-    outputs:
-      parts: ${{ steps.parts.outputs.parts }}
-      release: ${{ steps.batch.outputs.release }}
-      ref: ${{ steps.push.outputs.ref }}
+    timeout-minutes: 300
     defaults: { run: { working-directory: clip-maker } }
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
       - name: Which link file?
         id: batch
-        env: { INPUT_FILE: "${{ github.event.inputs.file }}" }
+        env: { INPUT_FILE: "${{ inputs.file }}" }
         run: |
           if [ -n "$INPUT_FILE" ]; then
             f="links/$INPUT_FILE"; [ -f "$f" ] || f="links/$INPUT_FILE.txt"
@@ -45,65 +47,54 @@ jobs:
           slug=$(echo "$name" | tr 'A-Z' 'a-z' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g' | cut -c1-40 | sed -E 's/-+$//')
           echo "file=$f" >> "$GITHUB_OUTPUT"; echo "slug=$slug" >> "$GITHUB_OUTPUT"; echo "release=videos-$slug" >> "$GITHUB_OUTPUT"
           echo "Link file: $f"; cat "$f"
+      - name: Check the Claude API key
+        env: { ANTHROPIC_API_KEY: "${{ secrets.ANTHROPIC_API_KEY }}" }
+        run: |
+          [ -n "$ANTHROPIC_API_KEY" ] || { echo "::error::Add your Claude API key first: repo Settings > Secrets and variables > Actions > New repository secret, name ANTHROPIC_API_KEY"; exit 1; }
+      - name: Make the Releases page for this batch
+        env: { GH_TOKEN: "${{ github.token }}", REL: "${{ steps.batch.outputs.release }}", SLUG: "${{ steps.batch.outputs.slug }}" }
+        run: |
+          gh release delete "$REL" --yes --cleanup-tag 2>/dev/null || true
+          gh release create "$REL" --title "Videos: $SLUG" --latest=false --target "${{ github.sha }}" \
+            --notes "Scripts are being written now. Each video is added here the moment it's finished (up to 20 are made at a time), with its own -caption.txt."
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - name: Install
         run: pip install anthropic pydantic numpy
-      - name: Grab the comments and write the scripts
+      - name: Grab the comments, write the scripts, start each video
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
           LINK_FILE: ${{ steps.batch.outputs.file }}
-        run: |
-          if [ -z "$ANTHROPIC_API_KEY" ]; then
-            echo "::error::Add your Claude API key first: repo Settings > Secrets and variables > Actions > New repository secret, name ANTHROPIC_API_KEY"
-            exit 1
-          fi
-          python tiktok_to_scripts.py "$LINK_FILE" --out scripts --list ../new-scripts.txt
+          REL: ${{ steps.batch.outputs.release }}
+        run: python tiktok_to_scripts.py "$LINK_FILE" --out scripts --dispatch "$REL"
       - name: Save the scripts in the repo
-        id: push
+        if: always()
         env: { SLUG: "${{ steps.batch.outputs.slug }}" }
         run: |
+          [ -d "scripts/$SLUG" ] || exit 0
           git config user.name "github-actions[bot]"; git config user.email "41898+github-actions[bot]@users.noreply.github.com"
           git add "scripts/$SLUG"
-          git commit -q -m "Scripts from the TikTok link \"$SLUG\"" || true
+          git commit -q -m "Scripts from the TikTok link \"$SLUG\"" || exit 0
           for try in 1 2 3 4; do
             git push -q origin "HEAD:${{ github.ref_name }}" && break
             git pull -q --rebase origin "${{ github.ref_name }}"; sleep $((try * 5))
           done
-          echo "ref=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
-      - name: Make the Releases page for this batch
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REL: ${{ steps.batch.outputs.release }}
-          SLUG: ${{ steps.batch.outputs.slug }}
+      - name: Add the scripts and the list to the Releases page
+        if: always()
+        env: { GH_TOKEN: "${{ github.token }}", REL: "${{ steps.batch.outputs.release }}", SLUG: "${{ steps.batch.outputs.slug }}" }
         run: |
-          gh release delete "$REL" --yes --cleanup-tag 2>/dev/null || true
+          [ -f "scripts/$SLUG/README.md" ] || exit 0
           cp "scripts/$SLUG/README.md" ../notes.md
-          printf '\n\nThe videos are added here as they finish (up to 20 are made at a time). Each video has a matching -caption.txt.\n' >> ../notes.md
+          printf '\n\nEach video is added here the moment it is finished (up to 20 are made at a time), with its own -caption.txt. Watch progress under Actions > Make video.\n' >> ../notes.md
           (cd scripts && zip -qr "../../$SLUG-scripts.zip" "$SLUG")
-          gh release create "$REL" "../$SLUG-scripts.zip" --title "Videos: $SLUG" --notes-file ../notes.md --latest=false --target "$(git rev-parse HEAD)"
-      - name: Split the videos into parts
-        id: parts
-        run: |
-          python - <<'PY' >> "$GITHUB_OUTPUT"
-          import json
-          files = [l.strip() for l in open("../new-scripts.txt") if l.strip()]
-          per = 3   # videos per part; each part runs on its own GitHub computer
-          parts = [{"part": str(n + 1), "files": "\n".join(files[i:i + per])} for n, i in enumerate(range(0, len(files), per))]
-          print("parts=" + json.dumps(parts))
-          PY
-          echo "Scripts: $(grep -c . ../new-scripts.txt || true)"
-  videos:
-    needs: scripts
-    if: ${{ needs.scripts.outputs.parts != '[]' && needs.scripts.outputs.parts != '' }}
-    strategy:
-      fail-fast: false
-      max-parallel: 20
-      matrix:
-        include: ${{ fromJSON(needs.scripts.outputs.parts) }}
-    uses: ./.github/workflows/make-video.yml
-    with:
-      files: ${{ matrix.files }}
-      release: ${{ needs.scripts.outputs.release }}
-      ref: ${{ needs.scripts.outputs.ref }}
-      part: ${{ matrix.part }}
+          gh release upload "$REL" "../$SLUG-scripts.zip" --clobber
+          gh release edit "$REL" --notes-file ../notes.md
+      - name: Put the scripts in Google Drive
+        if: always()
+        continue-on-error: true
+        env:
+          GDRIVE_URL: ${{ secrets.GDRIVE_URL }}
+          GDRIVE_PASSWORD: ${{ secrets.GDRIVE_PASSWORD }}
+          SLUG: ${{ steps.batch.outputs.slug }}
+        run: '[ -f "../$SLUG-scripts.zip" ] && python drive_upload.py "$SLUG" "../$SLUG-scripts.zip" || true'

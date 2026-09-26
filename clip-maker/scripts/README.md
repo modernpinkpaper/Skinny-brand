@@ -30,3 +30,6 @@ Edit the file and commit again to remake the video.
 
 ## Lots of videos from one TikTok post
 Put a TikTok link in `clip-maker/links/` instead. Claude writes a script for every good idea in the comments and they all become videos. See `../links/README.md`.
+
+## Google Drive
+To also get every video in your Google Drive automatically, see `../drive/README.md`.
