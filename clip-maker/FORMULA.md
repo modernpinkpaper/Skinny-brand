@@ -7,8 +7,8 @@ Use it to write your own scripts. Do not copy their lines — copy the **shape**
 
 | Thing | Target |
 |---|---|
-| Video length | 55–65 seconds |
-| Script length | 140–170 words |
+| Video length | 61–70 seconds (at least 61: TikTok only pays for videos of 60 seconds or more) |
+| Script length | 155–180 words |
 | Speaking speed | slow, about 2.5 words per second |
 | Average sentence | about 8–10 words |
 | Very short sentences (5 words or less) | about 1 in 4 |
@@ -143,7 +143,7 @@ CLOSE:
 - [ ] There's a clear "But..." turn.
 - [ ] At least 2 "Not X. Y." lines.
 - [ ] The last line is something people would screenshot.
-- [ ] 55–65 seconds, slow voice, 1–3 words on screen.
+- [ ] 61–70 seconds, slow voice, 1–3 words on screen.
 
 ## Output format for the video maker
 

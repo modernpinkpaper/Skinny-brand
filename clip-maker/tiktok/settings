@@ -1,0 +1,4 @@
+# TikTok drafts: how many finished videos go to your TikTok drafts each day (oldest first).
+per_day: 3
+# Release pages to never send, comma separated parts of their names (e.g. first-test).
+skip: first-test, github-test

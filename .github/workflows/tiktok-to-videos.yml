@@ -21,6 +21,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   scripts:
+    # a push only starts it on the main branch (a test branch that carries a link file must not run it again)
+    if: github.event_name != 'push' || github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
     timeout-minutes: 300
     defaults: { run: { working-directory: clip-maker } }

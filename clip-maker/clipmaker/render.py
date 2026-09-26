@@ -12,6 +12,7 @@ from .motion import cuts
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 W, H, FPS, SR = 1080, 1920, 30, voice.SR
 END_HOLD = 2.5
+MIN_SECONDS = 61.0   # TikTok's Creator Rewards only pays for videos of 60 seconds or more
 NOWIN = 0x08000000 if os.name == "nt" else 0   # no black console windows popping up on Windows
 
 
@@ -128,6 +129,10 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
             audio_parts = make_voice(lines, breaks, end, voice_ref, speed,
                                      lambda p, m: (check_cancel(), progress(2 + 60 * p, m)))
         pieces, times, end_audio = audio_parts
+        pieces = list(pieces)
+        body = sum(len(p) for p in pieces) / SR
+        if end_audio is None and body < MIN_SECONDS:   # no end screen: hold the last line (its clip fills the time)
+            pieces[-1] = np.concatenate([pieces[-1], np.zeros(int(round((MIN_SECONDS - body) * SR)), np.float32)])
         sans = captions.font(90)
         grade = LOOKS[look]["grade"]; grade = grade + "," if grade else ""
         cdir = os.path.join(project, "clips"); os.makedirs(cdir, exist_ok=True)
@@ -162,7 +167,7 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
         audio = list(pieces)
         if end_audio is not None:
             a = np.concatenate([np.zeros(int(0.5 * SR), np.float32), end_audio])   # a breath before the end line
-            end_dur = len(a) / SR + END_HOLD
+            end_dur = max(len(a) / SR + END_HOLD, MIN_SECONDS - body)   # the end screen stays up until 61 s
             audio.append(np.concatenate([a, np.zeros(int(round(end_dur * SR)) - len(a), np.float32)]))
             bg = os.path.join(tmp, "bg.png"); Image.new("RGB", (W, H), (22, 22, 22)).save(bg)
             ov = _typed(end, sans, 900, len(a) / SR * 0.85, end_dur, os.path.join(tmp, "end"), shadow=False, width=22)
