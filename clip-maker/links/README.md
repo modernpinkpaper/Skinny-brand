@@ -36,6 +36,7 @@ notes: focus on the comments about mothers
 | Setting | What it does |
 |---|---|
 | `videos` | The most videos to make in total. Leave it out (or write `all`) for every topic, up to 2,000. |
+| `writer` | Which Claude writes the scripts: `best` (Opus 5, default), `sonnet` (Sonnet 5, about half the cost or less), `haiku` (cheapest, simpler). Topic picking always uses the best one. Each run prints the real cost. |
 | `versions` | How many videos per topic, each with a different hook. Default 3. `1` gives one video per topic; up to 13. |
 | `look` | `auto` lets Claude pick per video. Or: moody, vintage, bright, pastel, black and white. |
 | `clips` | `auto` lets Claude pick per video. Or: animated, real, both. |
