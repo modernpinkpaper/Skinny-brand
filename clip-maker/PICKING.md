@@ -10,7 +10,7 @@ For each strong cluster, work out:
 - what is happening on the surface
 - what the deeper pain, problem or need may be
 - whether the topic is mainly Emotional, Practical, or Educational
-- which script formats from the script system fit it (every one that fits, the best one first)
+- which of the formula's hook templates fit it (the best ones first); each topic is written several times, each with a different hook
 
 Rules:
 - Do not force every topic into a deep emotional meaning.
