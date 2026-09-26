@@ -39,8 +39,8 @@ notes: focus on the comments about mothers
 | `writer` | Which Claude writes the scripts: `best` (Opus 5, default), `sonnet` (Sonnet 5, about 60% cheaper), `haiku` (cheapest, simpler). Topic picking always uses the best one. Each run prints the real cost. |
 | `batch` | `yes` (default): scripts are written through Claude's batch mode at **half price**. They come back in groups, usually within minutes, so videos start a little later. `no`: full price, one at a time, fastest. |
 | `versions` | How many videos per topic, each with a different hook. Default 3. `1` gives one video per topic; up to 13. |
-| `look` | `auto` lets Claude pick per video. Or: moody, vintage, bright, pastel, black and white. |
-| `clips` | `auto` lets Claude pick per video. Or: animated, real, both. |
+| `look` | `auto` (default): Claude picks the mood of the clips for each video from its topic. Or force one: moody, vintage, bright, pastel, black and white. |
+| `clips` | `animated` (default, safest for getting paid: no TV or movie footage). Or `real`, `both`, or `auto` to let Claude pick per video. |
 | `speed` | normal, a bit slower, slower |
 | `end`, `tags` | Same as in a script file. |
 | `notes` | Anything Claude should keep in mind when picking ideas. |

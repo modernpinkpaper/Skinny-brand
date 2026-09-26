@@ -31,7 +31,7 @@ CHUNK = 250            # comments Claude reads per planning request
 MAX_COMMENTS = 3000    # the most-liked comments that are read at all
 HARD_CAP = 2000        # never more videos than this from one link
 PER_PAGE = 450         # videos per Releases page (GitHub allows 1,000 files per release: video + caption each)
-WORDS = (120, 190)     # script length allowed (the formula aims for 140-170)
+WORDS = (150, 200)     # script length allowed (the formula aims for 155-180, so videos run at least 61 seconds)
 LOOKS = ["moody", "vintage", "bright", "pastel", "black and white"]
 
 WRITER_RULES = """You write TikTok voiceover scripts for my video maker. Follow my script system and formula above
@@ -70,7 +70,7 @@ def read_link_file(path):
     text = open(path, encoding="utf-8-sig").read()
     links = list(dict.fromkeys(u.rstrip(").,") for u in re.findall(r"https?://\S*tiktok\.com\S*", text)))
     if not links: sys.exit(f"{path}: no TikTok link found in the file")
-    o = dict(link=links[0], links=links, videos="all", versions="3", writer="best", batch="yes", look="auto", clips="auto", speed="", end="",
+    o = dict(link=links[0], links=links, videos="all", versions="3", writer="best", batch="yes", look="auto", clips="animated", speed="", end="",
              tags="", notes="")
     for line in text.splitlines():
         if ":" not in line or line.strip().lower().startswith("http"): continue
@@ -195,7 +195,7 @@ def check(script):
     lines = [l.strip() for l in body.splitlines() if l.strip()]
     if not lines: return ["the script is empty"]
     words = sum(len(l.split()) for l in lines)
-    if not (WORDS[0] <= words <= WORDS[1]): probs.append(f"it has {words} words; it must have 140-170")
+    if not (WORDS[0] <= words <= WORDS[1]): probs.append(f"it has {words} words; it must have 155-180 (the video must be at least 61 seconds)")
     if any(re.search(r"[\[\]*]|\((?:long )?pause\)", l) for l in lines):
         probs.append("remove brackets, stars and notes like [calm] or (pause): plain words only")
     if any(re.match(r"[A-Z][A-Z ]{2,}:", l) for l in lines): probs.append("remove part labels like HOOK:")
