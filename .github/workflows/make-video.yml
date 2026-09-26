@@ -22,6 +22,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   video:
+    # a push only makes videos on the main branch (test branches would overwrite the real videos' pages)
+    if: github.event_name != 'push' || github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
     timeout-minutes: 90
     defaults: { run: { working-directory: clip-maker } }
@@ -83,9 +85,13 @@ jobs:
               continue
             fi
             body="Made from clip-maker/scripts/$n on $(date -u '+%Y-%m-%d %H:%M UTC'). Tap $n.mp4 to watch or save it; caption.txt has the post caption."
-            gh release delete "video-$n" --yes --cleanup-tag 2>/dev/null || true
-            gh release create "video-$n" "$n/$n.mp4" "$n/caption.txt" "$n/$n-voiceover.wav" \
-              --title "Video: $n" --notes "$body" --latest=false --target "${{ github.sha }}"
+            if gh release view "video-$n" > /dev/null 2>&1; then   # made before: replace the files, keep the page
+              gh release upload "video-$n" "$n/$n.mp4" "$n/caption.txt" "$n/$n-voiceover.wav" --clobber
+              gh release edit "video-$n" --notes "$body"
+            else
+              gh release create "video-$n" "$n/$n.mp4" "$n/caption.txt" "$n/$n-voiceover.wav" \
+                --title "Video: $n" --notes "$body" --latest=false --target "${{ github.sha }}"
+            fi
             echo "Published: https://github.com/${{ github.repository }}/releases/tag/video-$n"
           done
       - name: Put it in Google Drive
