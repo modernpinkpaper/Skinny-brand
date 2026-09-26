@@ -1,0 +1,402 @@
+[
+ {
+  "cid": 3,
+  "story": "I was 6 the first time I told my mom that my stepdad abused me. She told me I was lying, so I was scared to tell her the last time he touched me. I was 16, and I only told because he abused my little sister.",
+  "shared_by": "a daughter",
+  "needed": "You were never lying. You told the truth at 6, and the silence that followed was hers to carry, not yours.",
+  "prompt": "When did you tell the truth and not get believed? Write to your younger self: \"I believe you,\" and keep going from there.",
+  "strength": 5
+ },
+ {
+  "cid": 2,
+  "story": "My sister told me the abuse didn't happen, because our uncle never did it to her.",
+  "shared_by": "a sister",
+  "needed": "What happened to you doesn't need a witness to be real. Her story being different never made yours untrue.",
+  "prompt": "Has someone used their own experience to erase yours? Write your truth here in one sentence, exactly as it happened.",
+  "strength": 4
+ },
+ {
+  "cid": 6,
+  "story": "\"I thought it only happened a handful of times.\" Oh, so that's fine then?",
+  "shared_by": "a daughter",
+  "needed": "Once was already too many. There is no number of times that makes hurting a child acceptable.",
+  "prompt": "Has anyone tried to shrink what happened to you? Write down what it actually cost you, in your own words, without making it smaller.",
+  "strength": 4
+ },
+ {
+  "cid": 5,
+  "story": "My grandmother's boyfriend abused me. When he died, she looked me in the eyes and said, \"I'm going to his funeral, because he didn't do anything to me.\" Years later, when I lost my mom, the whole family said, \"It's not my problem.\"",
+  "shared_by": "a granddaughter",
+  "needed": "What he did to you was real whether or not he did it to her. You deserved a family that chose you, and you still deserve people who will.",
+  "prompt": "Who looked away when you needed them most? Write the name of one person, past or future, who would have shown up for you.",
+  "strength": 4
+ },
+ {
+  "cid": 7,
+  "story": "My uncle attacked me, and my grandma told my sister to lie about what happened after I left. I walked home crying and found my mom laughing at me. It still haunts me.",
+  "shared_by": "a niece",
+  "needed": "Your tears deserved comfort, not laughter. The lie they told protected him; the truth still belongs to you.",
+  "prompt": "Was there a moment you came home hurting and weren't held? Describe the welcome you deserved that day, in as much detail as you like.",
+  "strength": 4
+ },
+ {
+  "cid": 8,
+  "story": "I was \"asking for it\" when I was assaulted.",
+  "shared_by": "a daughter",
+  "needed": "No one asks to be assaulted. The blame was placed on you so no one had to face the person who actually did it.",
+  "prompt": "What blame have you been carrying that was never yours? Write it down, then write whose it really is.",
+  "strength": 4
+ },
+ {
+  "cid": 10,
+  "story": "It's not something she said. When I told my mom my partner was abusing me, she called his family and repeated everything. They told him, and he hurt me worse each time. I'm no contact with her now.",
+  "shared_by": "a daughter",
+  "needed": "Telling her was brave, and what happened next was her betrayal, not your mistake. Protecting yourself now is not cruelty.",
+  "prompt": "Who did you trust with something that was used against you? Write a boundary you keep today to protect yourself.",
+  "strength": 4
+ },
+ {
+  "cid": 1,
+  "story": "A week after I told my mom her husband had been abusing me, I asked if she would help me. She screamed, \"What about my house and my car and my marriage and my life?\" I think about it every single day.",
+  "shared_by": "a daughter",
+  "needed": "You were never the thing standing in the way of her life. You were her child, and you deserved to be chosen first.",
+  "prompt": "Has someone you loved chosen comfort over your safety? Write to your younger self: what should have happened that week?",
+  "strength": 5
+ },
+ {
+  "cid": 4,
+  "story": "I was pregnant when I called my mom to tell her he was beating me. She said, \"You made your bed, now lie in it.\" Six months after my son was born, he tried to end both our lives.",
+  "shared_by": "a daughter",
+  "needed": "You didn't make that bed; he did. Reaching out for help was the strongest thing you could do, and you deserved an open door.",
+  "prompt": "When did you ask for help and get a lecture instead? Write what you would say to a friend in that exact situation.",
+  "strength": 5
+ },
+ {
+  "cid": 9,
+  "story": "After I was assaulted, my mom asked me, \"Do you realize how devastating this is for your dad and me?\" I will never fully recover from that sentence.",
+  "shared_by": "a daughter",
+  "needed": "Your pain came first that day. You should never have had to comfort anyone for what was done to you.",
+  "prompt": "When did your hurt become about someone else's feelings? Write down what you needed someone to ask you instead.",
+  "strength": 5
+ },
+ {
+  "cid": 89,
+  "story": "My uncle said the TV host who catches child predators should be arrested for entrapment. That was the end. He never saw me or my kids again.",
+  "shared_by": "a niece",
+  "needed": "Your instincts were right. Keeping your children away from someone who defends predators isn't overreacting; it's protection.",
+  "prompt": "What did someone reveal about themselves in one sentence? Write the line you drew afterward, and why you're proud of it.",
+  "strength": 3
+ },
+ {
+  "cid": 80,
+  "story": "At 15, I was beaten up in a classroom by a group of girls. After my older sister learned what happened, she said I should try to understand them.",
+  "shared_by": "a sister",
+  "needed": "You were a hurt kid who needed someone on your side. Being asked to understand your attackers before anyone cared for you was wrong.",
+  "prompt": "When did someone defend the people who hurt you? Write what you wish your family had said when you came home that day.",
+  "strength": 2
+ },
+ {
+  "cid": 11,
+  "story": "My uncle, the one who encouraged me to just be myself, died when I was 8. My cousin told me to stop crying, that he wasn't my uncle, because I'm adopted and not real family. The aunts agreed. I'm 34 now, and it still hurts.",
+  "shared_by": "an adopted daughter, 30s",
+  "needed": "Love made you family long before anyone questioned it. Your grief for him was real because your bond with him was real.",
+  "prompt": "Who loved you exactly as you were? Write them a short letter about what they gave you that no one can take away.",
+  "strength": 5
+ },
+ {
+  "cid": 19,
+  "story": "She was the grandma I grew up with. At her funeral, when I was 12, I sat in the front with my cousins. A relative tapped my shoulder: \"Only her real grandkids sit here.\" She made me sit in the back. I stopped going around after that.",
+  "shared_by": "a granddaughter",
+  "needed": "You were family because she loved you, not because of blood. One stranger's rule didn't cancel all those years.",
+  "prompt": "Where were you made to feel like you didn't belong? Write the names of the people who have always made room for you.",
+  "strength": 5
+ },
+ {
+  "cid": 174,
+  "story": "My wife's grandmother always asks for family photos and says, \"I want JUST MY FAMILY in the picture,\" making sure I know I'm not included. I've been with my wife for over eight years and given her two great-grandchildren.",
+  "shared_by": "a wife",
+  "needed": "You are part of this family whether or not she lets you into the frame. The life you've built with your wife is the proof.",
+  "prompt": "Have you ever been left out of a family picture, literally or not? Describe a picture of the family you've chosen.",
+  "strength": 4
+ },
+ {
+  "cid": 16,
+  "story": "My husband adopted my oldest when she was 2. We hadn't told her yet. His sister told her at 6, out of pure spite. When I asked my husband to talk to her, he said he didn't want to rock the boat. I realized then it was me and her, not us.",
+  "shared_by": "a mother",
+  "needed": "You were right to expect your daughter to be protected. Standing up for her was love, not causing trouble.",
+  "prompt": "When did someone stay quiet when they should have stood with you? Write what you'll always do for the people you love.",
+  "strength": 4
+ },
+ {
+  "cid": 12,
+  "story": "I was adopted before I was a year old. When I was 9, my mother said, \"I wish I would've given you back.\" The whole idea of family fell apart for me that day. I'm 25 now, and I think about it every day.",
+  "shared_by": "an adopted daughter, 20s",
+  "needed": "A child can't be returned, and you were never a mistake to be undone. Your behavior at 9 was a child's, not a reason to be unwanted.",
+  "prompt": "When did you feel like someone regretted having you? Write a welcome to the child you were, the one she deserved.",
+  "strength": 5
+ },
+ {
+  "cid": 13,
+  "story": "My mom said, \"I'm here with you instead of my boys,\" and \"I'll just ship you somewhere.\" I'm the youngest and adopted, so I already didn't feel like I fit in.",
+  "shared_by": "an adopted daughter",
+  "needed": "You were never a package to be sent away. You belonged in that home, and you belong wherever you are wanted now.",
+  "prompt": "Where did you feel like the outsider in your own family? Write about a place or person where you finally feel you fit.",
+  "strength": 4
+ },
+ {
+  "cid": 20,
+  "story": "It wasn't said to me. After I was born, my dad, who was adopted himself, told my uncle he didn't think he'd ever be able to love me. That wasn't my fault. I was just a baby.",
+  "shared_by": "a daughter",
+  "needed": "You were a baby who deserved love from the first day. His wound was never something you caused or needed to fix.",
+  "prompt": "What pain did you inherit that was never yours? Write to your newborn self about the love she was always worth.",
+  "strength": 4
+ },
+ {
+  "cid": 17,
+  "story": "My adoptive mom told me my birth mom didn't want me. Turns out she'd been trying to reach me since I was 4, and my adoptive mom hid all the birthday cards. She said, \"One day you'll understand when you're a mom.\" I'm a mom now, and I still don't understand.",
+  "shared_by": "an adopted daughter",
+  "needed": "You were wanted all along. Being kept from that truth was a loss done to you, not a choice you made.",
+  "prompt": "What truth was kept from you growing up? Write the birthday card you should have received, in the words you imagine.",
+  "strength": 5
+ },
+ {
+  "cid": 14,
+  "story": "When I was moving out of my childhood home because my parents were divorcing, my dad asked for my house key back and told me I wasn't his daughter anymore.",
+  "shared_by": "a daughter",
+  "needed": "A divorce ended their marriage, not your place as his child. His leaving says nothing about how worth keeping you are.",
+  "prompt": "Has someone tried to take back your place in their life? Write down who you are, apart from anyone's claim on you.",
+  "strength": 5
+ },
+ {
+  "cid": 15,
+  "story": "My dad was never around. I actually first saw him walking past me at a grocery store, and he didn't even notice me. Now, as an adult, I've tried to connect, but he says he can't, because he didn't raise me. He sees me \"as the neighbor's kid.\"",
+  "shared_by": "a daughter",
+  "needed": "You were never a stranger's child; you were his, and he chose not to show up. Reaching out took courage he never matched.",
+  "prompt": "Who have you kept reaching for who never reached back? Write what you're allowed to stop hoping for, and what you'll hope for instead.",
+  "strength": 4
+ },
+ {
+  "cid": 18,
+  "story": "I was 8. My cousin had just been adopted by her stepdad, my stepdad's brother. So I asked my stepdad if he would adopt me. He said no, he didn't want to. I still remember dinner, pork chops, peas and mashed potatoes, trying not to cry while I ate.",
+  "shared_by": "a stepdaughter",
+  "needed": "Asking to be his was brave and full of love. His no was about him, not about whether you were worth claiming.",
+  "prompt": "When did you ask to be wanted and get turned down? Write back to that 8-year-old and tell her what you see in her.",
+  "strength": 5
+ },
+ {
+  "cid": 180,
+  "story": "I had two miscarriages at 20 weeks, and my mom was barely there for me. She kept saying things like \"At least you already have kids\" and \"At least you can try again.\" Anything starting with \"at least\" shouldn't be said.",
+  "shared_by": "a daughter",
+  "needed": "Each baby was their own loss, no matter who else you had. Your grief never needed a silver lining to be allowed.",
+  "prompt": "What \"at least\" have you been handed in your grief? Write the name or the memory you want honored here, without any at least.",
+  "strength": 5
+ },
+ {
+  "cid": 181,
+  "story": "I lost my baby, and my mom had to care for me. The first time I bled, I walked out of a bathroom at the store where she works, in blood-soaked pants, while she and her coworkers stared at me. Now, whenever I cry, she says, \"Well, I'm also traumatized.\"",
+  "shared_by": "a daughter",
+  "needed": "Your loss was yours, and it deserved gentleness, not an audience. You don't have to share your grief with the person who left you exposed.",
+  "prompt": "When did someone make your pain about their own? Write what you needed the day your world fell apart.",
+  "strength": 4
+ },
+ {
+  "cid": 183,
+  "story": "After I miscarried our baby, while I was devastated and still healing, my husband said, \"Well, you killed your baby.\"",
+  "shared_by": "a wife",
+  "needed": "You did not kill your baby. You lost them, and your body and heart deserved care, not blame.",
+  "prompt": "What cruel line have you replayed since a loss? Write it down, cross it out, and write the truth underneath.",
+  "strength": 5
+ },
+ {
+  "cid": 189,
+  "story": "After I lost my baby, a relative told me, \"I need to take back the baby outfit I bought, since your baby didn't survive. I'm sure someone else can use it.\"",
+  "shared_by": "a mother",
+  "needed": "Your baby was real and mattered, not a returnable gift. You deserved people who would sit with you in that loss.",
+  "prompt": "What small moment made a loss feel even heavier? Write about something you'll keep to remember what you lost.",
+  "strength": 4
+ },
+ {
+  "cid": 182,
+  "story": "She stopped speaking to me because I didn't get her a Mother's Day card while I was actively miscarrying.",
+  "shared_by": "a daughter",
+  "needed": "You were in the middle of your own loss. Caring for yourself then wasn't selfish; it was survival.",
+  "prompt": "When were you expected to show up for someone while you were breaking? Write down one thing you can give yourself today instead.",
+  "strength": 4
+ },
+ {
+  "cid": 178,
+  "story": "\"Go have kids already.\" This was said to us after at least six rounds of IVF that failed.",
+  "shared_by": "a wife",
+  "needed": "Your longing and your effort were never the problem. You deserved gentleness, not a demand you'd been fighting to fulfill.",
+  "prompt": "What painful question do people keep asking you? Write the reply you wish you could give, honest and unapologetic.",
+  "strength": 4
+ },
+ {
+  "cid": 175,
+  "story": "My second son was born early. When I offered my mother-in-law grandparent bracelets so she could visit him in the NICU, she said, \"I won't need those. I don't want to get attached in case he dies.\"",
+  "shared_by": "a mother",
+  "needed": "Your son was worth loving from his very first breath. Her fear kept her away; it never made him less worth fighting for.",
+  "prompt": "Who wasn't there when you or your child were most fragile? Write who showed up instead, or who you became for your child.",
+  "strength": 4
+ },
+ {
+  "cid": 176,
+  "story": "I'm pregnant and struggling, and I told my family I didn't want people at the hospital after I give birth. My grandma said, \"They don't care about you, they care about the baby.\"",
+  "shared_by": "a granddaughter",
+  "needed": "You matter on your own, not just as the way to a baby. Setting boundaries at such a big moment is wise, not selfish.",
+  "prompt": "When did you feel like just a means to something someone else wanted? Write the boundary you're allowed to hold this year.",
+  "strength": 4
+ },
+ {
+  "cid": 177,
+  "story": "My son's dad left when he found out I was pregnant, but his parents were thrilled. Four months in, they stopped calling. Years later I learned my mother had told them I'd had an abortion and never to call again. Today my son has a great relationship with them.",
+  "shared_by": "a daughter",
+  "needed": "You didn't lose them because of anything you did. The truth found its way back, and the family you built is real.",
+  "prompt": "What lie cost you something you needed? Write about a relationship that survived despite someone's attempt to break it.",
+  "strength": 4
+ },
+ {
+  "cid": 179,
+  "story": "I went through premature menopause at 27, devastated that I couldn't have children. My sister was mad at me and screamed, \"You never should have kids anyway.\" I'll never heal from this. I don't think she knows how much it crushed me.",
+  "shared_by": "a sister",
+  "needed": "Your longing for children was never proof you didn't deserve them. Your grief is valid, and your heart for love is still yours.",
+  "prompt": "What loss did someone turn into a weapon against you? Write how you'd like to grieve it, gently and in your own way.",
+  "strength": 5
+ },
+ {
+  "cid": 184,
+  "story": "When I was pregnant with my third son, my grandmother said at Thanksgiving, in front of the whole family, \"I hope God takes that baby from you.\" She apologized nine years later. When she died, I carried her casket. I forgave her. I will never forget it.",
+  "shared_by": "a granddaughter",
+  "needed": "Your baby was a blessing, never a punishment. Forgiving her doesn't mean you have to pretend those words didn't hurt.",
+  "prompt": "Is there someone you've forgiven but not forgotten? Write what forgiveness means to you, and what you still get to keep.",
+  "strength": 5
+ },
+ {
+  "cid": 185,
+  "story": "When I was 17, my mom forced me to go to Planned Parenthood and threw away my daughter's first ultrasound. Thank God for the nurse who told me it was my choice, not hers.",
+  "shared_by": "a daughter",
+  "needed": "Your choice was always yours, even at 17. The stranger who reminded you of that was telling the truth.",
+  "prompt": "Who was the unexpected kind one in your story? Write them a thank-you note they'll never read, but you deserve to write.",
+  "strength": 4
+ },
+ {
+  "cid": 186,
+  "story": "During an argument about abortion, my brother said if I ever got pregnant, he'd tie me down and force me to have the baby. I'm a survivor of sexual assault.",
+  "shared_by": "a sister",
+  "needed": "Your body belongs to you, and you've already survived someone taking control of it. No one gets to threaten that again.",
+  "prompt": "When did someone speak about your body like it was theirs? Write a sentence claiming it as your own.",
+  "strength": 3
+ },
+ {
+  "cid": 187,
+  "story": "I'm 31 and the breadwinner of my family. When my mom learned I was pregnant again, she said instead of trying to be more successful, I chose to \"spread my legs again.\" When I told her the baby might not be viable, she said, \"You have a choice to abort, why make it hard?\"",
+  "shared_by": "a daughter, 30s",
+  "needed": "You are allowed to build a family and a career at the same time. A worried pregnancy needed her support, not her judgment.",
+  "prompt": "When were you shamed for a choice that was yours? Write about what you've already built, and let yourself be proud of it.",
+  "strength": 4
+ },
+ {
+  "cid": 188,
+  "story": "I called my mom on speakerphone, with my son in the room, to tell her we were finally pregnant again. She said, \"I can't say I'm happy for you!\" That was the last time I ever spoke to her. That baby is grown now.",
+  "shared_by": "a daughter",
+  "needed": "Your joy never needed her approval to be real. Walking away protected the happiness you'd waited so long for.",
+  "prompt": "What good news did someone refuse to celebrate with you? Celebrate it here, the way it deserved.",
+  "strength": 5
+ },
+ {
+  "cid": 190,
+  "story": "When I was pregnant with my second, my boyfriend's first, a family member said to him, \"Oh, I thought this baby was just another accident.\"",
+  "shared_by": "a mother",
+  "needed": "Your children are not accidents; they are people you love. How they arrived was never anyone else's to judge.",
+  "prompt": "What did someone say about your children that stung? Write what each of them means to you.",
+  "strength": 3
+ },
+ {
+  "cid": 191,
+  "story": "When my great-aunt learned I was pregnant, I overheard her telling a relative I'd end up like my mother, never be a good mom, and just party. When I confronted her, she said I was lying. I cut her out completely. My son is better off without her.",
+  "shared_by": "a great-niece",
+  "needed": "Her prediction was never your future. You are the one raising your son, and you're writing a different story.",
+  "prompt": "What did someone predict about you as a parent, or as a person? Write about the kind of parent or person you've become.",
+  "strength": 4
+ },
+ {
+  "cid": 192,
+  "story": "When I was pregnant, my baby's father said if it was a boy, he'd be in the child's life, and if it was a girl, he wouldn't. I had a girl. He kept his word.",
+  "shared_by": "a mother",
+  "needed": "Your daughter was never the reason he left. She was worth staying for, and you stayed.",
+  "prompt": "Who left when they should have stayed? Write a note to your child, or your younger self, about who showed up instead.",
+  "strength": 5
+ },
+ {
+  "cid": 148,
+  "story": "My parents told me they only raised me so I would take care of them in the future.",
+  "shared_by": "a daughter",
+  "needed": "You were not born to be someone's retirement plan. You were meant to be loved for yourself, with no debt attached.",
+  "prompt": "Have you ever felt like your worth was only what you could do for others? Write three things about you that have nothing to do with being useful.",
+  "strength": 5
+ },
+ {
+  "cid": 151,
+  "story": "I worked for my dad on his farm, over 100 hours every week for 12 years, for $8 an hour. One day he said, \"I've done it for 30 years without you, I can do it for another 30 without you.\" I left that day. I started from scratch at 29, and now I have a great family.",
+  "shared_by": "a son",
+  "needed": "Your work built something real, and so did you. He may have called you replaceable, but the life you built proves otherwise.",
+  "prompt": "When were you made to feel replaceable after giving everything? Write about who you became after you walked away.",
+  "strength": 5
+ },
+ {
+  "cid": 149,
+  "story": "I was caring full-time for my mother, father and grandmother, with no help and no thanks. In one week, each of them told me separately, \"You'd be fine if it was just me. It's the other two who are too much work.\"",
+  "shared_by": "a daughter",
+  "needed": "You were holding up three lives while drowning. It's okay to need help, and it's okay to put yourself on the list too.",
+  "prompt": "What have you been carrying without anyone noticing? Write down one thing you can hand off, and one thing you can do just for you.",
+  "strength": 4
+ },
+ {
+  "cid": 150,
+  "story": "My dad lived in another state, and my mom was on drugs. I was couch surfing to keep CPS from finding out. When I called my dad for food money, he said legally he didn't have to give me anything, because I quit school. I quit because I had nowhere to live. I was 15.",
+  "shared_by": "a daughter",
+  "needed": "You were a child trying to survive, not someone to hold to technicalities. You deserved to be fed, housed and cared for.",
+  "prompt": "When did you have to take care of yourself far too young? Write a letter to that younger you, thanking her for getting you here.",
+  "strength": 5
+ },
+ {
+  "cid": 59,
+  "story": "My sister said she could no longer help me care for our mom, who had full-blown dementia, because it was affecting her mental health and her relationship. Our mom passed just a few months later.",
+  "shared_by": "a sister",
+  "needed": "You showed up when it was hardest, and that love mattered. You deserved a partner in it, not to carry it alone.",
+  "prompt": "When were you left to carry a family burden alone? Write what you gave, and let yourself be seen for it here.",
+  "strength": 3
+ },
+ {
+  "cid": 145,
+  "story": "When my dad died, my mom cried because she couldn't afford the funeral. My two aunts wrote her a check without hesitation. My grandma, who is rich, said, \"I'll match whatever they're giving, but you have to pay me back.\"",
+  "shared_by": "a daughter",
+  "needed": "Grief should have been met with generosity, not a bill. The aunts who stepped in showed what real family looks like.",
+  "prompt": "Who was the kind one when your family was grieving? Write down one thing they did that you still remember.",
+  "strength": 4
+ },
+ {
+  "cid": 147,
+  "story": "My mom offered to watch my daughter so I could work. Then she called and said, \"I thought I raised you to be generous,\" because I didn't give her part of my tax refund. I thank her every day, and treat her when I can. It made me take a step back.",
+  "shared_by": "a daughter",
+  "needed": "Gratitude isn't measured in money. You can love her and still see that a gift given freely shouldn't come with a bill.",
+  "prompt": "When was help you received later used to make you feel guilty? Write a boundary that lets you be grateful without owing.",
+  "strength": 3
+ },
+ {
+  "cid": 143,
+  "story": "I'd just had a breakdown. I had lost my job and my finances were taken out of my hands. When I got out of the hospital, my aunt told me, \"If I had the space, I'd buy your white leather sofa.\"",
+  "shared_by": "a niece",
+  "needed": "You were a person at your lowest, not a sale. You deserved someone asking how you were, not eyeing what you had.",
+  "prompt": "When did someone see what you had instead of how you were? Write the question you needed someone to ask you that day.",
+  "strength": 3
+ },
+ {
+  "cid": 144,
+  "story": "I'm homeless in another state. My sister asked to borrow money, so I gave her $150, more than she asked for. She never paid it back. A few months later, I needed money and asked her. She said, \"People have lives too.\"",
+  "shared_by": "a sister",
+  "needed": "Your generosity was real, and so was your need. Your life counts just as much as hers.",
+  "prompt": "Who took your kindness but wasn't there when you needed it? Write about someone who gives back to you, or how you'll protect your generosity.",
+  "strength": 4
+ }
+]

@@ -1,0 +1,474 @@
+[
+ {
+  "cid": 199,
+  "story": "When I was 17, my father told me, \"Every time I see your face, I feel disappointed.\" I'm 34 now, and I haven't spoken to him since.",
+  "shared_by": "a daughter, 30s",
+  "needed": "Your face was never the problem. His disappointment belonged to him, and you were a whole person worth being glad to see.",
+  "prompt": "Who made you feel like a disappointment just for existing? Write what you wish they'd felt when they looked at you.",
+  "strength": 5
+ },
+ {
+  "cid": 200,
+  "story": "Shortly after my mom died, when I was 19, my dad told me he was disappointed with how she'd raised me and how I turned out.",
+  "shared_by": "a daughter",
+  "needed": "Your mother's love didn't fail, and neither did you. You deserved comfort in your grief, not a verdict on who you are.",
+  "prompt": "Has someone ever criticized the person who loved you most? Write down one good thing that person gave you that still lives in you.",
+  "strength": 4
+ },
+ {
+  "cid": 201,
+  "story": "I was 8, helping my dad pour concrete ditches. I was his only help, trying as hard as I could, and he told me I was worthless. Twenty years later I still work construction. He wonders why I don't talk to him.",
+  "shared_by": "a son",
+  "needed": "You were a little kid doing a grown man's work, and doing your best. That was never worthless — it was loyalty he didn't deserve.",
+  "prompt": "When did you give your all and hear it wasn't enough? Tell your younger self what they were actually worth that day.",
+  "strength": 5
+ },
+ {
+  "cid": 202,
+  "story": "When I was five, my mother bought me the scarecrow doll from The Wizard of Oz because she said I didn't have a brain. I'm almost 40, and I still struggle with Christmas because of those memories.",
+  "shared_by": "a daughter, 30s",
+  "needed": "A gift meant to shame you says nothing about your mind. You were a bright little girl who deserved a present chosen with love.",
+  "prompt": "What \"joke\" about you still stings years later? Write the gift you should have received instead — and why.",
+  "strength": 5
+ },
+ {
+  "cid": 198,
+  "story": "My dad kicked me out at 17 and told me I'd be a burden wherever I went.",
+  "shared_by": "a son",
+  "needed": "You were a kid who needed a home, not a burden to be sent away. Needing care has never made anyone too heavy to love.",
+  "prompt": "Were you ever made to feel like too much to carry? Write down three places or people where you've been welcome.",
+  "strength": 4
+ },
+ {
+  "cid": 205,
+  "story": "\"Why did you get a bad grade, and what did the others get?\"",
+  "shared_by": "a child",
+  "needed": "You were never a ranking. Your worth didn't rise or fall with someone else's test score.",
+  "prompt": "Who were you always compared to? Write one thing about yourself that has nothing to do with anyone else's results.",
+  "strength": 2
+ },
+ {
+  "cid": 207,
+  "story": "My grandma said that out of all her grandkids, I was the least likely to go to college. Well, I got my master's. And now only a few family members are allowed in my kids' circle, because we're ending the generational trauma.",
+  "shared_by": "a granddaughter",
+  "needed": "Their low expectations were never a ceiling. You went further than they imagined, and you're making sure your kids never hear what you heard.",
+  "prompt": "What did someone decide you'd never do? Write about the moment you did it anyway.",
+  "strength": 5
+ },
+ {
+  "cid": 204,
+  "story": "I wanted to go to cooking school — cooking was the only activity my mom let me do. Instead of encouraging me, she told me they'd hand me a live rabbit and make me kill it, skin it, cook it, and eat it.",
+  "shared_by": "a daughter",
+  "needed": "Your dream deserved curiosity, not a scare story meant to make you quit. Wanting something for yourself was never foolish.",
+  "prompt": "What dream did someone talk you out of? Write it down here, and one small way you could still taste it.",
+  "strength": 3
+ },
+ {
+  "cid": 173,
+  "story": "At my cousin's wedding, her new husband looked at me and said, \"Oh, I thought you were someone important.\" I told myself he was joking, but deep down I wasn't sure. I didn't want to cause a scene, so I said nothing.",
+  "shared_by": "a cousin",
+  "needed": "You didn't need a title to matter in that room. You were important simply because you showed up with love.",
+  "prompt": "Have you ever been made to feel small at a family event? Write the reply you wish you'd given.",
+  "strength": 3
+ },
+ {
+  "cid": 213,
+  "story": "My dad told my mom I was the hardest of us three kids to love. All I ever wanted was his time; all he could give was things. I'll never forgive him for saying it — or her for telling me.",
+  "shared_by": "a daughter",
+  "needed": "Wanting your father's time didn't make you hard to love. It made you a child who needed him, and that was never too much to ask.",
+  "prompt": "Who made you believe you were difficult to love? Write a list of the people who have loved you easily.",
+  "strength": 5
+ },
+ {
+  "cid": 206,
+  "story": "My mom has never once told me she loves me. She kicked me out at 17. I'm 19 now, and I'm never going to speak to her again.",
+  "shared_by": "a daughter",
+  "needed": "The silence was her failure, not proof you were unlovable. The words \"I love you\" were always yours to deserve.",
+  "prompt": "What words did you never hear from your parent? Write them to yourself here, exactly the way you needed them.",
+  "strength": 4
+ },
+ {
+  "cid": 209,
+  "story": "My mom told my dad on the phone that it was my birthday. His answer was, \"I don't care.\" I was 4 years old, and I heard the whole thing.",
+  "shared_by": "a daughter",
+  "needed": "You were a four-year-old worth celebrating. His not caring was a hole in him, not a measure of you.",
+  "prompt": "Is there a day that should have been happy but hurt instead? Write a birthday wish for the little you who heard that.",
+  "strength": 5
+ },
+ {
+  "cid": 211,
+  "story": "My mom told me she \"doesn't like me.\" I was 45 years old. Now she's confused why I'm low contact — and somehow I'm the bad guy.",
+  "shared_by": "a daughter, 40s",
+  "needed": "Protecting yourself from someone who said that isn't cruelty. You're allowed to step back from people who tell you who they are.",
+  "prompt": "Have you been made the \"bad guy\" for keeping distance? Write the boundary you set, and why you're allowed to keep it.",
+  "strength": 4
+ },
+ {
+  "cid": 208,
+  "story": "I was born with an underdeveloped left hand, and my aunt told me that nobody would ever marry me.",
+  "shared_by": "a niece",
+  "needed": "Your hand never decided your worth or who could love you. Love was never reserved for bodies that look a certain way.",
+  "prompt": "What about your body did someone use against you? Write a thank-you note to that part of you instead.",
+  "strength": 3
+ },
+ {
+  "cid": 224,
+  "story": "My uncle told me that if I moved away, I'd die bitter and alone. I moved anyway. I've been happily married almost 12 years, with two beautiful kids. I never spoke to that uncle again.",
+  "shared_by": "a niece",
+  "needed": "His warning was fear dressed up as wisdom. You were allowed to leave, and your life proved you could build something good.",
+  "prompt": "Who tried to scare you out of a big decision? Write about the life that was waiting on the other side.",
+  "strength": 5
+ },
+ {
+  "cid": 193,
+  "story": "I graduated early, at 16. I came home so excited to tell my mom, and she said, \"You don't deserve a medal for doing the bare minimum.\"",
+  "shared_by": "a daughter",
+  "needed": "Finishing early was never the bare minimum — it was hard work. Your excitement deserved to be met with a smile.",
+  "prompt": "What achievement did you rush home to share, only to be brushed off? Throw yourself the celebration here.",
+  "strength": 5
+ },
+ {
+  "cid": 194,
+  "story": "I got into college, and at my high school graduation my dad turned to me and said, \"Just because you accomplished something doesn't mean you're better than me.\" That was the last day I ever spoke to him.",
+  "shared_by": "a daughter",
+  "needed": "Your wins were never a threat to anyone who truly loved you. You were allowed to be proud of yourself that day — and you still are.",
+  "prompt": "Whose success made someone in your family feel small? Write down one win you'll never apologize for again.",
+  "strength": 5
+ },
+ {
+  "cid": 195,
+  "story": "My dad wouldn't give me a raise, so I quit and went to work for a bigger contractor making more money. One day he had to drop me off at the job site, and his eyes got big: \"Wow, this is a really nice place.\" We're no contact now.",
+  "shared_by": "a son",
+  "needed": "You knew your worth before he did. Walking away to get paid what you deserved was never disloyalty.",
+  "prompt": "When did you finally stop waiting for someone to value you? Write down the moment you valued yourself.",
+  "strength": 3
+ },
+ {
+  "cid": 196,
+  "story": "I got a big role in a one-night school play. My mom came to every one of my brother's shows, but she missed mine. When I got home, she said, \"I couldn't sit next to all the proud parents and pretend I was proud of you.\"",
+  "shared_by": "a daughter",
+  "needed": "You worked hard and deserved someone in that audience cheering for you. Her pride was missing — your talent wasn't.",
+  "prompt": "What moment did you wish someone had shown up for? Write the review you deserved from the front row.",
+  "strength": 5
+ },
+ {
+  "cid": 197,
+  "story": "I nearly didn't graduate because I was working doubles to keep our lights on. I still kept my GPA up and walked the stage. On senior photo day, my mom said she \"didn't want to go.\" My grandmother got dressed fast, put on her best wig, and took me herself.",
+  "shared_by": "a granddaughter",
+  "needed": "You carried a family on your back and still graduated. You deserved a mother by your side — and your grandmother showed you that you were worth showing up for.",
+  "prompt": "Who stepped in when someone else wouldn't? Write them a thank-you letter here.",
+  "strength": 5
+ },
+ {
+  "cid": 159,
+  "story": "My mom said to me about my stepdad: \"I'll always pick him over you. He's my husband — you're just a reminder of a failed marriage.\"",
+  "shared_by": "a daughter",
+  "needed": "You were never the leftovers of a marriage. You were her child, and you deserved to be chosen first.",
+  "prompt": "When were you made to feel second to a parent's partner? Write what it would have looked like to be chosen.",
+  "strength": 5
+ },
+ {
+  "cid": 160,
+  "story": "My mom told me she got to choose who I considered family and who I could love, because she made me. It was over my boyfriend of three years coming to Christmas. We don't talk anymore — and that boyfriend is now my husband.",
+  "shared_by": "a daughter",
+  "needed": "Being born to her didn't give her ownership of your heart. Who you love has always been yours to decide.",
+  "prompt": "Has anyone tried to control who you love? Write about the person you chose, and why.",
+  "strength": 4
+ },
+ {
+  "cid": 169,
+  "story": "My stepparent told me, \"It's normal to be jealous of your stepchildren.\"",
+  "shared_by": "a stepchild",
+  "needed": "Their jealousy was theirs to manage, not yours to absorb. You were a kid who deserved an adult who made you feel welcome.",
+  "prompt": "Did an adult in your home ever treat you as competition? Write a welcome note to the child you were.",
+  "strength": 2
+ },
+ {
+  "cid": 170,
+  "story": "The day after our wedding, my stepdaughter looked her dad in the eye and said she didn't know why he married me — that he could do better. I was sitting right beside him, in a crowded restaurant.",
+  "shared_by": "a stepmother",
+  "needed": "You joined a family with an open heart, and that deserved respect. Someone else's resentment doesn't make you less worth choosing.",
+  "prompt": "When have you felt unwelcome in a family you joined? Write what you brought to it that no one noticed.",
+  "strength": 3
+ },
+ {
+  "cid": 171,
+  "story": "My stepdad openly admitted, in front of family and friends, that he treated me badly on purpose because he knew my mom wouldn't do anything. The sad part is he was right. She never did.",
+  "shared_by": "a stepdaughter",
+  "needed": "You were a child who deserved protection from both of them. His cruelty and her silence were never your fault.",
+  "prompt": "Who stayed silent when you needed them to speak up? Write what you wish they had said.",
+  "strength": 5
+ },
+ {
+  "cid": 172,
+  "story": "I confided in my ex about my rocky relationship with my mom. Later, he threw it back at me: \"No one loves you, not even your own mom.\" Deep down, that's how I felt — and he said it out loud. It still stings.",
+  "shared_by": "a daughter",
+  "needed": "He used your deepest wound as a weapon. Your mother's struggle to love you was never proof that no one could.",
+  "prompt": "Has someone used your family pain against you? Write down the names of people who have loved you well.",
+  "strength": 4
+ },
+ {
+  "cid": 165,
+  "story": "I was 17, nervous and dealing with things at home, meeting my future mother-in-law in her big house. She asked where I lived, then said it was on \"the wrong side of the tracks.\" I spent 15 years trying to prove her wrong.",
+  "shared_by": "a daughter-in-law",
+  "needed": "Where you grew up was never a measure of your worth. You didn't owe anyone fifteen years of proof.",
+  "prompt": "Where have you been judged for where you came from? Write about what that place gave you that they'll never understand.",
+  "strength": 4
+ },
+ {
+  "cid": 166,
+  "story": "I was seriously sick with heat stroke and asked my in-laws to bring my son some food because I couldn't stand. They said, \"Welcome to parenthood!\" My husband came home to find me passed out on the floor. I never asked them for anything again.",
+  "shared_by": "a daughter-in-law",
+  "needed": "Asking for help when you're sick isn't weakness. You deserved care — and you still took care of your son.",
+  "prompt": "When did you ask for help and get mocked instead? Write down who you can call now when you need it.",
+  "strength": 4
+ },
+ {
+  "cid": 167,
+  "story": "My in-laws said everyone with their last name has blue eyes. Both of my kids had brown eyes, and I told them brown eyes are dominant over blue.",
+  "shared_by": "a mother",
+  "needed": "Your children belong to your family without question. You never had to prove your faithfulness to anyone.",
+  "prompt": "Have you ever been accused of something that wasn't true? Write the calm, confident answer you deserved to give.",
+  "strength": 3
+ },
+ {
+  "cid": 163,
+  "story": "My husband overheard my family bad-mouthing him at a holiday. He's not a doctor, and I moved states to be with him — but I chose that. He's the kindest man with the biggest heart. He's the best choice I've ever made.",
+  "shared_by": "a daughter",
+  "needed": "Your choice was never theirs to approve. Loving someone kind is its own proof that you chose well.",
+  "prompt": "Has your family ever disrespected someone you love? Write down what you see in them that others miss.",
+  "strength": 3
+ },
+ {
+  "cid": 164,
+  "story": "My siblings watched my ex abuse me. Afterward, they told me he was still part of the family, and I couldn't expect them to cut him out of their lives.",
+  "shared_by": "a sister",
+  "needed": "You deserved siblings who stood between you and harm. Keeping your abuser close was their choice, not a price you had to accept.",
+  "prompt": "Who chose comfort over protecting you? Write the boundary you're allowed to keep with them.",
+  "strength": 4
+ },
+ {
+  "cid": 168,
+  "story": "When my husband left me, my mom asked the family to keep it private. My uncle's wife told everyone anyway.",
+  "shared_by": "a daughter",
+  "needed": "Your heartbreak was yours to share when you were ready. Being gossiped about in your lowest moment was never your shame.",
+  "prompt": "When did someone share your pain before you were ready? Write down who you would have wanted to tell, and how.",
+  "strength": 2
+ },
+ {
+  "cid": 162,
+  "story": "I was recovering from a traumatic birth with my second child, and my husband introduced our older son to his new sibling without me. I was so hurt to be left out of that moment.",
+  "shared_by": "a wife",
+  "needed": "That moment was yours too. Your pain after birth deserved gentleness, not being left out of your own family's first memory.",
+  "prompt": "What family moment were you left out of? Write it the way it should have happened, with you there.",
+  "strength": 3
+ },
+ {
+  "cid": 152,
+  "story": "In a family therapy session, my mother was asked to apologize for putting my son in danger. Her answer was, \"Get over it.\" That was the day I went no contact.",
+  "shared_by": "a daughter",
+  "needed": "Protecting your child was never overreacting. You chose your son's safety, and that is what a good mother does.",
+  "prompt": "When did you choose your children over someone else's comfort? Write about the parent you became that day.",
+  "strength": 4
+ },
+ {
+  "cid": 153,
+  "story": "I asked my mom to come watch her grandbaby for two weeks while I started a new job. She didn't come. Six months later, she spent three weeks helping my brother's best friend's wife with her baby.",
+  "shared_by": "a daughter",
+  "needed": "You asked for help you should have been given freely. Being passed over for a stranger was her loss, not your lack of worth.",
+  "prompt": "When did someone show up for others but not for you? Write what showing up for yourself looks like now.",
+  "strength": 4
+ },
+ {
+  "cid": 154,
+  "story": "My mother watched every other grandchild but never mine. She holds a grudge against me for something I did, but she forgives everyone else.",
+  "shared_by": "a daughter",
+  "needed": "Your children were never less worthy of a grandmother's love. Her grudge was never theirs to carry.",
+  "prompt": "Have your children been treated differently because of you? Write the love letter you want them to always have.",
+  "strength": 3
+ },
+ {
+  "cid": 155,
+  "story": "I have six kids, and my parents had a big pond in front of their house. We always worried about the kids near it. My sister-in-law said, \"What's the big deal? If you lose one, you have five others.\" I never looked at her the same.",
+  "shared_by": "a mother",
+  "needed": "Every one of your children is irreplaceable. Your worry was love, not overreacting.",
+  "prompt": "When did someone dismiss a fear you had for your kids? Write one specific thing that makes each child you love one of a kind.",
+  "strength": 4
+ },
+ {
+  "cid": 156,
+  "story": "My family said my son struggled with reading because I was too lazy to work with him — \"He'll be lucky to work in a factory someday.\" He was later diagnosed with ADHD and dyslexia. With support, he's doing much better.",
+  "shared_by": "a mother",
+  "needed": "You weren't lazy — you were a mother without answers yet. Your son's struggle was never a verdict on his future or on you.",
+  "prompt": "What did someone predict about your child? Write down who they're becoming instead.",
+  "strength": 4
+ },
+ {
+  "cid": 157,
+  "story": "My daughter told my mother-in-law she wanted a dollhouse for Christmas. In front of the family, she answered that my daughter doesn't even have her own bedroom and our house is too small. We're working so hard. It still makes me cry.",
+  "shared_by": "a mother",
+  "needed": "Your home was never too small for love. Your daughter is growing up with parents who try, and that's worth more than any room.",
+  "prompt": "Has someone made you feel ashamed of what you could give? Write down what your home gives your family that money can't.",
+  "strength": 4
+ },
+ {
+  "cid": 158,
+  "story": "My favorite aunt, my heart and soul, said my kids were ill-mannered — my kids who say \"yes ma'am\" and write thank-you cards. Their card to her had been returned in the mail three times.",
+  "shared_by": "a niece",
+  "needed": "You raised thoughtful children, and a lost letter didn't change that. Their kindness was real even when it didn't arrive.",
+  "prompt": "Who criticized you before asking what happened? Write the explanation you never got to give.",
+  "strength": 2
+ },
+ {
+  "cid": 132,
+  "story": "My mom told me, \"You are a disappointment,\" because I don't share her political views.",
+  "shared_by": "a daughter",
+  "needed": "Thinking for yourself was never a failure. You're allowed to believe differently and still be a daughter worth being proud of.",
+  "prompt": "When were you called a disappointment for having your own mind? Write down a belief you're proud to hold.",
+  "strength": 3
+ },
+ {
+  "cid": 133,
+  "story": "My mom found out I was gay and started yelling and threatening me. As I cried, she turned to my little brother and asked if he could believe it. He said, \"Yes, because I'm gay too.\" He came out just to defend me.",
+  "shared_by": "a sister",
+  "needed": "Who you are was never something to be threatened out of you. And someone who loved you stood right beside you.",
+  "prompt": "Who stood up for you when you needed it most? Write them the thank-you you've been carrying.",
+  "strength": 5
+ },
+ {
+  "cid": 134,
+  "story": "My dad pulled a shotgun on me the night I came out to him and my mom. That moment is burned into my brain. I can't stop thinking about it every time I go home for the holidays.",
+  "shared_by": "a son",
+  "needed": "Telling the truth about who you are should never have put you in danger. You were brave, and you deserved safety.",
+  "prompt": "Where do old fears follow you when you go home? Write what your younger self needed to feel safe that night.",
+  "strength": 4
+ },
+ {
+  "cid": 135,
+  "story": "My dad said we should go back to burning gay people at the stake. I'm gay. He took my coming out better than expected, but I'll never forget him basically saying he wants me, my girlfriend, and my friends dead.",
+  "shared_by": "a daughter",
+  "needed": "Who you are and who you love was never something to be erased. Your life is worth protecting, and so are the people in it.",
+  "prompt": "Did someone say something cruel about people like you without realizing you were listening? Write down what makes your people worth celebrating.",
+  "strength": 4
+ },
+ {
+  "cid": 136,
+  "story": "He told me I would get osteoporosis and be fired from my job because I am trans.",
+  "shared_by": "a family member",
+  "needed": "Fear-mongering isn't concern. You deserve to live as yourself, and your future isn't his to predict.",
+  "prompt": "What scary prediction was used to keep you from being yourself? Write down one good thing that happened because you were true to you.",
+  "strength": 3
+ },
+ {
+  "cid": 137,
+  "story": "At a holiday gathering, my aunt got drunk and cursed me out, shoved me around, and got in my face because she thought I was gay. I was 12 or 13. None of the adults said a word. Only the other kids stood up for me.",
+  "shared_by": "a niece",
+  "needed": "You were a child, and every adult in that room failed you. Nothing about who you are made that okay.",
+  "prompt": "When did the grown-ups stay silent? Speak to the kid you were — tell them what you'd have done if you'd been there.",
+  "strength": 4
+ },
+ {
+  "cid": 138,
+  "story": "In high school, I asked my dad to take me to a baseball game where I'd meet a boy I liked. My stepmom said no because \"Black boys are mean.\"",
+  "shared_by": "a stepdaughter",
+  "needed": "Her prejudice was never a reason to doubt your heart. You were allowed to like who you liked.",
+  "prompt": "When did someone's prejudice get in the way of your life? Write about someone they were wrong about.",
+  "strength": 3
+ },
+ {
+  "cid": 139,
+  "story": "My sister told me my son's terminal cancer was my fault — that he got sick because I had turned my back on God, since our beliefs don't match.",
+  "shared_by": "a sister",
+  "needed": "Your son's illness was never a punishment for you. You deserved someone to grieve with, not someone to blame you.",
+  "prompt": "Who blamed you for something that was never in your control? Write down what you would say to anyone carrying that same blame.",
+  "strength": 5
+ },
+ {
+  "cid": 140,
+  "story": "My granddad said he's afraid of me and my parents because we don't fear God. We believe — we just don't go to church often. He said we should be ashamed to walk down the street, and that we'll burn in hell.",
+  "shared_by": "a granddaughter",
+  "needed": "Your faith was never his to measure. You don't have to walk in shame for believing in your own way.",
+  "prompt": "When was your faith, or lack of it, judged by family? Write what you actually believe, in your own words.",
+  "strength": 3
+ },
+ {
+  "cid": 142,
+  "story": "My aunt told me I'd never become a singer or be famous because I'm dark-skinned.",
+  "shared_by": "a niece",
+  "needed": "Your skin was never the thing standing between you and your dream. Your voice deserves to be heard exactly as you are.",
+  "prompt": "What did someone say you couldn't be because of how you look? Write the dream down anyway, in big letters.",
+  "strength": 4
+ },
+ {
+  "cid": 70,
+  "story": "I explained to my dad how new abortion laws would force assault survivors to give birth anyway. His answer was, \"Well, that's just the consequence. You should be smart about who you're around.\"",
+  "shared_by": "a daughter",
+  "needed": "Being hurt by someone is never the victim's fault. You deserved a father who cared about your safety more than his opinion.",
+  "prompt": "When did a family member choose a position over your safety? Write down what caring about you would have sounded like.",
+  "strength": 3
+ },
+ {
+  "cid": 225,
+  "story": "As a kid, they told me I'd never be anyone important. When I said I'd graduate, they laughed — \"You won't go anywhere\" — and said they'd throw a party when I moved out. I graduated high school two years early. Now I'm finishing college. They don't say anything anymore.",
+  "shared_by": "a daughter",
+  "needed": "Their laughter was never a forecast. You were always someone important — you just proved it where they could see.",
+  "prompt": "Who laughed at your plans? Write the list of everything you've done since.",
+  "strength": 5
+ },
+ {
+  "cid": 226,
+  "story": "When I was 16, my father told me I'd be nothing but a trophy wife — that I wasn't smart enough to do anything but look pretty for a man.",
+  "shared_by": "a daughter",
+  "needed": "Your mind was never an accessory. You were always capable of so much more than being looked at.",
+  "prompt": "What did someone assume you'd be limited to? Write about who you've become beyond it.",
+  "strength": 4
+ },
+ {
+  "cid": 227,
+  "story": "My aunt asked why I was reading business magazines. When I said I might want to start my own business one day, she said no — she didn't read those, and she had a degree. She told me a music magazine was more for someone like me.",
+  "shared_by": "a niece",
+  "needed": "Big dreams don't need permission or a degree. You were always allowed to picture yourself as the one in charge.",
+  "prompt": "What big dream did someone laugh off? Write down the first step you'd take toward it.",
+  "strength": 4
+ },
+ {
+  "cid": "225b",
+  "story": "I went back to school to get my degree. My sister-in-law told me I'd never make it. I proved her wrong — I graduated as valedictorian.",
+  "shared_by": "a sister-in-law",
+  "needed": "Going back was never too late, and doubting you was never her call. You didn't just finish — you finished first.",
+  "prompt": "What did you go back and do when people said you couldn't? Celebrate it here, in as much detail as you want.",
+  "strength": 5
+ },
+ {
+  "cid": "225c",
+  "story": "My family thought I'd become an addict like my dad, and they were surprised when I graduated high school. I'm not an addict. I graduated high school and college, got married, had three kids, and own my home. My kids don't know those relatives.",
+  "shared_by": "a daughter",
+  "needed": "Your father's struggles were never your destiny. You chose your own path, and you're giving your children a safer story.",
+  "prompt": "What family pattern were you expected to repeat? Write about the new one you're building.",
+  "strength": 5
+ },
+ {
+  "cid": "225d",
+  "story": "The day my dad kicked me out, he told me I'd never be anything — I'd be a bum. It made me work harder, and now I provide not just for myself but for my mom and sister too.",
+  "shared_by": "a son",
+  "needed": "His words were meant to break you, but you built something with them. You became the one your family can lean on.",
+  "prompt": "Who told you you'd be nothing? Write down who depends on you now, and how that feels.",
+  "strength": 4
+ },
+ {
+  "cid": "225e",
+  "story": "I've been addicted to drugs since I was very young, and I got clean this past year. I told my mom I finally applied to college — my plan is to get my doctorate and become a veterinarian. She laughed in my face and made fun of me for five minutes.",
+  "shared_by": "a daughter",
+  "needed": "Her laughter doesn't get to cancel a year of hard-won recovery. You're allowed to dream big from exactly where you are.",
+  "prompt": "What brave step did someone mock? Write a note to your future self about why you took it.",
+  "strength": 4
+ },
+ {
+  "cid": "193b",
+  "story": "I started my own business, and my dad laughed: \"How long is this gonna last?\" I've tried a lot of careers — EMT, surgical tech, real estate — and never lost my stability. Three years later, my business is still going.",
+  "shared_by": "a daughter",
+  "needed": "Trying many paths isn't failure; it's courage. Your business is standing, and so are you.",
+  "prompt": "Who doubted something you built? Write down how long it's lasted — and what you're building next.",
+  "strength": 4
+ }
+]

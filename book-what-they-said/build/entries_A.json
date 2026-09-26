@@ -1,7 +1,7 @@
 [
  {
   "cid": 91,
-  "story": "When I was 10, my aunt told me her kids would always be better than me. Who says that to a child? Long story short, her kids never accomplished much and are always in trouble.",
+  "story": "When I was 10, my aunt told me her kids would always be better than me. Who says that to a child? Long story short, her kids never accomplished anything and are always in trouble with the law.",
   "shared_by": "a niece",
   "needed": "You were never in a race with her children. A grown woman ranking a 10-year-old said everything about her and nothing about you.",
   "prompt": "Who were you measured against growing up? Write down three things you've done that no comparison could ever take from you.",
@@ -17,7 +17,7 @@
  },
  {
   "cid": 92,
-  "story": "My mother told me, flat out, that my brother's child will always be her favorite grandchild. She said it like it was nothing, like I wouldn't carry it home with me.",
+  "story": "My mother told me that my brother's child will always be her favorite.",
   "shared_by": "a daughter",
   "needed": "Love was never supposed to be ranked out loud. Being told you come second doesn't make you, or your children, any less worth cherishing.",
   "prompt": "Has someone made it clear you or your family came second? Write a promise about how you'll make the people you love feel chosen.",
@@ -25,7 +25,7 @@
  },
  {
   "cid": 94,
-  "story": "My stepmom admitted she treated me badly on purpose because of my stepsister. She said she didn't want my stepsister to get jealous. I was only a kid, and I was treated terribly for it.",
+  "story": "My stepmom said she treated me badly because of my stepsister. She said she didn't want my stepsister to get jealous. I was only a kid, and I was treated terribly.",
   "shared_by": "a stepdaughter",
   "needed": "You were never the problem that needed managing. A child deserves kindness in her own home, not to be made smaller so someone else feels bigger.",
   "prompt": "Where were you made smaller to keep someone else comfortable? Write to the kid you were and tell her what she should have been given.",
@@ -57,7 +57,7 @@
  },
  {
   "cid": 98,
-  "story": "My mom looked right at me and said, \"If anybody were to ever get drafted, I would prefer that it was you over your brother.\" I didn't even know what to say.",
+  "story": "My mom looked right at me and said, \"If anybody were to ever get drafted, I would prefer that you did over your brother.\"",
   "shared_by": "a daughter",
   "needed": "Your safety was never the lesser one. Anyone who could say that out loud revealed their own favoritism, not your worth.",
   "prompt": "Was there a moment you realized you were ranked below a sibling? Write about the people who would choose to protect you.",
@@ -73,9 +73,9 @@
  },
  {
   "cid": 100,
-  "story": "My mother decided to stop buying me Easter eggs because I was 34 now. She said she'd rather spend her money on eggs for my child. It's silly, but it cut deep.",
+  "story": "My mother decided to stop buying me Easter eggs because I was 34 and she \"preferred to spend her money on Easter eggs for my child.\"",
   "shared_by": "a daughter, 30s",
-  "needed": "It isn't silly. You never age out of wanting to be thought of by your mom, and a small gesture can carry a big message.",
+  "needed": "Wanting to be thought of by your mom doesn't expire at any age. A small gesture can carry a big message, and losing it is allowed to hurt.",
   "prompt": "What small tradition or gesture did you lose that meant more than it looked? Plan one way to give that to yourself this year.",
   "strength": 3
  },
@@ -113,7 +113,7 @@
  },
  {
   "cid": 219,
-  "story": "My mother recently told me that I am the daughter she never wanted, and that she is the mother I never wanted. I am 55, and it still hurt like I was a little girl.",
+  "story": "My mother recently said that I am the daughter she never wanted, and that she is the mother I never wanted. I am 55, and that hurt.",
   "shared_by": "a daughter, 50s",
   "needed": "It's never too late for words like that to hurt, and never too late to know they were untrue. You were always worth wanting.",
   "prompt": "Has a hurtful sentence found you later in life, not just in childhood? Write about how you'd mother yourself at the age you are now.",
@@ -129,7 +129,7 @@
  },
  {
   "cid": 222,
-  "story": "When I was born, my family says the first thing my mother said was, \"Take it back! I don't want it!\" I've carried that sentence my whole life.",
+  "story": "\"Take it back! I don't want it!\" When I was born.",
   "shared_by": "a daughter",
   "needed": "You were never an \"it,\" and you were never returnable. From your first breath, you were a person worth keeping.",
   "prompt": "Was there a story about your birth that made you feel unwanted? Write a new welcome to the world for the baby you were.",
@@ -185,7 +185,7 @@
  },
  {
   "cid": 203,
-  "story": "My mom looked at me and said, \"You're unlucky for me.\" Just like that. As if I was a bad omen and not her own child. I still hear it.",
+  "story": "\"You're unlucky for me.\" Thanks, Mom.",
   "shared_by": "a daughter",
   "needed": "You were never bad luck. Her hard times weren't caused by you, and you deserved to be seen as a gift, not a curse.",
   "prompt": "Were you ever blamed for things going wrong in someone else's life? Write down three good things you brought into the world just by being here.",
@@ -233,7 +233,7 @@
  },
  {
   "cid": 48,
-  "story": "I came home from my first year at boarding school having gained weight. At the pool, my mum rubbed sunscreen on my back and said, loudly, \"You have bigger love handles than I do.\" I had to look up what that meant. I was 12.",
+  "story": "I came home from my first year at boarding school having gained some weight. At the pool, my mum rubbed sunscreen on my back and said, in front of the whole town, \"You have bigger love handles than I do.\" I had to look up what that meant. I was 12.",
   "shared_by": "a daughter",
   "needed": "Before that day, you loved your body without thinking about it. That comfort was yours by right, and you can find your way back to it.",
   "prompt": "When did you first learn to feel self-conscious in your body? Write to your younger self about how she felt before those words.",
@@ -241,7 +241,7 @@
  },
  {
   "cid": 42,
-  "story": "For my 12th birthday, my grandma gave me diet pills. Not a toy, not a card that said she was proud of me. Diet pills. I was a child.",
+  "story": "My grandma gave me diet pills for my 12th birthday.",
   "shared_by": "a granddaughter",
   "needed": "At 12, you needed to be celebrated, not shrunk. There was never anything about your young body that needed fixing.",
   "prompt": "What gift, comment, or lesson taught you that your body needed fixing? Write the birthday card you actually deserved that year.",
@@ -273,7 +273,7 @@
  },
  {
   "cid": 36,
-  "story": "I told my mom I feel I'm not pretty enough to find a partner or achieve things. Instead of telling me I was wrong, she just nodded. After years of mockery and racist insults, that nod hurt the most.",
+  "story": "I feel I'm not pretty enough to have a partner or achieve many things. I told my mom, and instead of showing me I might be wrong, she just nodded, which made me feel even worse. Since I was little, I've suffered mockery, harassment and racist insults.",
   "shared_by": "a daughter",
   "needed": "Her silence was not the truth about you. You deserve to be seen as beautiful, and your worth was never waiting on anyone's approval of your face.",
   "prompt": "When did someone's silence confirm your worst fear about yourself? Write what you wish they had said instead.",
@@ -297,7 +297,7 @@
  },
  {
   "cid": 40,
-  "story": "After my first child, a family member told me my husband was going to cheat on me because I had \"let myself go.\" He never did, but those words stayed with me.",
+  "story": "After my first child, a family member told me my husband was going to cheat on me because I had let myself go. He didn't cheat.",
   "shared_by": "a wife and mother",
   "needed": "You didn't let yourself go. You grew and cared for a person, and your worth to the people who love you never depended on your shape.",
   "prompt": "What was said about your body after a big life change? Write a thank-you to your body for what it carried you through.",
