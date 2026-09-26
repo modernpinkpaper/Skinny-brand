@@ -26,7 +26,8 @@ sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(os.path.dirname(HERE),
 MODEL = "claude-opus-5"
 CHUNK = 250            # comments Claude reads per planning request
 MAX_COMMENTS = 3000    # the most-liked comments that are read at all
-HARD_CAP = 1000        # never more videos than this from one link
+HARD_CAP = 2000        # never more videos than this from one link
+PER_PAGE = 450         # videos per Releases page (GitHub allows 1,000 files per release: video + caption each)
 WORDS = (120, 190)     # script length allowed (the formula aims for 140-170)
 LOOKS = ["moody", "vintage", "bright", "pastel", "black and white"]
 
@@ -202,16 +203,35 @@ def write_one(formula, idea, comments, fmt=None):
     return res.script.strip().strip("`").strip(), probs
 
 
-def start_video(path, text, release):
+_pages, _page_lock = set(), threading.Lock()
+def release_page(release, n):
+    """Videos 1-450 go on the batch's page, 451-900 on "<batch>--part2", and so on (each page is made when needed)."""
+    part = (n - 1) // PER_PAGE + 1
+    if part == 1: return release
+    tag = f"{release}--part{part}"
+    with _page_lock:
+        if tag not in _pages:
+            if subprocess.run(["gh", "release", "view", tag], capture_output=True).returncode != 0:
+                subprocess.run(["gh", "release", "create", tag, "--latest=false", "--title",
+                                f"Videos: {release[len('videos-'):]} (part {part})", "--notes",
+                                f"Videos {(part - 1) * PER_PAGE + 1} to {part * PER_PAGE}; part 1 is {release}."],
+                               capture_output=True)
+            _pages.add(tag)
+    return tag
+
+
+def start_video(path, text, release, n):
     """Starts the "Make video" workflow on GitHub for one script (the script text goes with it)."""
     name = os.path.splitext(os.path.basename(path))[0]
-    cmd = ["gh", "workflow", "run", "make-video.yml", "--ref", os.environ.get("GITHUB_REF_NAME", "main"),
-           "-f", f"name={name}", "-f", f"release={release}", "-f", f"script={text}"]
-    for attempt in range(4):
+    repo = os.environ.get("GITHUB_REPOSITORY", "{owner}/{repo}")
+    cmd = ["gh", "api", "-X", "POST", f"repos/{repo}/actions/workflows/make-video.yml/dispatches",
+           "-f", f"ref={os.environ.get('GITHUB_REF_NAME', 'main')}", "-f", f"inputs[name]={name}",
+           "-f", f"inputs[release]={release_page(release, n)}", "-f", f"inputs[script]={text}"]
+    for attempt in range(8):   # GitHub allows about 1,000 requests an hour: wait and retry if it says slow down
         r = subprocess.run(cmd, capture_output=True, text=True)
         if r.returncode == 0: print(f"  video started: {name}", flush=True); return
-        print(f"  could not start the video yet ({r.stderr.strip()[:200]}), retrying", flush=True)
-        time.sleep(10 * (attempt + 1))
+        print(f"  could not start the video yet ({(r.stderr or r.stdout).strip()[:200]}), retrying", flush=True)
+        time.sleep(30 * (attempt + 1))
     print(f"::error::could not start the video for {name}", flush=True)
 
 
@@ -261,7 +281,7 @@ def main():
             off = f"  (still off: {'; '.join(probs)})" if probs else ""
             report.append(f"- {os.path.basename(path)}: {idea['kind']}, hook {fmt or '-'}. {idea['deeper']}{off}")
             print(f"script {len(made)}: {os.path.basename(path)}{off}", flush=True)
-        if args.dispatch: start_video(path, text, args.dispatch)
+        if args.dispatch: start_video(path, text, args.dispatch, n)
 
     count = [0]
     def on_idea(idea):   # write the scripts right away, while Claude keeps reading comments

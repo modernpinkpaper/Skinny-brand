@@ -6,7 +6,7 @@ Put a TikTok link here and GitHub does the rest:
 2. Claude studies the comments and groups them into topics, following `clip-maker/PICKING.md`. For each topic it notes what's happening on the surface, the deeper pain or need, whether it's Emotional, Practical or Educational, and which of your formula's hook templates fit it. There's no limit on topics, and it never stops to ask.
 3. Claude writes **3 scripts per topic**, each opening with a different hook from `clip-maker/FORMULA.md`, so one topic becomes 3 different videos. You can change the number with the `versions` setting. Each script is checked against the rules and sent back once if it breaks one.
 4. **The moment each script is written, its video starts being made.** It doesn't wait for the other scripts. Up to 20 videos are made at the same time; the rest wait their turn, so it keeps going until every script has its video.
-5. Each finished video lands on one Releases page, **Videos: <name>**, with its own caption file. If Google Drive is set up, it also goes to My Drive → Personal → TikTok Videos → <name>. See `../drive/README.md`.
+5. Each finished video lands on one Releases page, **Videos: <name>**, with its own caption file. It fills up as the videos finish, so you can check it anytime. A page holds 450 videos; after that it continues on **Videos: <name> (part 2)**, and so on. If Google Drive is set up, it also goes to My Drive → Personal → TikTok Videos → <name>. See `../drive/README.md`.
 6. At the end the scripts are also saved in `clip-maker/scripts/<name>/`, one file per video.
 
 ## One-time setup: your Claude API key
@@ -35,7 +35,7 @@ notes: focus on the comments about mothers
 
 | Setting | What it does |
 |---|---|
-| `videos` | The most videos to make in total. Leave it out (or write `all`) for every topic, up to 1,000. |
+| `videos` | The most videos to make in total. Leave it out (or write `all`) for every topic, up to 2,000. |
 | `versions` | How many videos per topic, each with a different hook. Default 3. `1` gives one video per topic; up to 13. |
 | `look` | `auto` lets Claude pick per video. Or: moody, vintage, bright, pastel, black and white. |
 | `clips` | `auto` lets Claude pick per video. Or: animated, real, both. |

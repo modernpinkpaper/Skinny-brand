@@ -101,7 +101,7 @@ jobs:
           GDRIVE_PASSWORD: ${{ secrets.GDRIVE_PASSWORD }}
           REL: ${{ inputs.release }}
         run: |
-          folder="${REL#videos-}"; [ -n "$folder" ] || folder="Single videos"
+          folder="${REL#videos-}"; folder="${folder%%--part*}"; [ -n "$folder" ] || folder="Single videos"
           for d in ../videos/*/; do
             [ -d "$d" ] || continue; n=$(basename "$d")
             python drive_upload.py "$folder" "$d/$n.mp4" "$d/$n-caption.txt"

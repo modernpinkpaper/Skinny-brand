@@ -54,7 +54,10 @@ jobs:
       - name: Make the Releases page for this batch
         env: { GH_TOKEN: "${{ github.token }}", REL: "${{ steps.batch.outputs.release }}", SLUG: "${{ steps.batch.outputs.slug }}" }
         run: |
-          gh release delete "$REL" --yes --cleanup-tag 2>/dev/null || true
+          # making this link again: clear its old pages (the batch page and any "--part2", "--part3"... pages)
+          for t in "$REL" $(gh release list --limit 1000 --json tagName -q '.[].tagName' | grep -- "^$REL--part" || true); do
+            gh release delete "$t" --yes --cleanup-tag 2>/dev/null || true
+          done
           gh release create "$REL" --title "Videos: $SLUG" --latest=false --target "${{ github.sha }}" \
             --notes "Scripts are being written now. Each video is added here the moment it's finished (up to 20 are made at a time), with its own -caption.txt."
       - uses: actions/setup-python@v5
