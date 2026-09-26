@@ -5,9 +5,9 @@ Paste a script and get a finished TikTok video: a clip for every line, the voice
 ## Using it (Windows)
 1. Download **ClipMaker-Windows.zip** (see "Getting the .exe" below) and unzip it anywhere, for example your Desktop.
 2. Open the `ClipMaker` folder and double-click **ClipMaker.exe**. A black window opens (keep it open) and the app opens in your web browser.
-3. Paste your script. One line = one clip. Leave a blank line where the voice should pause.
+3. Paste your script. One line = one clip. A blank line = a short pause; two or more blank lines = a longer pause.
 4. Choose the websites, the type of clips, the look and the voice, then press **Make video**.
-5. It finds the clips and builds the video in one go. When it's done, the video plays in the app. Press **Open folder** to find the file.
+5. It finds the clips and makes the voice at the same time, then builds the video. When it's done, the video plays in the app. Press **Open folder** to find the file.
 
 Videos are saved in `Documents\Clip Maker\<video name>\`, with the voiceover (.wav) and `caption.txt`.
 
@@ -20,6 +20,14 @@ Videos are saved in `Documents\Clip Maker\<video name>\`, with the voiceover (.w
 **Have an NVIDIA graphics card?** Download **ClipMaker-Windows-NVIDIA** instead. It's a bigger download, but it uses the NVIDIA card, so the voice takes about 1 to 2 minutes instead of 10 to 20. The normal **ClipMaker-Windows** uses only the processor, even on a PC with NVIDIA.
 
 The black window says what it's using, for example `Using: NVIDIA graphics card: GeForce RTX 3050`. If the NVIDIA build says "processor only", update your NVIDIA driver (GeForce Experience or nvidia.com/drivers). On a laptop, keep it plugged in.
+
+## What the video looks like
+- The words pop onto the clip one at a time, exactly when the voice says them. Small linking words ("the", "of", "to") are small and the important words are big, in a loose staggered stack.
+- Each line of your script gets its own clip, which changes exactly when the voice starts that line.
+- **Voice speed** can be Normal, A bit slower (default) or Slower.
+
+## Faster every time
+The app remembers every clip it has checked (its colours, what it shows, whether it moves or has words on it) and your searches for 3 days. The first video takes the longest; after that it mostly reuses what it already knows.
 
 ## Websites
 - **Tenor** works right away.

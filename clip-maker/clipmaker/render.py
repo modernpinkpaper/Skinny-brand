@@ -2,12 +2,11 @@
 voice says it, then an end screen. Saves <project>/<name>.mp4, the voiceover .wav and caption.txt."""
 import os, subprocess, tempfile, textwrap, shutil
 import numpy as np, soundfile as sf, imageio_ffmpeg
-from fontTools.ttLib import TTFont
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 from .paths import ASSETS
 from .sources import S
 from .looks import LOOKS
-from . import voice
+from . import voice, captions
 
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 W, H, FPS, SR = 1080, 1920, 30, voice.SR
@@ -16,13 +15,6 @@ NOWIN = 0x08000000 if os.name == "nt" else 0   # no black console windows poppin
 
 
 def _run(cmd): subprocess.run(cmd, check=True, creationflags=NOWIN)
-
-
-def _font(tmp, name, weight, size):
-    ttf = os.path.join(tmp, name + ".ttf")
-    if not os.path.exists(ttf):
-        f = TTFont(os.path.join(ASSETS, "fonts", name + ".woff2")); f.flavor = None; f.save(ttf)
-    ft = ImageFont.truetype(ttf, size); ft.set_variation_by_axes([weight]); return ft
 
 
 def _text_layer(text, fnt, cy, shadow=True, width=24):
@@ -52,8 +44,18 @@ def _typed(text, fnt, cy, type_time, dur, out, shadow=True, width=24):
     return out + ".txt"
 
 
-def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progress, check_cancel=lambda: None):
-    """clips: one dict per line with 'full' (link). Returns the finished video path."""
+def make_voice(lines, breaks, end, voice_ref, speed=1.0, progress=lambda p, m: None):
+    """All the audio: one piece per line (+ word timings) and the end-screen line.
+    Can run while the clips are being found."""
+    pieces, times = voice.voice_lines(lines, breaks, voice_ref, speed, progress)
+    end_audio = voice.clean(voice.trim(voice.speak(end, voice_ref, speed))) if end.strip() else None
+    return pieces, times, end_audio
+
+
+def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progress, check_cancel=lambda: None,
+          audio_parts=None, speed=1.0):
+    """clips: one dict per line with 'full' (link). audio_parts: result of make_voice() if already made.
+    Returns the finished video path."""
     tmp = tempfile.mkdtemp(prefix="clipmaker-")
     try:
         cdir = os.path.join(project, "clips"); os.makedirs(cdir, exist_ok=True)
@@ -65,16 +67,18 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
                 open(f, "wb").write(S.get(c["full"], timeout=90).content); open(f + ".url", "w").write(c["full"])
             files.append(f); progress(2 + 6 * i / len(clips), f"downloading clip {i + 1}/{len(clips)}")
         check_cancel()
-        progress(8, "making the voice (the slow part)")
-        pieces = voice.voice_lines(lines, breaks, voice_ref,
-                                   lambda p, m: (check_cancel(), progress(8 + 62 * p, m)))
-        serif, sans = _font(tmp, "Lora-normal", 700, 66), _font(tmp, "Inter-normal", 600, 86)
+        if audio_parts is None:
+            progress(8, "making the voice (the slow part)")
+            audio_parts = make_voice(lines, breaks, end, voice_ref, speed,
+                                     lambda p, m: (check_cancel(), progress(8 + 62 * p, m)))
+        pieces, times, end_audio = audio_parts
+        sans = captions.font(90)
         grade = LOOKS[look]["grade"]; grade = grade + "," if grade else ""
         parts = []
-        for i, (line, piece, src) in enumerate(zip(lines, pieces, files)):
+        for i, (line, piece, wt, src) in enumerate(zip(lines, pieces, times, files)):
             check_cancel()
-            dur = len(piece) / SR; spoken = len(voice.trim(piece, keep=0)) / SR
-            ov = _typed(line, serif, 1010, spoken * 0.85, dur, os.path.join(tmp, f"t{i}"))
+            dur = len(piece) / SR
+            ov = captions.line_overlay(line, wt, dur, os.path.join(tmp, f"t{i}"))   # words pop in as they're said
             out = os.path.join(tmp, f"p{i:02d}.mp4")
             vf = (f"[0:v]{grade}scale={W}:1250:force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2,"
                   f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2-60:color=0x080808,fps={FPS},setsar=1[v];"
@@ -84,8 +88,8 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
                   "-r", str(FPS), out])
             parts.append(out); progress(70 + 25 * i / len(lines), f"putting clips together {i + 1}/{len(lines)}")
         audio = list(pieces)
-        if end.strip():
-            a = voice.clean(voice.trim(voice.speak(end, voice_ref)))
+        if end_audio is not None:
+            a = np.concatenate([np.zeros(int(0.5 * SR), np.float32), end_audio])   # a breath before the end line
             end_dur = len(a) / SR + END_HOLD
             audio.append(np.concatenate([a, np.zeros(int(round(end_dur * SR)) - len(a), np.float32)]))
             bg = os.path.join(tmp, "bg.png"); Image.new("RGB", (W, H), (22, 22, 22)).save(bg)

@@ -87,13 +87,30 @@ def make():
     name = slug(o.get("name") or lines[0][:30])
     def job():
         STATE.update(video=None, project=name)
+        # the voice doesn't need the clips, so it is made at the same time as the clip search
+        ref, end = VOICES[o.get("voice", "guy")][1], o.get("end", "")
+        vstate = dict(msg="waiting", result=None, error=None)
+        def voice_job():
+            try:
+                vstate["result"] = render.make_voice(lines, breaks, end, ref, float(o.get("speed", 0.92)),
+                                                     lambda p, m: (check_cancel(), vstate.update(msg=m)))
+                vstate["msg"] = "voice ready"
+            except Exception as e:
+                vstate["error"] = e
+        progress(1, "loading")
+        # load the big libraries once here: two threads importing them at the same time breaks the import
+        import torch, torchaudio, transformers, chatterbox.tts, faster_whisper, noisereduce, rapidocr_onnxruntime  # noqa
+        vt = threading.Thread(target=voice_job, daemon=True); vt.start()
         cands = picker.find_clips(lines, o["sources"], keys, o["kind"], o["look"],
-                                  lambda p, m: progress(p * 0.4, "finding clips: " + m))
+                                  lambda p, m: progress(p * 0.6, f"finding clips: {m}  |  {vstate['msg']}"))
         p = dict(name=name, script=o["script"], lines=lines, breaks=breaks, opts=o, cands=cands, cur=[0] * len(lines))
         save_project(p)
-        v = render.build(project_dir(name), name, lines, breaks, [c[0] for c in cands], o.get("end", ""), o["look"],
-                         VOICES[o.get("voice", "guy")][1], o.get("tags", ""),
-                         lambda p, m: progress(40 + p * 0.6, m), check_cancel)
+        while vt.is_alive():
+            progress(60, "clips found, finishing the voice: " + vstate["msg"]); vt.join(2)
+        if vstate["error"]: raise vstate["error"]
+        v = render.build(project_dir(name), name, lines, breaks, [c[0] for c in cands], end, o["look"], ref,
+                         o.get("tags", ""), lambda p, m: progress(60 + p * 0.4, m), check_cancel,
+                         audio_parts=vstate["result"])
         STATE.update(video=v, pct=100, msg="your video is ready")
     return background("make", job)
 
@@ -141,7 +158,7 @@ button.ghost{background:transparent;color:var(--acc);border:1px solid var(--acc)
 <div id="settings" class="card hide"><h2>Website keys</h2><p class="hint">Tenor needs no key. The others give a free key after signing up on their site.</p><div id="keys"></div>
 <button onclick="saveKeys()">Save</button></div>
 
-<div class="card"><h2>1. Script</h2><p class="hint">One line = one clip. Leave a blank line where the voice should pause.</p>
+<div class="card"><h2>1. Script</h2><p class="hint">One line = one clip. A blank line = a short pause. Two or more blank lines = a longer pause.</p>
 <textarea id="script" placeholder="Paste your script here"></textarea>
 <div class="grid" style="margin-top:12px">
  <div><b>Websites</b><div id="sources"></div></div>
@@ -149,7 +166,8 @@ button.ghost{background:transparent;color:var(--acc);border:1px solid var(--acc)
   <label><input type="radio" name="kind" value="animated" checked> Animated / cartoon</label>
   <label><input type="radio" name="kind" value="real"> Real people</label>
   <label><input type="radio" name="kind" value="both"> Both</label></div>
- <div><b>Look / colouring</b><select id="look"></select><br><br><b>Voice</b><select id="voice"></select></div>
+ <div><b>Look / colouring</b><select id="look"></select><br><br><b>Voice</b><select id="voice"></select>
+  <br><br><b>Voice speed</b><select id="speed"><option value="1.0">Normal</option><option value="0.92" selected>A bit slower</option><option value="0.85">Slower</option></select></div>
  <div><b>Video name</b><input type="text" id="name" placeholder="e.g. absent-parent"><br><br>
   <b>End screen line</b><input type="text" id="end" value="send this to someone who needs to hear it"></div>
  <div><b>Hashtags</b><input type="text" id="tags" value="#healing #selflove #relatable #fyp"></div>
@@ -172,7 +190,7 @@ async function init(){OPT=await (await fetch('/api/options')).json();
  $('keys').innerHTML=OPT.sources.filter(s=>s.needs_key).map(s=>`<label>${s.name} <a href="${s.key_url}" target="_blank" style="color:var(--acc)">get key</a><input type="text" id="key_${s.id}" value="${OPT.settings.keys?.[s.id]||''}"></label>`).join('');
  const st=await (await fetch('/api/status')).json(); if(st.busy)watch();}
 async function saveKeys(){const keys={};OPT.sources.filter(s=>s.needs_key).forEach(s=>keys[s.id]=$('key_'+s.id).value);await post('/api/settings',{keys});init();toggle('settings')}
-async function make(){const b={script:$('script').value,name:$('name').value,end:$('end').value,tags:$('tags').value,look:$('look').value,voice:$('voice').value,
+async function make(){const b={script:$('script').value,name:$('name').value,end:$('end').value,tags:$('tags').value,look:$('look').value,voice:$('voice').value,speed:$('speed').value,
  kind:document.querySelector('input[name=kind]:checked').value,sources:[...document.querySelectorAll('#sources input:checked')].map(x=>x.value)};
  const j=await post('/api/make',b); if(j.ok){$('done').classList.add('hide');watch()}}
 function watch(){$('prog').classList.remove('hide');$('findBtn').disabled=true;clearInterval(poll);poll=setInterval(async()=>{
@@ -186,16 +204,18 @@ init();
 
 
 def selftest():
-    """Makes a tiny real video from start to finish; used to test the Windows .exe after it's built."""
-    from clipmaker import picker, render
-    lines, breaks = picker.parse_script("Sometimes the quiet nights\nare where you heal the most.\n")
-    say = lambda p, m: print(f"[{p:5.1f}%] {m}", flush=True)
-    cands = picker.find_clips(lines, ["tenor"], {}, "animated", "moody", say)
-    d = os.path.join(PROJECTS, "selftest")
-    v = render.build(d, "selftest", lines, breaks, [c[0] for c in cands], "", "moody", VOICES["guy"][1], "", say)
-    ok = os.path.getsize(v) > 50000
+    """Makes a tiny real video through the app's own Make video button; used to test the Windows .exe."""
+    import time
+    c = app.test_client()
+    r = c.post("/api/make", json=dict(script="Sometimes the quiet nights\nare where you heal the most.\n", name="selftest",
+                                      sources=["tenor"], kind="animated", look="moody", voice="guy", end="", tags=""))
+    assert r.status_code == 200, r.json
+    t = time.time()
+    while STATE["busy"]: time.sleep(2)
+    v = STATE.get("video")
+    ok = bool(v) and os.path.getsize(v) > 50000 and not STATE["error"]
     print("Using:", device_name(), flush=True)
-    print("SELFTEST", "OK" if ok else "FAILED", v, flush=True)
+    print("SELFTEST", "OK" if ok else "FAILED", v, STATE["error"], f"{time.time() - t:.0f}s", flush=True)
     sys.exit(0 if ok else 1)
 
 

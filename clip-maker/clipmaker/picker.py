@@ -5,7 +5,7 @@ CLIP (image checker) scores each clip: animated or real, the chosen look, how we
 colour/light numbers for the look -> best clip per line (never the same one twice) ->
 OCR (text reader) throws out any clip with words on it (CLIP can read, so it loves meme text).
 Every line also keeps a ranked list of runner-ups (saved in project.json)."""
-import os, re, json, subprocess, hashlib
+import os, re, json, time, subprocess, hashlib
 from concurrent.futures import ThreadPoolExecutor
 import numpy as np, imageio_ffmpeg
 from PIL import Image
@@ -16,7 +16,8 @@ from .motion import score as motion_score
 
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 NOWIN = 0x08000000 if os.name == "nt" else 0   # no console windows popping up on Windows
-PER_SEARCH, ALTS = 30, 12
+PER_SEARCH, ALTS, SEARCH_DAYS = 30, 12, 3
+FEATS = os.path.join(CACHE, "feats"); os.makedirs(FEATS, exist_ok=True)
 CARTOON = ["an anime screenshot", "a frame from an animated cartoon", "a hand-drawn illustration"]
 REAL = ["a photo of a real person", "a frame from a live-action movie", "a real photograph of people"]
 STOP = set("""a an the and or but so if then than that this those these there their they them you your youre i me my
@@ -27,18 +28,24 @@ who what when where why how which get gets got going gonna wanna kind way thing 
 
 
 def parse_script(text):
-    """One line of text = one clip. A blank line = a pause in the voice (its line number goes in breaks)."""
-    lines, breaks = [], []
+    """One line of text = one clip. Blank lines = pauses: breaks[line number] = how many blank lines follow it
+    (1 = short pause, each extra blank line = a longer pause)."""
+    lines, breaks = [], {}
     for raw in text.splitlines():
         t = raw.strip().lstrip(">").strip()
         if t: lines.append(t)
-        elif lines and (not breaks or breaks[-1] != len(lines) - 1): breaks.append(len(lines) - 1)
+        elif lines: breaks[len(lines) - 1] = breaks.get(len(lines) - 1, 0) + 1
+    breaks.pop(len(lines) - 1, None)   # no pause needed after the very last line
     return lines, breaks
 
 
 def keywords(line):
     w = [x for x in re.findall(r"[a-z]+", line.lower().replace("'", "").replace("’", "")) if x not in STOP and len(x) > 2]
     return " ".join(sorted(w, key=len, reverse=True)[:2])
+
+
+def _feat_file(url):
+    return os.path.join(FEATS, hashlib.md5(url.encode()).hexdigest() + ".npz")
 
 
 def _cache_file(url):
@@ -148,16 +155,21 @@ def find_clips(lines, sources, keys, kind, look, progress):
             for s in suffix: queries.add(k + s)
     jobs = [(src, q) for src in sources for q in sorted(queries)]
 
+    searches = _Json("searches.json")   # search results are remembered for SEARCH_DAYS days
     def run(job):
-        src, q = job
-        try: return SOURCES[src][1](q, PER_SEARCH, keys.get(src))
+        src, q = job; key = src + "|" + q; hit = searches.d.get(key)
+        if hit and time.time() - hit["t"] < SEARCH_DAYS * 86400: return hit["r"]
+        try: r = SOURCES[src][1](q, PER_SEARCH, keys.get(src))
         except Exception: return []
+        if r: searches.d[key] = dict(t=time.time(), r=r)
+        return r
     progress(2, f"searching {len(sources)} website(s): {len(jobs)} searches")
     cands = {}
     with ThreadPoolExecutor(8) as ex:
         for n, res in enumerate(ex.map(run, jobs)):
             for c in res: cands.setdefault(c["full"], c)
             if n % 10 == 0: progress(2 + 8 * n / len(jobs), f"searching ({n}/{len(jobs)})")
+    searches.save()
     items = list(cands.values())
     if not items: raise RuntimeError("No clips found - check your internet and the website keys in Settings.")
 
@@ -177,19 +189,30 @@ def find_clips(lines, sources, keys, kind, look, progress):
     motion.save()
     items = [c for c in items if motion.d.get(c["full"], 0) >= 1.5]
 
-    progress(45, f"looking at {len(items)} clips (colours, cartoon or real)")
-    good = []
-    for c in items:
-        fr = _frames(c["file"])
-        if len(fr) >= 2: c["frames"] = fr; c.update(_look_numbers(fr)); good.append(c)
-    items = good
-    progress(55, "loading the image checker (first time downloads it)")
+    # colours + what the image checker sees are worked out once per clip and remembered (feats/ folder),
+    # so later videos only look at clips they haven't seen before
     import torch
-    E = []
-    for i in range(0, len(items), 64):
-        E.append(img_emb([Image.fromarray(x) for c in items[i:i + 64] for x in c["frames"]]))
-        progress(58 + 25 * i / len(items), f"image checker: {i}/{len(items)} clips")
-    E = torch.cat(E).view(len(items), -1, 512).mean(1); E = E / E.norm(dim=-1, keepdim=True)
+    todo = [c for c in items if not os.path.exists(_feat_file(c["full"]))]
+    progress(45, f"{len(items) - len(todo)} clips already known, looking at {len(todo)} new ones")
+    if todo: progress(47, "loading the image checker (first time downloads it)")
+    for i in range(0, len(todo), 32):
+        batch = []
+        for c in todo[i:i + 32]:
+            fr = _frames(c["file"])
+            if len(fr) >= 2: batch.append((c, fr))
+        if batch:
+            e = img_emb([Image.fromarray(x) for _, fr in batch for x in fr]).view(len(batch), -1, 512).mean(1)
+            for (c, fr), v in zip(batch, e):
+                np.savez(_feat_file(c["full"]), emb=v.numpy().astype(np.float16), **_look_numbers(fr))
+        progress(47 + 36 * i / max(len(todo), 1), f"image checker: {i}/{len(todo)} new clips")
+    good, E = [], []
+    for c in items:
+        f = _feat_file(c["full"])
+        if not os.path.exists(f): continue
+        z = np.load(f); c.update({k: float(z[k]) for k in ("bright", "sat", "contrast", "white")})
+        E.append(z["emb"].astype(np.float32)); good.append(c)
+    items = good
+    E = torch.from_numpy(np.stack(E)); E = E / E.norm(dim=-1, keepdim=True)
 
     def prob(pos, neg):
         T = txt_emb(pos + neg); p = (100 * E @ T.T).softmax(-1)
