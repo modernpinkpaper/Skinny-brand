@@ -63,8 +63,15 @@ def top_phrases(texts, n=40):
 def main():
     src, title = sys.argv[1], sys.argv[2]
     out = sys.argv[3] if len(sys.argv) > 3 else src.rsplit(".", 1)[0]
+    counts = build(list(csv.DictReader(open(src, encoding="utf-8-sig"))), title, out)
+    print(f"saved {out}.xlsx and {out}.html")
+    for k, n in counts.items():
+        print(f"  {k}: {n}")
+
+def build(raw, title, out):
+    """Write out.xlsx and out.html from scraped rows (dicts like tiktok_comments.py makes). Returns comments per category."""
     rows, seen = [], set()
-    for r in csv.DictReader(open(src, encoding="utf-8-sig")):  # drop duplicates TikTok sometimes repeats across pages
+    for r in raw:  # drop duplicates TikTok sometimes repeats across pages
         if r["comment_id"] not in seen:
             seen.add(r["comment_id"]); rows.append(r)
     tops = sorted([r for r in rows if not r["reply_to"]], key=lambda r: -int(r["likes"]))
@@ -135,9 +142,7 @@ def main():
             "counts": {k: counts.get(k, 0) for k in cat_names}, "phrases": phrases[:20]}
     page = PAGE.replace("__TITLE__", html.escape(title)).replace("__DATA__", json.dumps(data, ensure_ascii=False).replace("</", "<\\/"))
     open(out + ".html", "w", encoding="utf-8").write(page)
-    print(f"saved {out}.xlsx and {out}.html  ({len(comments)} comments, {len(replies)} replies)")
-    for k in cat_names:
-        print(f"  {k}: {counts.get(k, 0)}")
+    return {k: counts.get(k, 0) for k in cat_names}
 
 PAGE = r"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Comment Browser</title><style>

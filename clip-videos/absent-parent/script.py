@@ -1,0 +1,32 @@
+# made by auto_video.py (on-screen line + voiceover, search words)
+LINES = [
+ ('There’s a particular kind of hurt', 'particular hurt'),
+ ('that comes from having a parent who could have been there…', 'parent comes'),
+ ('and just wasn’t.', 'wasn'),
+ ('And for a long time,', 'long time'),
+ ('you might keep wondering what you could’ve done differently.', 'differently wondering'),
+ ('Maybe if you were easier.', 'easier'),
+ ('Maybe if you needed less.', 'needed'),
+ ('Maybe if you accomplished more.', 'accomplished'),
+ ('Maybe then they would’ve shown up.', 'shown'),
+ ('But you were the child.', 'child'),
+ ('You were never supposed to earn being cared for.', 'supposed cared'),
+ ('And I hope one day you realize', 'realize hope'),
+ ('that their absence doesn’t get to become the story of your life.', 'absence become'),
+ ('Because you’re going to meet people who stay.', 'because people'),
+ ('People who remember the little things.', 'remember people'),
+ ('People who check on you.', 'people check'),
+ ('People who celebrate you.', 'celebrate people'),
+ ('People who make room for you without making you feel like a burden.', 'people making'),
+ ('And slowly, you’ll build a life filled with a different kind of love.', 'different slowly'),
+ ('Not the love you had to chase.', 'chase love'),
+ ('The kind that comes toward you.', 'toward comes'),
+ ('You may always wish they had been different.', 'different always'),
+ ('But one day, that wish won’t hurt quite as much.', 'wish hurt'),
+ ('Because you’ll look around at the life you built', 'because around'),
+ ('and realize…', 'realize'),
+ ('someone not showing up for your beginning', 'beginning someone'),
+ ('never meant you couldn’t have a beautiful rest of the story.', 'beautiful couldn'),
+]
+END = 'send this to someone who needs to hear it'
+BREAKS = [2, 4, 8, 9, 10, 12, 13, 17, 18, 19, 20, 21, 22, 24]

@@ -1,0 +1,73 @@
+name: Make video
+# Add or edit a .txt file in clip-maker/scripts/ on GitHub and this makes the video on GitHub's computers
+# (no PC needed). The finished video appears on the repo's Releases page, named after the file.
+on:
+  push:
+    paths: ["clip-maker/scripts/**", "!clip-maker/scripts/README.md"]
+  workflow_dispatch:
+    inputs:
+      file:
+        description: "Script file name in clip-maker/scripts (e.g. my-video.txt or my video)"
+        required: true
+permissions:
+  contents: write
+concurrency:
+  group: make-video-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    defaults: { run: { working-directory: clip-maker } }
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Which scripts changed?
+        id: files
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            f="scripts/${{ github.event.inputs.file }}"; [ -f "$f" ] || f="scripts/${{ github.event.inputs.file }}.txt"
+            echo "$f" > ../changed.txt
+          else
+            before="${{ github.event.before }}"
+            if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
+              git -c core.quotepath=off diff-tree --no-commit-id --name-only --diff-filter=AMR -r ${{ github.sha }} > ../all.txt
+            else
+              git -c core.quotepath=off diff --name-only --diff-filter=AMR "$before" ${{ github.sha }} > ../all.txt
+            fi
+            # any file in scripts/ counts (with or without .txt), except the README
+            grep '^clip-maker/scripts/' ../all.txt | grep -v '/README\.md$' | sed 's#^clip-maker/##' > ../changed.txt || true
+          fi
+          echo "Scripts to make:"; cat ../changed.txt
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11", cache: pip, cache-dependency-path: clip-maker/requirements.txt }
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/huggingface
+            ~/.local/share/ClipMaker
+          key: clipmaker-cache-${{ github.run_id }}
+          restore-keys: clipmaker-cache-
+      - name: Install
+        run: pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+      - name: Make the video(s)
+        run: |
+          while read -r f; do
+            [ -n "$f" ] && [ -f "$f" ] || continue
+            echo "::group::$f"; python make_from_file.py "$f" --out ../videos; echo "::endgroup::"
+          done < ../changed.txt
+      - name: Publish on the Releases page
+        run: |
+          cd ../videos 2>/dev/null || { echo "no videos made"; exit 0; }
+          for d in */; do
+            n="${d%/}"
+            body="Made from clip-maker/scripts/$n.txt on $(date -u '+%Y-%m-%d %H:%M UTC'). Tap $n.mp4 to watch or save it; caption.txt has the post caption."
+            gh release delete "video-$n" --yes --cleanup-tag 2>/dev/null || true
+            gh release create "video-$n" "$n/$n.mp4" "$n/caption.txt" "$n/$n-voiceover.wav" \
+              --title "Video: $n" --notes "$body" --latest=false --target "${{ github.sha }}"
+            echo "Published: https://github.com/${{ github.repository }}/releases/tag/video-$n"
+          done
+        env: { GH_TOKEN: "${{ github.token }}" }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: videos, path: videos/, if-no-files-found: ignore, retention-days: 30 }

@@ -1,0 +1,44 @@
+name: Build Clip Maker (Windows)
+on:
+  push:
+    paths: ["clip-maker/**", "!clip-maker/scripts/**", "!clip-maker/library/**", ".github/workflows/build-clip-maker.yml"]
+  workflow_dispatch:
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - variant: cpu          # any PC; small download
+            artifact: ClipMaker-Windows
+          - variant: nvidia       # uses an NVIDIA graphics card (much faster), falls back to the processor
+            artifact: ClipMaker-Windows-NVIDIA
+    defaults: { run: { working-directory: clip-maker } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          if ("${{ matrix.variant }}" -eq "nvidia") {
+            pip install torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124
+            pip install -r requirements.txt
+          } else {
+            pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+          }
+          pip install pyinstaller
+          python -c "import torch; print('torch', torch.__version__, 'cuda build:', torch.version.cuda)"
+      - name: Build ClipMaker.exe
+        run: pyinstaller clipmaker.spec --noconfirm
+      - name: Test the .exe (makes a tiny real video)
+        run: dist\ClipMaker\ClipMaker.exe --selftest
+      - name: Zip
+        run: Compress-Archive -Path dist\ClipMaker -DestinationPath ${{ matrix.artifact }}.zip
+      - uses: actions/upload-artifact@v4
+        with: { name: "${{ matrix.artifact }}", path: "clip-maker/${{ matrix.artifact }}.zip", retention-days: 90, compression-level: 0 }
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: "selftest-video-${{ matrix.variant }}", path: ~/Documents/Clip Maker/selftest/*.mp4, if-no-files-found: ignore }
