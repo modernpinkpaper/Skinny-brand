@@ -6,7 +6,7 @@ Put a TikTok link here and GitHub does the rest:
 2. Claude studies the comments and groups them into topics, following `clip-maker/PICKING.md`. For each topic it notes what's happening on the surface, the deeper pain or need, whether it's Emotional, Practical or Educational, and every script format (A, B, C…) that fits. There's no limit on topics, and it never stops to ask.
 3. Claude writes **one script per fitting format** for each topic, following `clip-maker/SCRIPT-SYSTEM.md` (your formats) and `clip-maker/FORMULA.md` (voice marks included). So one topic can become several videos. Each script is checked against the rules and sent back once if it breaks one.
 4. **The moment each script is written, its video starts being made.** It doesn't wait for the other scripts. Up to 20 videos are made at the same time; the rest wait their turn, so it keeps going until every script has its video.
-5. Each finished video lands on one Releases page, **Videos: <name>**, with its own caption file. If Google Drive is set up, it also goes to My Drive → Clip Maker Videos → <name>. See `../drive/README.md`.
+5. Each finished video lands on one Releases page, **Videos: <name>**, with its own caption file. If Google Drive is set up, it also goes to My Drive → Personal → TikTok Videos → <name>. See `../drive/README.md`.
 6. At the end the scripts are also saved in `clip-maker/scripts/<name>/`, one file per video.
 
 ## One-time setup: your Claude API key

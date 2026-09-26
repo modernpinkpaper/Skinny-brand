@@ -3,7 +3,7 @@
 // the folder and hands back a short-lived (1 hour) upload pass, so GitHub can put the videos in your Drive.
 
 const PASSWORD = 'PUT-A-LONG-RANDOM-PASSWORD-HERE';   // the same text goes in the GDRIVE_PASSWORD GitHub secret
-const MAIN_FOLDER = 'Clip Maker Videos';              // made in your My Drive the first time
+const MAIN_FOLDER_ID = '1eCb3hkd49gkxHUoKbYot4uNbKuAtU9aG';   // My Drive > Personal > TikTok Videos
 
 function doPost(e) {
   const req = JSON.parse((e && e.postData && e.postData.contents) || '{}');
@@ -11,7 +11,7 @@ function doPost(e) {
   const lock = LockService.getScriptLock();   // many videos finish at once: make each folder only once
   lock.waitLock(30000);
   try {
-    let folder = folderIn(DriveApp.getRootFolder(), MAIN_FOLDER);
+    let folder = DriveApp.getFolderById(MAIN_FOLDER_ID);
     if (req.folder) folder = folderIn(folder, String(req.folder).slice(0, 100));
     return reply({ folderId: folder.getId(), token: ScriptApp.getOAuthToken() });
   } finally {
@@ -30,5 +30,5 @@ function reply(obj) {
 
 // Run this once from the editor (select "setup" and press Run) so Google asks for permission.
 function setup() {
-  folderIn(DriveApp.getRootFolder(), MAIN_FOLDER);
+  Logger.log('Videos will go in: ' + DriveApp.getFolderById(MAIN_FOLDER_ID).getName());
 }

@@ -1,7 +1,7 @@
 name: Make video
 # Add or edit a file in clip-maker/scripts/ on GitHub and this makes the video on GitHub's computers
 # (no PC needed). The finished video appears on the repo's Releases page, named after the file, and in
-# Google Drive (My Drive > Clip Maker Videos) if that is set up (clip-maker/drive/README.md).
+# Google Drive (My Drive > Personal > TikTok Videos) if that is set up (clip-maker/drive/README.md).
 # "TikTok to videos" also starts this once per script, the moment each script is written.
 run-name: "Make video: ${{ inputs.name || inputs.file || github.event.head_commit.message }}"
 on:

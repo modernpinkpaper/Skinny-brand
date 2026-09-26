@@ -3,7 +3,7 @@
   python drive_upload.py "<folder name>" file1.mp4 file1-caption.txt ...
 
 Needs two GitHub secrets (see drive/README.md): GDRIVE_URL (your Apps Script web app link) and
-GDRIVE_PASSWORD. Without them it does nothing. Files go in My Drive > Clip Maker Videos > <folder name>;
+GDRIVE_PASSWORD. Without them it does nothing. Files go in My Drive > Personal > TikTok Videos > <folder name>;
 a file with the same name there is replaced, so making a video again doesn't leave duplicates."""
 import os, sys, json, time
 import urllib.request, urllib.parse

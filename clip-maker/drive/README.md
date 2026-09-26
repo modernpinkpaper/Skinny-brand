@@ -1,8 +1,8 @@
 # Videos straight into your Google Drive
 
 Once this is set up, every finished video, and its caption file, also goes into your Google Drive:
-- **Videos from a TikTok link:** My Drive → **Clip Maker Videos** → a folder named after the link file.
-- **Single scripts:** My Drive → **Clip Maker Videos** → **Single videos**.
+- **Videos from a TikTok link:** My Drive → Personal → **TikTok Videos** → a folder named after the link file.
+- **Single scripts:** My Drive → Personal → **TikTok Videos** → **Single videos**.
 
 If you make a video again, the file in Drive is replaced, so you won't get duplicates. Setup takes about 5 minutes, once. You don't need a Google developer account.
 
@@ -10,7 +10,7 @@ If you make a video again, the file in Drive is replaced, so you won't get dupli
 1. Go to **script.google.com** (signed in to the Google account whose Drive you want) and click **New project**.
 2. Delete what's in the editor. Paste everything from `clip-maker/drive/apps-script.js`.
 3. On the line `const PASSWORD = 'PUT-A-LONG-RANDOM-PASSWORD-HERE';`, replace the text between the quotes with a long made-up password, for example 30 random letters and numbers. Keep it; you need it in step 3.
-4. Click the save icon. At the top, pick **setup** in the function menu and press **Run**. Google asks for permission: pick your account, then **Advanced** → **Go to (project name)** → **Allow**. This lets the helper put files in your Drive. A **Clip Maker Videos** folder appears in your Drive.
+4. Click the save icon. At the top, pick **setup** in the function menu and press **Run**. Google asks for permission: pick your account, then **Advanced** → **Go to (project name)** → **Allow**. This lets the helper put files in your Drive. The log at the bottom should say "Videos will go in: TikTok Videos".
 5. Click **Deploy** → **New deployment**. Click the gear next to "Select type" and choose **Web app**.
    - Execute as: **Me**
    - Who has access: **Anyone**. It's safe because it does nothing without your password.
