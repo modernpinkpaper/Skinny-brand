@@ -7,6 +7,7 @@ from .paths import ASSETS
 from .sources import S
 from .looks import LOOKS
 from . import voice, captions
+from .motion import cuts
 
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 W, H, FPS, SR = 1080, 1920, 30, voice.SR
@@ -45,6 +46,8 @@ def _typed(text, fnt, cy, type_time, dur, out, shadow=True, width=24):
 
 
 SLOWEST, GENTLE, MAX_CLIPS = 0.6, 0.85, 3   # never slower than 60% speed; when joining clips, play them at 85%
+BOX_W, BOX_H = 1080, 810   # every clip fills this same 4:3 frame (zoomed and trimmed to fit), for the whole video
+MAX_CUTS = 1               # a clip with more hard cuts than this is a montage of mini-clips: skipped
 
 
 def clip_seconds(f):
@@ -67,22 +70,39 @@ def _download(c, path):
     return False
 
 
+def _has_text(c, f):
+    """Every clip that goes into the video is checked for words, not just the first pick of each line
+    (library clips were already checked when the library was built)."""
+    if c.get("checked"): return False
+    from . import picker
+    mem = picker._Json("ocr.json")
+    if c["full"] not in mem.d:
+        mem.d[c["full"]] = picker.read_text(f); mem.save()
+    return picker.too_much_text(mem.d[c["full"]])
+
+
 def _fill(options, dur, used, stem):
     """Which clips fill a line of `dur` seconds without looping: (file, speed, seconds, loop) per clip.
     A clip long enough is just cut; a bit too short is slowed down to fit (not below SLOWEST);
     much too short is played at GENTLE speed and the line's next best clip follows (up to MAX_CLIPS)."""
-    plan, left, n = [], dur, 0
+    plan, left, n, montages, tries = [], dur, 0, [], 0
     for c in options:   # best first; a clip that's gone from the website is skipped
-        if c["full"] in used: continue
-        f = f"{stem}_{n}.mp4"
+        key = c.get("group", c["full"])
+        if key in used or c["full"] in used: continue      # never the same clip (or a look-alike) twice
+        f = f"{stem}_{tries}.mp4"; tries += 1   # each try gets its own file (a skipped one may be needed later)
         if not _download(c, f): continue
         L = clip_seconds(f)
-        if L < 0.3: continue
-        used.add(c["full"]); n += 1
+        if L < 0.3 or _has_text(c, f): continue           # too short, or words on it (memes, watermarks)
+        k = cuts(f)
+        if k > MAX_CUTS: montages.append((k, c, f, L)); continue   # a montage of mini-clips: only as a last resort
+        used.add(key); used.add(c["full"]); n += 1
         if L >= left: plan.append((f, 1.0, left, False)); return plan
         if L / SLOWEST >= left: plan.append((f, L / left, left, False)); return plan
         if n == MAX_CLIPS: plan.append((f, SLOWEST, left, True)); return plan   # last resort: loop slowly
         take = L / GENTLE; plan.append((f, GENTLE, take, False)); left -= take
+    if montages:   # nothing else left: the montage with the fewest cuts fills the rest
+        _, c, f, L = min(montages, key=lambda m: m[0]); used.add(c.get("group", c["full"])); used.add(c["full"])
+        plan.append((f, max(SLOWEST, min(1.0, L / left)), left, L / SLOWEST < left)); return plan
     if plan:   # ran out of options: stretch the last clip over what's left
         f, spd, take, _ = plan[-1]; plan[-1] = (f, spd, take + left, True); return plan
     raise RuntimeError("Couldn't download any clip for one of the lines - check your internet.")
@@ -116,6 +136,8 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
             check_cancel()
             dur = len(piece) / SR
             options = clips[i] if isinstance(clips[i], list) else [clips[i]]
+            # backups if this line's own clips run out: the other lines' runner-ups (never already-used ones)
+            options = options + [c for n, o in enumerate(clips) if n != i for c in (o if isinstance(o, list) else [o])[1:]]
             plan = _fill(options, dur, used, os.path.join(cdir, f"{i:02d}"))   # clips that fill the line, no looping
             print(f"line {i + 1} ({dur:.1f}s): " + " + ".join(
                 f"clip {k + 1} {t:.1f}s at {sp:.0%} speed" + (" (looped)" if lp else "")
@@ -123,8 +145,8 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
             base = os.path.join(tmp, f"b{i:02d}.mp4"); subs = []
             for k, (f, spd, take, loop) in enumerate(plan):
                 sub = os.path.join(tmp, f"b{i:02d}_{k}.mp4"); subs.append(sub)
-                vf = (f"{grade}setpts=PTS/{spd:.4f},scale={W}:1250:force_original_aspect_ratio=decrease,"
-                      f"scale=trunc(iw/2)*2:trunc(ih/2)*2,pad={W}:{H}:(ow-iw)/2:(oh-ih)/2-60:color=0x080808,"
+                vf = (f"{grade}setpts=PTS/{spd:.4f},scale={BOX_W}:{BOX_H}:force_original_aspect_ratio=increase,"
+                      f"crop={BOX_W}:{BOX_H},pad={W}:{H}:(ow-iw)/2:(oh-ih)/2-60:color=0x080808,"
                       f"fps={FPS},setsar=1,format=yuv420p")
                 _run([FF, "-loglevel", "error", "-y"] + (["-stream_loop", "-1"] if loop else []) + ["-i", f,
                       "-t", f"{take:.3f}", "-vf", vf, "-an", "-c:v", "libx264", "-crf", "18", "-r", str(FPS), sub])

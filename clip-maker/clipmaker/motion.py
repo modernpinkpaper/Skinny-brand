@@ -36,3 +36,22 @@ if __name__ == "__main__":
     for p in sys.argv[1:]:
         raw, true = score(p)
         print(f"{p}: motion {raw:5.1f}  true-motion {true:5.1f}  {'STILL/EFFECT' if true < 1.5 else ''}")
+
+
+def cuts(path, fps=10):
+    """How many hard cuts (jumps to a different shot) a clip has. A clip made of lots of mini-clips has several;
+    one continuous shot has none. A cut = the picture's layout changes completely from one frame to the next
+    (low correlation), so fades, flashes and fast movement inside one shot don't count."""
+    raw = subprocess.run([FF, "-loglevel", "error", "-i", path, "-vf", f"fps={fps},scale=48:48,format=gray",
+                          "-f", "rawvideo", "-"], capture_output=True,
+                         creationflags=0x08000000 if os.name == "nt" else 0).stdout
+    f = np.frombuffer(raw, np.uint8).reshape(-1, 48 * 48).astype(np.float32)
+    if len(f) < 3: return 0
+    n, last = 0, -9
+    for i in range(len(f) - 1):
+        a, b = f[i] - f[i].mean(), f[i + 1] - f[i + 1].mean()
+        if a.std() < 4 or b.std() < 4: continue          # (nearly) blank frame, e.g. fading from black
+        corr = float((a * b).mean() / (a.std() * b.std()))
+        if corr < 0.45 and np.abs(f[i + 1] - f[i]).mean() > 18 and i - last > 2:
+            n += 1; last = i
+    return n
