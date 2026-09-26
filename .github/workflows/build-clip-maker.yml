@@ -1,7 +1,7 @@
 name: Build Clip Maker (Windows)
 on:
   push:
-    paths: ["clip-maker/**", ".github/workflows/build-clip-maker.yml"]
+    paths: ["clip-maker/**", "!clip-maker/scripts/**", "!clip-maker/library/**", ".github/workflows/build-clip-maker.yml"]
   workflow_dispatch:
 jobs:
   windows:
