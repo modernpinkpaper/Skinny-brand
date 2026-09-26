@@ -1,7 +1,7 @@
 # Make a video on GitHub
 
 1. In this folder, tap **Add file → Create new file**.
-2. Name it after your video, e.g. `absent-parent.txt` (it must end in `.txt`).
+2. Name it after your video, e.g. `absent-parent.txt` (ending in `.txt` is best, but any name works).
 3. Paste your script. One line = one clip. A blank line = a short pause, two or more = a longer pause.
 4. Optional settings go at the very top, followed by a line of three dashes:
 
