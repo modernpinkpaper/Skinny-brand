@@ -1,0 +1,58 @@
+# comforting-saying
+
+From https://www.tiktok.com/t/ZTykaWM24/: 170 comments, 132 read, 18 topics, 54 scripts. Writer: best (batch). Claude cost: $1.60.
+
+- 001-you-don-t-have-to-pretend-around-me-hook3.txt: Emotional, hook 3. They are exhausted from performing okayness and are waiting for one person safe enough to let the mask drop in front of.
+- 002-you-don-t-have-to-pretend-around-me-hook8.txt: Emotional, hook 8. They are exhausted from performing okayness and are waiting for one person safe enough to let the mask drop in front of.
+- 003-you-don-t-have-to-pretend-around-me-hook13.txt: Emotional, hook 13. They are exhausted from performing okayness and are waiting for one person safe enough to let the mask drop in front of.
+- 004-proud-of-you-hits-harder-than-i-love-you-hook3.txt: Emotional, hook 3. Love can feel automatic or obligated; pride means someone actually watched you and saw the effort nobody else saw.
+- 005-proud-of-you-hits-harder-than-i-love-you-hook13.txt: Emotional, hook 13. Love can feel automatic or obligated; pride means someone actually watched you and saw the effort nobody else saw.
+- 006-proud-of-you-hits-harder-than-i-love-you-hook5.txt: Emotional, hook 5. Love can feel automatic or obligated; pride means someone actually watched you and saw the effort nobody else saw.
+- 007-accepted-without-being-understood-hook13.txt: Emotional, hook 13. Many feel they must be explainable to be loved, especially neurodivergent people who have spent life translating themselves.
+- 008-accepted-without-being-understood-hook10.txt: Emotional, hook 10. Many feel they must be explainable to be loved, especially neurodivergent people who have spent life translating themselves.
+- 009-accepted-without-being-understood-hook8.txt: Emotional, hook 8. Many feel they must be explainable to be loved, especially neurodivergent people who have spent life translating themselves.
+- 010-you-don-t-always-have-to-be-the-bigger-person-hook4.txt: Emotional, hook 4. Chronic self-erasure dressed up as maturity and kindness; they need permission, not advice.
+- 011-you-don-t-always-have-to-be-the-bigger-person-hook8.txt: Emotional, hook 8. Chronic self-erasure dressed up as maturity and kindness; they need permission, not advice.
+- 012-you-don-t-always-have-to-be-the-bigger-person-hook3.txt: Emotional, hook 3. Chronic self-erasure dressed up as maturity and kindness; they need permission, not advice.
+- 013-small-pain-is-still-pain-hook12.txt: Emotional, hook 12. People minimize their own suffering because others have it worse, so they never let themselves grieve or ask for help.
+- 014-small-pain-is-still-pain-hook3.txt: Emotional, hook 3. People minimize their own suffering because others have it worse, so they never let themselves grieve or ask for help.
+- 015-small-pain-is-still-pain-hook9.txt: Emotional, hook 9. People minimize their own suffering because others have it worse, so they never let themselves grieve or ask for help.
+- 016-i-didn-t-do-the-homework-either-hook7.txt: Emotional, hook 7. What heals is not advice or wisdom but proof you are not the only one failing; comfort is company, not solutions.
+- 017-i-didn-t-do-the-homework-either-hook3.txt: Emotional, hook 3. What heals is not advice or wisdom but proof you are not the only one failing; comfort is company, not solutions.
+- 018-i-didn-t-do-the-homework-either-hook11.txt: Emotional, hook 11. What heals is not advice or wisdom but proof you are not the only one failing; comfort is company, not solutions.
+- 019-why-fear-losing-someone-not-afraid-to-lose-you-hook12.txt: Emotional, hook 12. They mistake someone's lack of interest for a test of their worth and keep auditioning for love.
+- 020-why-fear-losing-someone-not-afraid-to-lose-you-hook4.txt: Emotional, hook 4. They mistake someone's lack of interest for a test of their worth and keep auditioning for love.  (still off: it has 148 words; it must have 155-180 (the video must be at least 61 seconds))
+- 021-why-fear-losing-someone-not-afraid-to-lose-you-hook8.txt: Emotional, hook 8. They mistake someone's lack of interest for a test of their worth and keep auditioning for love.  (still off: it has 139 words; it must have 155-180 (the video must be at least 61 seconds))
+- 022-you-don-t-have-to-be-optimistic-just-curious-hook4.txt: Emotional, hook 4. Forced positivity feels like a lie to people in pain; lowering the bar from hope to motion makes tomorrow survivable.
+- 023-you-don-t-have-to-be-optimistic-just-curious-hook2.txt: Emotional, hook 2. Forced positivity feels like a lie to people in pain; lowering the bar from hope to motion makes tomorrow survivable.
+- 024-you-don-t-have-to-be-optimistic-just-curious-hook3.txt: Emotional, hook 3. Forced positivity feels like a lie to people in pain; lowering the bar from hope to motion makes tomorrow survivable.
+- 025-the-happiest-person-you-know-is-struggling-hook8.txt: Emotional, hook 8. Being the cheerful one becomes a job; nobody checks on the person who makes everyone else feel better.
+- 026-the-happiest-person-you-know-is-struggling-hook3.txt: Emotional, hook 3. Being the cheerful one becomes a job; nobody checks on the person who makes everyone else feel better.
+- 027-the-happiest-person-you-know-is-struggling-hook10.txt: Emotional, hook 10. Being the cheerful one becomes a job; nobody checks on the person who makes everyone else feel better.
+- 028-it-was-never-your-fault-hook3.txt: Emotional, hook 3. Survivors carry blame for other people's actions and need it handed back to its owner.
+- 029-it-was-never-your-fault-hook13.txt: Emotional, hook 13. Survivors carry blame for other people's actions and need it handed back to its owner.
+- 030-it-was-never-your-fault-hook4.txt: Emotional, hook 4. Survivors carry blame for other people's actions and need it handed back to its owner.
+- 031-don-t-look-in-their-bowl-to-compare-hook1.txt: Emotional, hook 1. Constant comparison turns other people into scoreboards and makes enough impossible.
+- 032-don-t-look-in-their-bowl-to-compare-hook11.txt: Emotional, hook 11. Constant comparison turns other people into scoreboards and makes enough impossible.
+- 033-don-t-look-in-their-bowl-to-compare-hook4.txt: Emotional, hook 4. Constant comparison turns other people into scoreboards and makes enough impossible.
+- 034-even-god-has-angels-asking-for-help-hook1.txt: Emotional, hook 1. People equate needing help with being a burden, so they suffer privately and call it strength.  (still off: 8 blank lines is too many: each one is a pause, so only put one between thoughts (every 3 to 6 lines), with the lines of a thought directly under each other)
+- 035-even-god-has-angels-asking-for-help-hook4.txt: Emotional, hook 4. People equate needing help with being a burden, so they suffer privately and call it strength.
+- 036-even-god-has-angels-asking-for-help-hook3.txt: Emotional, hook 3. People equate needing help with being a burden, so they suffer privately and call it strength.
+- 037-he-covered-my-scars-with-his-hand-hook3.txt: Emotional, hook 3. People who survived their worst moments carry shame about the evidence on their bodies and in their history.
+- 038-he-covered-my-scars-with-his-hand-hook12.txt: Emotional, hook 12. People who survived their worst moments carry shame about the evidence on their bodies and in their history.
+- 039-he-covered-my-scars-with-his-hand-hook10.txt: Emotional, hook 10. People who survived their worst moments carry shame about the evidence on their bodies and in their history.
+- 040-the-same-water-softens-potatoes-hardens-eggs-hook1.txt: Educational, hook 1. People want to know why the same hardship makes one person bitter and another softer, and whether they get a say.
+- 041-the-same-water-softens-potatoes-hardens-eggs-hook6.txt: Educational, hook 6. People want to know why the same hardship makes one person bitter and another softer, and whether they get a say.
+- 042-the-same-water-softens-potatoes-hardens-eggs-hook2.txt: Educational, hook 2. People want to know why the same hardship makes one person bitter and another softer, and whether they get a say.
+- 043-nobody-ever-said-anything-comforting-to-me-hook10.txt: Emotional, hook 10. The loneliest people in the audience are reading other people's comfort like a window they were never invited through.
+- 044-nobody-ever-said-anything-comforting-to-me-hook3.txt: Emotional, hook 3. The loneliest people in the audience are reading other people's comfort like a window they were never invited through.
+- 045-nobody-ever-said-anything-comforting-to-me-hook9.txt: Emotional, hook 9. The loneliest people in the audience are reading other people's comfort like a window they were never invited through.
+- 046-you-ll-never-be-too-much-for-the-right-person-hook13.txt: Emotional, hook 13. Being called too much by the wrong people made them shrink, and they mistook a bad fit for a personal flaw.
+- 047-you-ll-never-be-too-much-for-the-right-person-hook4.txt: Emotional, hook 4. Being called too much by the wrong people made them shrink, and they mistook a bad fit for a personal flaw.
+- 048-you-ll-never-be-too-much-for-the-right-person-hook8.txt: Emotional, hook 8. Being called too much by the wrong people made them shrink, and they mistook a bad fit for a personal flaw.
+- 049-it-s-okay-to-be-mad-you-survived-hook12.txt: Emotional, hook 12. Survivors get handed gratitude as an obligation and lose the right to grieve what the event cost them.
+- 050-it-s-okay-to-be-mad-you-survived-hook4.txt: Emotional, hook 4. Survivors get handed gratitude as an obligation and lose the right to grieve what the event cost them.
+- 051-it-s-okay-to-be-mad-you-survived-hook3.txt: Emotional, hook 3. Survivors get handed gratitude as an obligation and lose the right to grieve what the event cost them.
+- 052-walking-away-with-good-memories-is-enough-hook13.txt: Emotional, hook 13. People stay too long because ending something feels like admitting it failed, when it may simply have finished.
+- 053-walking-away-with-good-memories-is-enough-hook3.txt: Emotional, hook 3. People stay too long because ending something feels like admitting it failed, when it may simply have finished.
+- 054-walking-away-with-good-memories-is-enough-hook12.txt: Emotional, hook 12. People stay too long because ending something feels like admitting it failed, when it may simply have finished.
