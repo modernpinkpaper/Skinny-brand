@@ -1,0 +1,59 @@
+name: Try free AI image models
+# Makes 1 test image with each free image model on GitHub's normal computers (no graphics card) and times it.
+# The images and a timing table go on the "AI image test" Releases page.
+on:
+  push:
+    paths: ["clip-maker/ai_images/**", ".github/workflows/try-ai-images.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        model: [dreamshaper, dreamshaper-lcm, sdxl, sdxl-lcm, sdxl-turbo]
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Install
+        run: pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install diffusers transformers accelerate peft safetensors
+      - name: Make 1 image and time it
+        run: python clip-maker/ai_images/try_model.py ${{ matrix.model }} out
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: "img-${{ matrix.model }}", path: out/, if-no-files-found: ignore }
+  results:
+    needs: image
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: all, merge-multiple: true }
+      - name: Timing table + Releases page
+        env: { GH_TOKEN: "${{ github.token }}", GH_REPO: "${{ github.repository }}" }
+        run: |
+          python3 - <<'PY' > notes.md
+          import json, glob, os
+          print("# Free AI image models: 1 test image each\n")
+          print("Same prompt for all: a young woman quietly packing a suitcase at night, soft painterly illustration, moody.\n")
+          print("Made on GitHub's normal free computers (4 processor cores, no graphics card).\n")
+          print("| Model | Steps | Size | Time for 1 image | Download + load | Memory used | Commercial use |")
+          print("|---|---|---|---|---|---|---|")
+          for key in ["dreamshaper", "dreamshaper-lcm", "sdxl", "sdxl-lcm", "sdxl-turbo"]:
+              p = f"all/{key}.json"
+              if os.path.exists(p):
+                  r = json.load(open(p))
+                  m, s = divmod(r["image_seconds"], 60)
+                  print(f"| {key} | {r['steps']} | {r['size']} | **{m} min {s} s** | {r['download_and_load_seconds']} s | {r['memory_gb']} GB | {r['license']} |")
+              else:
+                  print(f"| {key} | | | failed (ran out of memory or time) | | | |")
+          PY
+          cat notes.md >> "$GITHUB_STEP_SUMMARY"; cat notes.md
+          gh release delete ai-image-test --yes --cleanup-tag 2>/dev/null || true
+          gh release create ai-image-test all/*.png --title "AI image test" --notes-file notes.md --latest=false \
+            --target claude/tiktok-digital-product-content-ihv4xr
