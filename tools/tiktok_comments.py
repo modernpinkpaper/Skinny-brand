@@ -37,34 +37,39 @@ def rows_from(comments, parent=""):
         })
     return out
 
+def _pages(url_for, total=None, need=None, patience=3):
+    """Every comment behind a paged TikTok list. TikTok's own "has_more" is unreliable: it can say there are no
+    more and then keep giving new comments on the next pages. So this keeps going until `patience` pages in a row
+    bring nothing new, it is well past the total TikTok reports, or it has `need` comments."""
+    seen, cursor, dry = set(), 0, 0
+    while dry < patience and (not total or cursor <= total + 200) and (not need or len(seen) < need):
+        d = get(url_for(cursor))
+        batch = d.get("comments") or []
+        new = [c for c in batch if c.get("cid") not in seen]
+        seen.update(c.get("cid") for c in new)
+        yield new, d
+        dry = 0 if new else dry + 1
+        cursor += 50
+        time.sleep(0.4)
+
 def scrape(link, replies=True, limit=None, progress=print):
     """Return (post_url, rows). progress(msg) is called as it goes. limit = stop after this many top-level comments."""
     final, pid = resolve(link)
     post = final.split("?")[0]
     progress(f"post: {post}")
-    rows, cursor, total = [], 0, None
-    while True:
-        d = get(f"https://www.tiktok.com/api/comment/list/?aid=1988&aweme_id={pid}&count=50&cursor={cursor}")
+    rows, total = [], None
+    for new, d in _pages(lambda c: f"https://www.tiktok.com/api/comment/list/?aid=1988&aweme_id={pid}&count=50&cursor={c}"):
         total = total or d.get("total")
-        batch = rows_from(d.get("comments"))
-        rows += batch
+        rows += rows_from(new)
         progress(f"comments so far: {len(rows):,} (TikTok shows {total:,} including replies)" if total else f"comments so far: {len(rows):,}")
-        if not d.get("has_more") or not batch or (limit and len(rows) >= limit):
+        if limit and len(rows) >= limit:
             break
-        cursor = d.get("cursor", cursor + 50)
-        time.sleep(0.4)
     if replies:
         parents = [r for r in rows if not r["reply_to"] and r["replies"]]
         for i, p in enumerate(parents):
-            rc = 0
-            while True:
-                d = get(f"https://www.tiktok.com/api/comment/list/reply/?aid=1988&item_id={pid}&comment_id={p['comment_id']}&count=50&cursor={rc}")
-                batch = rows_from(d.get("comments"), parent=p["comment_id"])
-                rows += batch
-                if not d.get("has_more") or not batch:
-                    break
-                rc = d.get("cursor", rc + 50)
-                time.sleep(0.3)
+            for new, _ in _pages(lambda c, p=p: f"https://www.tiktok.com/api/comment/list/reply/?aid=1988&item_id={pid}"
+                                                f"&comment_id={p['comment_id']}&count=50&cursor={c}", need=int(p["replies"] or 0), patience=1):
+                rows += rows_from(new, parent=p["comment_id"])
             progress(f"replies: fetched for {i+1}/{len(parents)} comments")
     return post, rows
 
