@@ -1,0 +1,8 @@
+POST CAPTION (copy/paste):
+missing them doesn't mean go back 🤍 #movingon #toxicrelationship #healing #breakup #selflove #letgo #relatable #peace
+
+VOICEOVER: already in the video (the guy's voice, copied from clip-videos/voices/guy-ref.wav with Chatterbox). Add a soft trending sound in TikTok at very low volume under it.
+
+CLIPS: cartoons and anime only, no real people (see clips.txt).
+
+SCRIPT: see script.py (same words as on screen).
