@@ -16,7 +16,8 @@ from .motion import score as motion_score
 
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 NOWIN = 0x08000000 if os.name == "nt" else 0   # no console windows popping up on Windows
-PER_SEARCH, ALTS, SEARCH_DAYS = 30, 12, 3
+PER_SEARCH, ALTS, SEARCH_DAYS = 30, 25, 3
+SAME_CLIP = 0.93   # image fingerprints this alike = the same clip (Tenor often has one clip under several links)
 FEATS = os.path.join(CACHE, "feats"); os.makedirs(FEATS, exist_ok=True)
 CARTOON = ["an anime screenshot", "a frame from an animated cartoon", "a hand-drawn illustration"]
 REAL = ["a photo of a real person", "a frame from a live-action movie", "a real photograph of people"]
@@ -280,19 +281,26 @@ def find_clips(lines, sources, keys, kind, look, progress, live=False):
     total = rel + (0.9 * look_s if lk["target"] else 0)
 
     ocr_mem = _Json("ocr.json")
+    En = E.numpy()
+    look_alike = lambda j: np.where(En @ En[j] > SAME_CLIP)[0]   # the same clip uploaded again under another link
     pick, banned = [None] * len(lines), set()
     grid = total.copy()
     while None in pick:  # best line/clip pair first, so strong matches aren't stolen by weak ones
         i, j = np.unravel_index(np.argmax(grid), grid.shape)
-        grid[:, j] = -np.inf
-        if has_words(items[j], ocr_mem): banned.add(j); continue
+        if has_words(items[j], ocr_mem): banned.add(j); grid[:, j] = -np.inf; continue
+        grid[:, look_alike(j)] = -np.inf   # never the same (or a look-alike) clip twice in one video
         pick[i] = j; grid[i, :] = -np.inf
         progress(85 + 12 * sum(p is not None for p in pick) / len(lines), "checking picked clips for text")
-    out = []
+    out, group, seen = [], {}, []
     for i, j in enumerate(pick):
         ranked = [j] + [k for k in np.argsort(-total[i]) if k != j and k not in banned][:ALTS]
+        for k in ranked:   # look-alike clips share a group number, so the video builder uses only one of them
+            if k in group: continue
+            g = next((group[s] for s in seen if En[s] @ En[k] > SAME_CLIP), len(seen))
+            group[k] = g; seen.append(k)
         out.append([dict(full=items[k]["full"], small=items[k]["small"], file=items[k].get("file"),
-                         desc=items[k]["desc"], source=items[k]["source"], fit=round(float(rel[i, k]), 2))
+                         desc=items[k]["desc"], source=items[k]["source"], fit=round(float(rel[i, k]), 2),
+                         group=int(group[k]), checked=bool(items[k].get("checked")))
                     for k in ranked])
     return out
 

@@ -16,7 +16,7 @@ from PIL import Image
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from clipmaker import picker
 from clipmaker.sources import tenor, S
-from clipmaker.motion import score as motion_score
+from clipmaker.motion import score as motion_score, cuts
 from library.topics import queries
 
 ap = argparse.ArgumentParser()
@@ -56,6 +56,7 @@ def prepare(c):
         open(f, "wb").write(r.content)
         m = motion_score(f)[1]
         if m < 1.5: return c, "still image", f
+        if cuts(f) > 1: return c, "montage of mini-clips", f
         fr = picker._frames(f)
         if len(fr) < 2: return c, "unreadable", f
         c["motion"] = round(float(m), 2); c.update({k: round(v, 4) for k, v in picker._look_numbers(fr).items()})
