@@ -11,7 +11,9 @@ The file is your script. Settings are optional; put them at the top and end them
     tags: #healing #selflove
     ---
     First line of the script
-    ..."""
+    ...
+Voice marks (optional, see VOICE-DIRECTIONS.md): [sad, slow] at the start of a line, *word* to lean on a word,
+(pause) or (long pause) inside a line."""
 import os, sys, re, json, time, shutil, argparse, threading
 
 LOOK_WORDS = {"moody": "moody", "muted": "moody", "dark": "moody", "bright": "bright", "colorful": "bright",
@@ -51,14 +53,14 @@ def read_file(path):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("file"); ap.add_argument("--out", default="out")
     args = ap.parse_args()
-    from clipmaker import picker, render, library
+    from clipmaker import picker, render, library, direct
     from clipmaker.paths import VOICES, device_name
     script, o = read_file(args.file)
-    lines, breaks = picker.parse_script(script)
+    lines, breaks, dirs = direct.parse(script)   # voice marks: [sad, slow], *word*, (pause)
     if not lines: sys.exit(f"{args.file}: no script lines found")
     name = re.sub(r"[^a-z0-9]+", "-", os.path.splitext(os.path.basename(args.file))[0].lower()).strip("-") or "video"
     say = lambda p, m: print(f"[{p:5.1f}%] {m}", flush=True)
-    print(f"{name}: {len(lines)} lines, look={o['look']}, clips={o['clips']}, speed={o['speed']}, using {device_name()}",
+    print(f"{name}: {len(lines)} lines, look={o['look']}, clips={o['clips']}, speed={o['speed']}, voice marks={'yes' if direct.has_marks(dirs) else 'no'}, using {device_name()}",
           flush=True)
     t0 = time.time()
     library.update()
@@ -66,7 +68,7 @@ def main():
     ref = VOICES["guy"][1]
     voice = dict(result=None, error=None)
     def make_voice():
-        try: voice["result"] = render.make_voice(lines, breaks, o["end"], ref, o["speed"], lambda p, m: None)
+        try: voice["result"] = render.make_voice(lines, breaks, o["end"], ref, o["speed"], lambda p, m: None, dirs)
         except Exception as e: voice["error"] = e
     vt = threading.Thread(target=make_voice); vt.start()   # the voice is made while the clips are found
     cands = picker.find_clips(lines, ["tenor"], {}, o["clips"], o["look"], lambda p, m: say(p * 0.5, m), live=o["live"])
@@ -74,7 +76,7 @@ def main():
     if voice["error"]: raise voice["error"]
     proj = os.path.join(args.out, name); os.makedirs(proj, exist_ok=True)
     video = render.build(proj, name, lines, breaks, cands, o["end"], o["look"], ref, o["tags"],
-                         lambda p, m: say(50 + p * 0.5, m), audio_parts=voice["result"])
+                         lambda p, m: say(50 + p * 0.5, m), audio_parts=voice["result"], dirs=dirs)
     json.dump(dict(name=name, lines=len(lines), settings=o, seconds=round(time.time() - t0)),
               open(os.path.join(proj, "info.json"), "w"), indent=1)
     shutil.rmtree(os.path.join(proj, "clips"), ignore_errors=True)

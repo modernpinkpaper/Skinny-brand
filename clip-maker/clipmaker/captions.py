@@ -51,11 +51,14 @@ def _phrases(words):
     return [list(range(i, min(i + size, n))) for i in range(0, n, size)]
 
 
-def _layout(texts, seed):
-    """Where each word of a phrase goes: rows of words, staggered left/right, big words start a new row."""
+def _layout(texts, seed, hero=()):
+    """Where each word of a phrase goes: rows of words, staggered left/right, big words start a new row.
+    hero: word numbers the voice leans on (*word* in the script); they are the biggest."""
     sizes = [SIZE_SMALL if _norm(t).strip("'") in SMALL else SIZE_BIG for t in texts]
     big = [i for i, s in enumerate(sizes) if s == SIZE_BIG]
-    if big:  # the longest important word is the "hero"
+    if hero:
+        for i in hero: sizes[i] = SIZE_HERO
+    elif big:  # the longest important word is the "hero"
         sizes[max(big, key=lambda i: len(texts[i]))] = SIZE_HERO
     rows, cur = [], []
     for i, t in enumerate(texts):
@@ -93,15 +96,17 @@ def _frame(texts, sizes, pos, shown, pop=None, scale=1.0):
     return im
 
 
-def line_overlay(line, times, dur, out):
+def line_overlay(line, times, dur, out, hero=()):
     """line: the script line. times: (start, end) in seconds for each word of line.split().
+    hero: word numbers to show biggest (the *words* the voice leans on).
     Writes the frames and an ffmpeg concat list for a clip lasting `dur` seconds; returns the list's path."""
     texts = line.split()
     if not texts: texts, times = [" "], [(0, 0)]
     events = []   # (time, image)
     seed = zlib.crc32(line.encode()) % 6
     for ph in _phrases(texts):
-        ptexts = [texts[i] for i in ph]; sizes, pos = _layout(ptexts, seed); seed += 1
+        ptexts = [texts[i] for i in ph]
+        sizes, pos = _layout(ptexts, seed, [n for n, i in enumerate(ph) if i in hero]); seed += 1
         for k in range(len(ph)):
             t = max(0.0, min(times[ph[k]][0], dur - 0.05))
             for f, sc in enumerate(POP):

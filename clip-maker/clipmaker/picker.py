@@ -13,6 +13,7 @@ from .paths import CACHE, device
 from .sources import SOURCES, S
 from .looks import LOOKS
 from .motion import score as motion_score
+from . import direct
 
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 NOWIN = 0x08000000 if os.name == "nt" else 0   # no console windows popping up on Windows
@@ -30,13 +31,9 @@ who what when where why how which get gets got going gonna wanna kind way thing 
 
 def parse_script(text):
     """One line of text = one clip. Blank lines = pauses: breaks[line number] = how many blank lines follow it
-    (1 = short pause, each extra blank line = a longer pause)."""
-    lines, breaks = [], {}
-    for raw in text.splitlines():
-        t = raw.strip().lstrip(">").strip()
-        if t: lines.append(t)
-        elif lines: breaks[len(lines) - 1] = breaks.get(len(lines) - 1, 0) + 1
-    breaks.pop(len(lines) - 1, None)   # no pause needed after the very last line
+    (1 = short pause, each extra blank line = a longer pause). Voice marks ([sad], *word*, (pause)) are taken out;
+    direct.parse() reads them."""
+    lines, breaks, _ = direct.parse(text)
     return lines, breaks
 
 

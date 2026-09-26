@@ -77,9 +77,9 @@ def save_settings():
 @app.post("/api/make")
 def make():
     """One button: find the clips, then build the video right away (no checking step)."""
-    from clipmaker import picker, render
+    from clipmaker import picker, render, direct
     o = request.json
-    lines, breaks = picker.parse_script(o.get("script", ""))
+    lines, breaks, dirs = direct.parse(o.get("script", ""))   # voice marks: [sad, slow], *word*, (pause)
     if not lines: return jsonify(error="Paste a script first."), 400
     if not o.get("sources"): return jsonify(error="Tick at least one website."), 400
     keys = settings().get("keys", {})
@@ -94,7 +94,7 @@ def make():
         def voice_job():
             try:
                 vstate["result"] = render.make_voice(lines, breaks, end, ref, float(o.get("speed", 0.92)),
-                                                     lambda p, m: (check_cancel(), vstate.update(msg=m)))
+                                                     lambda p, m: (check_cancel(), vstate.update(msg=m)), dirs)
                 vstate["msg"] = "voice ready"
             except Exception as e:
                 vstate["error"] = e
@@ -112,7 +112,7 @@ def make():
         if vstate["error"]: raise vstate["error"]
         v = render.build(project_dir(name), name, lines, breaks, cands, end, o["look"], ref,
                          o.get("tags", ""), lambda p, m: progress(60 + p * 0.4, m), check_cancel,
-                         audio_parts=vstate["result"])
+                         audio_parts=vstate["result"], dirs=dirs)
         STATE.update(video=v, pct=100, msg="your video is ready")
     return background("make", job)
 
