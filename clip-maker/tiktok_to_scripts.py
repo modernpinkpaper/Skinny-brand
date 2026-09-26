@@ -43,8 +43,9 @@ Rules for every script:
   username. Don't invent dramatic facts that no comment supports.
 - Match the topic's kind: if the audience needs a practical solution, give them one; if it is educational, give
   clear tips or explanations; use the emotional approach only for emotional topics.
-- Output only the script body: one short line per clip, a blank line between thoughts (two blank lines for a
-  longer pause). Plain words only: no brackets, stars, stage directions or voice notes.
+- Output only the script body: one short line per clip, lines of the same thought directly under each other,
+  and a blank line only between thoughts (every 3 to 6 lines; each blank line is a pause in the voice). Two blank
+  lines for a longer pause, before the turn and before the close. Plain words only: no brackets, stars, stage directions or voice notes.
   No settings, no part labels, no title, no code block fences, no notes before or after."""
 
 PLAN_RULES = """You are going through real comments from one TikTok post (id, likes, text) to find script topics,
@@ -197,6 +198,11 @@ def check(script):
     if any(re.search(r"[\[\]*]|\((?:long )?pause\)", l) for l in lines):
         probs.append("remove brackets, stars and notes like [calm] or (pause): plain words only")
     if any(re.match(r"[A-Z][A-Z ]{2,}:", l) for l in lines): probs.append("remove part labels like HOOK:")
+    gaps = len(re.findall(r"\n\s*\n(?=\s*\S)", body))
+    if gaps > max(4, len(lines) // 3):
+        probs.append(f"{gaps} blank lines is too many: each one is a pause, so only put one between thoughts "
+                     "(every 3 to 6 lines), with the lines of a thought directly under each other")
+    if sum(l[:1].islower() for l in lines) > len(lines) // 2: probs.append("start lines with capital letters and use normal punctuation")
     long = [l for l in lines if len(l.split()) > 14]
     if long: probs.append(f"{len(long)} lines are too long for one clip (keep lines under 12 words), e.g. \"{long[0]}\"")
     return probs
