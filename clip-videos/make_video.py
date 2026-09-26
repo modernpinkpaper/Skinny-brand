@@ -5,6 +5,7 @@ and the clip lasts exactly as long as the voice line (+ a small pause).
 
 Folder needs: script.py (LINES = [(line, search)], END = "...") and clips.txt (one clip URL per line).
 Usage: python3 clip-videos/make_video.py clip-videos/doesnt-count [--voice af_heart] [--speed 1.0]
+       python3 clip-videos/make_video.py clip-videos/doesnt-count --clone clip-videos/voices/guy-ref.wav --out doesnt-count-guy-voice.mp4
 Output: <folder>/<folder-name>.mp4 and <folder>/voiceover.wav"""
 import os, sys, argparse, importlib.util, subprocess, tempfile, textwrap, requests, imageio_ffmpeg
 import numpy as np, soundfile as sf
@@ -15,6 +16,8 @@ from motion_check import score as motion_score
 
 ap = argparse.ArgumentParser()
 ap.add_argument("folder"); ap.add_argument("--voice", default="af_heart"); ap.add_argument("--speed", type=float, default=1.0)
+ap.add_argument("--clone", help="10-15s wav of a voice (used with permission) to copy with Chatterbox instead of Kokoro")
+ap.add_argument("--out", help="output file name (default: <folder-name>.mp4)")
 args = ap.parse_args()
 HERE = os.path.abspath(args.folder)
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -29,17 +32,28 @@ W, H, FPS, SR = 1080, 1920, 30, 24000
 PAUSE, END_HOLD, MIN_LEN = 0.4, 2.5, 1.3   # silence after each line, extra end-screen time, shortest clip
 tmp = tempfile.mkdtemp()
 
-# ---- voice (Kokoro model is downloaded once to ~/.cache/kokoro) ----
-from kokoro_onnx import Kokoro
-MD = os.path.expanduser("~/.cache/kokoro"); os.makedirs(MD, exist_ok=True)
-for f in ["kokoro-v1.0.onnx", "voices-v1.0.bin"]:
-    if not os.path.exists(os.path.join(MD, f)):
-        subprocess.run(["curl", "-sL", "-C", "-", "-o", os.path.join(MD, f),
-                        f"https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/{f}"], check=True)
-tts = Kokoro(os.path.join(MD, "kokoro-v1.0.onnx"), os.path.join(MD, "voices-v1.0.bin"))
-def speak(text):
-    a, sr = tts.create(text, voice=args.voice, speed=args.speed, lang="en-us")
-    assert sr == SR; return a.astype(np.float32)
+# ---- voice ----
+if args.clone:
+    # Chatterbox (MIT license) copies the voice in the reference clip. Slow on CPU: ~6s per 1s of speech.
+    import torch, torchaudio
+    from chatterbox.tts import ChatterboxTTS
+    cb = ChatterboxTTS.from_pretrained(device="cpu")
+    def speak(text):
+        w = cb.generate(text, audio_prompt_path=os.path.abspath(args.clone), exaggeration=0.4, cfg_weight=0.5)
+        if cb.sr != SR: w = torchaudio.functional.resample(w, cb.sr, SR)
+        return w.squeeze(0).numpy().astype(np.float32)
+else:
+    # Kokoro (free, offline). Model is downloaded once to ~/.cache/kokoro
+    from kokoro_onnx import Kokoro
+    MD = os.path.expanduser("~/.cache/kokoro"); os.makedirs(MD, exist_ok=True)
+    for f in ["kokoro-v1.0.onnx", "voices-v1.0.bin"]:
+        if not os.path.exists(os.path.join(MD, f)):
+            subprocess.run(["curl", "-sL", "-C", "-", "-o", os.path.join(MD, f),
+                            f"https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/{f}"], check=True)
+    tts = Kokoro(os.path.join(MD, "kokoro-v1.0.onnx"), os.path.join(MD, "voices-v1.0.bin"))
+    def speak(text):
+        a, sr = tts.create(text, voice=args.voice, speed=args.speed, lang="en-us")
+        assert sr == SR; return a.astype(np.float32)
 
 # ---- text overlays ----
 def font(name, weight, size):
@@ -107,9 +121,9 @@ subprocess.run([FF, "-loglevel", "error", "-y", "-loop", "1", "-i", bg, "-f", "c
                 "-c:v", "libx264", "-crf", "18", "-r", str(FPS), out], check=True)
 parts.append(out)
 
-wav = os.path.join(HERE, "voiceover.wav"); sf.write(wav, np.concatenate(audio), SR)
+wav = os.path.join(HERE, (args.out or "x").replace(".mp4", "") + "-voiceover.wav" if args.out else "voiceover.wav"); sf.write(wav, np.concatenate(audio), SR)
 lst = os.path.join(tmp, "all.txt"); open(lst, "w").write("".join(f"file '{p}'\n" for p in parts))
-final = os.path.join(HERE, os.path.basename(HERE) + ".mp4")
+final = os.path.join(HERE, args.out or os.path.basename(HERE) + ".mp4")
 subprocess.run([FF, "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-i", wav,
                 "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-shortest",
                 "-movflags", "+faststart", final], check=True)
