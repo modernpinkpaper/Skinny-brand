@@ -1,6 +1,6 @@
 """Puts it together: each clip on a dark 9:16 frame, colour-graded, the line typed on screen while the
 voice says it, then an end screen. Saves <project>/<name>.mp4, the voiceover .wav and caption.txt."""
-import os, subprocess, tempfile, textwrap, shutil
+import os, re, subprocess, tempfile, textwrap, shutil
 import numpy as np, soundfile as sf, imageio_ffmpeg
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 from .paths import ASSETS
@@ -44,6 +44,50 @@ def _typed(text, fnt, cy, type_time, dur, out, shadow=True, width=24):
     return out + ".txt"
 
 
+SLOWEST, GENTLE, MAX_CLIPS = 0.6, 0.85, 3   # never slower than 60% speed; when joining clips, play them at 85%
+
+
+def clip_seconds(f):
+    """Real length of a clip (decodes it, because GIF-style mp4s often report no length)."""
+    r = subprocess.run([FF, "-i", f, "-map", "0:v:0", "-f", "null", "-"], capture_output=True, text=True,
+                       creationflags=NOWIN).stderr
+    t = re.findall(r"time=(\d+):(\d+):([\d.]+)", r)
+    return int(t[-1][0]) * 3600 + int(t[-1][1]) * 60 + float(t[-1][2]) if t else 0.0
+
+
+def _download(c, path):
+    if os.path.exists(path) and os.path.exists(path + ".url") and open(path + ".url").read() == c["full"]:
+        return True
+    try:
+        r = S.get(c["full"], timeout=90)
+        if r.status_code == 200 and len(r.content) > 5000:
+            open(path, "wb").write(r.content); open(path + ".url", "w").write(c["full"]); return True
+    except Exception:
+        pass
+    return False
+
+
+def _fill(options, dur, used, stem):
+    """Which clips fill a line of `dur` seconds without looping: (file, speed, seconds, loop) per clip.
+    A clip long enough is just cut; a bit too short is slowed down to fit (not below SLOWEST);
+    much too short is played at GENTLE speed and the line's next best clip follows (up to MAX_CLIPS)."""
+    plan, left, n = [], dur, 0
+    for c in options:   # best first; a clip that's gone from the website is skipped
+        if c["full"] in used: continue
+        f = f"{stem}_{n}.mp4"
+        if not _download(c, f): continue
+        L = clip_seconds(f)
+        if L < 0.3: continue
+        used.add(c["full"]); n += 1
+        if L >= left: plan.append((f, 1.0, left, False)); return plan
+        if L / SLOWEST >= left: plan.append((f, L / left, left, False)); return plan
+        if n == MAX_CLIPS: plan.append((f, SLOWEST, left, True)); return plan   # last resort: loop slowly
+        take = L / GENTLE; plan.append((f, GENTLE, take, False)); left -= take
+    if plan:   # ran out of options: stretch the last clip over what's left
+        f, spd, take, _ = plan[-1]; plan[-1] = (f, spd, take + left, True); return plan
+    raise RuntimeError("Couldn't download any clip for one of the lines - check your internet.")
+
+
 def make_voice(lines, breaks, end, voice_ref, speed=1.0, progress=lambda p, m: None):
     """All the audio: one piece per line (+ word timings) and the end-screen line.
     Can run while the clips are being found."""
@@ -58,45 +102,41 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
     Returns the finished video path."""
     tmp = tempfile.mkdtemp(prefix="clipmaker-")
     try:
-        cdir = os.path.join(project, "clips"); os.makedirs(cdir, exist_ok=True)
-        files, used = [], set()
-        for i, options in enumerate(clips):
-            options = options if isinstance(options, list) else [options]
-            f = os.path.join(cdir, f"{i:02d}.mp4")
-            for c in options:   # a clip that's gone from the website is replaced by the line's next best one
-                if c["full"] in used: continue
-                if os.path.exists(f) and os.path.exists(f + ".url") and open(f + ".url").read() == c["full"]: break
-                try:
-                    r = S.get(c["full"], timeout=90)
-                    if r.status_code == 200 and len(r.content) > 5000:
-                        open(f, "wb").write(r.content); open(f + ".url", "w").write(c["full"]); break
-                except Exception:
-                    pass
-            else:
-                raise RuntimeError(f"Couldn't download any clip for line {i + 1} - check your internet.")
-            used.add(c["full"]); files.append(f)
-            progress(2 + 6 * i / len(clips), f"downloading clip {i + 1}/{len(clips)}")
         check_cancel()
         if audio_parts is None:
-            progress(8, "making the voice (the slow part)")
+            progress(2, "making the voice (the slow part)")
             audio_parts = make_voice(lines, breaks, end, voice_ref, speed,
-                                     lambda p, m: (check_cancel(), progress(8 + 62 * p, m)))
+                                     lambda p, m: (check_cancel(), progress(2 + 60 * p, m)))
         pieces, times, end_audio = audio_parts
         sans = captions.font(90)
         grade = LOOKS[look]["grade"]; grade = grade + "," if grade else ""
-        parts = []
-        for i, (line, piece, wt, src) in enumerate(zip(lines, pieces, times, files)):
+        cdir = os.path.join(project, "clips"); os.makedirs(cdir, exist_ok=True)
+        used, parts = set(), []
+        for i, (line, piece, wt) in enumerate(zip(lines, pieces, times)):
             check_cancel()
             dur = len(piece) / SR
+            options = clips[i] if isinstance(clips[i], list) else [clips[i]]
+            plan = _fill(options, dur, used, os.path.join(cdir, f"{i:02d}"))   # clips that fill the line, no looping
+            print(f"line {i + 1} ({dur:.1f}s): " + " + ".join(
+                f"clip {k + 1} {t:.1f}s at {sp:.0%} speed" + (" (looped)" if lp else "")
+                for k, (_, sp, t, lp) in enumerate(plan)), flush=True)
+            base = os.path.join(tmp, f"b{i:02d}.mp4"); subs = []
+            for k, (f, spd, take, loop) in enumerate(plan):
+                sub = os.path.join(tmp, f"b{i:02d}_{k}.mp4"); subs.append(sub)
+                vf = (f"{grade}setpts=PTS/{spd:.4f},scale={W}:1250:force_original_aspect_ratio=decrease,"
+                      f"scale=trunc(iw/2)*2:trunc(ih/2)*2,pad={W}:{H}:(ow-iw)/2:(oh-ih)/2-60:color=0x080808,"
+                      f"fps={FPS},setsar=1,format=yuv420p")
+                _run([FF, "-loglevel", "error", "-y"] + (["-stream_loop", "-1"] if loop else []) + ["-i", f,
+                      "-t", f"{take:.3f}", "-vf", vf, "-an", "-c:v", "libx264", "-crf", "18", "-r", str(FPS), sub])
+            lst = os.path.join(tmp, f"b{i:02d}.txt")
+            open(lst, "w").write("".join(f"file '{x.replace(os.sep, '/')}'\n" for x in subs))
+            _run([FF, "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", base])
             ov = captions.line_overlay(line, wt, dur, os.path.join(tmp, f"t{i}"))   # words pop in as they're said
             out = os.path.join(tmp, f"p{i:02d}.mp4")
-            vf = (f"[0:v]{grade}scale={W}:1250:force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2,"
-                  f"pad={W}:{H}:(ow-iw)/2:(oh-ih)/2-60:color=0x080808,fps={FPS},setsar=1[v];"
-                  f"[1:v]fps={FPS}[t];[v][t]overlay=0:0:shortest=1,format=yuv420p")
-            _run([FF, "-loglevel", "error", "-y", "-stream_loop", "-1", "-i", src, "-f", "concat", "-safe", "0",
-                  "-i", ov, "-t", f"{dur:.3f}", "-filter_complex", vf, "-an", "-c:v", "libx264", "-crf", "18",
-                  "-r", str(FPS), out])
-            parts.append(out); progress(70 + 25 * i / len(lines), f"putting clips together {i + 1}/{len(lines)}")
+            _run([FF, "-loglevel", "error", "-y", "-i", base, "-f", "concat", "-safe", "0", "-i", ov,
+                  "-t", f"{dur:.3f}", "-filter_complex", f"[1:v]fps={FPS}[t];[0:v][t]overlay=0:0,format=yuv420p",
+                  "-an", "-c:v", "libx264", "-crf", "18", "-r", str(FPS), out])
+            parts.append(out); progress(62 + 33 * i / len(lines), f"putting clips together {i + 1}/{len(lines)}")
         audio = list(pieces)
         if end_audio is not None:
             a = np.concatenate([np.zeros(int(0.5 * SR), np.float32), end_audio])   # a breath before the end line
