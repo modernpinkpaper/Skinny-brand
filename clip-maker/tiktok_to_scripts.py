@@ -72,7 +72,7 @@ def read_link_file(path):
     text = open(path, encoding="utf-8-sig").read()
     links = list(dict.fromkeys(u.rstrip(").,") for u in re.findall(r"https?://\S*tiktok\.com\S*", text)))
     if not links: sys.exit(f"{path}: no TikTok link found in the file")
-    o = dict(link=links[0], links=links, videos="all", versions="3", writer="best", batch="yes", look="auto", clips="animated", speed="", end="",
+    o = dict(link=links[0], links=links, videos="all", versions="1", writer="best", batch="yes", look="auto", clips="animated", speed="", end="",
              tags="", notes="")
     for line in text.splitlines():
         if ":" not in line or line.strip().lower().startswith("http"): continue
