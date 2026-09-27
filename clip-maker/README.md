@@ -40,7 +40,7 @@ The app remembers every clip it has checked (its colours, what it shows, whether
 Clips with words on them (memes, captions) are skipped automatically.
 
 ## Getting the .exe
-Every change to this folder is built into a Windows .exe on GitHub and tested there by making a short real video. On GitHub, go to **Actions**, then **Build Clip Maker (Windows)**, open the latest green run, and download **ClipMaker-Windows** (or **ClipMaker-Windows-NVIDIA**) at the bottom.
+The Windows .exe is only built when you start it by hand: on GitHub, go to **Actions**, then **Build Clip Maker (Windows)**, click **Run workflow**, then open that run once it is green and download **ClipMaker-Windows** (or **ClipMaker-Windows-NVIDIA**) at the bottom.
 
 ## TikTok link → lots of videos (on GitHub)
 Put a TikTok link in `links/` and GitHub grabs the comments, has Claude write a script for every good idea (using `FORMULA.md`), and makes all the videos. See [links/README.md](links/README.md).

@@ -1,7 +1,7 @@
 name: Build Clip Maker (Windows)
+# Only runs when started by hand (Actions > Build Clip Maker (Windows) > Run workflow): the desktop app
+# is not used, so it is no longer rebuilt on every change to clip-maker/.
 on:
-  push:
-    paths: ["clip-maker/**", "!clip-maker/scripts/**", "!clip-maker/library/**", "!clip-maker/links/**", "!clip-maker/FORMULA.md", "!clip-maker/PICKING.md", "!clip-maker/tiktok_to_scripts.py", "!clip-maker/compare_writers.py", "!clip-maker/drive_upload.py", "!clip-maker/tiktok_drafts.py", "!clip-maker/ai_images/**", "!clip-maker/tiktok/**", "!clip-maker/drive/**", ".github/workflows/build-clip-maker.yml"]
   workflow_dispatch:
 jobs:
   windows:
