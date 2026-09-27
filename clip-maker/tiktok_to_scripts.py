@@ -160,6 +160,8 @@ def ask(system, user, schema, model=MODEL, cost=None):
     except anthropic.BadRequestError as e:
         if "fallbacks" not in kw.get("extra_body", {}) or "fallback" not in str(e).lower(): raise
         _fallbacks = False; return ask(system, user, schema, model, cost)
+    except ValueError as e:   # the answer stopped partway (cut off or declined), so it isn't whole JSON
+        print(f"  (skipped: the answer was cut off: {str(e).splitlines()[0][:120]})", flush=True); return None
     c = cost_of(model, r.usage)
     with _cost_lock: spent["total"] += c
     if cost is not None: cost.append(c)
@@ -172,19 +174,30 @@ def ask(system, user, schema, model=MODEL, cost=None):
 def plan(formula, comments, want, notes, say=print, on_idea=lambda idea: None):
     """on_idea(idea) is called for each new idea as soon as it is found."""
     ideas, by_id = [], {c["id"]: c for c in comments}
-    for start in range(0, len(comments), CHUNK):
-        if len(ideas) >= want: break
-        batch = comments[start:start + CHUNK]
+
+    def read(batch):
+        """Ideas from one group of comments. If Claude's answer breaks off, the group is split in half and each half
+        is read again, so one bad answer (or one comment Claude won't handle) never costs the whole group."""
         taken = "\n".join(f"- {i['title']}: {i['deeper']}" for i in ideas) or "(none yet)"
         user = (f"Notes from me: {notes or 'none'}\n\nIdeas already taken:\n{taken}\n\nComments:\n" +
                 "\n".join(f"[{c['id']}] ({c['likes']} likes) {c['text']}" for c in batch))
-        res = ask(formula + "\n\n---\n\n" + PLAN_RULES, user, Ideas)
+        try: res = ask(formula + "\n\n---\n\n" + PLAN_RULES, user, Ideas)
+        except Exception as e: print(f"::warning::could not read {len(batch)} comments ({e})", flush=True); res = None
+        if res is None and len(batch) > 30:
+            half = len(batch) // 2
+            return read(batch[:half]) + read(batch[half:])
         new = 0
         for i in (res.ideas if res else []):
             ids = [x.strip("[] ") for x in i.comment_ids if x.strip("[] ") in by_id]
             if not ids or any(slug(i.title) == slug(t["title"]) for t in ideas): continue
             if len(ideas) >= want: break
             ideas.append(dict(i.model_dump(), comment_ids=ids)); new += 1; on_idea(ideas[-1])
+        return new
+
+    for start in range(0, len(comments), CHUNK):
+        if len(ideas) >= want: break
+        batch = comments[start:start + CHUNK]
+        new = read(batch)
         say(f"read comments {start + 1}-{start + len(batch)} of {len(comments)}: {new} new ideas ({len(ideas)} total)")
     return ideas[:want]
 
@@ -426,8 +439,9 @@ def main():
 
     bw = BatchWriter(formula, by_id, WRITERS[o["writer"]], finalize) if o["batch"] else None
 
-    count = [0]
+    count, found = [0], []
     def on_idea(idea):   # write the scripts right away, while Claude keeps reading comments
+        found.append(idea)
         hooks = list(dict.fromkeys(h for h in idea["hooks"] if 1 <= h <= 13))
         hooks += [h for h in range(1, 14) if h not in hooks]   # fewer fitting hooks than asked: use others too
         for fmt in hooks[:o["versions"]]:   # one video per hook: same topic, different opening
@@ -436,7 +450,11 @@ def main():
             if bw: bw.add(count[0], idea, fmt)
             else: ex.submit(job, count[0], idea, fmt)
     topics_needed = -(-o["videos"] // o["versions"])   # no need to find more topics than the videos can use
-    ideas = plan(formula, comments, topics_needed, o["notes"], say=lambda m: print(m, flush=True), on_idea=on_idea)
+    try:
+        ideas = plan(formula, comments, topics_needed, o["notes"], say=lambda m: print(m, flush=True), on_idea=on_idea)
+    except Exception as e:   # never throw away the scripts already on their way: finish those
+        print(f"::warning::stopped picking topics early ({e}); finishing the {len(found)} already found", flush=True)
+        ideas = found
     print(f"{len(ideas)} topics, {count[0]} scripts; finishing them", flush=True)
     if bw: bw.finish()
     ex.shutdown(wait=True)
