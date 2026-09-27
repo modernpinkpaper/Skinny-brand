@@ -261,13 +261,16 @@ class BatchWriter:
     """Writes scripts through Claude's Batch API: half price, but results come back in groups (usually within
     minutes, at most a day). Scripts are sent in groups of up to 25 while the comments are still being read; each
     finished group is checked right away, rule-breakers go back once in the next group, and done(...) is called
-    for every finished script so its video can start."""
+    for every finished script so its video can start. A group still waiting after max_wait seconds is cancelled
+    and whatever it didn't finish is written at full price instead, so a slow queue never holds up the videos."""
     SCHEMA = {"type": "object", "properties": {"script": {"type": "string"}}, "required": ["script"],
               "additionalProperties": False}
 
-    def __init__(self, formula, comments, model, done, group=25, wait=60):
+    def __init__(self, formula, comments, model, done, group=25, wait=60, max_wait=40 * 60):
         import anthropic
         self.client = anthropic.Anthropic(max_retries=8)
+        self.formula, self.max_wait, self.sent_at, self.late = formula, max_wait, {}, set()
+        self.full = ThreadPoolExecutor(4)
         self.system = [{"type": "text", "text": writer_system(formula), "cache_control": {"type": "ephemeral"}}]
         self.comments, self.model, self.done, self.group, self.wait = comments, model, done, group, wait
         self.pending, self.jobs, self.open, self.lock = [], {}, [], threading.Lock()
@@ -297,13 +300,15 @@ class BatchWriter:
                         self.jobs[k]["idea"], self.comments, self.jobs[k]["fmt"], self.jobs[k]["draft"], self.jobs[k]["probs"])}]))
                 for k in keys]
         b = self.client.messages.batches.create(requests=reqs)
-        self.open.append(b.id)
+        self.open.append(b.id); self.sent_at[b.id] = time.time()
         print(f"sent {len(keys)} scripts to Claude as batch {b.id}", flush=True)
 
     def collect(self, batch_id):
         for r in self.client.messages.batches.results(batch_id):
             job = self.jobs.pop(r.custom_id)
             n, idea, fmt, draft, probs0, cost = job["n"], job["idea"], job["fmt"], job["draft"], job["probs"], job["cost"]
+            if r.result.type != "succeeded" and batch_id in self.late:   # cancelled for being slow: full price now
+                self.full.submit(self.write_now, job); continue
             if r.result.type != "succeeded":   # errored / expired / canceled: send it again (twice at most)
                 if job["tries"] < 2: self.add(n, idea, fmt, draft, probs0, cost, job["tries"] + 1)
                 elif draft: self.done(n, idea, fmt, draft, probs0, cost)
@@ -329,6 +334,14 @@ class BatchWriter:
                 script, probs = draft, probs0
             self.done(n, idea, fmt, script, probs, cost)
 
+    def write_now(self, job):
+        n, idea, fmt, draft, probs0, cost = job["n"], job["idea"], job["fmt"], job["draft"], job["probs"], job["cost"]
+        c = []
+        try: script, probs = write_one(self.formula, idea, self.comments, fmt, self.model, c)
+        except Exception as e: script, probs = None, [f"error: {e}"]
+        if script is None and draft: script, probs = draft, probs0   # keep the first try rather than nothing
+        self.done(n, idea, fmt, script, probs, cost + sum(c))
+
     def run(self):
         while True:
             with self.lock: npend, first = len(self.pending), self.first_pending
@@ -337,13 +350,18 @@ class BatchWriter:
                 except Exception as e: print(f"could not send a batch ({e}), retrying", flush=True); time.sleep(30)
             for bid in list(self.open):
                 try:
+                    if bid not in self.late and time.time() - self.sent_at[bid] > self.max_wait:
+                        print(f"batch {bid} is still waiting after {self.max_wait // 60} minutes: cancelling it and "
+                              "writing the rest at full price", flush=True)
+                        self.late.add(bid); self.client.messages.batches.cancel(bid)
                     if self.client.messages.batches.retrieve(bid).processing_status == "ended":
                         self.open.remove(bid); self.collect(bid)
                 except Exception as e:
                     print(f"could not check batch {bid} ({e})", flush=True)
             with self.lock:
-                if self.no_more and not self.pending and not self.open: return
+                if self.no_more and not self.pending and not self.open: break
             time.sleep(15)
+        self.full.shutdown(wait=True)   # wait for the full-price rewrites of slow groups
 
 
 _pages, _page_lock = set(), threading.Lock()
