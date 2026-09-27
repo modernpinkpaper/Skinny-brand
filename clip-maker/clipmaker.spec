@@ -1,7 +1,7 @@
 # PyInstaller recipe for ClipMaker.exe (folder build). Run: pyinstaller clipmaker.spec
 from PyInstaller.utils.hooks import collect_all, copy_metadata
 
-datas, binaries, hidden = [("assets", "assets")], [], []
+datas, binaries, hidden = [("assets", "assets"), ("clipmaker/generic_lines.txt", "clipmaker")], [], []
 for pkg in ["chatterbox", "perth", "s3tokenizer", "rapidocr_onnxruntime", "faster_whisper", "ctranslate2",
             "onnxruntime", "librosa", "imageio_ffmpeg", "noisereduce", "conformer", "spacy_pkuseg", "pykakasi",
             "omegaconf", "diffusers", "transformers", "tokenizers", "safetensors", "soundfile", "audioread",
