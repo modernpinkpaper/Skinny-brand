@@ -21,7 +21,7 @@ second line...
    - **speed**: normal, a bit slower, slower
    - **end**: the end-screen line (`end: none` for no end screen)
 
-   Leave the settings out to use: moody, animated, a bit slower, and the usual end line.
+   Leave the settings out to use: moody, animated, normal speed, and the usual end line.
 5. Tap **Commit changes**. GitHub starts making the video (see the **Actions** tab).
 6. About 20-25 minutes later it's on the repo's **Releases** page as **Video: your-file-name**, with the caption and the voiceover. Tap the .mp4 to watch or save it.
 

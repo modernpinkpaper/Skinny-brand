@@ -93,14 +93,14 @@ def make():
         vstate = dict(msg="waiting", result=None, error=None)
         def voice_job():
             try:
-                vstate["result"] = render.make_voice(lines, breaks, end, ref, float(o.get("speed", 0.92)),
+                vstate["result"] = render.make_voice(lines, breaks, end, ref, float(o.get("speed", 1.0)),
                                                      lambda p, m: (check_cancel(), vstate.update(msg=m)))
                 vstate["msg"] = "voice ready"
             except Exception as e:
                 vstate["error"] = e
         progress(1, "loading")
         # load the big libraries once here: two threads importing them at the same time breaks the import
-        import torch, torchaudio, transformers, chatterbox.tts, faster_whisper, noisereduce, rapidocr_onnxruntime  # noqa
+        import torch, torchaudio, transformers, chatterbox.tts, faster_whisper, rapidocr_onnxruntime  # noqa
         vt = threading.Thread(target=voice_job, daemon=True); vt.start()
         cands = picker.find_clips(lines, o["sources"], keys, o["kind"], o["look"],
                                   lambda p, m: progress(p * 0.6, f"finding clips: {m}  |  {vstate['msg']}"),
@@ -172,7 +172,7 @@ button.ghost{background:transparent;color:var(--acc);border:1px solid var(--acc)
   <label><input type="radio" name="kind" value="real"> Real people</label>
   <label><input type="radio" name="kind" value="both"> Both</label></div>
  <div><b>Look / colouring</b><select id="look"></select><br><br><b>Voice</b><select id="voice"></select>
-  <br><br><b>Voice speed</b><select id="speed"><option value="1.0">Normal</option><option value="0.92" selected>A bit slower</option><option value="0.85">Slower</option></select></div>
+  <br><br><b>Voice speed</b><select id="speed"><option value="1.0" selected>Normal</option><option value="0.92">A bit slower</option><option value="0.85">Slower</option></select></div>
  <div><b>Video name</b><input type="text" id="name" placeholder="e.g. absent-parent"><br><br>
   <b>End screen line</b><input type="text" id="end" value="send this to someone who needs to hear it"></div>
  <div><b>Hashtags</b><input type="text" id="tags" value="#healing #selflove #relatable #fyp"></div>

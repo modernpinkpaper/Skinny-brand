@@ -1,26 +1,27 @@
-"""The voice: Chatterbox copies the voice in a short sample; the script is said a paragraph at a time
-so it flows, then cut at each line end. Whisper gives the time of every spoken word, which is used both
-to cut the lines and to pop each caption word in exactly when it is said."""
+"""The voice: Chatterbox copies the voice in a short sample; the script is said a sentence at a time
+(each sentence gets its own delivery and emphasis, with a short pause after it), then cut at each line end.
+Whisper gives the time of every spoken word, which is used both to cut the lines and to pop each caption
+word in exactly when it is said."""
 import os, re, difflib, subprocess, tempfile
 import numpy as np, soundfile as sf, imageio_ffmpeg
 from .paths import device
 
 SR, FPS = 24000, 30
 FRAME = SR // FPS                 # samples per video frame: cuts land on frame edges so nothing drifts
-PAUSE, EXTRA_PAUSE, CHUNK_CHARS = 0.35, 0.6, 260   # 1 blank line = PAUSE s, each extra blank line adds EXTRA_PAUSE s
+PAUSE, EXTRA_PAUSE = 0.35, 0.6   # pause after each sentence; each extra blank line in the script adds EXTRA_PAUSE s
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 NOWIN = 0x08000000 if os.name == "nt" else 0
 
 _tts = None
 def speak(text, ref, speed=1.0):
-    """speed < 1 is slower. Chatterbox is asked for calm pacing, then the audio is gently slowed
-    (pitch stays the same) if a slower speed was chosen."""
+    """speed < 1 is slower: the audio is gently slowed (pitch stays the same) if a slower speed was chosen.
+    exaggeration 0.6 = a bit more expressive than Chatterbox's default, so key words get emphasis."""
     global _tts
     import torchaudio
     if _tts is None:
         from chatterbox.tts import ChatterboxTTS
         _tts = ChatterboxTTS.from_pretrained(device=device())
-    w = _tts.generate(text, audio_prompt_path=ref, exaggeration=0.4, cfg_weight=0.35)
+    w = _tts.generate(text, audio_prompt_path=ref, exaggeration=0.6, cfg_weight=0.5)
     if _tts.sr != SR: w = torchaudio.functional.resample(w, _tts.sr, SR)
     a = w.squeeze(0).cpu().numpy().astype(np.float32)
     return stretch(a, speed) if abs(speed - 1.0) > 0.01 else a
@@ -41,12 +42,6 @@ def trim(a, thr=0.01, keep=0.04):
     k = int(keep * SR); return a[max(loud[0] - k, 0):loud[-1] + k]
 
 
-def clean(a):
-    """Removes the faint hiss the copied voice has while talking, so talking and pauses sound the same."""
-    import noisereduce as nr
-    return nr.reduce_noise(y=a, sr=SR, stationary=True, prop_decrease=0.85).astype(np.float32)
-
-
 def _norm(t): return "".join(re.findall(r"[a-z0-9]+", t.lower().replace("'", "").replace("’", "")))
 
 
@@ -62,12 +57,12 @@ def voice_lines(lines, breaks, ref, speed=1.0, progress=lambda *a: None):
     groups, cur = [], []
     for i, l in enumerate(lines):
         cur.append(i)
-        long = len(" ".join(lines[j] for j in cur)) > CHUNK_CHARS - 60 and l.rstrip().endswith((".", "!", "?", "…"))
-        if i in breaks or long or i == len(lines) - 1: groups.append(cur); cur = []
+        sentence_end = l.rstrip().endswith((".", "!", "?", "…"))
+        if i in breaks or sentence_end or i == len(lines) - 1: groups.append(cur); cur = []
     pieces, times = [], []
     for n, g in enumerate(groups):
         progress(n / len(groups), f"voice: part {n + 1} of {len(groups)}")
-        a = clean(trim(speak(" ".join(lines[i] for i in g), ref, speed)))
+        a = trim(speak(" ".join(lines[i] for i in g), ref, speed))
         a16 = np.interp(np.arange(0, len(a), SR / 16000), np.arange(len(a)), a).astype(np.float32)
         spoken = [w for seg in _wm.transcribe(a16, word_timestamps=True)[0] for w in seg.words]
         # line up the script's words with the words Whisper heard
@@ -89,8 +84,8 @@ def voice_lines(lines, breaks, ref, speed=1.0, progress=lambda *a: None):
             idx += len(lines[k].split())
             c = (wt[idx - 1][1] + wt[idx][0]) / 2 if 0 < idx < len(wt) else total * idx / max(len(disp), 1)
             cuts.append(int(round(c * SR / FRAME)) * FRAME)
-        pause = PAUSE + EXTRA_PAUSE * (breaks.get(g[-1], 1) - 1) if g[-1] in breaks else 0
-        if pause: a = np.concatenate([a, np.zeros(int(pause * SR), np.float32)])
+        pause = PAUSE + EXTRA_PAUSE * (breaks.get(g[-1], 1) - 1)
+        a = np.concatenate([a, np.zeros(int(pause * SR), np.float32)])
         a = np.concatenate([a, np.zeros(-len(a) % FRAME, np.float32)])
         edges = [0]
         for c in cuts: edges.append(min(max(c, edges[-1] + FRAME), len(a) - FRAME * (len(g) - len(edges))))
