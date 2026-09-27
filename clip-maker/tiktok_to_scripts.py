@@ -43,6 +43,8 @@ Rules for every script:
   username. Don't invent dramatic facts that no comment supports.
 - Match the topic's kind: if the audience needs a practical solution, give them one; if it is educational, give
   clear tips or explanations; use the emotional approach only for emotional topics.
+- Length: 160 to 175 words (count them before you answer). That makes the video 61-70 seconds; TikTok only pays
+  for videos of 60 seconds or more, so a script under 155 words gets sent back.
 - Output only the script body: one short line per clip, lines of the same thought directly under each other,
   and a blank line only between thoughts (every 3 to 6 lines; each blank line is a pause in the voice). Two blank
   lines for a longer pause, before the turn and before the close. Plain words only: no brackets, stars, stage directions or voice notes.
@@ -70,7 +72,7 @@ def read_link_file(path):
     text = open(path, encoding="utf-8-sig").read()
     links = list(dict.fromkeys(u.rstrip(").,") for u in re.findall(r"https?://\S*tiktok\.com\S*", text)))
     if not links: sys.exit(f"{path}: no TikTok link found in the file")
-    o = dict(link=links[0], links=links, videos="all", versions="3", writer="best", batch="yes", look="auto", clips="animated", speed="", end="",
+    o = dict(link=links[0], links=links, videos="all", versions="1", writer="best", batch="yes", look="auto", clips="animated", speed="", end="",
              tags="", notes="")
     for line in text.splitlines():
         if ":" not in line or line.strip().lower().startswith("http"): continue
