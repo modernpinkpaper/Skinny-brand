@@ -14,6 +14,9 @@ from fontTools.ttLib import TTFont
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from motion_check import score as motion_score
+_rt = importlib.util.spec_from_file_location(   # fills the silent gaps with the voice's own background hiss
+    "roomtone", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "clip-maker", "clipmaker", "roomtone.py"))
+roomtone = importlib.util.module_from_spec(_rt); _rt.loader.exec_module(roomtone)
 
 ap = argparse.ArgumentParser()
 ap.add_argument("folder"); ap.add_argument("--voice", default="af_heart"); ap.add_argument("--speed", type=float, default=1.0)
@@ -21,7 +24,7 @@ ap.add_argument("--clone", help="10-15s wav of a voice (used with permission) to
 ap.add_argument("--out", help="output file name (default: <folder-name>.mp4)")
 ap.add_argument("--grade", choices=["moody"], help="colour-grade every clip the same way (moody = darker, softer colours)")
 ap.add_argument("--flow", action="store_true",
-                help="say the script a paragraph at a time (so the voice flows across lines and sentences), then cut it at the line ends")
+                help="say the script a sentence at a time (so the voice flows across lines), then cut it at the line ends")
 args = ap.parse_args()
 HERE = os.path.abspath(args.folder)
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -44,7 +47,7 @@ if args.clone:
     from chatterbox.tts import ChatterboxTTS
     cb = ChatterboxTTS.from_pretrained(device="cpu")
     def speak(text):
-        w = cb.generate(text, audio_prompt_path=os.path.abspath(args.clone), exaggeration=0.4, cfg_weight=0.5)
+        w = cb.generate(text, audio_prompt_path=os.path.abspath(args.clone), exaggeration=0.6, cfg_weight=0.5)
         if cb.sr != SR: w = torchaudio.functional.resample(w, cb.sr, SR)
         return w.squeeze(0).numpy().astype(np.float32)
 else:
@@ -66,20 +69,14 @@ def trim(a, thr=0.01, keep=0.04):
     if not len(loud): return a
     k = int(keep * SR); return a[max(loud[0] - k, 0):loud[-1] + k]
 
-SENT_PAUSE, FRAME = 0.35, SR // FPS   # pause at a paragraph break in --flow mode; samples per video frame
-CHUNK_CHARS = 260                     # longest stretch of script the voice says in one go
-
-def clean(a):
-    """Removes the faint hiss the cloned voice has while talking, so talking and pauses sound the same."""
-    import noisereduce as nr
-    return nr.reduce_noise(y=a, sr=SR, stationary=True, prop_decrease=0.85).astype(np.float32)
+SENT_PAUSE, FRAME = 0.35, SR // FPS   # pause after each sentence in --flow mode; samples per video frame
 
 def words_of(t): return re.findall(r"[a-z0-9]+", t.lower().replace("'", ""))
 
 def flow_audio(lines, breaks):
-    """Speaks the script a paragraph at a time (so it flows across lines AND sentences), then cuts it at
-    each line end, found by lining up the script's words with Whisper's word timings.
-    Returns one audio piece per line. Only a paragraph break (blank line in the script) adds a pause.
+    """Speaks the script a sentence at a time (each sentence gets its own delivery and emphasis), then cuts
+    it at each line end, found by lining up the script's words with Whisper's word timings.
+    Returns one audio piece per line. Each sentence ends with a short pause.
     Cuts land on video-frame edges so the clips and the voice never drift apart."""
     import difflib
     from faster_whisper import WhisperModel
@@ -87,11 +84,10 @@ def flow_audio(lines, breaks):
     groups, cur = [], []
     for i, l in enumerate(lines):
         cur.append(l)
-        long = len(" ".join(cur)) > CHUNK_CHARS - 60 and l.rstrip().endswith((".", "!", "?", "…"))
-        if i in breaks or long or i == len(lines) - 1: groups.append((cur, i in breaks)); cur = []
+        if i in breaks or l.rstrip().endswith((".", "!", "?", "…")) or i == len(lines) - 1: groups.append(cur); cur = []
     out = []
-    for g, pause in groups:
-        a = clean(trim(speak(" ".join(g))))
+    for g in groups:
+        a = trim(speak(" ".join(g)))
         a16 = np.interp(np.arange(0, len(a), SR / 16000), np.arange(len(a)), a).astype(np.float32)
         spoken = [w for seg in wm.transcribe(a16, word_timestamps=True)[0] for w in seg.words]
         sw = [(words_of(w.word) or [""])[0] for w in spoken]
@@ -109,7 +105,7 @@ def flow_audio(lines, breaks):
                 j = match[k] + (e - k); j = min(j, len(spoken) - 2)
                 c = (spoken[j].end + spoken[j + 1].start) / 2
             cuts.append(int(round(c * SR / FRAME)) * FRAME)
-        if pause: a = np.concatenate([a, np.zeros(int(SENT_PAUSE * SR), np.float32)])
+        a = np.concatenate([a, np.zeros(int(SENT_PAUSE * SR), np.float32)])
         a = np.concatenate([a, np.zeros(-len(a) % FRAME, np.float32)])
         edges = [0]
         for c in cuts: edges.append(min(max(c, edges[-1] + FRAME), len(a) - FRAME * (len(g) - len(edges))))
@@ -179,7 +175,7 @@ for i, ((line, _), url) in enumerate(zip(LINES, CLIPS)):
     parts.append(out); print(f"{i:02d} {dur:4.1f}s  {line}", flush=True)
 
 a = speak(END)
-if args.flow: a = clean(trim(a))
+if args.flow: a = trim(a)
 end_dur = len(a) / SR + END_HOLD
 audio.append(np.concatenate([a, np.zeros(int(round(end_dur * SR)) - len(a), np.float32)]))
 bg = os.path.join(tmp, "bg.png"); Image.new("RGB", (W, H), (22, 22, 22)).save(bg)
@@ -190,7 +186,7 @@ subprocess.run([FF, "-loglevel", "error", "-y", "-loop", "1", "-i", bg, "-f", "c
                 "-c:v", "libx264", "-crf", "18", "-r", str(FPS), out], check=True)
 parts.append(out)
 
-wav = os.path.join(HERE, (args.out or "x").replace(".mp4", "") + "-voiceover.wav" if args.out else "voiceover.wav"); sf.write(wav, np.concatenate(audio), SR)
+wav = os.path.join(HERE, (args.out or "x").replace(".mp4", "") + "-voiceover.wav" if args.out else "voiceover.wav"); sf.write(wav, roomtone.fill(np.concatenate(audio), SR), SR)
 lst = os.path.join(tmp, "all.txt"); open(lst, "w").write("".join(f"file '{p}'\n" for p in parts))
 final = os.path.join(HERE, args.out or os.path.basename(HERE) + ".mp4")
 subprocess.run([FF, "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-i", wav,

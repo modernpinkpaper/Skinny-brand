@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 from .paths import ASSETS
 from .sources import S
 from .looks import LOOKS
-from . import voice, captions
+from . import voice, captions, roomtone
 from .motion import cuts
 
 FF = imageio_ffmpeg.get_ffmpeg_exe()
@@ -113,7 +113,7 @@ def make_voice(lines, breaks, end, voice_ref, speed=1.0, progress=lambda p, m: N
     """All the audio: one piece per line (+ word timings) and the end-screen line.
     Can run while the clips are being found."""
     pieces, times = voice.voice_lines(lines, breaks, voice_ref, speed, progress)
-    end_audio = voice.clean(voice.trim(voice.speak(end, voice_ref, speed))) if end.strip() else None
+    end_audio = voice.trim(voice.speak(end, voice_ref, speed)) if end.strip() else None
     return pieces, times, end_audio
 
 
@@ -176,7 +176,8 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
                   "-t", f"{end_dur:.3f}", "-filter_complex", f"[1:v]fps={FPS}[t];[0:v][t]overlay=0:0,format=yuv420p",
                   "-c:v", "libx264", "-crf", "18", "-r", str(FPS), out])
             parts.append(out)
-        wav = os.path.join(project, name + "-voiceover.wav"); sf.write(wav, np.concatenate(audio), SR)
+        wav = os.path.join(project, name + "-voiceover.wav")
+        sf.write(wav, roomtone.fill(np.concatenate(audio), SR), SR)   # the background hiss never cuts out between lines
         lst = os.path.join(tmp, "all.txt")
         open(lst, "w").write("".join(f"file '{p.replace(os.sep, '/')}'\n" for p in parts))
         final = os.path.join(project, name + ".mp4")

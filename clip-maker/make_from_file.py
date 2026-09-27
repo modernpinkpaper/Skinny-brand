@@ -18,7 +18,7 @@ LOOK_WORDS = {"moody": "moody", "muted": "moody", "dark": "moody", "bright": "br
               "colourful": "bright", "vintage": "vintage", "warm": "vintage", "nostalgic": "vintage",
               "black": "bw", "bw": "bw", "b&w": "bw", "white": "bw", "pastel": "pastel", "dreamy": "pastel",
               "soft": "pastel", "none": "none", "any": "none", "no": "none"}
-DEFAULTS = dict(look="moody", clips="animated", speed=0.92, end="send this to someone who needs to hear it",
+DEFAULTS = dict(look="moody", clips="animated", speed=1.0, end="send this to someone who needs to hear it",
                 tags="#healing #selflove #relatable #fyp", live=False)
 
 
@@ -62,7 +62,7 @@ def main():
           flush=True)
     t0 = time.time()
     library.update()
-    import torch, torchaudio, transformers, chatterbox.tts, faster_whisper, noisereduce, rapidocr_onnxruntime  # noqa
+    import torch, torchaudio, transformers, chatterbox.tts, faster_whisper, rapidocr_onnxruntime  # noqa
     ref = VOICES["guy"][1]
     voice = dict(result=None, error=None)
     def make_voice():

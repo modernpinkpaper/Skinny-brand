@@ -3,7 +3,7 @@ from PyInstaller.utils.hooks import collect_all, copy_metadata
 
 datas, binaries, hidden = [("assets", "assets"), ("clipmaker/generic_lines.txt", "clipmaker")], [], []
 for pkg in ["chatterbox", "perth", "s3tokenizer", "rapidocr_onnxruntime", "faster_whisper", "ctranslate2",
-            "onnxruntime", "librosa", "imageio_ffmpeg", "noisereduce", "conformer", "spacy_pkuseg", "pykakasi",
+            "onnxruntime", "librosa", "imageio_ffmpeg", "conformer", "spacy_pkuseg", "pykakasi",
             "omegaconf", "diffusers", "transformers", "tokenizers", "safetensors", "soundfile", "audioread",
             "lazy_loader", "numba", "llvmlite", "pyloudnorm", "flask", "jinja2", "werkzeug"]:
     try:

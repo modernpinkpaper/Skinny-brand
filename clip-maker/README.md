@@ -24,7 +24,7 @@ The black window says what it's using, for example `Using: NVIDIA graphics card:
 ## What the video looks like
 - The words pop onto the clip one at a time, exactly when the voice says them. Small linking words ("the", "of", "to") are small and the important words are big, in a loose staggered stack.
 - Each line of your script gets its own clip, which changes exactly when the voice starts that line.
-- **Voice speed** can be Normal, A bit slower (default) or Slower.
+- **Voice speed** can be Normal (default), A bit slower or Slower.
 
 ## The clip library
 The app downloads a ready-made library of Tenor clips that were already checked on GitHub's computers: each one moves, has no words on it, and is tagged animated or real, with its colours and what's in it. Picking clips from it takes about a second. Tick **Also search live** to also search Tenor right now (slower, but finds newer clips). The library covers the topics in `library/topics.py` and is rebuilt by the **Build clip library** workflow on GitHub.
