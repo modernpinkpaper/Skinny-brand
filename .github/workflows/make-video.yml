@@ -65,7 +65,12 @@ jobs:
           restore-keys: clipmaker-cache-
       - name: Install
         run: pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+      - name: Which clips did recent videos use?
+        # every video's clips are kept on the "clip-usage" Releases page, so new videos pick other clips
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: mkdir -p ../used && gh release download clip-usage -D ../used -p '*.txt' 2>/dev/null || true
       - name: Make the video(s)
+        env: { CLIPMAKER_USED_DIR: "${{ github.workspace }}/used", CLIPMAKER_USED_OUT: "${{ github.workspace }}/used-now" }
         run: |
           while read -r f; do
             [ -n "$f" ] && [ -f "$f" ] || continue
@@ -74,6 +79,17 @@ jobs:
             echo "::endgroup::"
           done < ../changed.txt
           for d in ../videos/*/; do [ -d "$d" ] && n=$(basename "$d") && cp "$d/caption.txt" "$d/$n-caption.txt"; done; true
+      - name: Remember which clips this video used
+        continue-on-error: true
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: |
+          ls ../used-now/*.txt > /dev/null 2>&1 || exit 0
+          gh release view clip-usage > /dev/null 2>&1 || gh release create clip-usage --title "Clip usage (for the clip picker)" \
+            --notes "Which clips each recent video used, so new videos pick different ones. Nothing to watch here." --latest=false --target "${{ github.sha }}"
+          gh release upload clip-usage ../used-now/*.txt --clobber
+          # keep the newest 400
+          gh api "repos/${{ github.repository }}/releases/tags/clip-usage" --paginate -q '.assets[] | [.created_at, .id] | @tsv' \
+            | sort -r | tail -n +401 | cut -f2 | while read -r id; do gh api -X DELETE "repos/${{ github.repository }}/releases/assets/$id" || true; done
       - name: Publish on the Releases page
         env: { GH_TOKEN: "${{ github.token }}", REL: "${{ inputs.release }}" }
         run: |

@@ -4,7 +4,14 @@ Steps: search the chosen websites -> download small previews -> throw out clips 
 CLIP (image checker) scores each clip: animated or real, the chosen look, how well it fits each line ->
 colour/light numbers for the look -> best clip per line (never the same one twice) ->
 OCR (text reader) throws out any clip with words on it (CLIP can read, so it loves meme text).
-Every line also keeps a ranked list of runner-ups (saved in project.json)."""
+Every line also keeps a ranked list of runner-ups (saved in project.json).
+
+So videos don't all end up with the same few clips:
+- "fits anything" clips (a vague sad scene matches every emotional line a little) are pushed down, using
+  generic_lines.txt, so a clip has to fit its line in particular
+- clips used in recent videos are pushed down (the more often, the further)
+- a little randomness (the same for the same script) breaks near-ties differently in each video
+- clips described as having words or nudity on them are skipped"""
 import os, re, json, time, subprocess, hashlib
 from concurrent.futures import ThreadPoolExecutor
 import numpy as np, imageio_ffmpeg
@@ -18,6 +25,10 @@ FF = imageio_ffmpeg.get_ffmpeg_exe()
 NOWIN = 0x08000000 if os.name == "nt" else 0   # no console windows popping up on Windows
 PER_SEARCH, ALTS, SEARCH_DAYS = 30, 25, 3
 SAME_CLIP = 0.93   # image fingerprints this alike = the same clip (Tenor often has one clip under several links)
+LOOK_W, GENERIC_W, SHUFFLE, REUSE_W, RECENT = 0.5, 1.0, 0.3, 1.0, 400   # see "So videos don't..." above
+RISKY = re.compile(r"\b(words?|writing|written|text|says|saying|letters?|caption|logo|naked|nude|topless|bikini|"
+                   r"lingerie|underwear|sexy|blood|gun|knife)\b", re.I)
+USED = os.path.join(CACHE, "used_clips.json")
 FEATS = os.path.join(CACHE, "feats"); os.makedirs(FEATS, exist_ok=True)
 CARTOON = ["an anime screenshot", "a frame from an animated cartoon", "a hand-drawn illustration"]
 REAL = ["a photo of a real person", "a frame from a live-action movie", "a real photograph of people"]
@@ -235,6 +246,50 @@ def _live_clips(lines, sources, keys, kind, look, progress, themes=True):
     return good, E / (np.linalg.norm(E, axis=1, keepdims=True) + 1e-6)
 
 
+def recent_uses():
+    """How often each clip was used in the last RECENT videos. On GitHub each video's clips are kept on the
+    "clip-usage" Releases page and downloaded into $CLIPMAKER_USED_DIR (one .txt per video); on a PC
+    they're kept in the cache folder."""
+    from collections import Counter
+    videos, d = [], os.environ.get("CLIPMAKER_USED_DIR")
+    if d:
+        files = sorted((os.path.join(d, f) for f in os.listdir(d) if f.endswith(".txt")) if os.path.isdir(d) else [],
+                       key=os.path.getmtime)
+        for f in files[-RECENT:]:
+            try: videos.append(open(f, encoding="utf-8").read().split())
+            except Exception: pass
+    else:
+        try: videos = json.load(open(USED))[-RECENT:]
+        except Exception: videos = []
+    return Counter(u for v in videos for u in set(v))
+
+
+def remember_use(urls, name):
+    """Adds a finished video's clips to the recent-use memory (see recent_uses)."""
+    out = os.environ.get("CLIPMAKER_USED_OUT")
+    if out:
+        os.makedirs(out, exist_ok=True)
+        open(os.path.join(out, re.sub(r"[^A-Za-z0-9._-]+", "-", name)[:90] + ".txt"), "w", encoding="utf-8").write("\n".join(urls) + "\n")
+        return
+    try: videos = json.load(open(USED))
+    except Exception: videos = []
+    videos = (videos + [list(urls)])[-RECENT:]
+    json.dump(videos, open(USED, "w"))
+
+
+_generic = {}
+def generic_score(E):
+    """How well each clip matches typical script lines in general (high = a vague clip that fits anything)."""
+    import torch
+    if "T" not in _generic:
+        f = os.path.join(os.path.dirname(__file__), "generic_lines.txt")
+        try: ls = [l.strip() for l in open(f, encoding="utf-8") if l.strip() and not l.startswith("#")]
+        except OSError: ls = []
+        _generic["T"] = torch.cat([txt_emb(ls[i:i + 100]) for i in range(0, len(ls), 100)]) if ls else None
+    if _generic["T"] is None: return np.zeros(len(E))
+    return (E @ _generic["T"].T).mean(1).numpy()
+
+
 def find_clips(lines, sources, keys, kind, look, progress, live=False):
     """kind: 'animated' | 'real' | 'both'. Returns one ranked candidate list per line (best first).
     Uses the ready-made clip library when there is one (seconds); live=True (or no library) also searches
@@ -266,6 +321,7 @@ def find_clips(lines, sources, keys, kind, look, progress, live=False):
     mood = prob(lk["good"], lk["bad"]) if lk["good"] else np.zeros(len(items))
     keep = []
     for k, c in enumerate(items):
+        if RISKY.search(c.get("desc") or ""): continue   # words or nudity on it
         if kind == "animated" and cartoon[k] < 0.75: continue
         if kind == "real" and cartoon[k] > 0.3: continue
         if c.get("white", 0) > 0.35: continue
@@ -279,10 +335,15 @@ def find_clips(lines, sources, keys, kind, look, progress, live=False):
     items = [items[k] for k in keep]; E = E[keep]
 
     progress(85, "matching clips to your lines")
-    rel = (100 * txt_emb(lines) @ E.T).numpy()
-    rel = (rel - rel.mean(1, keepdims=True)) / (rel.std(1, keepdims=True) + 1e-6)
+    raw = (100 * txt_emb(lines) @ E.T).numpy()
+    zs = lambda a: (a - a.mean(1, keepdims=True)) / (a.std(1, keepdims=True) + 1e-6)
+    rel = zs(raw)   # plain "how well it fits the line" (shown as fit)
     look_s = np.array([c["look"] for c in items]); look_s = (look_s - look_s.mean()) / (look_s.std() + 1e-6)
-    total = rel + (0.9 * look_s if lk["target"] else 0)
+    used = recent_uses()
+    reuse = np.sqrt([used.get(c["full"], 0) for c in items])
+    seed = int(hashlib.md5("\n".join(lines).encode()).hexdigest()[:8], 16)
+    total = (zs(raw - GENERIC_W * 100 * generic_score(E)[None, :]) + (LOOK_W * look_s if lk["target"] else 0)
+             + SHUFFLE * np.random.default_rng(seed).gumbel(size=raw.shape) - REUSE_W * reuse)
 
     ocr_mem = _Json("ocr.json")
     En = E.numpy()

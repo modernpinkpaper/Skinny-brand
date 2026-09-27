@@ -75,6 +75,7 @@ def main():
     proj = os.path.join(args.out, name); os.makedirs(proj, exist_ok=True)
     video = render.build(proj, name, lines, breaks, cands, o["end"], o["look"], ref, o["tags"],
                          lambda p, m: say(50 + p * 0.5, m), audio_parts=voice["result"])
+    picker.remember_use([c[0]["full"] for c in cands if c], name)   # so the next videos pick other clips
     json.dump(dict(name=name, lines=len(lines), settings=o, seconds=round(time.time() - t0)),
               open(os.path.join(proj, "info.json"), "w"), indent=1)
     shutil.rmtree(os.path.join(proj, "clips"), ignore_errors=True)

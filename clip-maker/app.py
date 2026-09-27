@@ -113,6 +113,7 @@ def make():
         v = render.build(project_dir(name), name, lines, breaks, cands, end, o["look"], ref,
                          o.get("tags", ""), lambda p, m: progress(60 + p * 0.4, m), check_cancel,
                          audio_parts=vstate["result"])
+        picker.remember_use([c[0]["full"] for c in cands if c], name)   # so the next videos pick other clips
         STATE.update(video=v, pct=100, msg="your video is ready")
     return background("make", job)
 
