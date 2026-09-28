@@ -109,6 +109,12 @@ def _fill(options, dur, used, stem):
     raise RuntimeError("Couldn't download any clip for one of the lines - check your internet.")
 
 
+# The voice comes out of the voice model quiet (about -31 LUFS; TikTok videos sit near -14), so the final
+# video evens it out a little and brings it up to about -14 LUFS without clipping.
+LOUD = ("acompressor=threshold=-30dB:ratio=3:attack=5:release=120:makeup=1,"
+        "loudnorm=I=-14:TP=-1.5:LRA=7,aresample=48000")
+
+
 def make_voice(lines, breaks, end, voice_ref, speed=1.0, progress=lambda p, m: None):
     """All the audio: one piece per line (+ word timings) and the end-screen line.
     Can run while the clips are being found."""
@@ -182,7 +188,7 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
         open(lst, "w").write("".join(f"file '{p.replace(os.sep, '/')}'\n" for p in parts))
         final = os.path.join(project, name + ".mp4")
         _run([FF, "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-i", wav, "-map", "0:v",
-              "-map", "1:a", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-shortest", "-movflags", "+faststart",
+              "-map", "1:a", "-c:v", "copy", "-af", LOUD, "-c:a", "aac", "-b:a", "160k", "-shortest", "-movflags", "+faststart",
               final])
         first = lines[0].rstrip(".…")
         open(os.path.join(project, "caption.txt"), "w", encoding="utf-8").write(
