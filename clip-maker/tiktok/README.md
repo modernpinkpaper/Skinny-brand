@@ -15,7 +15,7 @@ Every morning at about 8 am (New York time), GitHub sends your next 3 finished v
 3. Under **Products**, add **Login Kit** and **Content Posting API**.
 4. Under **Scopes**, make sure **user.info.basic** and **video.upload** are on.
 5. In the **Login Kit** settings, add this **Redirect URI**, exactly:
-   `https://github.com/modernpinkpaper/Skinny-brand`
+   `https://modernpinkpaper.com/pages/tiktok-connect` (TikTok only accepts addresses on a domain you have verified)
 6. Open the **Sandbox** tab, create a sandbox, and add your own TikTok account as a **Target user**. The sandbox lets your own account use the app without TikTok reviewing it. If TikTok says `video.upload` still needs a review, submit the app for review with a short note: "Personal tool that sends my own videos to my TikTok drafts; I publish them myself."
 7. Copy the app's **Client key** and **Client secret**. Use the sandbox ones if you use the sandbox.
 
@@ -26,8 +26,8 @@ In this repo: **Settings → Secrets and variables → Actions → New repositor
 - `TIKTOK_STORE_KEY`: the key Claude gave you. It locks your TikTok login so nobody can read it in this public repo.
 
 ### 3. Connect your TikTok account
-1. Actions → **TikTok drafts** → Run workflow → action **link** → Run. Open the finished run and copy the long login link it printed.
-2. Open that link, log in to TikTok and press **Authorize**. You land on this repo's GitHub page.
+1. Actions → **TikTok drafts** → Run workflow → action **link** → Run. Open the finished run and copy the long login link it printed. GitHub hides the client key in it as `***`: replace `***` with your client key before opening the link.
+2. Open that link, log in to TikTok and press **Authorize**. You land on the "TikTok Connected" page on modernpinkpaper.com.
 3. Copy the **whole address** from the address bar. It contains `code=...`.
 4. Actions → **TikTok drafts** → Run workflow → action **connect**, paste the address in the code box → Run. It says "Connected to TikTok".
 

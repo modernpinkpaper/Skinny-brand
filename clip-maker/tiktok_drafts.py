@@ -12,7 +12,7 @@ import os, sys, json, time, subprocess, tempfile, urllib.parse, urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__))
 DIR = os.path.join(HERE, "tiktok")
 LOGIN, SENT, SETTINGS = (os.path.join(DIR, f) for f in ("login.enc", "sent.txt", "settings"))
-REDIRECT = "https://github.com/modernpinkpaper/Skinny-brand"   # must match the Redirect URI in the TikTok app
+REDIRECT = "https://modernpinkpaper.com/pages/tiktok-connect"   # must match the Redirect URI in the TikTok app (a verified domain)
 API = "https://open.tiktokapis.com/v2"
 SINGLE_MAX, CHUNK = 64 * 1024 * 1024, 10 * 1024 * 1024
 
@@ -55,7 +55,7 @@ def link():
     q = urllib.parse.urlencode({"client_key": os.environ["TIKTOK_CLIENT_KEY"], "scope": "user.info.basic,video.upload",
                                 "response_type": "code", "redirect_uri": REDIRECT, "state": "clipmaker"})
     print("\nOpen this link, log in to TikTok and press Authorize:\n\n  https://www.tiktok.com/v2/auth/authorize/?" + q +
-          "\n\nYou'll land on your GitHub repo page. Copy the WHOLE address from the address bar (it contains code=...)"
+          "\n\nYou'll land on the TikTok Connected page on modernpinkpaper.com. Copy the WHOLE address from the address bar (it contains code=...)"
           "\nand run the TikTok drafts workflow again with action 'connect', pasting it in the code box.\n")
 
 
