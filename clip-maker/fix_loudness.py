@@ -3,8 +3,7 @@
 
   python fix_loudness.py <release tag>
 
-For every video on that release page that hasn't been sent to TikTok yet (tiktok/sent.txt), it measures
-the voice. Anything quieter than -18 LUFS gets the voice evened out and normalized to about -14 LUFS, and
+For every video on that release page it measures the voice. Anything quieter than -18 LUFS gets the voice evened out and normalized to about -14 LUFS, and
 replaces the video on the release page under the same name. The picture is copied, not re-encoded.
 Videos that are already loud are left alone, so running it twice is harmless."""
 import json, os, re, subprocess, sys, tempfile
@@ -13,7 +12,6 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # Read LOUD from render.py's text (importing it would pull in the whole video toolchain).
 _src = open(os.path.join(HERE, "clipmaker", "render.py"), encoding="utf-8").read()
 LOUD = "".join(re.findall(r'"([^"]*)"', re.search(r"^LOUD = \((.*?)\)\s*$", _src, re.S | re.M).group(1)))
-SENT = os.path.join(HERE, "tiktok", "sent.txt")
 QUIET = -18.0   # anything below this is an old, quiet video
 
 
@@ -28,10 +26,9 @@ def loudness(path):
 
 
 def main(tag):
-    sent = set(open(SENT, encoding="utf-8").read().split()) if os.path.exists(SENT) else set()
     assets = json.loads(gh("release", "view", tag, "--json", "assets"))["assets"]
-    videos = sorted(a["name"] for a in assets if a["name"].endswith(".mp4") and f"{tag}/{a['name']}" not in sent)
-    print(f"{len(videos)} videos on {tag} not sent yet", flush=True)
+    videos = sorted(a["name"] for a in assets if a["name"].endswith(".mp4"))
+    print(f"{len(videos)} videos on {tag}", flush=True)
     tmp = tempfile.mkdtemp()
     fixed = skipped = 0
     for name in videos:

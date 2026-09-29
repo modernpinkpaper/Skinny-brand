@@ -1,7 +1,7 @@
 name: Fix loudness
 # Brings older finished videos (made before the loudness fix of Sep 28) up to normal TikTok loudness and
-# replaces them on their release page under the same name. Skips videos already sent to TikTok and ones
-# that are already loud, so it is safe to run again. Starts by itself when this file changes.
+# replaces them on their release page under the same name. Skips videos that are already loud, so it is
+# safe to run again. Starts by itself when this file changes.
 run-name: "Fix loudness: ${{ inputs.release || 'videos-life-changing-sentences' }}"
 on:
   push:
