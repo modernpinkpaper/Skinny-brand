@@ -1,0 +1,34 @@
+name: Fix loudness
+# Brings older finished videos (made before the loudness fix of Sep 28) up to normal TikTok loudness and
+# replaces them on their release page under the same name. Skips videos already sent to TikTok and ones
+# that are already loud, so it is safe to run again. Starts by itself when this file changes.
+run-name: "Fix loudness: ${{ inputs.release || 'videos-life-changing-sentences' }}"
+on:
+  push:
+    paths: [".github/workflows/fix-loudness.yml"]
+  workflow_dispatch:
+    inputs:
+      release:
+        description: "Release page to fix (its tag, e.g. videos-comforting-saying)"
+        required: true
+        default: videos-life-changing-sentences
+permissions:
+  contents: write
+concurrency:
+  group: tiktok-drafts   # never at the same time as the TikTok drafts sender, so a half-fixed video can't be sent
+  cancel-in-progress: false
+jobs:
+  fix:
+    if: github.event_name != 'push' || github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    defaults: { run: { working-directory: clip-maker } }
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 1 }
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Fix loudness
+        run: python3 fix_loudness.py "${{ inputs.release || 'videos-life-changing-sentences' }}"
