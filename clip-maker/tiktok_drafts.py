@@ -4,6 +4,7 @@
   python tiktok_drafts.py link              prints the TikTok login link (step 1 of connecting)
   python tiktok_drafts.py connect <code>    finishes connecting (paste the whole address you landed on)
   python tiktok_drafts.py send [N]          sends the next N videos (default: per_day in tiktok/settings)
+  python tiktok_drafts.py send-once         the same, unless today's videos were already sent (used by the schedule)
 
 Needs the repository secrets TIKTOK_CLIENT_KEY, TIKTOK_CLIENT_SECRET and TIKTOK_STORE_KEY. The TikTok login is
 kept encrypted in tiktok/login.enc (only TIKTOK_STORE_KEY can open it), so nothing readable is in the public repo."""
@@ -131,6 +132,13 @@ def upload(token, path):
     return pid
 
 
+def sent_today():
+    """True if today's batch already went out (the scheduled run fires three times a night; only the first sends)."""
+    try: body = json.loads(gh("release", "view", "tiktok-drafts-today", "--json", "body"))["body"]
+    except subprocess.CalledProcessError: return False
+    return bool(body) and f"({time.strftime('%A %B %d')})" in body.splitlines()[0]
+
+
 def send(n):
     s = settings()
     n = n or int(s["per_day"])
@@ -170,6 +178,7 @@ def send(n):
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "send"
-    if cmd == "link": link()
+    if cmd == "send-once" and sent_today(): print("Today's videos were already sent - nothing to do.")
+    elif cmd == "link": link()
     elif cmd == "connect": connect(sys.argv[2])
     else: send(int(sys.argv[2]) if len(sys.argv) > 2 and sys.argv[2].isdigit() else 0)

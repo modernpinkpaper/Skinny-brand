@@ -1,10 +1,14 @@
 name: TikTok drafts
-# Every morning: sends the next few finished videos (per_day in clip-maker/tiktok/settings) to your TikTok drafts,
+# Every night (three tries, first one wins): sends the next few finished videos (per_day in clip-maker/tiktok/settings) to your TikTok drafts,
 # oldest first, and puts their captions on the "Today's TikTok drafts" Releases page. Setup: clip-maker/tiktok/README.md
 on:
   schedule:
-    - cron: "23 11 * * *"   # 11:23 UTC = 7:23 am New York time (6:23 am in winter). Off the hour on purpose:
-                            # GitHub delays on-the-hour schedules the most, so drafts usually land around 8 am.
+    # GitHub starts scheduled runs late, sometimes by hours (Sep 27-29: 4 to 7 hours). So there are three tries
+    # a night, off the hour (on-the-hour schedules are delayed the most). The first one that runs sends the
+    # day's videos; the later ones see today is done and stop. Times are UTC: about 2, 4 and 6 am New York time.
+    - cron: "17 6 * * *"
+    - cron: "17 8 * * *"
+    - cron: "17 10 * * *"
   workflow_dispatch:
     inputs:
       action:
@@ -53,7 +57,7 @@ jobs:
           case "$ACTION" in
             link) python tiktok_drafts.py link ;;
             connect) python tiktok_drafts.py connect "$CODE" ;;
-            *) python tiktok_drafts.py send ;;
+            *) if [ "${{ github.event_name }}" = "schedule" ]; then python tiktok_drafts.py send-once; else python tiktok_drafts.py send; fi ;;
           esac
       - name: Remember what was sent (and the TikTok login)
         if: always() && env.SKIP != '1'
