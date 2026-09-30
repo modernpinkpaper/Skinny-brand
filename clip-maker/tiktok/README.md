@@ -1,6 +1,6 @@
 # Finished videos → your TikTok drafts, 3 a day
 
-Every morning at about 8 am (New York time), GitHub sends your next 3 finished videos to your **TikTok drafts**, oldest first. It never sends the same video twice. You then open TikTok whenever you like, paste the caption and press Post.
+Every morning around 8 am (New York time; GitHub starts the run at 7:23 and it is often a little late), GitHub sends your next 3 finished videos to your **TikTok drafts**, oldest first. It never sends the same video twice. You then open TikTok whenever you like, paste the caption and press Post.
 
 - **Captions:** TikTok doesn't let tools fill in a draft's caption. So every morning the Releases page **"Today's TikTok drafts"** shows the 3 captions, ready to copy.
 - **How many a day:** change `per_day` in `clip-maker/tiktok/settings`.

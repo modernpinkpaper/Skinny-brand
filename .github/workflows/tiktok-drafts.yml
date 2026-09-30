@@ -3,7 +3,8 @@ name: TikTok drafts
 # oldest first, and puts their captions on the "Today's TikTok drafts" Releases page. Setup: clip-maker/tiktok/README.md
 on:
   schedule:
-    - cron: "0 12 * * *"   # 12:00 UTC = 8:00 am New York time (7:00 am in winter)
+    - cron: "23 11 * * *"   # 11:23 UTC = 7:23 am New York time (6:23 am in winter). Off the hour on purpose:
+                            # GitHub delays on-the-hour schedules the most, so drafts usually land around 8 am.
   workflow_dispatch:
     inputs:
       action:
