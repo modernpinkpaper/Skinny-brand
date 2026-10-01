@@ -36,6 +36,7 @@ jobs:
     timeout-minutes: 60
     defaults: { run: { working-directory: clip-maker } }
     env:
+      TZ: America/New_York   # "today" means New York's day, not GitHub's (UTC)
       TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
       TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
       TIKTOK_STORE_KEY: ${{ secrets.TIKTOK_STORE_KEY }}

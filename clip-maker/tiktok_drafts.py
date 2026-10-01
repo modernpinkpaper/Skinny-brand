@@ -12,7 +12,7 @@ import os, sys, json, time, subprocess, tempfile, urllib.parse, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DIR = os.path.join(HERE, "tiktok")
-LOGIN, SENT, SETTINGS = (os.path.join(DIR, f) for f in ("login.enc", "sent.txt", "settings"))
+LOGIN, SENT, SETTINGS, LAST = (os.path.join(DIR, f) for f in ("login.enc", "sent.txt", "settings", "last-sent"))
 REDIRECT = "https://modernpinkpaper.com/pages/tiktok-connect"   # must match the Redirect URI in the TikTok app (a verified domain)
 API = "https://open.tiktokapis.com/v2"
 SINGLE_MAX, CHUNK = 64 * 1024 * 1024, 10 * 1024 * 1024
@@ -132,11 +132,14 @@ def upload(token, path):
     return pid
 
 
+def today():
+    """Today's date in New York (the workflow sets TZ), so a late-evening run still counts as that day."""
+    return time.strftime("%Y-%m-%d")
+
+
 def sent_today():
-    """True if today's batch already went out (the scheduled run fires three times a night; only the first sends)."""
-    try: body = json.loads(gh("release", "view", "tiktok-drafts-today", "--json", "body"))["body"]
-    except subprocess.CalledProcessError: return False
-    return bool(body) and f"({time.strftime('%A %B %d')})" in body.splitlines()[0]
+    """True if today's batch already went out (several triggers a day; only the first one sends)."""
+    return os.path.exists(LAST) and open(LAST, encoding="utf-8").read().strip() == today()
 
 
 def send(n):
@@ -150,6 +153,7 @@ def send(n):
         except subprocess.CalledProcessError: pass
         return []
     token, done, tmp = access_token(), [], tempfile.mkdtemp()
+    open(LAST, "w", encoding="utf-8").write(today())
     for tag, name, cap in todo:
         gh("release", "download", tag, "-p", name, "-D", tmp, "--clobber")
         caption = ""
