@@ -29,9 +29,10 @@ def from_google():
     ns = {"ht": "https://trends.google.com/trending/rss"}
     out = []
     for rank, it in enumerate(root.iter("item"), 1):
-        news = [n.findtext("ht:news_item_title", "", ns) for n in it.findall("ht:news_item", ns)]
+        news = [dict(title=n.findtext("ht:news_item_title", "", ns), url=n.findtext("ht:news_item_url", "", ns),
+                     source=n.findtext("ht:news_item_source", "", ns)) for n in it.findall("ht:news_item", ns)]
         out.append(dict(source="google", rank=rank, topic=it.findtext("title", "").strip(),
-                        traffic=it.findtext("ht:approx_traffic", "", ns), news=[n for n in news if n][:3]))
+                        traffic=it.findtext("ht:approx_traffic", "", ns), news=[n for n in news if n["title"]][:3]))
     return out
 
 
