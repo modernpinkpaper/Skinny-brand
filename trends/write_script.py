@@ -12,8 +12,8 @@ import tiktok_to_scripts as w   # the existing writer: ask(), check(), clean_scr
 
 TREND_RULES = """
 
-This script is about a trending topic. You get what is trending, background from the news, and an angle.
-- The background is for understanding only. Never copy its words, and never copy another creator's script.
+This script is about a trending topic. You get what is trending, what the most viewed TikTok posts about it show, and an angle.
+- The posts are for understanding only. Never copy their words, and never copy another creator's script.
   Write it fresh, in my voice, from the angle of how this connects to the viewer's own life and feelings.
 - Name no real person (no athletes, politicians, celebrities) and no drama about real people. Facts may be
   mentioned lightly, in plain words, only if they help the point. Never invent facts.
@@ -21,10 +21,11 @@ This script is about a trending topic. You get what is trending, background from
 
 
 def build_prompt(trend, ctx, angle):
-    facts = "\n".join(f"- {h}" for h in ctx.get("headlines", [])) or "(none)"
-    reading = "\n\n".join(f"[{e['source']}] {e['text']}" for e in ctx.get("excerpts", [])) or "(none)"
-    return (f"Trending topic: {trend}\nMy angle for the video: {angle}\n\nHeadlines:\n{facts}\n\n"
-            f"Background reading (research only, do not copy):\n{reading}")
+    posts = "\n\n".join(f"[{p['views']:,} views] caption: {p['caption'][:300]}" + (f"\ntranscript: {p['transcript'][:900]}" if p["transcript"] else "")
+                         for p in ctx.get("posts", [])) or "(none)"
+    return (f"Trending topic: {trend}\nMy angle for the video: {angle}\n\n"
+            f"The most viewed TikTok posts on this topic right now (research only: what people watch, feel and worry about. "
+            f"Do not copy any wording):\n{posts}")
 
 
 def write(trend, ctx, angle, model=w.WRITERS["best"]):
@@ -51,5 +52,8 @@ if __name__ == "__main__":
     data = json.load(open(os.path.join(HERE, f"{collector.today()}.json"), encoding="utf-8"))
     topic = sys.argv[1]
     pick = next(p for p in data["picked"] if p["topic"].lower() == topic.lower())
-    script, probs = write(topic, data.get("context", {}).get(pick["topic"], {}), pick.get("angle") or pick["why"])
+    import context
+    ctx = json.load(open(context.path_for(topic), encoding="utf-8")) if os.path.exists(context.path_for(topic)) else context.get(topic)
+    pick["hashtags"] = list(dict.fromkeys(pick.get("hashtags", []) + ctx.get("related_hashtags", [])))
+    script, probs = write(topic, ctx, pick.get("angle") or pick["why"])
     print("saved", save(topic, script, " ".join(pick.get("hashtags", []))), "| problems left:", probs or "none")

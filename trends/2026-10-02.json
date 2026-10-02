@@ -223,20 +223,5 @@
   "#cornell/#cornelluniversity": "school news, not a brand fit",
   "#patientzero": "Taylor Swift song launch: real person/celebrity, weak fit",
   "#tiktokfantasymoviecontest": "contest promo"
- },
- "context": {
-  "robot": {
-   "headlines": [
-    "Robot umpires flip 54% of challenged calls as Reds lead way",
-    "In October, every ABS challenge carries more weight — and teams are still adjusting",
-    "MLB ABS Challenge Success Rate for 2026 Season Revealed, Full Rankings for Yankees, Dodgers, More"
-   ],
-   "excerpts": [
-    {
-     "source": "Bleacher Report",
-     "text": "Per full-season data compiled by TapToChallenge.com (h/t Associated Press), the Cincinnati Reds were the most successful team with a net gain of 16.8 runs on challenges. The Cleveland Guardians were last at minus-13.4 net runs. Interestingly, eight of the 12 playoff teams ranked in the bottom half of MLB and had negative net runs totals. The New York Yankees finished 16th at minus-2.1; the two-time defending World Series champion Los Angeles Dodgers were 26th at minus-8.5. MLB Divisional Round Picks 🔮Bleacher Report6hSchlittler, Rice Make MLB History 👏Bleacher Report2dNew World Series Odds 🎰Bleacher Report3hOne of the primary culprits for the Dodgers' low rating was Shohei Ohtani with 5.5 projected runs lost in defensive challenges, just behind Seiya Suzuki of the Chicago Cubs for worst among all batters. Jose Altuve was the most successful hitter with 5.6 projected runs gained on challenges. Despite Cleveland's overall lack of success at challenges, Patrick Bailey ranked second among all catchers with 5.1 projected runs prevented. William Contreras of the Milwaukee Brewers was first at 5.2. Per Baseball Savant, fielders were much better at challenging calls with a 58 percent success rate on 5,792 attempts. Hitters were slightly below average at 49 percent on 4,765 challenges. Overall, there were 10,557 challenges that led to 5,686 overturned calls (54 percent success rate). The Yankees and New York Mets tied for the most challenges won among all batting teams with 96. The Atlanta Braves have both the fewest challenges won (50) and fewest total challenges (120) among batting teams. Among fielding teams, the Minnesota Twins led MLB with 157 wins out of 269 challenges. The challenge system has already made its presence felt in the postseason. Game 2 of the NL Wild Card se"
-    }
-   ]
-  }
  }
 }
