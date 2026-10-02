@@ -7,6 +7,7 @@ Sources (each trend is saved with its source and rank):
   google   Google Trends US daily trending searches (RSS feed)
   tiktok   TikTok Creative Center, public page, read with headless Chromium. NO login, no account.
            Logged out, TikTok shows only the top 3 hashtags per time window, so we read the 7-day and 30-day pages.
+  niche    your niche hashtags in trends/niche_tags.txt (relationships, mental health...): recent posts getting the most views
   manual   trends/my_searches.txt, terms you paste from Creator Search Insights (one per line)
 """
 import os, re, sys, json, datetime, urllib.request, xml.etree.ElementTree as ET
@@ -63,6 +64,24 @@ def from_tiktok():
     return out
 
 
+def from_niche(days=14, per_tag=5):
+    """Your niche hashtags (trends/niche_tags.txt): for each, the recent posts that are getting the most views.
+    The posts themselves go to trends/research/ (git-ignored); the trend list only keeps the numbers."""
+    import tiktok_posts
+    path = os.path.join(HERE, "niche_tags.txt")
+    tags = [l.strip().lstrip("#") for l in open(path, encoding="utf-8-sig")] if os.path.exists(path) else []
+    out, research = [], {}
+    for tag in [t for t in tags if t and not t.startswith("# ")]:
+        posts = tiktok_posts.top_posts(tag, per_tag, 2, max_age_days=days)
+        if not posts: continue
+        research[tag] = posts
+        out.append(dict(source="niche", topic="#" + tag, posts=len(posts), views=sum(p["views"] for p in posts), best=posts[0]["views"]))
+    for rank, t in enumerate(sorted(out, key=lambda t: -t["views"]), 1): t["rank"] = rank
+    os.makedirs(os.path.join(HERE, "research"), exist_ok=True)
+    json.dump(research, open(os.path.join(HERE, "research", f"{today()}-niche.json"), "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+    return out
+
+
 def from_manual():
     path = os.path.join(HERE, "my_searches.txt")
     if not os.path.exists(path): return []
@@ -79,7 +98,7 @@ def hashtag(term):
 
 def collect():
     items = []
-    for name, fn in (("google", from_google), ("tiktok", from_tiktok), ("manual", from_manual)):
+    for name, fn in (("niche", from_niche), ("google", from_google), ("tiktok", from_tiktok), ("manual", from_manual)):
         try:
             got = fn(); print(f"  {name}: {len(got)} trends")
             items += got

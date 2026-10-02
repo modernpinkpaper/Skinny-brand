@@ -16,6 +16,10 @@ why not. Set skip=true (and fit=0) for anything about tragedies, deaths, disaste
 politicians, elections, or real people's drama (feuds, breakups, scandals, lawsuits). Also skip sports scores and
 product or game launches unless there is a clear, kind angle for my audience.
 
+Topics tagged [niche] come with the recent most-viewed posts under them. For those, do not just return the hashtag:
+read the posts and name the specific THEME people are responding to (e.g. "keeping an ex's door open is not loyalty"),
+and use that as the topic. Several themes can come from one hashtag.
+
 For the ones that fit, "angle" is the original idea for a video (one sentence, my own take: how the trend connects
 to a feeling or habit my audience has). Never plan to copy another creator's script.
 "hashtags" are 4-6 caption hashtags that suit the angle (lowercase, no spaces)."""
@@ -33,6 +37,13 @@ class Scores(BaseModel):
     scores: List[Score]
 
 
+def niche_posts():
+    """What the niche hashtags' recent top posts say (research only, kept out of GitHub)."""
+    import collector
+    p = os.path.join(HERE, "research", f"{collector.today()}-niche.json")
+    return json.load(open(p, encoding="utf-8")) if os.path.exists(p) else {}
+
+
 def pick(items, keep=KEEP):
     import anthropic
     if not os.environ.get("ANTHROPIC_API_KEY"):
@@ -41,10 +52,13 @@ def pick(items, keep=KEEP):
     names = list(dict.fromkeys(i["topic"] for i in items))
     user = "Today's trends:\n" + "\n".join(
         f"- {t}  [{', '.join(sorted({i['source'] for i in items if i['topic'] == t}))}]" for t in names)
+    for tag, posts in niche_posts().items():
+        user += f"\n\n[niche] #{tag} recent top posts:\n" + "\n".join(
+            f"- ({p['views']:,} views) {p['caption'][:160]} | transcript: {p['transcript'][:350]}" for p in posts)
     r = anthropic.Anthropic(max_retries=8).messages.parse(
         model=MODEL, max_tokens=16000, output_format=Scores,
         system=[{"type": "text", "text": brand + "\n\n---\n\n" + RULES}],
         messages=[{"role": "user", "content": user}])
-    ok = sorted((s for s in r.parsed_output.scores if not s.skip and s.topic in names), key=lambda s: -s.fit)
+    ok = sorted((s for s in r.parsed_output.scores if not s.skip), key=lambda s: -s.fit)
     top = ok[:keep[1]]
     return dict(picked=[s.model_dump() for s in top], scored=[s.model_dump() for s in r.parsed_output.scores])

@@ -12,7 +12,7 @@ def vtt_to_text(vtt):
     return re.sub(r"\s+", " ", " ".join(lines)).strip()
 
 
-def top_posts(tag, n=8, scrolls=2):
+def top_posts(tag, n=8, scrolls=2, max_age_days=None):
     """The n most-viewed posts that load on the hashtag page, each with its transcript if TikTok has one."""
     from playwright.sync_api import sync_playwright
     tag = tag.lstrip("#"); items = []
@@ -32,7 +32,9 @@ def top_posts(tag, n=8, scrolls=2):
             for _ in range(scrolls): pg.mouse.wheel(0, 4000); pg.wait_for_timeout(2500)
         except Exception as e:
             print(f"  tiktok tag page failed: {str(e)[:100]}", file=sys.stderr)
+        import time
         seen, posts = set(), []
+        if max_age_days: items = [i for i in items if int(i.get("createTime") or 0) >= time.time() - max_age_days * 86400]
         for it in sorted(items, key=lambda i: -int((i.get("stats") or {}).get("playCount") or 0)):
             if it["id"] in seen: continue
             seen.add(it["id"]); st = it.get("stats") or {}
@@ -41,8 +43,9 @@ def top_posts(tag, n=8, scrolls=2):
             if subs:
                 try: text = vtt_to_text(ctx.request.get(subs[0]["Url"]).text())
                 except Exception: pass
+                if text.startswith("{"): text = ""   # some are raw data, not words
             posts.append(dict(caption=re.sub(r"\s+", " ", it.get("desc", "")).strip(), views=int(st.get("playCount") or 0),
-                              likes=int(st.get("diggCount") or 0), seconds=(it.get("video") or {}).get("duration"), transcript=text))
+                              likes=int(st.get("diggCount") or 0), age_days=round((__import__('time').time() - int(it.get('createTime') or 0)) / 86400, 1), seconds=(it.get("video") or {}).get("duration"), transcript=text))
             if len(posts) >= n: break
         b.close()
     return posts
