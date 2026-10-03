@@ -1,0 +1,14 @@
+# Your niche hashtags. The collector checks each one's public TikTok page every run and keeps the posts
+# that are recent AND getting lots of views. Add or remove lines any time (one hashtag per line, # is optional).
+relationshipadvice
+toxicrelationship
+situationship
+attachmentstyle
+healingjourney
+mentalhealth
+anxiety
+selflove
+innerchild
+burnout
+boundaries
+datingadvice

@@ -1,0 +1,5 @@
+# Paste TikTok search terms here from Creator Search Insights (in the TikTok app), one per line.
+# Lines starting with # are ignored. Hashtags (#like-this) and plain words both work.
+# Example:
+#   why am i always tired
+#   #selflove
