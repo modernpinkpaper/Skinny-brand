@@ -1,6 +1,14 @@
 # Style guide: @connectingherdots (Tali)
 
-Built from 7 of her videos (18 to 62 seconds, 35 to 130 words each). Use the **shape**, not her lines.
+Built from her whole account (370 transcripts in `research/transcripts-connectingherdots/`). Use the **shape**, not her lines.
+
+## What the numbers say
+- **"I" mode wins.** 31 of her top 50 videos are "I" mode (about 62%). In her weakest 150, it is 101 of 150 (67%), so "I" mode alone is not the secret. The top ones are also the **shortest and flattest**.
+- Her two biggest videos (1.5M and 1.1M views) are 36 and 90 words. Median video: 72 words.
+- Her top openers: "I am...", "I don't...", "I do not...", "I live...", "I move...".
+- Her "you" videos that do well are one flat order or one hard truth, not a list ("You know immediately when someone doesn't like you. Don't play games with yourself. Get out of there ASAP.").
+- Rule: **shorter and flatter beats longer and clever.** Aim for 40 to 90 words.
+
 
 ## What she sounds like
 - Calm, sure, unhurried. She never explains, argues or hedges. She states it, like it is already true.
