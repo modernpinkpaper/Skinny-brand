@@ -82,7 +82,7 @@ def main():
                          lambda p, m: say(50 + p * 0.5, m), audio_parts=voice["result"])
     picker.remember_use([c[0]["full"] for c in cands if c], name)   # so the next videos pick other clips
     from clipmaker.sources import archive_credit   # where every public-domain film clip came from
-    credits = sorted({archive_credit(c["full"]) for c in cands if c and archive_credit(c["full"])})
+    credits = sorted({archive_credit(c[0]["full"]) for c in cands if c and archive_credit(c[0]["full"])})
     json.dump(dict(name=name, lines=len(lines), settings=o, seconds=round(time.time() - t0),
                    archive_films=[dict(title=t, link=u) for t, u in credits]),
               open(os.path.join(proj, "info.json"), "w"), indent=1)
