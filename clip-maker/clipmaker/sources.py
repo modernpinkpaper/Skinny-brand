@@ -219,6 +219,47 @@ def archive(q, n, key=None):
         print("archive film skipped:", ident, e, flush=True); return []
 
 
+# ---- Couture illustrations: each drawing in assets/illustrations/ becomes several short animated clips ----
+# A slow zoom and pan over a different part of the drawing (hat, face, gloves, gown, hem) = one clip, so a few
+# drawings give many different clips. Kept in the same cache folder as the film scenes (names start with "illus-").
+ILLUS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "assets", "illustrations")
+ILLUS_CROPS = [(0.10, 0.2), (0.28, 0.8), (0.46, 0.3), (0.64, 0.7), (0.82, 0.25), (0.95, 0.75)]   # (how far down, pan)
+ILLUS_SECONDS = 6
+
+
+def illustration(q, n, key=None):
+    """Animated clips from the couture drawings in assets/illustrations/."""
+    d, ff, out = _archive_dir(), _ffmpeg(), []
+    if not os.path.isdir(ILLUS_DIR): return []
+    try: idx = json.load(open(os.path.join(d, "index.json")))
+    except Exception: idx = {}
+    for fn in sorted(os.listdir(ILLUS_DIR)):
+        if not fn.lower().endswith((".png", ".jpg", ".jpeg")): continue
+        stem = re.sub(r"[^A-Za-z0-9]+", "-", os.path.splitext(fn)[0]).strip("-").lower()
+        ident = "illus-" + stem
+        src = os.path.join(ILLUS_DIR, fn)
+        for k, (down, pan) in enumerate(ILLUS_CROPS):
+            f = os.path.join(d, f"{ident}_{k}.mp4")
+            if not os.path.exists(f):
+                # take a 4:3 band at the chosen height, then zoom slowly and drift sideways inside it
+                frames = ILLUS_SECONDS * 25
+                vf = (f"scale=1888:-2,crop=1888:1416:0:'(ih-1416)*{down}',"
+                      f"zoompan=z='1+0.22*on/{frames}':x='(iw-iw/zoom)*({pan}+0.25*on/{frames})':y='(ih-ih/zoom)*0.5':"
+                      f"d={frames}:s=960x720:fps=25,format=yuv420p")
+                subprocess.run([ff, "-loglevel", "error", "-y", "-loop", "1", "-i", src, "-vf", vf, "-t", str(ILLUS_SECONDS),
+                                "-c:v", "libx264", "-crf", "20", "-preset", "veryfast", f], capture_output=True)
+            if os.path.exists(f) and os.path.getsize(f) > 5000:
+                out.append(dict(full=f"archive://{ident}/{k}", small=f"archive://{ident}/{k}",
+                                desc="couture fashion illustration of an elegant woman", source="illustration"))
+        idx[ident] = dict(title=f"Couture illustration ({stem})")
+    json.dump(idx, open(os.path.join(d, "index.json"), "w"))
+    return out
+
+
+# which searches each source runs (the picker uses its own list instead of the script's words)
+SOURCE_QUERIES = {"archive": ARCHIVE_QUERIES, "illustration": ["illus:all"]}
+
+
 # id: (name shown in the app, search function, needs a key, where to get the key)
 SOURCES = {
     "tenor": ("Tenor (GIF clips)", tenor, False, ""),
@@ -226,4 +267,5 @@ SOURCES = {
     "pexels": ("Pexels (real video)", pexels, True, "https://www.pexels.com/api/"),
     "pixabay": ("Pixabay (real video)", pixabay, True, "https://pixabay.com/api/docs/"),
     "archive": ("Internet Archive (public-domain films)", archive, False, ""),
+    "illustration": ("Couture illustrations (assets/illustrations)", illustration, False, ""),
 }

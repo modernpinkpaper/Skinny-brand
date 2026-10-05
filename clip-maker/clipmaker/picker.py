@@ -189,18 +189,18 @@ def _live_clips(lines, sources, keys, kind, look, progress, themes=True):
         k = keywords(l)
         if k:
             for s in suffix: queries.add(k + s)
-    from .sources import ARCHIVE_QUERIES
-    # the film archive is searched by what the footage shows (offices, streets, rooms), not by the script's words
-    jobs = [(src, q) for src in sources for q in (ARCHIVE_QUERIES if src == "archive" else sorted(queries))]
+    from .sources import SOURCE_QUERIES
+    # the film archive and the drawings use their own lists (what the footage shows), not the script's words
+    jobs = [(src, q) for src in sources for q in SOURCE_QUERIES.get(src, sorted(queries))]
 
     searches = _Json("searches.json")   # search results are remembered for SEARCH_DAYS days
     def run(job):
         src, q = job; key = src + "|" + q; hit = searches.d.get(key)
-        if src == "archive": hit = None   # the film scenes are cached on disk by sources.archive itself
+        if src in SOURCE_QUERIES: hit = None   # film scenes and drawings are cached on disk by their own source
         if hit and time.time() - hit["t"] < SEARCH_DAYS * 86400: return hit["r"]
         try: r = SOURCES[src][1](q, PER_SEARCH, keys.get(src))
         except Exception: return []
-        if r and src != "archive": searches.d[key] = dict(t=time.time(), r=r)
+        if r and src not in SOURCE_QUERIES: searches.d[key] = dict(t=time.time(), r=r)
         return r
     progress(2, f"searching {len(sources)} website(s): {len(jobs)} searches")
     cands = {}

@@ -6,7 +6,7 @@ Used by the "Make video" workflow on GitHub when a file is added to clip-maker/s
 The file is your script. Settings are optional; put them at the top and end them with a line of three dashes:
     look: moody            (moody, bright, vintage, black and white, pastel, none)
     clips: animated        (animated, real, both)
-    sources: archive       (tenor, archive; archive = public-domain films from the Internet Archive; default tenor)
+    sources: archive       (tenor, archive, illustration; archive = public-domain films, illustration = couture drawings; default tenor)
     speed: a bit slower    (normal, a bit slower, slower)
     end: send this to someone who needs to hear it     (end: none = no end screen)
     tags: #healing #selflove
@@ -45,7 +45,7 @@ def read_file(path):
             elif k in ("tags", "hashtags"):
                 opts["tags"] = v
             elif k in ("sources", "source"):
-                found = [w for w in ("tenor", "archive") if w in v.lower()]
+                found = [w for w in ("tenor", "archive", "illustration") if w in v.lower()]
                 if found: opts["sources"] = found
             elif k == "live":
                 opts["live"] = v.lower() in ("yes", "true", "on", "1")
