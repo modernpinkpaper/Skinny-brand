@@ -57,15 +57,26 @@ def pixabay(q, n, key):
 
 
 # ---- Internet Archive: public-domain films, cut into short silent scenes ----
-# Only films whose own license says public domain (or CC0) are used. Each film is downloaded once (small
-# version), cut at its scene changes into 3-8 second pieces with no sound, and kept in the cache folder.
+# Only films that are public domain: the film's own license says public domain / CC0, or it is a silent-era film
+# from 1930 or earlier (US public domain by age). The films are a hand-picked list (elegant, high-society,
+# glamour, grooming, "becoming her best self"), not free searches. A film is never downloaded whole: ffmpeg jumps to
+# points spread through it over the network and cuts a few short silent scenes, which are kept in the cache folder.
 # A clip is named "archive://<film id>/<n>" and lives in DATA/archive/<film id>_<n>.mp4.
-ARCHIVE_COLLECTIONS = "prelinger OR fedflix"
-ARCHIVE_PER_FILM, ARCHIVE_MAX_MB, ARCHIVE_FILMS_PER_QUERY = 6, 90, 3
-ARCHIVE_QUERIES = ["woman office", "women at work", "business meeting", "city street", "walking", "telephone",
-                   "mirror", "family home", "dinner party", "manners etiquette", "train station", "crowd",
-                   "clock time", "speaking audience", "young woman", "man at desk", "dancing party", "fashion",
-                   "shopping store", "classroom students"]
+ARCHIVE_SCENES = 10   # scenes cut from each film
+ARCHIVE_FILMS = [
+    # 1950s colour: glamour, fashion, grooming, manners
+    "Designfo1956", "American1958", "American1958_2", "American1958_3", "Frigidai1957", "Technico1949",
+    "TouchofM1961", "HowtoBeW1949", "BodyCare1948", "MuchAdoA1950", "GoodTabl1951", "CindyGoe1955",
+    "JuniorPr1946", "UnionSqu1950", "ArrangingThe", "SocialCl1957", "Heritage1963", "Wordtoth1955",
+    # silent era: society dramas, ballgowns, mansions, Cinderella stories
+    "Why_Change_Your_Wife", "MaleAndFemale_201704", "ForBetterForWorseForYT", "silent-zaza", "silent-beyond-the-rocks",
+    "Manslaughter_1922", "ThePoorLittleRichGirl", "LadyWindermeresFan", "silent-forbidden-paradise",
+    "silent-a-woman-of-the-world", "silent-madame-dubarry", "silent-black-oxen", "silent-parisian-love", "The_Cheat",
+    "1921Camille", "silent-a-kiss-for-cinderella", "silent-the-lady",
+    "my-movie_20220215", "the-mysterious-lady-1928", "a-woman-of-affairs-1928",
+    "silent-the-waiters-ball", 
+]
+ARCHIVE_QUERIES = ["id:" + i for i in dict.fromkeys(ARCHIVE_FILMS)]
 
 
 def _archive_dir():
@@ -90,88 +101,122 @@ def archive_credit(full):
 
 
 def _ffmpeg():
+    """The computer's own ffmpeg when there is one (best at reading from the internet), else the bundled one."""
+    found = shutil.which("ffmpeg")
+    if found: return found
     try:
         import imageio_ffmpeg; return imageio_ffmpeg.get_ffmpeg_exe()
     except Exception:
-        return shutil.which("ffmpeg") or "ffmpeg"
+        return "ffmpeg"
 
 
-def _cut_film(path, ident):
-    """Cuts a film into short silent scenes. Returns how many pieces were made."""
-    ff, d = _ffmpeg(), _archive_dir()
-    r = subprocess.run([ff, "-hide_banner", "-i", path, "-t", "1500", "-vf", "scale=320:-2,select='gt(scene,0.3)',showinfo",
-                        "-an", "-f", "null", "-"], capture_output=True, text=True).stderr
-    cuts = [float(x) for x in re.findall(r"pts_time:([\d.]+)", r)]
+def _is_public_domain(meta):
+    """The film's own license says public domain / CC0, or it is a silent-era film from 1930 or earlier."""
+    lic = str(meta.get("licenseurl") or "").lower()
+    if "publicdomain" in lic or "/zero/" in lic: return True
+    coll = meta.get("collection") or []
+    coll = [coll] if isinstance(coll, str) else coll
+    m = re.search(r"\b(1[89]\d\d)\b", str(meta.get("year") or meta.get("date") or ""))
+    return "silent_films" in coll and bool(m) and int(m.group(1)) <= 1930
+
+
+def _longest_piece(f):
+    """Start and length of the longest scene inside a short clip (cuts the film's own scene changes out)."""
+    ff = _ffmpeg()
+    r = subprocess.run([ff, "-hide_banner", "-i", f, "-vf", "select='gt(scene,0.3)',showinfo", "-an", "-f", "null", "-"],
+                       capture_output=True, text=True).stderr
     dur = re.findall(r"Duration: (\d+):(\d+):([\d.]+)", r)
-    total = (int(dur[0][0]) * 3600 + int(dur[0][1]) * 60 + float(dur[0][2])) if dur else (cuts[-1] if cuts else 0)
-    total = min(total, 1500)
-    if total < 20: return 0
-    edges = [0.0] + cuts + [total]
-    segs = []
-    for a, b in zip(edges, edges[1:]):
-        a2 = a + 0.4   # skip the flash right after a cut
-        if b - a2 >= 3.0 and total * 0.07 < a2 < total * 0.93: segs.append((a2, min(b - a2 - 0.2, 8.0)))
-    if not segs: return 0
-    m = min(ARCHIVE_PER_FILM, len(segs))
-    pick = [segs[round(k * (len(segs) - 1) / max(m - 1, 1))] for k in range(m)] if m > 1 else segs[:1]
-    pick = [x for i, x in enumerate(pick) if x not in pick[:i]]
-    made = 0
-    for n, (start, length) in enumerate(pick):
-        out = os.path.join(d, f"{ident}_{n}.mp4")
-        subprocess.run([ff, "-loglevel", "error", "-y", "-ss", f"{start:.2f}", "-t", f"{length:.2f}", "-i", path, "-an",
+    total = (int(dur[0][0]) * 3600 + int(dur[0][1]) * 60 + float(dur[0][2])) if dur else 0
+    edges = [0.0] + [float(x) for x in re.findall(r"pts_time:([\d.]+)", r)] + [total]
+    best = max(((b - a, a) for a, b in zip(edges, edges[1:])), default=(0, 0))
+    return best[1], best[0], total
+
+
+def _cut_scenes(src, ident, length, netopt):
+    """Cuts ARCHIVE_SCENES short silent scenes out of a film (a web link or a file). Returns how many were made."""
+    ff, d, made = _ffmpeg(), _archive_dir(), 0
+    if length <= 30: return 0
+    lo, hi = length * 0.06, length * 0.92 - 8   # skip titles and credits
+    for n in range(ARCHIVE_SCENES):
+        t0 = lo + (hi - lo) * n / max(ARCHIVE_SCENES - 1, 1)
+        raw, out = os.path.join(d, f"{ident}_{n}.raw.mp4"), os.path.join(d, f"{ident}_{n}.mp4")
+        if os.path.exists(out): made += 1; continue
+        subprocess.run([ff, "-loglevel", "error", "-y"] + netopt + ["-ss", f"{t0:.1f}", "-i", src, "-t", "8", "-an",
                         "-vf", "scale=720:-2:force_original_aspect_ratio=decrease,scale=trunc(iw/2)*2:trunc(ih/2)*2",
-                        "-c:v", "libx264", "-crf", "27", "-preset", "veryfast", "-pix_fmt", "yuv420p", out],
+                        "-c:v", "libx264", "-crf", "27", "-preset", "veryfast", "-pix_fmt", "yuv420p", raw],
                        capture_output=True)
-        if os.path.exists(out) and os.path.getsize(out) > 5000: made += 1
-        elif os.path.exists(out): os.remove(out)
+        if not os.path.exists(raw) or os.path.getsize(raw) < 5000: continue
+        a, piece, _ = _longest_piece(raw)
+        if piece >= 2.8:   # one scene only, without the film's own cuts
+            subprocess.run([ff, "-loglevel", "error", "-y", "-ss", f"{a + 0.15:.2f}", "-t", f"{min(piece - 0.3, 8):.2f}",
+                            "-i", raw, "-an", "-c:v", "libx264", "-crf", "27", "-preset", "veryfast", "-pix_fmt", "yuv420p", out],
+                           capture_output=True)
+            if os.path.exists(out) and os.path.getsize(out) > 5000: made += 1
+            elif os.path.exists(out): os.remove(out)
+        os.remove(raw)
     return made
 
 
-def _archive_film(doc):
-    """Makes the clips of one film (once; remembered on disk). Returns the clip dicts."""
-    ident, title = doc["identifier"], doc.get("title") or doc["identifier"]
-    if isinstance(title, list): title = title[0]
+def _archive_film(ident):
+    """Makes the scenes of one film (once; remembered on disk). Returns the clip dicts."""
     d = _archive_dir(); done = os.path.join(d, ident + ".done")
+    title = ident
     if not os.path.exists(done):
         meta = S.get(f"https://archive.org/metadata/{ident}", timeout=40).json()
+        md = meta.get("metadata", {})
+        title = md.get("title") or ident
+        if isinstance(title, list): title = title[0]
+        if not _is_public_domain(md):
+            print("archive film skipped (not clearly public domain):", ident, flush=True)
+            open(done, "w").write("0"); return []
         files = [f for f in meta.get("files", []) if f.get("name", "").lower().endswith(".mp4")
-                 and 1_000_000 < int(f.get("size") or 0) < ARCHIVE_MAX_MB * 1_000_000]
-        if not files: open(done, "w").write("0"); return []
+                 and f.get("source") == "derivative" and int(f.get("size") or 0) > 200_000]
+        if not files:
+            open(done, "w").write("0"); return []
         pref = lambda f: (0 if "512" in f.get("format", "") else 1, int(f["size"]))   # the small 512Kb version first
         f = sorted(files, key=pref)[0]
-        tmp = os.path.join(d, ident + ".src.mp4")
-        with S.get(f"https://archive.org/download/{ident}/" + urllib.parse.quote(f["name"]), stream=True, timeout=90) as r:
-            if r.status_code != 200: return []
-            with open(tmp, "wb") as o:
-                for chunk in r.iter_content(1 << 20): o.write(chunk)
-        n = _cut_film(tmp, ident); os.remove(tmp)
+        url = f"https://archive.org/download/{ident}/" + urllib.parse.quote(f["name"])
+        ff = _ffmpeg()
+        ca = os.environ.get("REQUESTS_CA_BUNDLE") or os.environ.get("SSL_CERT_FILE")
+        netopt = (["-ca_file", ca] if ca else [])
+        try: length = float(f.get("length") or md.get("runtime") or 0)
+        except ValueError: length = 0
+        if not length:
+            info = subprocess.run([ff, "-hide_banner"] + netopt + ["-i", url], capture_output=True, text=True).stderr
+            t = re.findall(r"Duration: (\d+):(\d+):([\d.]+)", info)
+            length = (int(t[0][0]) * 3600 + int(t[0][1]) * 60 + float(t[0][2])) if t else 0
+        made = _cut_scenes(src=url, ident=ident, length=length, netopt=netopt)
+        if made == 0 and int(f["size"]) <= 150_000_000:   # reading over the network did not work: download the file instead
+            tmp = os.path.join(d, ident + ".src.mp4")
+            try:
+                with S.get(url, stream=True, timeout=90) as r:
+                    if r.status_code == 200:
+                        with open(tmp, "wb") as o:
+                            for chunk in r.iter_content(1 << 20): o.write(chunk)
+                        made = _cut_scenes(src=tmp, ident=ident, length=length, netopt=[])
+            finally:
+                if os.path.exists(tmp): os.remove(tmp)
         try: idx = json.load(open(os.path.join(d, "index.json")))
         except Exception: idx = {}
         idx[ident] = dict(title=title); json.dump(idx, open(os.path.join(d, "index.json"), "w"))
-        open(done, "w").write(str(n))
-    desc = " ".join(str(x) for x in [title, " ".join(doc["subject"]) if isinstance(doc.get("subject"), list) else doc.get("subject", "")])
+        if made: open(done, "w").write(str(made))   # nothing made = try again next time (e.g. the network failed)
+    else:
+        try: title = json.load(open(os.path.join(d, "index.json"))).get(ident, {}).get("title", ident)
+        except Exception: pass
     out = []
-    for n in range(ARCHIVE_PER_FILM):
-        f = os.path.join(d, f"{ident}_{n}.mp4")
-        if os.path.exists(f):
-            out.append(dict(full=f"archive://{ident}/{n}", small=f"archive://{ident}/{n}", desc=desc, source="archive"))
+    for n in range(ARCHIVE_SCENES):
+        if os.path.exists(os.path.join(d, f"{ident}_{n}.mp4")):
+            out.append(dict(full=f"archive://{ident}/{n}", small=f"archive://{ident}/{n}", desc=str(title), source="archive"))
     return out
 
 
 def archive(q, n, key=None):
-    """Public-domain films from the Internet Archive (Prelinger and FedFlix collections), as short silent scenes."""
-    r = S.get("https://archive.org/advancedsearch.php", timeout=40, params={
-        "q": f"({q}) AND collection:({ARCHIVE_COLLECTIONS}) AND mediatype:movies", "rows": 12, "output": "json",
-        "fl[]": ["identifier", "title", "licenseurl", "subject", "downloads"], "sort[]": "downloads desc"}).json()
-    out, films = [], 0
-    for doc in r.get("response", {}).get("docs", []):
-        lic = (doc.get("licenseurl") or "").lower()
-        if "publicdomain" not in lic and "/zero/" not in lic: continue   # only films that say public domain / CC0
-        try: out += _archive_film(doc)
-        except Exception as e: print("archive film skipped:", doc.get("identifier"), e, flush=True)
-        films += 1
-        if films >= ARCHIVE_FILMS_PER_QUERY or len(out) >= n: break
-    return out
+    """Public-domain film scenes from the Internet Archive. q is "id:<film id>" from the hand-picked list."""
+    ident = q[3:] if q.startswith("id:") else None
+    if not ident: return []
+    try: return _archive_film(ident)
+    except Exception as e:
+        print("archive film skipped:", ident, e, flush=True); return []
 
 
 # id: (name shown in the app, search function, needs a key, where to get the key)

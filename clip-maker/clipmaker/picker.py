@@ -30,6 +30,8 @@ RISKY = re.compile(r"\b(words?|writing|written|text|says|saying|letters?|caption
                    r"lingerie|underwear|sexy|blood|gun|knife)\b", re.I)
 USED = os.path.join(CACHE, "used_clips.json")
 FEATS = os.path.join(CACHE, "feats"); os.makedirs(FEATS, exist_ok=True)
+SKIMPY = ["a photo of a person in underwear, lingerie or a swimsuit with bare skin showing", "a nude or topless person"]
+CLOTHED = ["a person fully dressed in clothes", "a room, a street or a landscape"]
 CARTOON = ["an anime screenshot", "a frame from an animated cartoon", "a hand-drawn illustration"]
 REAL = ["a photo of a real person", "a frame from a live-action movie", "a real photograph of people"]
 STOP = set("""a an the and or but so if then than that this those these there their they them you your youre i me my
@@ -324,10 +326,12 @@ def find_clips(lines, sources, keys, kind, look, progress, live=False):
         T = txt_emb(pos + neg); p = (100 * E @ T.T).softmax(-1)
         return p[:, :len(pos)].sum(-1).numpy()
     cartoon = prob(CARTOON, REAL)
+    skimpy = prob(SKIMPY, CLOTHED)   # no underwear / bare-skin clips (TikTok may flag them)
     mood = prob(lk["good"], lk["bad"]) if lk["good"] else np.zeros(len(items))
     keep = []
     for k, c in enumerate(items):
         if RISKY.search(c.get("desc") or ""): continue   # words or nudity on it
+        if skimpy[k] > 0.55: continue
         if kind == "animated" and cartoon[k] < 0.75: continue
         if kind == "real" and cartoon[k] > 0.3: continue
         if c.get("white", 0) > 0.35: continue

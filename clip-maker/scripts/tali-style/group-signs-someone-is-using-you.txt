@@ -1,4 +1,4 @@
-look: black and white
+look: none
 clips: real
 sources: archive
 speed: a bit slower
