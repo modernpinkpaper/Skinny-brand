@@ -8,6 +8,8 @@ The file is your script. Settings are optional; put them at the top and end them
     clips: animated        (animated, real, both)
     sources: archive       (tenor, archive, illustration; archive = public-domain films, illustration = couture drawings; default tenor)
     speed: a bit slower    (normal, a bit slower, slower)
+    length: natural        (61 = hold the end screen until 61 s for TikTok pay, the default; natural = as long as the script)
+    bars: f3ead9           (colour of the bars above and below the picture; default near-black)
     voice: guy             (guy = the sample voice; posh = the model's own calm, poised built-in voice)
     end: send this to someone who needs to hear it     (end: none = no end screen)
     tags: #healing #selflove
@@ -21,7 +23,7 @@ LOOK_WORDS = {"moody": "moody", "muted": "moody", "dark": "moody", "bright": "br
               "black": "bw", "bw": "bw", "b&w": "bw", "white": "bw", "pastel": "pastel", "dreamy": "pastel",
               "soft": "pastel", "none": "none", "any": "none", "no": "none"}
 DEFAULTS = dict(look="moody", clips="animated", speed=1.0, end="send this to someone who needs to hear it",
-                tags="#healing #selflove #relatable #fyp", live=False, sources=["tenor"], voice="guy")
+                tags="#healing #selflove #relatable #fyp", live=False, sources=["tenor"], voice="guy", length="61", bars="080808")
 
 
 def read_file(path):
@@ -45,6 +47,10 @@ def read_file(path):
                 opts["end"] = "" if v.lower() in ("none", "no", "off", "") else v
             elif k in ("tags", "hashtags"):
                 opts["tags"] = v
+            elif k == "length":
+                opts["length"] = "natural" if any(w in v.lower() for w in ("natural", "short", "none", "no")) else "61"
+            elif k == "bars":
+                m = re.search(r"#?([0-9a-fA-F]{6})", v); opts["bars"] = m.group(1) if m else "080808"
             elif k == "voice":
                 opts["voice"] = "posh" if any(w in v.lower() for w in ("posh", "lady", "default", "female", "woman", "rich")) else "guy"
             elif k in ("sources", "source"):
@@ -70,6 +76,9 @@ def main():
     t0 = time.time()
     library.update()
     import torch, torchaudio, transformers, chatterbox.tts, faster_whisper, rapidocr_onnxruntime  # noqa
+    from clipmaker import render as _r
+    if o["length"] == "natural": _r.MIN_SECONDS = 0.0   # no padding to 61 s: the video is as long as the script
+    _r.BARS = o["bars"]
     ref = VOICES["guy"][1]
     if o["voice"] == "posh":   # the model's own built-in voice, slower and more poised than the guy's
         from clipmaker import voice as _v

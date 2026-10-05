@@ -12,7 +12,8 @@ from .motion import cuts
 FF = imageio_ffmpeg.get_ffmpeg_exe()
 W, H, FPS, SR = 1080, 1920, 30, voice.SR
 END_HOLD = 2.5
-MIN_SECONDS = 61.0   # TikTok's Creator Rewards only pays for videos of 60 seconds or more
+BARS = "080808"   # colour of the bars above/below the picture ("bars:" setting)
+MIN_SECONDS = 61.0   # (set to 0 by "length: natural") TikTok's Creator Rewards only pays for videos of 60 seconds or more
 NOWIN = 0x08000000 if os.name == "nt" else 0   # no black console windows popping up on Windows
 
 
@@ -162,7 +163,7 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
             for k, (f, spd, take, loop) in enumerate(plan):
                 sub = os.path.join(tmp, f"b{i:02d}_{k}.mp4"); subs.append(sub)
                 vf = (f"{grade}setpts=PTS/{spd:.4f},scale={BOX_W}:{BOX_H}:force_original_aspect_ratio=increase,"
-                      f"crop={BOX_W}:{BOX_H},pad={W}:{H}:(ow-iw)/2:(oh-ih)/2-60:color=0x080808,"
+                      f"crop={BOX_W}:{BOX_H},pad={W}:{H}:(ow-iw)/2:(oh-ih)/2-60:color=0x{BARS},"
                       f"fps={FPS},setsar=1,format=yuv420p")
                 _run([FF, "-loglevel", "error", "-y"] + (["-stream_loop", "-1"] if loop else []) + ["-i", f,
                       "-t", f"{take:.3f}", "-vf", vf, "-an", "-c:v", "libx264", "-crf", "18", "-r", str(FPS), sub])
@@ -178,9 +179,9 @@ def build(project, name, lines, breaks, clips, end, look, voice_ref, tags, progr
         audio = list(pieces)
         if end_audio is not None:
             a = np.concatenate([np.zeros(int(0.5 * SR), np.float32), end_audio])   # a breath before the end line
-            end_dur = max(len(a) / SR + END_HOLD, MIN_SECONDS - body)   # the end screen stays up until 61 s
+            end_dur = max(len(a) / SR + END_HOLD, MIN_SECONDS - body)  # MIN_SECONDS 0 = a short end screen only   # the end screen stays up until 61 s
             audio.append(np.concatenate([a, np.zeros(int(round(end_dur * SR)) - len(a), np.float32)]))
-            bg = os.path.join(tmp, "bg.png"); Image.new("RGB", (W, H), (22, 22, 22)).save(bg)
+            bg = os.path.join(tmp, "bg.png"); Image.new("RGB", (W, H), tuple(int(BARS[i:i + 2], 16) for i in (0, 2, 4)) if BARS != "080808" else (22, 22, 22)).save(bg)
             ov = _typed(end, sans, 900, len(a) / SR * 0.85, end_dur, os.path.join(tmp, "end"), shadow=False, width=22)
             out = os.path.join(tmp, "p_end.mp4")
             _run([FF, "-loglevel", "error", "-y", "-loop", "1", "-i", bg, "-f", "concat", "-safe", "0", "-i", ov,

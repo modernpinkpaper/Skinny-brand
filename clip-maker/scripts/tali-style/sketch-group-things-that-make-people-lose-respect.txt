@@ -3,7 +3,9 @@ clips: both
 sources: illustration
 speed: slower
 voice: posh
-end: save this for later
+length: natural
+bars: f3ead9
+end: none
 tags: #selfrespect #mindset #fyp
 ---
 These things make people lose respect for you.

@@ -3,7 +3,9 @@ clips: both
 sources: illustration
 speed: slower
 voice: posh
-end: say it out loud once today
+length: natural
+bars: f3ead9
+end: none
 tags: #selfrespect #privacy #fyp
 ---
 I do not explain myself.
