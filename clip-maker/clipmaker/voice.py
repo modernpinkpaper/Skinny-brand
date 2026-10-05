@@ -24,9 +24,19 @@ def speak(text, ref, speed=1.0):
         _tts = ChatterboxTTS.from_pretrained(device=device())
     kw = dict(exaggeration=STYLE["exaggeration"], cfg_weight=STYLE["cfg_weight"])
     if ref: kw["audio_prompt_path"] = ref   # no sample = the model's own built-in voice (not a copy of anyone)
-    w = _tts.generate(text, **kw)
-    if _tts.sr != SR: w = torchaudio.functional.resample(w, _tts.sr, SR)
-    a = w.squeeze(0).cpu().numpy().astype(np.float32)
+    # a calm, low-pressure voice setting can make the model ramble on past the end of a short phrase, so the
+    # audio is checked against how long the words should take: too long = try again with the normal settings
+    words = max(len(text.split()), 1)
+    longest = 1.8 + 0.85 * words   # seconds; a normal read of the words takes about 0.4 s per word
+    for attempt in range(4):
+        w = _tts.generate(text, **kw)
+        if _tts.sr != SR: w = torchaudio.functional.resample(w, _tts.sr, SR)
+        a = w.squeeze(0).cpu().numpy().astype(np.float32)
+        if len(a) / SR <= longest: break
+        print(f"voice ran long ({len(a) / SR:.1f}s for {words} words), trying again", flush=True)
+        kw = dict(kw, exaggeration=0.5, cfg_weight=0.5)   # the normal settings
+    else:
+        a = a[:int(longest * SR)]   # last resort: cut it off rather than let it run on
     return stretch(a, speed) if abs(speed - 1.0) > 0.01 else a
 
 
