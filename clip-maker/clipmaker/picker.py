@@ -220,13 +220,13 @@ def _live_clips(lines, sources, keys, kind, look, progress, themes=True):
     items = [c for c in items if c["file"]]
 
     progress(30, "checking which clips really move")
-    motion = _Json("motion.json"); todo = [c for c in items if c["full"] not in motion.d]
+    motion = _Json("motion.json"); todo = [c for c in items if c["full"] not in motion.d and c.get("source") != "illustration"]
     with ThreadPoolExecutor(os.cpu_count() or 4) as ex:
         for n, m in enumerate(ex.map(lambda c: motion_score(c["file"])[1], todo)):
             motion.d[todo[n]["full"]] = float(m)
             if n % 50 == 0: progress(30 + 15 * n / max(len(todo), 1), f"checking movement ({n}/{len(todo)})")
     motion.save()
-    items = [c for c in items if motion.d.get(c["full"], 0) >= 1.5]
+    items = [c for c in items if c.get("source") == "illustration" or motion.d.get(c["full"], 0) >= 1.5]   # drawings always move (slow zoom)
 
     # colours + what the image checker sees are worked out once per clip and remembered (feats/ folder),
     # so later videos only look at clips they haven't seen before

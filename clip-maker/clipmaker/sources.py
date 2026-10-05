@@ -244,7 +244,7 @@ def illustration(q, n, key=None):
                 # take a 4:3 band at the chosen height, then zoom slowly and drift sideways inside it
                 frames = ILLUS_SECONDS * 25
                 vf = (f"scale=1888:-2,crop=1888:1416:0:'(ih-1416)*{down}',"
-                      f"zoompan=z='1+0.22*on/{frames}':x='(iw-iw/zoom)*({pan}+0.25*on/{frames})':y='(ih-ih/zoom)*0.5':"
+                      f"zoompan=z='1+0.30*on/{frames}':x='(iw-iw/zoom)*({pan}+0.25*on/{frames})':y='(ih-ih/zoom)*0.5':"
                       f"d={frames}:s=960x720:fps=25,format=yuv420p")
                 subprocess.run([ff, "-loglevel", "error", "-y", "-loop", "1", "-i", src, "-vf", vf, "-t", str(ILLUS_SECONDS),
                                 "-c:v", "libx264", "-crf", "20", "-preset", "veryfast", f], capture_output=True)
