@@ -6,6 +6,7 @@ Used by the "Make video" workflow on GitHub when a file is added to clip-maker/s
 The file is your script. Settings are optional; put them at the top and end them with a line of three dashes:
     look: moody            (moody, bright, vintage, black and white, pastel, none)
     clips: animated        (animated, real, both)
+    sources: archive       (tenor, archive; archive = public-domain films from the Internet Archive; default tenor)
     speed: a bit slower    (normal, a bit slower, slower)
     end: send this to someone who needs to hear it     (end: none = no end screen)
     tags: #healing #selflove
@@ -19,7 +20,7 @@ LOOK_WORDS = {"moody": "moody", "muted": "moody", "dark": "moody", "bright": "br
               "black": "bw", "bw": "bw", "b&w": "bw", "white": "bw", "pastel": "pastel", "dreamy": "pastel",
               "soft": "pastel", "none": "none", "any": "none", "no": "none"}
 DEFAULTS = dict(look="moody", clips="animated", speed=1.0, end="send this to someone who needs to hear it",
-                tags="#healing #selflove #relatable #fyp", live=False)
+                tags="#healing #selflove #relatable #fyp", live=False, sources=["tenor"])
 
 
 def read_file(path):
@@ -43,6 +44,9 @@ def read_file(path):
                 opts["end"] = "" if v.lower() in ("none", "no", "off", "") else v
             elif k in ("tags", "hashtags"):
                 opts["tags"] = v
+            elif k in ("sources", "source"):
+                found = [w for w in ("tenor", "archive") if w in v.lower()]
+                if found: opts["sources"] = found
             elif k == "live":
                 opts["live"] = v.lower() in ("yes", "true", "on", "1")
     return script, opts
@@ -58,7 +62,7 @@ def main():
     if not lines: sys.exit(f"{args.file}: no script lines found")
     name = re.sub(r"[^a-z0-9]+", "-", os.path.splitext(os.path.basename(args.file))[0].lower()).strip("-") or "video"
     say = lambda p, m: print(f"[{p:5.1f}%] {m}", flush=True)
-    print(f"{name}: {len(lines)} lines, look={o['look']}, clips={o['clips']}, speed={o['speed']}, using {device_name()}",
+    print(f"{name}: {len(lines)} lines, look={o['look']}, clips={o['clips']}, sources={o['sources']}, speed={o['speed']}, using {device_name()}",
           flush=True)
     t0 = time.time()
     library.update()
@@ -69,14 +73,18 @@ def main():
         try: voice["result"] = render.make_voice(lines, breaks, o["end"], ref, o["speed"], lambda p, m: None)
         except Exception as e: voice["error"] = e
     vt = threading.Thread(target=make_voice); vt.start()   # the voice is made while the clips are found
-    cands = picker.find_clips(lines, ["tenor"], {}, o["clips"], o["look"], lambda p, m: say(p * 0.5, m), live=o["live"])
+    cands = picker.find_clips(lines, o["sources"], {}, o["clips"], o["look"], lambda p, m: say(p * 0.5, m), live=o["live"])
+
     say(50, "clips picked, waiting for the voice"); vt.join()
     if voice["error"]: raise voice["error"]
     proj = os.path.join(args.out, name); os.makedirs(proj, exist_ok=True)
     video = render.build(proj, name, lines, breaks, cands, o["end"], o["look"], ref, o["tags"],
                          lambda p, m: say(50 + p * 0.5, m), audio_parts=voice["result"])
     picker.remember_use([c[0]["full"] for c in cands if c], name)   # so the next videos pick other clips
-    json.dump(dict(name=name, lines=len(lines), settings=o, seconds=round(time.time() - t0)),
+    from clipmaker.sources import archive_credit   # where every public-domain film clip came from
+    credits = sorted({archive_credit(c["full"]) for c in cands if c and archive_credit(c["full"])})
+    json.dump(dict(name=name, lines=len(lines), settings=o, seconds=round(time.time() - t0),
+                   archive_films=[dict(title=t, link=u) for t, u in credits]),
               open(os.path.join(proj, "info.json"), "w"), indent=1)
     shutil.rmtree(os.path.join(proj, "clips"), ignore_errors=True)
     print(f"DONE {video} in {time.time() - t0:.0f}s", flush=True)

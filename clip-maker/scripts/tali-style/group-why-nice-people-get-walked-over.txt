@@ -1,5 +1,6 @@
-look: pastel
+look: black and white
 clips: real
+sources: archive
 speed: a bit slower
 end: save this for later
 tags: #selfrespect #mindset #fyp

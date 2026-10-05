@@ -62,6 +62,11 @@ def clip_seconds(f):
 def _download(c, path):
     if os.path.exists(path) and os.path.exists(path + ".url") and open(path + ".url").read() == c["full"]:
         return True
+    if c["full"].startswith("archive://"):   # a scene already cut from a public-domain film
+        from .sources import archive_file
+        f = archive_file(c["full"])
+        if f: shutil.copyfile(f, path); open(path + ".url", "w").write(c["full"]); return True
+        return False
     try:
         r = S.get(c["full"], timeout=90)
         if r.status_code == 200 and len(r.content) > 5000:

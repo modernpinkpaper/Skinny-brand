@@ -1,5 +1,6 @@
-look: moody
+look: black and white
 clips: real
+sources: archive
 speed: a bit slower
 end: say it out loud once today
 tags: #selfrespect #privacy #fyp
