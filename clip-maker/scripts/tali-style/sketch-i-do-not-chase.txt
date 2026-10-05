@@ -1,7 +1,8 @@
 look: none
 clips: both
 sources: illustration
-speed: a bit slower
+speed: slower
+voice: posh
 end: save this for later
 tags: #selfrespect #mindset #fyp
 ---

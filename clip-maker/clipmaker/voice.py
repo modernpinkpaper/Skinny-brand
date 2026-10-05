@@ -13,6 +13,7 @@ FF = imageio_ffmpeg.get_ffmpeg_exe()
 NOWIN = 0x08000000 if os.name == "nt" else 0
 
 _tts = None
+STYLE = dict(exaggeration=0.6, cfg_weight=0.5)   # a calmer, slower, more poised delivery: lower both (see make_from_file "voice:")
 def speak(text, ref, speed=1.0):
     """speed < 1 is slower: the audio is gently slowed (pitch stays the same) if a slower speed was chosen.
     exaggeration 0.6 = a bit more expressive than Chatterbox's default, so key words get emphasis."""
@@ -21,7 +22,9 @@ def speak(text, ref, speed=1.0):
     if _tts is None:
         from chatterbox.tts import ChatterboxTTS
         _tts = ChatterboxTTS.from_pretrained(device=device())
-    w = _tts.generate(text, audio_prompt_path=ref, exaggeration=0.6, cfg_weight=0.5)
+    kw = dict(exaggeration=STYLE["exaggeration"], cfg_weight=STYLE["cfg_weight"])
+    if ref: kw["audio_prompt_path"] = ref   # no sample = the model's own built-in voice (not a copy of anyone)
+    w = _tts.generate(text, **kw)
     if _tts.sr != SR: w = torchaudio.functional.resample(w, _tts.sr, SR)
     a = w.squeeze(0).cpu().numpy().astype(np.float32)
     return stretch(a, speed) if abs(speed - 1.0) > 0.01 else a

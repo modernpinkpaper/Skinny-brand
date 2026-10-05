@@ -8,6 +8,7 @@ The file is your script. Settings are optional; put them at the top and end them
     clips: animated        (animated, real, both)
     sources: archive       (tenor, archive, illustration; archive = public-domain films, illustration = couture drawings; default tenor)
     speed: a bit slower    (normal, a bit slower, slower)
+    voice: guy             (guy = the sample voice; posh = the model's own calm, poised built-in voice)
     end: send this to someone who needs to hear it     (end: none = no end screen)
     tags: #healing #selflove
     ---
@@ -20,7 +21,7 @@ LOOK_WORDS = {"moody": "moody", "muted": "moody", "dark": "moody", "bright": "br
               "black": "bw", "bw": "bw", "b&w": "bw", "white": "bw", "pastel": "pastel", "dreamy": "pastel",
               "soft": "pastel", "none": "none", "any": "none", "no": "none"}
 DEFAULTS = dict(look="moody", clips="animated", speed=1.0, end="send this to someone who needs to hear it",
-                tags="#healing #selflove #relatable #fyp", live=False, sources=["tenor"])
+                tags="#healing #selflove #relatable #fyp", live=False, sources=["tenor"], voice="guy")
 
 
 def read_file(path):
@@ -44,6 +45,8 @@ def read_file(path):
                 opts["end"] = "" if v.lower() in ("none", "no", "off", "") else v
             elif k in ("tags", "hashtags"):
                 opts["tags"] = v
+            elif k == "voice":
+                opts["voice"] = "posh" if any(w in v.lower() for w in ("posh", "lady", "default", "female", "woman", "rich")) else "guy"
             elif k in ("sources", "source"):
                 found = [w for w in ("tenor", "archive", "illustration") if w in v.lower()]
                 if found: opts["sources"] = found
@@ -68,6 +71,9 @@ def main():
     library.update()
     import torch, torchaudio, transformers, chatterbox.tts, faster_whisper, rapidocr_onnxruntime  # noqa
     ref = VOICES["guy"][1]
+    if o["voice"] == "posh":   # the model's own built-in voice, slower and more poised than the guy's
+        from clipmaker import voice as _v
+        ref = None; _v.STYLE.update(exaggeration=0.4, cfg_weight=0.25)
     voice = dict(result=None, error=None)
     def make_voice():
         try: voice["result"] = render.make_voice(lines, breaks, o["end"], ref, o["speed"], lambda p, m: None)
