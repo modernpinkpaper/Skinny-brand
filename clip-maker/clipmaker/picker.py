@@ -30,6 +30,8 @@ RISKY = re.compile(r"\b(words?|writing|written|text|says|saying|letters?|caption
                    r"lingerie|underwear|sexy|blood|gun|knife)\b", re.I)
 USED = os.path.join(CACHE, "used_clips.json")
 FEATS = os.path.join(CACHE, "feats"); os.makedirs(FEATS, exist_ok=True)
+SKIMPY = ["a photo of a person in underwear, lingerie or a swimsuit with bare skin showing", "a nude or topless person"]
+CLOTHED = ["a person fully dressed in clothes", "a room, a street or a landscape"]
 CARTOON = ["an anime screenshot", "a frame from an animated cartoon", "a hand-drawn illustration"]
 REAL = ["a photo of a real person", "a frame from a live-action movie", "a real photograph of people"]
 STOP = set("""a an the and or but so if then than that this those these there their they them you your youre i me my
@@ -69,6 +71,9 @@ def _cache_file(url):
 
 
 def _fetch(url):
+    if url.startswith("archive://"):   # Internet Archive scenes are already made and kept on disk (see sources.archive)
+        from .sources import archive_file
+        return archive_file(url)
     f = _cache_file(url)
     if not os.path.exists(f):
         try:
@@ -184,15 +189,18 @@ def _live_clips(lines, sources, keys, kind, look, progress, themes=True):
         k = keywords(l)
         if k:
             for s in suffix: queries.add(k + s)
-    jobs = [(src, q) for src in sources for q in sorted(queries)]
+    from .sources import SOURCE_QUERIES
+    # the film archive and the drawings use their own lists (what the footage shows), not the script's words
+    jobs = [(src, q) for src in sources for q in SOURCE_QUERIES.get(src, sorted(queries))]
 
     searches = _Json("searches.json")   # search results are remembered for SEARCH_DAYS days
     def run(job):
         src, q = job; key = src + "|" + q; hit = searches.d.get(key)
+        if src in SOURCE_QUERIES: hit = None   # film scenes and drawings are cached on disk by their own source
         if hit and time.time() - hit["t"] < SEARCH_DAYS * 86400: return hit["r"]
         try: r = SOURCES[src][1](q, PER_SEARCH, keys.get(src))
         except Exception: return []
-        if r: searches.d[key] = dict(t=time.time(), r=r)
+        if r and src not in SOURCE_QUERIES: searches.d[key] = dict(t=time.time(), r=r)
         return r
     progress(2, f"searching {len(sources)} website(s): {len(jobs)} searches")
     cands = {}
@@ -212,13 +220,13 @@ def _live_clips(lines, sources, keys, kind, look, progress, themes=True):
     items = [c for c in items if c["file"]]
 
     progress(30, "checking which clips really move")
-    motion = _Json("motion.json"); todo = [c for c in items if c["full"] not in motion.d]
+    motion = _Json("motion.json"); todo = [c for c in items if c["full"] not in motion.d and c.get("source") != "illustration"]
     with ThreadPoolExecutor(os.cpu_count() or 4) as ex:
         for n, m in enumerate(ex.map(lambda c: motion_score(c["file"])[1], todo)):
             motion.d[todo[n]["full"]] = float(m)
             if n % 50 == 0: progress(30 + 15 * n / max(len(todo), 1), f"checking movement ({n}/{len(todo)})")
     motion.save()
-    items = [c for c in items if motion.d.get(c["full"], 0) >= 1.5]
+    items = [c for c in items if c.get("source") == "illustration" or motion.d.get(c["full"], 0) >= 1.5]   # drawings always move (slow zoom)
 
     # colours + what the image checker sees are worked out once per clip and remembered (feats/ folder),
     # so later videos only look at clips they haven't seen before
@@ -318,10 +326,12 @@ def find_clips(lines, sources, keys, kind, look, progress, live=False):
         T = txt_emb(pos + neg); p = (100 * E @ T.T).softmax(-1)
         return p[:, :len(pos)].sum(-1).numpy()
     cartoon = prob(CARTOON, REAL)
+    skimpy = prob(SKIMPY, CLOTHED)   # no underwear / bare-skin clips (TikTok may flag them)
     mood = prob(lk["good"], lk["bad"]) if lk["good"] else np.zeros(len(items))
     keep = []
     for k, c in enumerate(items):
         if RISKY.search(c.get("desc") or ""): continue   # words or nudity on it
+        if skimpy[k] > 0.55: continue
         if kind == "animated" and cartoon[k] < 0.75: continue
         if kind == "real" and cartoon[k] > 0.3: continue
         if c.get("white", 0) > 0.35: continue
