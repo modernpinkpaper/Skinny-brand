@@ -1,0 +1,466 @@
+{
+ "phrases": [
+  {
+   "text": "I went back through my logs to see what my last recorded day really looked like.",
+   "seed": 1947,
+   "factor": [
+    0.96,
+    1.02,
+    0.95
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.9,
+     "wps": 3.96,
+     "ok": true,
+     "heard": "I went back through my logs to see what my last recorded day really looked like."
+    }
+   ]
+  },
+  {
+   "text": "It was Sunday, October eleventh.",
+   "seed": 1947,
+   "factor": [
+    0.97,
+    1.0,
+    0.94
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.866,
+     "wps": 2.98,
+     "ok": true,
+     "heard": "It was Sunday, October 11th."
+    }
+   ]
+  },
+  {
+   "text": "And honestly? It was quiet.",
+   "seed": 1947,
+   "factor": [
+    0.96,
+    1.0,
+    0.93
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.863,
+     "wps": 2.66,
+     "ok": true,
+     "heard": "And honestly, it was quiet."
+    }
+   ]
+  },
+  {
+   "text": "Just before nine that morning, my system woke up on its own and did the one job I gave it.",
+   "seed": 1948,
+   "factor": [
+    0.98,
+    1.08,
+    0.97
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.05,
+     "sim": 0.913,
+     "wps": 4.07,
+     "ok": false,
+     "heard": "Just before 9 not morning, my system woke up on its own and did the one job I gave it."
+    },
+    {
+     "seed": 1948,
+     "wer": 0.0,
+     "sim": 0.899,
+     "wps": 4.24,
+     "ok": true,
+     "heard": "Just before 9 that morning, my system woke up on its own and did the one job I gave it."
+    }
+   ]
+  },
+  {
+   "text": "It sent three finished videos to my TikTok drafts.",
+   "seed": 1947,
+   "factor": [
+    1.0,
+    1.1,
+    0.97
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.848,
+     "wps": 3.19,
+     "ok": true,
+     "heard": "It sent three finished videos to my TikTok drafts."
+    }
+   ]
+  },
+  {
+   "text": "The first was, being needed is not being loved.",
+   "seed": 1947,
+   "factor": [
+    0.98,
+    1.06,
+    0.96
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.889,
+     "wps": 2.96,
+     "ok": true,
+     "heard": "The first was, being needed is not being loved."
+    }
+   ]
+  },
+  {
+   "text": "The second, help is the sunny side of control.",
+   "seed": 1947,
+   "factor": [
+    1.0,
+    1.1,
+    0.97
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.883,
+     "wps": 3.31,
+     "ok": true,
+     "heard": "The second help is the sunny side of control."
+    }
+   ]
+  },
+  {
+   "text": "And the third, the mortifying ordeal of being known.",
+   "seed": 1948,
+   "factor": [
+    0.98,
+    1.05,
+    0.93
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.891,
+     "wps": 2.96,
+     "ok": true,
+     "heard": "And the third, the mortifying ordeal of being known."
+    },
+    {
+     "seed": 1948,
+     "wer": 0.0,
+     "sim": 0.869,
+     "wps": 2.78,
+     "ok": true,
+     "heard": "And the third, the mortifying ordeal of being known."
+    }
+   ]
+  },
+  {
+   "text": "That's it. No big launch, no drama, just a small run that got the job done.",
+   "seed": 1947,
+   "factor": [
+    0.97,
+    1.07,
+    0.96
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.888,
+     "wps": 3.28,
+     "ok": true,
+     "heard": "That's it. No big launch, no drama, just a small run that got the job done."
+    }
+   ]
+  },
+  {
+   "text": "Same quiet routine as Friday and Saturday.",
+   "seed": 1947,
+   "factor": [
+    0.98,
+    1.05,
+    0.96
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.873,
+     "wps": 2.73,
+     "ok": true,
+     "heard": "Same quiet routine as Friday and Saturday."
+    }
+   ]
+  },
+  {
+   "text": "Forty-four videos sent so far.",
+   "seed": 2051,
+   "factor": [
+    0.97,
+    1.0,
+    0.93
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.167,
+     "sim": 0.855,
+     "wps": 2.83,
+     "ok": false,
+     "heard": "44 videos since so far"
+    },
+    {
+     "seed": 1948,
+     "wer": 0.167,
+     "sim": 0.88,
+     "wps": 2.8,
+     "ok": false,
+     "heard": "44 videos since so far"
+    },
+    {
+     "seed": 1949,
+     "wer": 0.167,
+     "sim": 0.855,
+     "wps": 3.01,
+     "ok": false,
+     "heard": "44 videos and so far"
+    },
+    {
+     "seed": 2051,
+     "wer": 0.0,
+     "sim": 0.867,
+     "wps": 2.64,
+     "ok": true,
+     "heard": "44 videos sent so far"
+    }
+   ]
+  },
+  {
+   "text": "A quiet day in the log is not an empty day.",
+   "seed": 1948,
+   "factor": [
+    0.96,
+    1.0,
+    0.93
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.048,
+     "sim": 0.883,
+     "wps": 4.05,
+     "ok": false,
+     "heard": "Quiet day in the log is not an empty day."
+    },
+    {
+     "seed": 1948,
+     "wer": 0.0,
+     "sim": 0.872,
+     "wps": 3.98,
+     "ok": true,
+     "heard": "A quiet day in the log is not an empty day."
+    }
+   ]
+  },
+  {
+   "text": "Showing up quietly is still showing up.",
+   "seed": 1947,
+   "factor": [
+    0.97,
+    1.02,
+    0.94
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.824,
+     "wps": 3.48,
+     "ok": true,
+     "heard": "Showing up quietly is still showing up."
+    }
+   ]
+  },
+  {
+   "text": "And tomorrow morning, it will show up again.",
+   "seed": 1947,
+   "factor": [
+    0.95,
+    0.99,
+    0.91
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.901,
+     "wps": 3.33,
+     "ok": true,
+     "heard": "and tomorrow morning it will show up again."
+    }
+   ]
+  }
+ ],
+ "rounds": [
+  {
+   "round": 0,
+   "final_wer": {
+    "small.en": 0.0,
+    "medium.en": 0.0037
+   },
+   "diffs": [
+    {
+     "model": "medium.en",
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    }
+   ],
+   "bad_phrases": [
+    7
+   ],
+   "transcript_small": "I went back through my logs to see what my last recorded day really looked like. It was Sunday, October 11th, and honestly, it was quiet. Just before 9 that morning, my system woke up on its own and did the one job I gave it. It sent three finished videos to my TikTok drafts. The first was, being needed is not being loved. The second help is the sunny side of control, and the third the mortifying ordeal of being known. That's it, no big launch, no drama, just a small run that got the job done. Same quiet routine as Friday and Saturday, 44 videos sent so far. A quiet day in the log is not an empty day, showing up quietly is still showing up, And tomorrow morning, it will show up again.",
+   "transcript_medium": "I went back through my logs to see what my last recorded day really looked like. It was Sunday, October 11th, and honestly, it was quiet. Just before 9 that morning, my system woke up on its own and did the one job I gave it. It sent three finished videos to my TikTok drafts. The first was, being needed is not being loved. The second, help is the sunny side of control. the third the mortifying ordeal of being known. That's it. No big launch, no drama, just a small run that got the job done. Same quiet routine as Friday and Saturday. 44 videos sent so far. A quiet day in the log is not an empty day. Showing up quietly is still showing up, and tomorrow morning it will show up again."
+  },
+  {
+   "round": 1,
+   "final_wer": {
+    "small.en": 0.0,
+    "medium.en": 0.0
+   },
+   "diffs": [],
+   "bad_phrases": [],
+   "transcript_small": "I went back through my logs to see what my last recorded day really looked like. It was Sunday, October 11th, and honestly, it was quiet. Just before 9 that morning, my system woke up on its own and did the one job I gave it. It sent three finished videos to my TikTok drafts. The first was, being needed is not being loved. The second help is the sunny side of control, and the third, the mortifying ordeal of being known. That's it, no big launch, no drama, just a small run that got the job done. Same quiet routine as Friday and Saturday, 44 videos sent so far. A quiet day in the log is not an empty day, showing up quietly is still showing up, And tomorrow morning, it will show up again.",
+   "transcript_medium": "I went back through my logs to see what my last recorded day really looked like. It was Sunday, October 11th, and honestly, it was quiet. Just before 9 that morning, my system woke up on its own and did the one job I gave it. It sent three finished videos to my TikTok drafts. The first was, being needed is not being loved. The second, help is the sunny side of control. And the third, the mortifying ordeal of being known, that's it. No big launch, no drama, just a small run that got the job done. Same quiet routine as Friday and Saturday, 44 videos sent so far. A quiet day in the log is not an empty day. Showing up quietly is still showing up, and tomorrow morning, it will show up again."
+  }
+ ],
+ "duration_s": 56.1,
+ "peak_dbfs": -4.28,
+ "lufs": -27.28,
+ "ref_lufs": -27.26,
+ "clipped_samples": 0,
+ "join_spikes_over_1p5x": [
+  1.83,
+  1.59
+ ],
+ "join_max_ratio": 1.83,
+ "rate_wps": [
+  3.21,
+  2.33,
+  2.06,
+  3.68,
+  2.64,
+  2.4,
+  2.8,
+  2.25,
+  2.74,
+  2.18,
+  2.09,
+  3.13,
+  2.74,
+  2.56
+ ],
+ "rate_range_pct": 78.1,
+ "sections": [
+  {
+   "section": "gentle opening",
+   "zone_wps": [
+    5.76,
+    3.5,
+    1.82,
+    7.58,
+    1.63,
+    1.53,
+    1.92,
+    3.49,
+    1.76
+   ],
+   "speeds_up": true,
+   "slows_down": true,
+   "factor_min": 0.93,
+   "factor_max": 1.02
+  },
+  {
+   "section": "build; slightly faster",
+   "zone_wps": [
+    3.83,
+    3.97,
+    2.57,
+    4.34,
+    3.0,
+    1.71,
+    2.68,
+    3.21,
+    1.72,
+    2.89,
+    4.82,
+    1.88,
+    2.8,
+    1.97,
+    2.06
+   ],
+   "speeds_up": true,
+   "slows_down": true,
+   "factor_min": 0.93,
+   "factor_max": 1.1
+  },
+  {
+   "section": "matter-of-fact; steady",
+   "zone_wps": [
+    2.06,
+    3.17,
+    2.37,
+    2.16,
+    3.85,
+    1.87,
+    1.92,
+    2.21,
+    2.06
+   ],
+   "speeds_up": true,
+   "slows_down": true,
+   "factor_min": 0.93,
+   "factor_max": 1.07
+  },
+  {
+   "section": "key point; slower; pause before",
+   "zone_wps": [
+    3.42,
+    4.18,
+    2.02,
+    2.81,
+    2.6,
+    2.62,
+    2.82,
+    2.8,
+    2.17
+   ],
+   "speeds_up": true,
+   "slows_down": true,
+   "factor_min": 0.91,
+   "factor_max": 1.02
+  }
+ ],
+ "cue_words_heard": [],
+ "speaker_similarity_final": 0.946,
+ "models": {
+  "tts": "Chatterbox Nano (110M) via ChatterboxTurboTTS(nano=True)",
+  "asr": "faster-whisper small.en"
+ },
+ "lead_s": 0.3,
+ "tail_s": 0.55
+}
