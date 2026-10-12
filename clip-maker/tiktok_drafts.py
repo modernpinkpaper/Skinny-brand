@@ -12,7 +12,7 @@ import os, sys, json, time, subprocess, tempfile, urllib.parse, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 DIR = os.path.join(HERE, "tiktok")
-LOGIN, SENT, SETTINGS, LAST = (os.path.join(DIR, f) for f in ("login.enc", "sent.txt", "settings", "last-sent"))
+LOGIN, SENT, SETTINGS, LAST, LOG = (os.path.join(DIR, f) for f in ("login.enc", "sent.txt", "settings", "last-sent", "upload-log.txt"))
 REDIRECT = "https://modernpinkpaper.com/pages/tiktok-connect"   # must match the Redirect URI in the TikTok app (a verified domain)
 API = "https://open.tiktokapis.com/v2"
 SINGLE_MAX, CHUNK = 64 * 1024 * 1024, 10 * 1024 * 1024
@@ -124,12 +124,14 @@ def upload(token, path):
             req = urllib.request.Request(url, data=data, method="PUT", headers={
                 "Content-Type": "video/mp4", "Content-Length": str(len(data)), "Content-Range": f"bytes {start}-{end}/{size}"})
             urllib.request.urlopen(req, timeout=600).read()
+    st = ""
     for _ in range(30):   # wait until TikTok has it in the inbox
         time.sleep(10)
-        st = _post(f"{API}/post/publish/status/fetch/", {"publish_id": pid}, token).get("data", {}).get("status", "")
-        if st in ("SEND_TO_USER_INBOX", "PUBLISH_COMPLETE"): return pid
-        if st == "FAILED": raise RuntimeError(f"TikTok could not process the video (publish_id {pid})")
-    return pid
+        d = _post(f"{API}/post/publish/status/fetch/", {"publish_id": pid}, token).get("data", {})
+        st = d.get("status", "")
+        if st in ("SEND_TO_USER_INBOX", "PUBLISH_COMPLETE"): return pid, st
+        if st == "FAILED": raise RuntimeError(f"TikTok could not process the video: {d.get('fail_reason', 'no reason given')} (publish_id {pid})")
+    return pid, st or "NO_STATUS"
 
 
 def today():
@@ -161,17 +163,22 @@ def send(n):
             gh("release", "download", tag, "-p", cap, "-D", tmp, "--clobber")
             caption = open(os.path.join(tmp, cap), encoding="utf-8").read().strip()
         try:
-            upload(token, os.path.join(tmp, name))
+            pid, st = upload(token, os.path.join(tmp, name))
         except Exception as e:
             print(f"::error::{name}: {e}"); break
         open(SENT, "a", encoding="utf-8").write(f"{tag}/{name}\n")
-        done.append((name, caption)); print(f"sent to your TikTok drafts: {name}", flush=True)
+        # what TikTok said about each video, so a "notification but no draft" problem can be traced
+        open(LOG, "a", encoding="utf-8").write(f"{time.strftime('%Y-%m-%d %H:%M')}\t{tag}/{name}\t{pid}\t{st}\n")
+        done.append((name, caption, st)); print(f"sent to your TikTok drafts: {name} (TikTok status: {st})", flush=True)
     left = len(queue([x.strip() for x in s["skip"].split(",")]))
     notes = [f"# Today's TikTok drafts ({time.strftime('%A %B %d')})\n",
-             f"Open TikTok → Profile → Inbox/Drafts. {len(done)} new video(s) are waiting. Paste each caption, then Post.",
+             f"{len(done)} new video(s) are waiting. In the TikTok app, switch to the account you connected, open **Inbox** and tap each "
+             "\"your video is ready\" notification. The video opens in TikTok's editor: paste the caption, then Post (or Save to drafts). "
+             "They only show up in Drafts after you open and save them.",
              f"{left} more videos are waiting to be sent on the next days.\n"]
-    for i, (name, cap) in enumerate(done, 1):
-        notes.append(f"## {i}. {name[:-4]}\n\n```\n{cap or '(no caption file)'}\n```\n")
+    for i, (name, cap, st) in enumerate(done, 1):
+        ok = "delivered to your TikTok inbox" if st in ("SEND_TO_USER_INBOX", "PUBLISH_COMPLETE") else f"TikTok status: {st}"
+        notes.append(f"## {i}. {name[:-4]}\n\n_{ok}_\n\n```\n{cap or '(no caption file)'}\n```\n")
     open(os.path.join(tmp, "notes.md"), "w", encoding="utf-8").write("\n".join(notes))
     try: gh("release", "view", "tiktok-drafts-today")
     except subprocess.CalledProcessError:
