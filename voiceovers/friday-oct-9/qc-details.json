@@ -1,0 +1,436 @@
+{
+ "phrases": [
+  {
+   "text": "Okay, so I went back through my logs, and guess what?",
+   "seed": 1948,
+   "factor": [
+    0.97,
+    1.08,
+    0.98
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.091,
+     "sim": 0.822,
+     "wps": 3.57,
+     "ok": false,
+     "heard": "Okay, so I went back to my logs, and guess what?"
+    },
+    {
+     "seed": 1948,
+     "wer": 0.241,
+     "sim": 0.86,
+     "wps": 3.62,
+     "ok": false,
+     "heard": "Okay, so I went back through my logs, and guess what? That's all I have for you today."
+    },
+    {
+     "seed": 1949,
+     "wer": 0.0,
+     "sim": 0.881,
+     "wps": 3.16,
+     "ok": true,
+     "heard": "Okay, so I went back through my logs, and guess what?"
+    },
+    {
+     "seed": 1947,
+     "wer": 0.091,
+     "sim": 0.822,
+     "wps": 3.57,
+     "ok": false,
+     "heard": "Okay, so I went back to my logs, and guess what?"
+    },
+    {
+     "seed": 1948,
+     "wer": 0.0,
+     "sim": 0.86,
+     "wps": 3.62,
+     "ok": true,
+     "heard": "Okay, so I went back through my logs, and guess what?"
+    }
+   ]
+  },
+  {
+   "text": "Friday, October ninth!",
+   "seed": 1947,
+   "factor": [
+    0.96,
+    1.05,
+    0.97
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.845,
+     "wps": 1.92,
+     "ok": true,
+     "heard": "Friday, October 9th."
+    }
+   ]
+  },
+  {
+   "text": "Look at what my system did, all on its own.",
+   "seed": 1947,
+   "factor": [
+    0.98,
+    1.1,
+    0.97
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.871,
+     "wps": 4.03,
+     "ok": true,
+     "heard": "Look at what my system did, all on its own."
+    }
+   ]
+  },
+  {
+   "text": "Right around nine twenty-five that morning, it woke up and grabbed two finished videos.",
+   "seed": 1947,
+   "factor": [
+    0.98,
+    1.1,
+    0.97
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.897,
+     "wps": 3.34,
+     "ok": true,
+     "heard": "Right around 9.25 that morning, it woke up and grabbed two finished videos."
+    }
+   ]
+  },
+  {
+   "text": "Then it sent them straight to my TikTok drafts!",
+   "seed": 1947,
+   "factor": [
+    1.0,
+    1.1,
+    0.98
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.82,
+     "wps": 3.26,
+     "ok": true,
+     "heard": "Then it sent them straight to my TikTok drafts."
+    }
+   ]
+  },
+  {
+   "text": "First up, you won't know until it's a memory.",
+   "seed": 1947,
+   "factor": [
+    0.98,
+    1.08,
+    0.96
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.865,
+     "wps": 3.52,
+     "ok": true,
+     "heard": "First up, you won't know until it's a memory."
+    }
+   ]
+  },
+  {
+   "text": "And right behind it, trust your future self with future problems!",
+   "seed": 1947,
+   "factor": [
+    1.0,
+    1.1,
+    0.97
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.879,
+     "wps": 3.31,
+     "ok": true,
+     "heard": "And right behind it, trust your future self with future problems."
+    }
+   ]
+  },
+  {
+   "text": "Honestly? Same.",
+   "seed": 1947,
+   "factor": [
+    1.0,
+    1.06,
+    1.0
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.81,
+     "wps": 1.63,
+     "ok": true,
+     "heard": "Honestly, same."
+    }
+   ]
+  },
+  {
+   "text": "That makes thirty-eight videos sent so far.",
+   "seed": 1949,
+   "factor": [
+    0.98,
+    1.06,
+    0.97
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.125,
+     "sim": 0.848,
+     "wps": 3.17,
+     "ok": false,
+     "heard": "that makes 38 videos and so far."
+    },
+    {
+     "seed": 1948,
+     "wer": 0.125,
+     "sim": 0.87,
+     "wps": 3.33,
+     "ok": false,
+     "heard": "That makes 38 videos since so far."
+    },
+    {
+     "seed": 1949,
+     "wer": 0.0,
+     "sim": 0.843,
+     "wps": 3.12,
+     "ok": true,
+     "heard": "That makes 38 videos sent so far."
+    }
+   ]
+  },
+  {
+   "text": "And I didn't send a single one by hand!",
+   "seed": 1947,
+   "factor": [
+    0.98,
+    1.1,
+    0.97
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.876,
+     "wps": 3.88,
+     "ok": true,
+     "heard": "And I didn't send a single one by hand."
+    }
+   ]
+  },
+  {
+   "text": "Small, steady, every single morning.",
+   "seed": 1947,
+   "factor": [
+    0.97,
+    1.04,
+    0.96
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.835,
+     "wps": 2.16,
+     "ok": true,
+     "heard": "Small, steady, every single morning."
+    }
+   ]
+  },
+  {
+   "text": "That's how things get built.",
+   "seed": 1947,
+   "factor": [
+    0.97,
+    1.02,
+    0.95
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.84,
+     "wps": 3.21,
+     "ok": true,
+     "heard": "That's how things get built."
+    }
+   ]
+  },
+  {
+   "text": "So here's to the quiet little systems that just keep showing up!",
+   "seed": 1947,
+   "factor": [
+    0.97,
+    1.06,
+    0.93
+   ],
+   "tries": [
+    {
+     "seed": 1947,
+     "wer": 0.0,
+     "sim": 0.869,
+     "wps": 4.05,
+     "ok": true,
+     "heard": "So here's to the quiet little systems that just keep showing up."
+    }
+   ]
+  }
+ ],
+ "rounds": [
+  {
+   "round": 0,
+   "final_wer": {
+    "small.en": 0.0,
+    "medium.en": 0.0092
+   },
+   "diffs": [
+    {
+     "model": "medium.en",
+     "op": "replace",
+     "script": "okay",
+     "heard": "ok"
+    }
+   ],
+   "bad_phrases": [
+    0
+   ],
+   "transcript_small": "Okay, so I went back through my logs. And guess what? Friday, October 9th. Look at what my system did, all on its own. Right around 9.25 that morning it woke up and grabbed two finished videos. Then it sent them straight to my TikTok drafts. First up, you won't know until it's a memory. And right behind it, trust your future self with future problems. Honestly, same. That makes 38 videos sent so far. And I didn't send a single one by hand. Small, steady, every single morning. That's how things get built. So here's to the quiet little systems that just keep showing up.",
+   "transcript_medium": "Ok, so I went back through my logs. And guess what? Friday, October 9th. Look at what my system did, all on its own. Right around 9.25 that morning it woke up and grabbed two finished videos. Then it sent them straight to my TikTok drafts. First up, you won't know until it's a memory. And right behind it, trust your future self with future problems. Honestly, same. That makes 38 videos sent so far. And I didn't send a single one by hand. Small, steady, every single morning. That's how things get built. So here's to the quiet little systems that just keep showing up."
+  },
+  {
+   "round": 1,
+   "final_wer": {
+    "small.en": 0.0,
+    "medium.en": 0.0
+   },
+   "diffs": [],
+   "bad_phrases": [],
+   "transcript_small": "Okay, so I went back through my logs, and guess what? Friday, October 9th. Look at what my system did, all on its own. Right around 9.25 that morning, it woke up and grabbed two finished videos. Then it sent them straight to my TikTok drafts. First up, you won't know until it's a memory. And right behind it, trust your future self with future problems. Honestly, same. That makes 38 videos sent so far. And I didn't send a single one by hand. Small, steady, every single morning. That's how things get built. So here's to the quiet little systems that just keep showing up.",
+   "transcript_medium": "Okay, so I went back through my logs, and guess what? Friday October 9th. Look at what my system did, all on its own. Right around 9.25 that morning it woke up and grabbed two finished videos. Then it sent them straight to my TikTok drafts. First up, you won't know until it's a memory. And right behind it, trust your future self with future problems. Honestly, same. That makes 38 videos sent so far. and I didn't send a single one by hand. Small, steady, every single morning. That's how things get built. So here's to the quiet little systems that just keep showing up."
+  }
+ ],
+ "duration_s": 40.0,
+ "peak_dbfs": -3.5,
+ "lufs": -17.79,
+ "ref_lufs": -17.0,
+ "clipped_samples": 0,
+ "join_spikes_over_1p5x": [],
+ "join_max_ratio": 0.11,
+ "rate_wps": [
+  3.36,
+  1.77,
+  3.83,
+  3.21,
+  3.04,
+  3.22,
+  3.12,
+  1.51,
+  2.86,
+  3.56,
+  1.93,
+  2.84,
+  3.72
+ ],
+ "rate_range_pct": 154.5,
+ "sections": [
+  {
+   "section": "excited opening; brief anticipation",
+   "zone_wps": [
+    3.08,
+    4.56,
+    2.41,
+    2.18,
+    1.25,
+    6.6,
+    3.16,
+    3.23
+   ],
+   "speeds_up": true,
+   "slows_down": true,
+   "factor_min": 0.96,
+   "factor_max": 1.1
+  },
+  {
+   "section": "build; faster",
+   "zone_wps": [
+    2.84,
+    3.49,
+    2.77,
+    4.52,
+    3.89,
+    1.92,
+    2.61,
+    4.29,
+    3.05,
+    4.84,
+    3.83,
+    1.82,
+    1.57
+   ],
+   "speeds_up": true,
+   "slows_down": true,
+   "factor_min": 0.96,
+   "factor_max": 1.1
+  },
+  {
+   "section": "celebrate; steady",
+   "zone_wps": [
+    2.97,
+    2.87,
+    2.65,
+    4.38,
+    5.93,
+    2.18
+   ],
+   "speeds_up": true,
+   "slows_down": true,
+   "factor_min": 0.97,
+   "factor_max": 1.1
+  },
+  {
+   "section": "warm landing; slower at the end",
+   "zone_wps": [
+    1.45,
+    2.85,
+    2.24,
+    3.8,
+    4.55,
+    1.89,
+    3.96,
+    3.98,
+    3.0
+   ],
+   "speeds_up": true,
+   "slows_down": true,
+   "factor_min": 0.93,
+   "factor_max": 1.06
+  }
+ ],
+ "cue_words_heard": [],
+ "speaker_similarity_final": 0.862,
+ "models": {
+  "tts": "Chatterbox Nano (110M) via ChatterboxTurboTTS(nano=True)",
+  "asr": "faster-whisper small.en"
+ },
+ "spike_ratio_max": 2.67
+}
