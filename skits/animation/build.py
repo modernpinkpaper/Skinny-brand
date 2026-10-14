@@ -75,7 +75,7 @@ def main():
         if l["scene"] != cur_scene:
             if cur_scene == "real1":            # the hair-tie switch
                 t += .25; sfx.put(t, sfx_snap(), 1.0); sfx.put(t + .08, sfx_whoosh(), .7)
-                hair_up = t + .12; trans.append(dict(t=hair_up, flash=1.0, whip=1.0)); poses.append(dict(t=hair_up, pose="rest")); t += .45
+                hair_up = t + .12; trans.append(dict(t=hair_up, flash=1.0, whip=1.0)); poses.append(dict(t=hair_up, pose="rest")); t = hair_up - .1
             else:
                 sfx.put(t, sfx_whoosh(), .6); trans.append(dict(t=t + .1, flash=.55, whip=1.0))
             pre = PRE[l["scene"]]
@@ -124,10 +124,11 @@ def main():
         tot = sum(wt); acc = 0; W = []
         for w, x in zip(words, wt):
             a = s0 + (e0 - s0) * acc / tot; acc += x; b = s0 + (e0 - s0) * acc / tot; W.append(dict(w=w, s=round(a, 3), e=round(b, 3)))
-        if len(W) > 6:
-            k = len(W) // 2
-            for part in (W[:k], W[k:]): phrases.append(dict(s=part[0]["s"], e=part[-1]["e"], words=part))
-        else: phrases.append(dict(s=W[0]["s"], e=W[-1]["e"], words=W))
+        n_parts = max(1, math.ceil(len(W) / 5))   # short bursts of up to 5 words keep the text big
+        size = math.ceil(len(W) / n_parts)
+        for p in range(n_parts):
+            part = W[p * size:(p + 1) * size]
+            if part: phrases.append(dict(s=part[0]["s"], e=part[-1]["e"], words=part))
     tl = dict(fps=FPS, duration=end, scenes=scenes, expr=expr, poses=poses, mouth=[round(float(x), 3) for x in sm],
               hairUp=hair_up, hairDown=t, tieOff=hair_up, tieBack=tie_back, reject=reject, formAt=form_at,
               punch=punch, shake=shake, zoom=zoom, transitions=trans, phrases=phrases,
