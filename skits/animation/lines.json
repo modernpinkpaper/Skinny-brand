@@ -12,7 +12,8 @@
    "gain": 0,
    "gap": 1.1,
    "expr": "deadpan",
-   "tempo": 1.0
+   "tempo": 1.0,
+   "formant": "preserved"
   },
   {
    "id": "L1",
@@ -21,11 +22,12 @@
    "ref": "warm",
    "exaggeration": 0.55,
    "cfg": 0.4,
-   "pitch": 8.0,
+   "pitch": 7,
    "gain": 0,
    "gap": 0.35,
    "expr": "poised",
-   "tempo": 1.3
+   "tempo": 1.1,
+   "formant": "shifted"
   },
   {
    "id": "L2",
@@ -34,11 +36,12 @@
    "ref": "warm",
    "exaggeration": 0.6,
    "cfg": 0.4,
-   "pitch": 8.0,
+   "pitch": 7,
    "gain": 0,
    "gap": 1.0,
    "expr": "poised",
-   "tempo": 1.3
+   "tempo": 1.1,
+   "formant": "shifted"
   },
   {
    "id": "L3",
@@ -47,11 +50,12 @@
    "ref": "calm",
    "exaggeration": 0.5,
    "cfg": 0.5,
-   "pitch": 7.0,
+   "pitch": 6,
    "gain": -5,
    "gap": 1.0,
    "expr": "whisper",
-   "tempo": 1.15
+   "tempo": 1.0,
+   "formant": "shifted"
   },
   {
    "id": "L4",
@@ -60,11 +64,12 @@
    "ref": "energetic",
    "exaggeration": 0.9,
    "cfg": 0.3,
-   "pitch": 8.5,
+   "pitch": 7,
    "gain": 0,
    "gap": 0.3,
    "expr": "cheeky",
-   "tempo": 1.3
+   "tempo": 1.1,
+   "formant": "shifted"
   },
   {
    "id": "L5",
@@ -73,11 +78,12 @@
    "ref": "energetic",
    "exaggeration": 0.9,
    "cfg": 0.3,
-   "pitch": 9.0,
+   "pitch": 7,
    "gain": 0,
    "gap": 1.4,
    "expr": "laugh",
-   "tempo": 1.25
+   "tempo": 1.1,
+   "formant": "shifted"
   },
   {
    "id": "L6",
@@ -86,11 +92,12 @@
    "ref": "expressive",
    "exaggeration": 1.0,
    "cfg": 0.3,
-   "pitch": 9.0,
+   "pitch": 7,
    "gain": 0,
    "gap": 1.0,
    "expr": "shocked",
-   "tempo": 1.3
+   "tempo": 1.1,
+   "formant": "shifted"
   },
   {
    "id": "L7",
@@ -99,11 +106,12 @@
    "ref": "energetic",
    "exaggeration": 0.95,
    "cfg": 0.3,
-   "pitch": 9.5,
+   "pitch": 7,
    "gain": 0,
    "gap": 0.3,
    "expr": "beam",
-   "tempo": 1.3
+   "tempo": 1.1,
+   "formant": "shifted"
   },
   {
    "id": "L8",
@@ -112,11 +120,12 @@
    "ref": "calm",
    "exaggeration": 0.5,
    "cfg": 0.5,
-   "pitch": 7.0,
+   "pitch": 6,
    "gain": -5,
    "gap": 0.9,
    "expr": "whisper",
-   "tempo": 1.15
+   "tempo": 1.0,
+   "formant": "shifted"
   },
   {
    "id": "L9",
@@ -125,11 +134,12 @@
    "ref": "expressive",
    "exaggeration": 0.95,
    "cfg": 0.3,
-   "pitch": 9.0,
+   "pitch": 7,
    "gain": 0,
    "gap": 1.2,
    "expr": "beam",
-   "tempo": 1.3
+   "tempo": 1.1,
+   "formant": "shifted"
   },
   {
    "id": "L10",
@@ -138,11 +148,12 @@
    "ref": "expressive",
    "exaggeration": 1.0,
    "cfg": 0.3,
-   "pitch": 9.5,
+   "pitch": 7,
    "gain": 0,
    "gap": 1.1,
    "expr": "gasp",
-   "tempo": 1.3
+   "tempo": 1.1,
+   "formant": "shifted"
   },
   {
    "id": "L11",
@@ -151,24 +162,27 @@
    "ref": "expressive",
    "exaggeration": 1.0,
    "cfg": 0.3,
-   "pitch": 9.0,
+   "pitch": 7,
    "gain": 0,
    "gap": 1.1,
    "expr": "shocked",
-   "tempo": 1.3
+   "tempo": 1.1,
+   "formant": "shifted"
   },
   {
    "id": "L12",
    "scene": "promo",
-   "text": "Okay. Fine.",
+   "text": "Okay, fine.",
    "ref": "warm",
-   "exaggeration": 0.7,
-   "cfg": 0.4,
-   "pitch": 7.5,
+   "exaggeration": 0.55,
+   "cfg": 0.5,
+   "pitch": 6,
    "gain": 0,
    "gap": 1.1,
    "expr": "smug",
-   "tempo": 1.2
+   "tempo": 1.0,
+   "formant": "shifted",
+   "seed": 11
   },
   {
    "id": "L13",
@@ -177,11 +191,12 @@
    "ref": "warm",
    "exaggeration": 0.8,
    "cfg": 0.4,
-   "pitch": 8.0,
+   "pitch": 7,
    "gain": 0,
    "gap": 0.9,
    "expr": "proud",
-   "tempo": 1.2
+   "tempo": 1.05,
+   "formant": "shifted"
   },
   {
    "id": "L14",
@@ -190,11 +205,12 @@
    "ref": "upset",
    "exaggeration": 1.0,
    "cfg": 0.3,
-   "pitch": 8.5,
+   "pitch": 7,
    "gain": 0,
    "gap": 0.5,
    "expr": "teary",
-   "tempo": 1.15
+   "tempo": 1.05,
+   "formant": "shifted"
   }
  ]
 }

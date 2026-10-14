@@ -28,8 +28,8 @@ def post(L, raw_file, final):
     """Raise the pitch (formant kept), then cut the rumble again (the shift moves it up), set the level, trim silence."""
     ratio = 2 ** (L["pitch"] / 12)
     ffmpeg("-i", raw_file, "-af",
-           f"highpass=f=120,rubberband=tempo={L.get('tempo',1.0):.3f}:pitch={ratio:.4f}:formant=preserved,highpass=f=110,volume={L['gain']}dB,"
-           "silenceremove=start_periods=1:start_threshold=-45dB:stop_periods=1:stop_threshold=-45dB:stop_duration=0.25",
+           f"highpass=f=120,rubberband=tempo={L.get('tempo',1.0):.3f}:pitch={ratio:.4f}:formant={L.get('formant','shifted')}:pitchq=quality:transients=smooth:phase=laminar,highpass=f=110,volume={L['gain']}dB,"
+           "silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse",   # trim only the two ends; pauses inside the line stay
            "-ar", "24000", "-ac", "1", os.path.join(final, L["id"] + ".wav"))
 
 
@@ -47,7 +47,7 @@ def main():
     model = ChatterboxTTS.from_pretrained(device="cuda" if torch.cuda.is_available() else "cpu")
     for L in lines:
         if only and L["id"] not in only: continue
-        torch.manual_seed(7)   # same take every time, so edits don't change lines you already liked
+        torch.manual_seed(L.get('seed', 7))   # same take every time, so edits don't change lines you already liked
         w = model.generate(L["text"], audio_prompt_path=refs[L["ref"]], exaggeration=L["exaggeration"], cfg_weight=L["cfg"])
         r = os.path.join(raw, L["id"] + ".wav"); torchaudio.save(r, w.cpu(), model.sr)
         post(L, r, final)
