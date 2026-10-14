@@ -108,7 +108,7 @@ def main():
                 sfx.put(t, sfx_whoosh(), .6); trans.append(dict(t=t + .1, flash=.55, whip=1.0))
             pre = PRE[l["scene"]]
             scenes[-1]["end"] = t + .1; scenes.append(dict(look=l["scene"], start=t + .1)); cur_scene = l["scene"]
-            if l["scene"] == "call": sfx.put(t + .1, sfx_buzz(), .9); sfx.put(t + .1 + .55, sfx_ring(), .35); poses.append(dict(t=t + .1, pose="phone"))
+            if l["scene"] == "call": sfx.put(t + .1, sfx_buzz(), .9); sfx.put(t + .1 + .55, sfx_ring(), .35); poses.append(dict(t=t + .1, pose="phone")); expr.append(dict(t=t + .2, expr="shocked"))
             if l["scene"] == "payday": sfx.put(t + .6, sfx_cha(), .8)
             if l["scene"] == "promo": sfx.put(t + .1, sfx_pop(), .8)
             t += pre
