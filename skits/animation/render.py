@@ -36,7 +36,7 @@ def main():
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", str(fps), "-start_number", str(start), "-i", os.path.join(work, "frames", "%05d.jpg"),
                     "-ss", str(ss), "-i", os.path.join(work, "audio.wav"), "-t", str((end - start) / fps),
                     "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-pix_fmt", "yuv420p",
-                    "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", "-shortest", out], check=True)
+                    "-ar", "48000", "-ac", "1", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", "-shortest", out], check=True)
     print("saved", out)
 
 if __name__ == "__main__":
