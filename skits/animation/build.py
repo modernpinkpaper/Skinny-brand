@@ -45,6 +45,34 @@ def sfx_ring():     # phone ringing for the "RING!" burst
     b = tone(1050, .09, "sin", 0, .45) * np.hanning(int(.09 * SR)); g = np.zeros(int(.05 * SR), np.float32)
     return np.concatenate([b, g, b, g, b, g, b]).astype(np.float32)
 
+
+_whisper = None
+def word_times(path, words):
+    """Start/end of each script word inside one voice line, from a speech recognizer's word timestamps.
+    Words the recognizer missed are filled in between their neighbours. Returns None if it can't line up."""
+    global _whisper
+    import difflib
+    try:
+        if _whisper is None:
+            from faster_whisper import WhisperModel; _whisper = WhisperModel("small.en", device="cpu", compute_type="int8", cpu_threads=4)
+        seg, _ = _whisper.transcribe(path, language="en", word_timestamps=True, beam_size=5)
+        heard = [(re.sub(r"[^a-z0-9']", "", w.word.lower()), w.start, w.end) for sg in seg for w in sg.words]
+    except Exception:
+        return None
+    norm = [re.sub(r"[^a-z0-9']", "", w.lower()) for w in words]
+    sm = difflib.SequenceMatcher(None, norm, [h[0] for h in heard], autojunk=False); T = [None] * len(words)
+    for a, b, n in sm.get_matching_blocks():
+        for k in range(n): T[a + k] = (heard[b + k][1], heard[b + k][2])
+    if sum(t is not None for t in T) < max(1, len(words) // 2): return None
+    dur = len(sf.read(path)[0]) / SR
+    for i in range(len(T)):
+        if T[i] is None:
+            p = next((j for j in range(i - 1, -1, -1) if T[j]), None); q = next((j for j in range(i + 1, len(T)) if T[j]), None)
+            lo = T[p][1] if p is not None else 0.0; hi = T[q][0] if q is not None else dur
+            gap = [j for j in range(len(T)) if (p is None or j > p) and (q is None or j < q) and T[j] is None]
+            k = gap.index(i); step = (hi - lo) / len(gap); T[i] = (lo + k * step, lo + (k + 1) * step)
+    return T
+
 class Track:
     def __init__(s): s.a = np.zeros(SR * 120, np.float32)
     def put(s, t, x, gain=1.0):
@@ -120,10 +148,13 @@ def main():
     # ---- captions: one phrase per line (long lines split in two), word timing by letter count ----
     phrases = []
     for l, s0, e0 in placed:
-        words = l["text"].split(); wt = [len(re.sub(r"\W", "", w)) + 1.5 + (2.5 if re.search(r"[.?!]$", w) else 0) for w in words]
-        tot = sum(wt); acc = 0; W = []
-        for w, x in zip(words, wt):
-            a = s0 + (e0 - s0) * acc / tot; acc += x; b = s0 + (e0 - s0) * acc / tot; W.append(dict(w=w, s=round(a, 3), e=round(b, 3)))
+        words = l["text"].split(); W = []
+        real = word_times(os.path.join(vdir, l["id"] + ".wav"), words)      # real word timings from the audio
+        if real is None:                                                     # fallback: spread by letter count
+            wt = [len(re.sub(r"\W", "", w)) + 1.5 + (2.5 if re.search(r"[.?!]$", w) else 0) for w in words]
+            tot = sum(wt); acc = 0; real = []
+            for x in wt: real.append(((e0 - s0) * acc / tot, (e0 - s0) * (acc + x) / tot)); acc += x
+        for w, (a, b) in zip(words, real): W.append(dict(w=w, s=round(s0 + a, 3), e=round(s0 + b, 3)))
         n_parts = max(1, math.ceil(len(W) / 5))   # short bursts of up to 5 words keep the text big
         size = math.ceil(len(W) / n_parts)
         for p in range(n_parts):
