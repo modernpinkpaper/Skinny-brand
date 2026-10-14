@@ -59,6 +59,11 @@ def main():
         a, sr = sf.read(os.path.join(vdir, l["id"] + ".wav"), dtype="float32"); assert sr == SR
         wav[l["id"]] = a; dur[l["id"]] = len(a) / SR
     scenes, expr, punch, shake, zoom, trans = [], [], [], [], [], []
+    poses = [dict(t=0, pose="phone")]
+    # gestures: (when, pose). when < 0 = that many seconds before the line; 0..1 = that fraction of the way through the line
+    GEST = {"L0": [(0, "phone")], "L1": [(-.08, "ear")], "L3": [(-.1, "cup")], "L4": [(0, "open"), (.62, "point_l")],
+            "L5": [(0, "laugh")], "L6": [(-.05, "clasp")], "L7": [(-.05, "offer")], "L8": [(-.1, "cup")], "L9": [(0, "chest")],
+            "L10": [(-.1, "envelope")], "L11": [(0, "fan")], "L12": [(0, "chest")], "L13": [(-.05, "glass")], "L14": [(-.05, "wipe")]}
     placed = []                       # (line, start, end)
     PRE = {"call": 1.15, "interview": .55, "dayone": .55, "payday": .95, "promo": .5}
     # ---- opening: real life ----
@@ -70,18 +75,19 @@ def main():
         if l["scene"] != cur_scene:
             if cur_scene == "real1":            # the hair-tie switch
                 t += .25; sfx.put(t, sfx_snap(), 1.0); sfx.put(t + .08, sfx_whoosh(), .7)
-                hair_up = t + .12; trans.append(dict(t=hair_up, flash=1.0, whip=1.0)); t += .45
+                hair_up = t + .12; trans.append(dict(t=hair_up, flash=1.0, whip=1.0)); poses.append(dict(t=hair_up, pose="rest")); t += .45
             else:
                 sfx.put(t, sfx_whoosh(), .6); trans.append(dict(t=t + .1, flash=.55, whip=1.0))
             pre = PRE[l["scene"]]
             scenes[-1]["end"] = t + .1; scenes.append(dict(look=l["scene"], start=t + .1)); cur_scene = l["scene"]
-            if l["scene"] == "call": sfx.put(t + .1, sfx_buzz(), .9); sfx.put(t + .1 + .55, sfx_ring(), .35)
+            if l["scene"] == "call": sfx.put(t + .1, sfx_buzz(), .9); sfx.put(t + .1 + .55, sfx_ring(), .35); poses.append(dict(t=t + .1, pose="phone"))
             if l["scene"] == "payday": sfx.put(t + .6, sfx_cha(), .8)
             if l["scene"] == "promo": sfx.put(t + .1, sfx_pop(), .8)
             t += pre
         if l["scene"] == "call" and l["id"] == "L1": sfx.put(t - .05, sfx_tap(), .6)
         s0 = t; e0 = t + dur[l["id"]]; placed.append((l, s0, e0)); voice.put(s0, wav[l["id"]], 1.0)
         expr.append(dict(t=s0 - .05, expr=l["expr"]))
+        for w, pz in GEST.get(l["id"], []): poses.append(dict(t=round(s0 + (w if w < 0 else w * dur[l["id"]]), 3), pose=pz))
         if l["expr"] in ("shocked", "gasp", "laugh"): punch.append(s0 + .05)
         if l["id"] in ("L3", "L8"): zoom.append([s0 - .1, e0 + .4, .09])
         if l["id"] == "L5": shake.append(s0 + .08)
@@ -91,7 +97,7 @@ def main():
     # ---- back to real life ----
     t += .1; scenes[-1]["end"] = t; scenes.append(dict(look="real", start=t))
     trans.append(dict(t=t, flash=.0, whip=0.0)); sfx.put(t - .02, sfx_snap(), .5)
-    expr.append(dict(t=t, expr="deadpan"))
+    expr.append(dict(t=t, expr="deadpan")); poses.append(dict(t=t, pose="phone"))
     sfx.put(t + .5, sfx_buzz(), .8); sfx.put(t + 1.5, sfx_ding(), .5)
     reject = t + 2.0; sfx.put(reject, sfx_womp(), .9)
     expr += [dict(t=t + 1.0, expr="camlook"), dict(t=t + 2.0, expr="frown"), dict(t=t + 4.3, expr="pout"),
@@ -100,7 +106,7 @@ def main():
     expr.append(dict(t=form_at, expr="deadpan"))
     end = max(tie_back + 1.6, 61.6)
     scenes[-1]["end"] = end
-    expr.sort(key=lambda e: e["t"])
+    expr.sort(key=lambda e: e["t"]); poses.sort(key=lambda p: p["t"])
     # ---- mouth from the voice ----
     n = int(math.ceil(end * FPS)) + 2; env = np.zeros(n, np.float32); hop = SR // FPS
     for f in range(n):
@@ -122,7 +128,7 @@ def main():
             k = len(W) // 2
             for part in (W[:k], W[k:]): phrases.append(dict(s=part[0]["s"], e=part[-1]["e"], words=part))
         else: phrases.append(dict(s=W[0]["s"], e=W[-1]["e"], words=W))
-    tl = dict(fps=FPS, duration=end, scenes=scenes, expr=expr, mouth=[round(float(x), 3) for x in sm],
+    tl = dict(fps=FPS, duration=end, scenes=scenes, expr=expr, poses=poses, mouth=[round(float(x), 3) for x in sm],
               hairUp=hair_up, hairDown=t, tieOff=hair_up, tieBack=tie_back, reject=reject, formAt=form_at,
               punch=punch, shake=shake, zoom=zoom, transitions=trans, phrases=phrases,
               premise=["me, 4 seconds after I hit submit", "on a job application"])

@@ -28,7 +28,7 @@ def post(L, raw_file, final):
     """Raise the pitch (formant kept), then cut the rumble again (the shift moves it up), set the level, trim silence."""
     ratio = 2 ** (L["pitch"] / 12)
     ffmpeg("-i", raw_file, "-af",
-           f"highpass=f=120,rubberband=pitch={ratio:.4f}:formant=preserved,highpass=f=110,volume={L['gain']}dB,"
+           f"highpass=f=120,rubberband=tempo={L.get('tempo',1.0):.3f}:pitch={ratio:.4f}:formant=preserved,highpass=f=110,volume={L['gain']}dB,"
            "silenceremove=start_periods=1:start_threshold=-45dB:stop_periods=1:stop_threshold=-45dB:stop_duration=0.25",
            "-ar", "24000", "-ac", "1", os.path.join(final, L["id"] + ".wav"))
 

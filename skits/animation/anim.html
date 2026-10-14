@@ -51,9 +51,6 @@ text{font-family:Nunito,Arial,sans-serif;font-weight:1000}
     <rect x="-76" y="-98" width="152" height="276" rx="20" id="screenBg" fill="#eaf4ff"/>
     <g id="screenIcon"></g>
    </g>
-   <circle cx="-135" cy="520" r="52" fill="#f6c6a0" stroke="#1b1230" stroke-width="10"/>
-   <circle cx="105" cy="520" r="52" fill="#f6c6a0" stroke="#1b1230" stroke-width="10"/>
-   <ellipse id="tieWrist" cx="-135" cy="470" rx="34" ry="22" fill="#ff4fa3" stroke="#1b1230" stroke-width="8"/>
   </g>
   <g id="armsG"></g>
  </g>
@@ -167,12 +164,12 @@ const EXPR={ // lid 0 open..1 shut, brow {y,tilt,raise}, smile -1..1, w mouth wi
  deadpan:{lid:.45,by:-4,bt:1,sm:-.05,w:90,glance:[0,.6],blush:.15},
  poised:{lid:.08,by:-18,bt:2,sm:.35,w:130,glance:[0,0],blush:.5},
  whisper:{lid:.1,by:-34,bt:5,sm:.15,w:70,glance:[0,0],blush:.5,wide:1.05},
- cheeky:{lid:.2,by:-26,bt:-8,sm:.7,w:150,glance:[.5,-.1],blush:.6,smirk:1},
+ cheeky:{lid:.15,by:-30,bt:1,sm:.7,w:150,glance:[.5,-.1],blush:.6,smirk:1},
  laugh:{lid:1,by:-30,bt:0,sm:1,w:190,glance:[0,0],blush:.9,happy:1},
  shocked:{lid:0,by:-52,bt:6,sm:-.1,w:80,glance:[0,0],blush:.5,wide:1.18},
  beam:{lid:.05,by:-34,bt:3,sm:1,w:200,glance:[0,0],blush:1,wide:1.08,sparkle:1},
  gasp:{lid:0,by:-56,bt:5,sm:.1,w:84,glance:[0,-.2],blush:.7,wide:1.2,sparkle:1},
- smug:{lid:.35,by:-14,bt:-6,sm:.6,w:150,glance:[-.3,0],blush:.5,smirk:1},
+ smug:{lid:.35,by:-18,bt:-1,sm:.6,w:150,glance:[-.3,0],blush:.5,smirk:1},
  proud:{lid:.55,by:-30,bt:3,sm:.8,w:160,glance:[0,-.2],blush:.7,tilt:-5},
  teary:{lid:.05,by:-12,bt:14,sm:-.5,w:110,glance:[0,.1],blush:.9,wide:1.12,tears:1},
  frown:{lid:.35,by:2,bt:8,sm:-.7,w:120,glance:[-.2,.7],blush:.2},
@@ -219,6 +216,63 @@ function setExpr(e,t,open,fi){
  const tg=$("tears"); tg.innerHTML="";
  if(e.tears){for(const s of[-1,1]){for(let i=0;i<2;i++){const ph=((t*.9+i*.5+(s>0?.25:0))%1);el("path",{d:`M${s*118} ${60+ph*180} q-18 36 0 52 q18 -16 0 -52`,fill:"#7fd8ff",stroke:"#1b1230","stroke-width":5,opacity:1-ph*.8},tg)}}}
 }
+
+// ---------- arms and hands: two-bone arms reaching a hand target ----------
+const SH={L:[-235,440],R:[235,440]};
+const POSES={
+ rest:{L:[-300,700,"fist"],R:[300,700,"fist"]},
+ phone:{L:[-125,505,"fist"],R:[95,505,"fist"],prop:"phone"},
+ ear:{L:[-285,610,"fist"],R:[345,115,"flat"],prop:"ear"},
+ cup:{L:[-285,610,"fist"],R:[170,215,"cup"]},
+ open:{L:[-395,470,"open"],R:[395,470,"open"]},
+ point_l:{L:[-470,330,"point"],R:[250,580,"open"]},
+ laugh:{L:[-440,350,"point"],R:[110,590,"flat"]},
+ clasp:{L:[-48,545,"fist"],R:[48,545,"fist"]},
+ offer:{L:[-190,650,"open"],R:[190,650,"open"],prop:"box"},
+ chest:{L:[-290,610,"fist"],R:[55,525,"flat"]},
+ envelope:{L:[-95,560,"fist"],R:[95,560,"fist"],prop:"env"},
+ fan:{L:[-60,560,"flat"],R:[215,130,"open"],wave:1},
+ glass:{L:[-60,545,"flat"],R:[350,215,"fist"],prop:"glass"},
+ wipe:{L:[-290,610,"fist"],R:[120,135,"point"]},
+ wave:{L:[-290,610,"fist"],R:[395,230,"open"],wave:1}
+};
+function arm(g,side,H,style,t,wob){
+ const S=SH[side], a=250, dx=H[0]-S[0], dy=H[1]-S[1]; let d=Math.hypot(dx,dy); const dd=Math.min(d,2*a-4), x=dd/2, h=Math.sqrt(a*a-x*x);
+ const ux=dx/(d||1), uy=dy/(d||1), mx=S[0]+ux*x, my=S[1]+uy*x;
+ const c1=[mx-uy*h,my+ux*h], c2=[mx+uy*h,my-ux*h]; const score=c=>c[1]+(side==="L"?-c[0]:c[0])*.4; const E=score(c1)>score(c2)?c1:c2;
+ const hx=S[0]+ux*dd, hy=S[1]+uy*dd; const path=`M${S[0]} ${S[1]} Q${E[0]} ${E[1]} ${hx} ${hy}`;
+ el("path",{d:path,fill:"none",stroke:"#1b1230","stroke-width":92,"stroke-linecap":"round"},g);
+ el("path",{d:path,fill:"none",stroke:"#8fc1ff","stroke-width":66,"stroke-linecap":"round"},g);
+ return [hx,hy,E];
+}
+function hand(g,x,y,style,E,t){
+ const ang=Math.atan2(y-E[1],x-E[0]);
+ const gg=el("g",{transform:`translate(${x} ${y}) rotate(${ang*180/Math.PI})`},g);
+ if(style==="point"){el("rect",{x:6,y:-16,width:78,height:30,rx:15,fill:"#f6c6a0",stroke:"#1b1230","stroke-width":9},gg)}
+ if(style==="open"){for(let i=-2;i<=1;i++)el("ellipse",{cx:48,cy:i*22+11,rx:34,ry:12,fill:"#f6c6a0",stroke:"#1b1230","stroke-width":8,transform:`rotate(${i*9+5} 30 ${i*22+11})`},gg)}
+ if(style==="flat"||style==="cup"){el("ellipse",{cx:30,cy:0,rx:58,ry:38,fill:"#f6c6a0",stroke:"#1b1230","stroke-width":9},gg)}
+ el("circle",{r:style==="fist"?50:44,fill:"#f6c6a0",stroke:"#1b1230","stroke-width":10},gg);
+ if(style==="fist"){for(let i=-1;i<=1;i++)el("path",{d:`M${12} ${i*16-4} h26`,stroke:"#1b1230","stroke-width":6,"stroke-linecap":"round"},gg)}
+}
+function drawArms(t,open){
+ const g=$("armsG"); g.innerHTML="";
+ const kf=TL.poses; let cur=kf[0],prev=kf[0]; for(const k of kf){ if(k.t<=t){prev=cur;cur=k} }
+ const k=ease(clamp((t-cur.t)/.3,0,1)), A=POSES[prev.pose], B=POSES[cur.pose], same=prev===cur;
+ const pos=side=>{const p=A[side],q=B[side]; const w=Math.sin(t*3.1+(side==="L"?0:2))*6; const sp=B.wave?Math.sin(t*16)*34*(side==="R"?1:0):0;
+  return [lerp(p[0],q[0],same?1:k)+w+sp, lerp(p[1],q[1],same?1:k)+Math.cos(t*2.3)*5-open*10, (same?1:k)<.5?p[2]:q[2]]};
+ const L=pos("L"), R=pos("R");
+ // props sit behind the hands
+ const prop=B.prop||(k<.5?A.prop:null);
+ $("phoneG").setAttribute("display",prop==="phone"?"inline":"none");
+ if(prop==="env"){const e=el("g",{transform:"translate(0 560)"},g);el("rect",{x:-125,y:-70,width:250,height:150,rx:12,fill:"#fff",stroke:"#1b1230","stroke-width":10},e);el("path",{d:"M-125 -70 L0 20 L125 -70",fill:"none",stroke:"#1b1230","stroke-width":8},e);el("circle",{cx:0,cy:25,r:30,fill:"#2fcf63",stroke:"#1b1230","stroke-width":6},e);el("text",{y:38,"text-anchor":"middle","font-size":40,fill:"#fff"},e).textContent="$"}
+ if(prop==="box"){const e=el("g",{transform:"translate(0 655)"},g);el("rect",{x:-130,y:-60,width:260,height:130,rx:20,fill:"#fff",stroke:"#1b1230","stroke-width":10},e);for(let i=0;i<4;i++)el("circle",{cx:-80+i*53,cy:-48+(i%2)*14,r:28,fill:["#d9894a","#f2b25a","#a8622e","#e8a45c"][i],stroke:"#1b1230","stroke-width":6},e)}
+ const l=arm(g,"L",L,L[2],t,0), r=arm(g,"R",R,R[2],t,0);
+ if(prop==="ear"){const e=el("g",{transform:`translate(${r[0]+4} ${r[1]-10}) rotate(14)`},g);el("rect",{x:-46,y:-92,width:92,height:184,rx:24,fill:"#ff8fc4",stroke:"#1b1230","stroke-width":10},e);el("rect",{x:-30,y:-70,width:60,height:120,rx:12,fill:"#eaf4ff"},e)}
+ if(prop==="glass"){const e=el("g",{transform:`translate(${r[0]} ${r[1]-70}) rotate(${Math.sin(t*3)*4})`},g);el("path",{d:"M-44 -90 H44 L34 0 C28 36 -28 36 -34 0 Z",fill:"#ffe3f1",stroke:"#1b1230","stroke-width":9},e);el("path",{d:"M-38 -50 H38 L34 0 C28 36 -28 36 -34 0 Z",fill:"#ff73b3"},e);el("path",{d:"M0 34 V84 M-30 88 H30",stroke:"#1b1230","stroke-width":9,"stroke-linecap":"round"},e)}
+ hand(g,l[0],l[1],L[2],l[2],t); hand(g,r[0],r[1],R[2],r[2],t);
+ if((t<TL.tieOff)||(t>=TL.tieBack)){const tg=el("ellipse",{cx:L[0],cy:L[1]-52,rx:32,ry:20,fill:"#ff4fa3",stroke:"#1b1230","stroke-width":8},g)}
+ return prop;
+}
 function frame(f){
  const t=f/TL.fps; const cam=$("cam");
  // current scene
@@ -238,8 +292,7 @@ function frame(f){
  const up=t>=TL.hairUp && t<TL.hairDown;
  $("hairUp").setAttribute("display",up?"inline":"none"); $("hairDown").setAttribute("display",up?"none":"inline"); $("scrunchie").setAttribute("display",up?"inline":"none");
  $("pony").setAttribute("transform",`rotate(${Math.sin(t*5)*5+open*8} 210 -190)`);
- const showPhone=!up; $("phoneG").setAttribute("display",showPhone?"inline":"none");
- const tieOn=(t<TL.tieOff)||(t>=TL.tieBack); $("tieWrist").setAttribute("display",tieOn&&showPhone?"inline":"none");
+ drawArms(t,open);
  const si=$("screenIcon"); si.innerHTML=""; const phase=t<TL.hairUp?"ok":(t<TL.reject?"mail":(t<TL.formAt?"no":"form"));
  if(phase==="ok"){el("circle",{cx:0,cy:0,r:48,fill:"#2fcf63"},si);el("path",{d:"M-24 0 L-6 20 L28 -22",fill:"none",stroke:"#fff","stroke-width":14,"stroke-linecap":"round","stroke-linejoin":"round"},si)}
  if(phase==="mail"){el("rect",{x:-48,y:-30,width:96,height:64,rx:8,fill:"#fff",stroke:"#1b1230","stroke-width":8},si);el("path",{d:"M-48 -26 L0 12 L48 -26",fill:"none",stroke:"#1b1230","stroke-width":8},si);el("circle",{cx:46,cy:-30,r:16,fill:"#ff2d55"},si)}
