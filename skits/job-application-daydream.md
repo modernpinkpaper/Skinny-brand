@@ -60,7 +60,7 @@ She pulls the hair tie out of her pocket and snaps it onto her wrist. Cut.
 ---
 
 ## Spoken words
-About 150 words, spoken fast and bright in the daydream, silent in the last 10 seconds.
+About 110 words, spoken fast and bright in the daydream. The last 10 seconds are silent. The rest of the time is faces, pauses and listening to the people who aren't there.
 
 ## Caption
 > we've all done this and don't pretend we haven't 😭
