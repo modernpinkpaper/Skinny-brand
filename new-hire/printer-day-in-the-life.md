@@ -4,11 +4,11 @@
 **Style:** the big-head cartoon girl from `skits/animation` (the pop-art style), in a fake print room.
 **Length:** about 2 minutes, vertical 9:16. One narrator voice says each step while the girl does it.
 **Rule:** no customer names and no staff names anywhere. Everything below comes from the print logs.
-Lines marked **[confirm]** are my guess from the logs. The logs show what was printed, not what the hands did.
+Lines marked **[was a guess, now confirmed or noted below]** are my guess from the logs. The logs show what was printed, not what the hands did.
 
 ## What the logs show (Oct 14 print PC, Oct 13 print PC)
-- **Day starts with maintenance prints.** At 7:43 there were 4 "Maintenance" jobs (0 pages) in 8 seconds, then 3 more by 10:08. [looks like nozzle cleaning: confirm]
-- **File names carry the order.** `Name - 30 - FLAT.indd` = order quantity (30) and style (FLAT, INVITE, FLD). `RA - Name - 30 - WHITE.indd` = a matching envelope job, and the last word is the paper color (WHITE, KRAFT, NAVY, SLATE...). [RA = return address? confirm]
+- **Day starts with maintenance prints.** At 7:43 there were 4 "Maintenance" jobs (0 pages) in 8 seconds, then 3 more by 10:08. (confirmed: nozzle print checks and cleanings)
+- **File names carry the order.** `Name - 30 - FLAT.indd` = order quantity (30) and style (FLAT, INVITE, FLD). `RA - Name - 30 - WHITE.indd` = a matching envelope job, and the last word is the paper color (WHITE, KRAFT, NAVY, SLATE...). (confirmed: RA = return address, printed on the envelopes)
 - **Test first, then the run.** Almost every order starts with a 1-copy job, then the rest. A 120-card order went out as 1 + 34 + 5 + 40 + 40. A 130-card order as 1 + 39 + 40 + 35 + 15.
 - **Three printers at once.** LEFT SIDE, RIGHT SIDE and an XTRA printer. Envelope (RA) jobs mostly go to the XTRA one. Jobs on different printers start only seconds apart.
 - **Shipping labels in bursts.** A 4x6 label printer (about 159 x 104 mm). On Oct 13 there were about 19 labels between 11:08 and 11:56.
@@ -43,3 +43,9 @@ Lines marked **[confirm]** are my guess from the logs. The logs show what was pr
 1. Is "RA" return address? Are the maintenance prints nozzle cleaning?
 2. Do you want this exact wording, or friendlier ("hey, you!") and shorter (60 seconds)?
 3. Should the girl have a name, and should the room look like your real room (colors, logo)?
+
+## Update (after your answers)
+- Confirmed: **RA = return address** (printed on the envelopes). **Maintenance = nozzle print checks or cleanings.**
+- The narrator is **Sally**. The room is a polished version of your real print room: white desks, shelves of color-coded envelope boxes, a window, gold lights, pink and navy brand colors.
+- The video runs as long as it needs to cover the full process, then explains that it repeats. The final narration is in `new-hire/animation/lines.json` (21 lines, about 3 minutes).
+- The steps now also use your own hiring video, in your words: mail bin by your desk, quality and accuracy check before the full print, count out the envelopes while it prints, check every single sheet, handle with care, inserts (branding card, thank you card, accuracy card showing who did the order), branding sticker on every package, then the label.
