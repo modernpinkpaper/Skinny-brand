@@ -11,7 +11,7 @@ Lines marked **[confirm]** are my guess from the logs. The logs show what was pr
 - **File names carry the order.** `Name - 30 - FLAT.indd` = order quantity (30) and style (FLAT, INVITE, FLD). `RA - Name - 30 - WHITE.indd` = a matching envelope job, and the last word is the paper color (WHITE, KRAFT, NAVY, SLATE...). [RA = return address? confirm]
 - **Test first, then the run.** Almost every order starts with a 1-copy job, then the rest. A 120-card order went out as 1 + 34 + 5 + 40 + 40. A 130-card order as 1 + 39 + 40 + 35 + 15.
 - **Three printers at once.** LEFT SIDE, RIGHT SIDE and an XTRA printer. Envelope (RA) jobs mostly go to the XTRA one. Jobs on different printers start only seconds apart.
-- **Shipping labels in bursts.** A 4x6 label printer (about 159 x 104 mm). On Oct 13 there were about 25 labels between 11:08 and 11:56.
+- **Shipping labels in bursts.** A 4x6 label printer (about 159 x 104 mm). On Oct 13 there were about 19 labels between 11:08 and 11:56.
 - **Volume.** The Oct 14 sheet has about 297 print jobs, and the Oct 13 sheet about 211. About 100 jobs happened in the first 2.5 hours (7:43 to 10:08).
 
 ## The walkthrough (each step = one scene)
