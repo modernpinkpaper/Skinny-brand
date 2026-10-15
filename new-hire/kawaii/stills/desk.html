@@ -1,0 +1,57 @@
+<!doctype html><html><body style="margin:0;background:#000"><svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="wall" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d9d6d6"/><stop offset=".5" stop-color="#cfcccd"/><stop offset="1" stop-color="#bdbab9"/></linearGradient>
+<linearGradient id="desk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e9e6e8"/></linearGradient>
+<linearGradient id="kraft" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d1a875"/><stop offset="1" stop-color="#b98c58"/></linearGradient>
+<linearGradient id="steel" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d9094"/><stop offset=".4" stop-color="#e8eaec"/><stop offset="1" stop-color="#90949a"/></linearGradient>
+<linearGradient id="scr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e9eef5"/></linearGradient>
+<filter id="blur"><feGaussianBlur stdDeviation="10"/></filter><filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#3b2a20" flood-opacity=".28"/></filter>
+<clipPath id="top"><rect x="0" y="0" width="344" height="480"/></clipPath>
+</defs>
+<rect width="1080" height="1920" fill="url(#wall)"/>
+<!-- back shelves (blurred depth) -->
+<g filter="url(#blur)" opacity=".9"><rect x="0" y="40" width="170" height="330" fill="#f3f1f0"/><rect x="20" y="70" width="110" height="90" fill="#c9a06c"/><rect x="20" y="190" width="120" height="110" fill="#c9a06c"/>
+<rect x="270" y="30" width="230" height="420" fill="#f4f2f1"/><rect x="520" y="60" width="150" height="330" fill="#e9e6e4"/><rect x="560" y="0" width="110" height="120" fill="#7fa77f"/><rect x="520" y="330" width="130" height="90" fill="#d8b36f"/></g>
+<g><rect x="0" y="85" width="120" height="12" fill="#fff"/><rect x="0" y="370" width="1080" height="6" fill="#000" opacity=".05"/></g>
+<!-- floor -->
+<rect x="0" y="1180" width="1080" height="740" fill="#8a6246"/><rect x="0" y="1180" width="1080" height="20" fill="#000" opacity=".15"/>
+<!-- back counter with black organizers -->
+<rect x="150" y="760" width="740" height="260" fill="#cfcfd1"/>
+<rect x="160" y="690" width="210" height="160" fill="#222" rx="10"/><rect x="330" y="800" width="230" height="110" fill="#3a3a3c" rx="8"/><rect x="560" y="820" width="250" height="90" fill="#e8e8ea" rx="6"/>
+<rect x="470" y="760" width="190" height="60" fill="#f6f6f6" rx="4"/><rect x="480" y="740" width="170" height="30" fill="#e2e2e4"/>
+<!-- Sally (flipped side pose, torso only) -->
+<g filter="url(#sh)"><g transform="translate(1010 330) scale(-2.05 2.05)"><g clip-path="url(#top)"><image href="../sprites/pose6.png" width="344" height="617"/></g></g></g>
+<g transform="translate(0 150)"><!-- chair back -->
+<rect x="935" y="1040" width="150" height="300" rx="40" fill="#1d1d1f"/><rect x="990" y="1330" width="30" height="400" fill="#222"/>
+</g><g transform="translate(0 250)"><!-- desk top -->
+<path d="M0 960 L1080 960 L1080 1920 L0 1920Z" fill="url(#desk)"/>
+<rect x="0" y="960" width="1080" height="6" fill="#000" opacity=".08"/>
+<!-- monitor -->
+<g filter="url(#sh)"><path d="M-60 700 L210 760 L210 1060 L-60 1000Z" fill="#17181a"/><path d="M-40 718 L190 770 L190 1030 L-40 975Z" fill="url(#scr)"/></g>
+<g stroke="#b7c0cc" stroke-width="9" stroke-linecap="round"><path d="M10 770 L110 794"/><path d="M10 818 L90 836"/><path d="M10 866 L120 890"/><path d="M10 914 L80 930"/><path d="M10 962 L105 984"/></g>
+<g fill="#8aa0ba"><rect x="-26" y="760" width="18" height="18" rx="4"/><rect x="-26" y="808" width="18" height="18" rx="4"/><rect x="-26" y="856" width="18" height="18" rx="4"/><rect x="-26" y="904" width="18" height="18" rx="4"/></g>
+<path d="M200 1015 L240 1022 L240 1080 L200 1072Z" fill="#111"/><path d="M130 1056 L260 1090 L255 1115 L120 1085Z" fill="#202022"/>
+<!-- pen cup + pens -->
+<g><rect x="0" y="1050" width="120" height="130" rx="14" fill="#fff" stroke="#d4d0d2" stroke-width="3"/><g stroke="#222" stroke-width="10" stroke-linecap="round"><path d="M20 1060 L12 985"/><path d="M42 1060 L40 972"/><path d="M64 1060 L74 982"/><path d="M86 1060 L104 996"/></g></g>
+<!-- keyboard -->
+<g filter="url(#sh)"><path d="M180 1038 L440 960 L500 1040 L255 1160Z" fill="#1e1f21"/></g>
+<g stroke="#4a4d52" stroke-width="3" opacity=".9"><path d="M205 1050 L444 976"/><path d="M215 1074 L455 998"/><path d="M228 1096 L470 1020"/><path d="M240 1120 L483 1040"/><path d="M300 1030 L338 1138"/><path d="M360 1010 L395 1118"/></g>
+<!-- tumbler + bottle -->
+<g filter="url(#sh)"><rect x="228" y="830" width="105" height="215" rx="12" fill="url(#steel)"/><rect x="222" y="818" width="117" height="24" rx="8" fill="#2a2a2a"/></g>
+<g filter="url(#sh)"><rect x="110" y="1140" width="195" height="190" rx="34" fill="#1a1a1c"/><rect x="132" y="1110" width="150" height="46" rx="14" fill="#101012"/><rect x="118" y="1170" width="180" height="10" fill="#6a6a70" opacity=".6"/></g>
+<!-- mouse -->
+<g filter="url(#sh)"><ellipse cx="455" cy="1070" rx="62" ry="32" fill="#1d1d1f"/><ellipse cx="445" cy="1060" rx="40" ry="14" fill="#fff" opacity=".12"/></g>
+<!-- kraft boxes stack -->
+<g filter="url(#sh)"><rect x="395" y="858" width="140" height="104" fill="url(#kraft)"/><rect x="395" y="858" width="140" height="14" fill="#e0bd8e"/>
+<rect x="408" y="910" width="170" height="96" fill="url(#kraft)"/><rect x="408" y="910" width="170" height="14" fill="#e0bd8e"/>
+<rect x="430" y="958" width="190" height="104" fill="url(#kraft)"/><rect x="430" y="958" width="190" height="14" fill="#e0bd8e"/></g>
+<!-- envelope stack in front of her -->
+<g filter="url(#sh)"><path d="M520 1070 L740 1060 L770 1120 L540 1150Z" fill="#c59a68"/><path d="M520 1070 L740 1060 L752 1086 L528 1100Z" fill="#e0bb8c"/><path d="M528 1100 L752 1086 L770 1120 L540 1150Z" fill="#b98d5c"/><path d="M526 1086 L752 1072" stroke="#9c7447" stroke-width="3"/></g>
+<g filter="url(#sh)"><path d="M470 1190 L800 1160 L830 1250 L500 1285Z" fill="#c8a06e"/><path d="M470 1190 L800 1160 L808 1190 L478 1220Z" fill="#e3c294"/><path d="M500 1285 L830 1250 L830 1280 L500 1315Z" fill="#a37b4c"/><path d="M478 1220 L808 1190" stroke="#9c7447" stroke-width="3"/></g>
+<!-- foreground printer + papers -->
+<g filter="url(#sh)"><path d="M-10 1380 L330 1370 L360 1700 L-10 1740Z" fill="#6b6c70"/><path d="M-10 1380 L330 1370 L335 1410 L-10 1420Z" fill="#8e9094"/></g>
+<g filter="url(#sh)"><path d="M-30 1420 L300 1340 L420 1540 L-30 1560Z" fill="#fbfbfb"/><path d="M-30 1500 L360 1420 L560 1640 L-30 1640Z" fill="#d4ab78"/><path d="M-30 1540 L400 1480 L600 1700 L-30 1760Z" fill="#c59a68"/><path d="M-30 1760 L600 1700 L600 1722 L-30 1790Z" fill="#8f6a3e"/></g>
+<g filter="url(#sh)"><path d="M230 1800 L720 1800 L720 1920 L230 1920Z" fill="#1c1c1f"/><path d="M330 1780 L690 1780 L720 1830 L330 1830Z" fill="#2c2c30"/></g>
+</g><!-- window light -->
+<rect width="1080" height="1920" fill="#fff3e2" opacity=".07"/>
+</svg></body></html>

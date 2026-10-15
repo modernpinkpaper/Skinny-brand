@@ -1,0 +1,371 @@
+{
+ "date": "2026-10-14",
+ "trends": [
+  {
+   "source": "niche",
+   "topic": "#relationshipadvice",
+   "posts": 5,
+   "views": 6798700,
+   "best": 2100000,
+   "rank": 3
+  },
+  {
+   "source": "niche",
+   "topic": "#toxicrelationship",
+   "posts": 5,
+   "views": 4922200,
+   "best": 1500000,
+   "rank": 4
+  },
+  {
+   "source": "niche",
+   "topic": "#situationship",
+   "posts": 5,
+   "views": 1734600,
+   "best": 661800,
+   "rank": 10
+  },
+  {
+   "source": "niche",
+   "topic": "#attachmentstyle",
+   "posts": 5,
+   "views": 440700,
+   "best": 173200,
+   "rank": 11
+  },
+  {
+   "source": "niche",
+   "topic": "#mentalhealth",
+   "posts": 5,
+   "views": 13200000,
+   "best": 4800000,
+   "rank": 1
+  },
+  {
+   "source": "niche",
+   "topic": "#anxiety",
+   "posts": 5,
+   "views": 2065200,
+   "best": 943100,
+   "rank": 9
+  },
+  {
+   "source": "niche",
+   "topic": "#selflove",
+   "posts": 5,
+   "views": 4382755,
+   "best": 3500000,
+   "rank": 5
+  },
+  {
+   "source": "niche",
+   "topic": "#innerchild",
+   "posts": 5,
+   "views": 9299200,
+   "best": 9100000,
+   "rank": 2
+  },
+  {
+   "source": "niche",
+   "topic": "#burnout",
+   "posts": 5,
+   "views": 3415100,
+   "best": 2200000,
+   "rank": 7
+  },
+  {
+   "source": "niche",
+   "topic": "#boundaries",
+   "posts": 5,
+   "views": 2431800,
+   "best": 1300000,
+   "rank": 8
+  },
+  {
+   "source": "niche",
+   "topic": "#datingadvice",
+   "posts": 5,
+   "views": 3618900,
+   "best": 1000000,
+   "rank": 6
+  },
+  {
+   "source": "google",
+   "rank": 1,
+   "topic": "john stamos",
+   "traffic": "200+",
+   "news": [
+    {
+     "title": "John Stamos Says Bob Saget Is ‘Living Through’ Stamos’ Son, 8 (Exclusive)",
+     "url": "https://people.com/john-stamos-says-bob-saget-lives-through-son-billy-4-years-after-death-12172983",
+     "source": "People.com"
+    },
+    {
+     "title": "John Stamos' son has been channeling his late 'Full House' co-star: 'He's got Bob's humor'",
+     "url": "https://komonews.com/news/entertainment/john-stamos-son-has-been-channeling-his-late-full-house-co-star-hes-got-bobs-humor",
+     "source": "KOMO"
+    },
+    {
+     "title": "John Stamos Says Bob Saget Offered Support at His Lowest Point Following DUI Arrest: ‘He Showed Up and He Loved Me’",
+     "url": "https://ca.news.yahoo.com/john-stamos-says-bob-saget-181033295.html",
+     "source": "Yahoo News Canada"
+    }
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 2,
+   "topic": "atlético mineiro vs torque",
+   "traffic": "500+",
+   "news": [
+    {
+     "title": "Atlético v Montevideo City Torque: Galo in action today!",
+     "url": "https://sports.yahoo.com/articles/atl-tico-v-montevideo-city-120600734.html",
+     "source": "Yahoo Sports"
+    },
+    {
+     "title": "Preview: Atletico Mineiro vs Montevideo City Torque - prediction, team news, lineups",
+     "url": "https://www.sportsmole.co.uk/football/atletico-mineiro/preview/atletico-mineiro-vs-torque-prediction-team-news-lineups_606837.html",
+     "source": "Sports Mole"
+    },
+    {
+     "title": "Montevideo City Torque, at a door no Uruguayan club has ever opened",
+     "url": "https://gol.conmebol.com/sudamericana/en/news/montevideo-city-torque-door-no-uruguayan-club-has-ever-opened",
+     "source": "gol.conmebol.com"
+    }
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 3,
+   "topic": "troy jackson",
+   "traffic": "1000+",
+   "news": [
+    {
+     "title": "A Trump Backlash Endangers Susan Collins in the Maine Senate Race",
+     "url": "https://www.nytimes.com/2026/10/14/us/politics/susan-collins-trump-maine-senate.html",
+     "source": "The New York Times"
+    },
+    {
+     "title": "Collins, Jackson duke it out in third Maine Senate debate: 3 takeaways",
+     "url": "https://thehill.com/homenews/campaign/6146875-collins-jackson-third-maine-senate-debate-takeaways/",
+     "source": "The Hill"
+    },
+    {
+     "title": "How one northern Maine town explains Susan Collins’ path to re-election",
+     "url": "https://www.bostonglobe.com/2026/10/14/nation/susan-collins-appropriations-maine-troy-jackson/",
+     "source": "The Boston Globe"
+    }
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 4,
+   "topic": "atlético-mg x torque",
+   "traffic": "500+",
+   "news": [
+    {
+     "title": "Ao vivo: Atlético-MG x Montevideo City Torque | Semifinal | Copa Sul-Americana",
+     "url": "https://ge.globo.com/mg/futebol/copa-sul-americana/jogo/14-10-2026/atletico-mg-montevideo-city-torque.ghtml",
+     "source": "ge"
+    },
+    {
+     "title": "Em qual canal vai passar o jogo do Galo na semi da Sul-Americana hoje (14/10)?",
+     "url": "https://noataque.com.br/futebol/noticia/2026/10/14/em-qual-canal-vai-passar-o-jogo-do-galo-na-semi-da-sul-americana-hoje-14-10/",
+     "source": "No Ataque"
+    },
+    {
+     "title": "Atlético enfrentará ex-Cruzeiro em duelo pela semifinal da Copa Sul-Americana; veja quem é",
+     "url": "https://rede98.com.br/esportes/atletico-enfrenta-ex-cruzeiro-semifinal-sul-americana/",
+     "source": "Rede 98"
+    }
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 5,
+   "topic": "keke palmer",
+   "traffic": "500+",
+   "news": [
+    {
+     "title": "The Future-Proof Beauty Products Keke Palmer, Sofia Richie Grainge, and Maude Apatow Swear By",
+     "url": "https://www.whowhatwear.com/beauty/celebs-essential-beauty-products",
+     "source": "Who What Wear"
+    },
+    {
+     "title": "Kamala Harris calls for Supreme Court expansion, Electoral College reform",
+     "url": "https://www.foxnews.com/video/6406861115112",
+     "source": "Fox News"
+    },
+    {
+     "title": "Kamala Harris Hits Back at Critics Obsessed With Her Laugh",
+     "url": "https://www.yahoo.com/entertainment/celebrity/articles/kamala-harris-hits-back-critics-143258578.html",
+     "source": "Yahoo"
+    }
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 6,
+   "topic": "sarmiento vs river",
+   "traffic": "500+",
+   "news": [
+    {
+     "title": "La formación de River vs. Sarmiento de Junín, por el Torneo Clausura",
+     "url": "https://www.tycsports.com/river-plate/formacion-river-sarmiento-junin-torneo-clausura-id765966.html",
+     "source": "TyC Sports"
+    },
+    {
+     "title": "Video: así fue el impactante recibimiento de los hinchas de River en Junín",
+     "url": "https://soydelmillo.com/river-en-la-liga/2026/10/14/river-recibimiento-junin-sarmiento/",
+     "source": "Soy del Millo"
+    },
+    {
+     "title": "River, ante su mejor chance de escalar en la Tabla Anual si vence a Sarmiento",
+     "url": "https://elintransigente.com/2026/10/13/river-tabla-anual-sarmiento/",
+     "source": "El Intransigente"
+    }
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 7,
+   "topic": "junior vs deportivo pereira",
+   "traffic": "500+",
+   "news": [
+    {
+     "title": "Junior vs. Pereira: si no es ahora, ¿cuándo?",
+     "url": "https://www.elheraldo.co/deportes/rincon-juniorista/2026/10/14/junior-vs-pereira-si-no-es-ahora-cuando/",
+     "source": "ELHERALDO.CO"
+    },
+    {
+     "title": "Fuertes críticas de los junioristas por precios de la boletería para juego ante Pereira: ¡arguyen que Junior está eliminado!",
+     "url": "https://impactonews.co/fuertes-criticas-de-los-junioristas-por-precios-de-la-boleteria-para-juego-ante-pereira-arguyen-que-junior-esta-eliminado/",
+     "source": "impactonews.co"
+    },
+    {
+     "title": "Posible nómina de Junior FC ante Deportivo Pereira por la Liga BetPlay",
+     "url": "https://www.365scores.com/es/news/posible-nomina-junior-vs-dep-pereira/",
+     "source": "365Scores"
+    }
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 8,
+   "topic": "kristaps porzingis",
+   "traffic": "500+",
+   "news": [
+    {
+     "title": "Porzingis Out Indefinitely Due To Health Issues",
+     "url": "https://www.hoopsrumors.com/2026/10/porzingis-out-indefinitely-due-to-health-issues.html",
+     "source": "Hoops Rumors"
+    },
+    {
+     "title": "Kristaps Porzingis expected to be at Warriors' facility on Tuesday",
+     "url": "https://www.espn.com/nba/story/_/id/50168743/kristaps-porzingis-expected-warriors-facility-tue",
+     "source": "ESPN"
+    },
+    {
+     "title": "I appreciate all the internet doctors trying to …",
+     "url": "https://sports.yahoo.com/articles/appreciate-internet-doctors-trying-210158962.html",
+     "source": "Yahoo Sports"
+    }
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 9,
+   "topic": "classement as roma – real madrid",
+   "traffic": "500+",
+   "news": [
+    {
+     "title": "Grâce à Mbappé et trois buts en fin de match, le Real Madrid a renversé l'AS Rome",
+     "url": "https://www.lequipe.fr/Football/Actualites/Grace-notamment-a-un-but-historique-de-kylian-mbappe-pour-sa-centieme-en-ligue-des-champions-le-real-madrid-renverse-l-as-rome-lors-d-une-fin-de-match-incroyable/1735832",
+     "source": "L'Équipe"
+    },
+    {
+     "title": "Ligue des Champions : le Real Madrid renverse la Roma dans un match dingue, Aston Ville roule sur Fenerbahçe",
+     "url": "https://www.footmercato.net/a4071382034602488390-ligue-des-champions-le-real-madrid-renverse-la-roma-dans-un-match-dingue-aston-ville-roule-sur-fenerbahce",
+     "source": "Foot Mercato"
+    },
+    {
+     "title": "AS Roma-Real Madrid : revivez la victoire spectaculaire des Merengues en Italie",
+     "url": "https://www.lefigaro.fr/sports/football/live/ligue-des-champions/2026/2685401/as-roma-real-madrid",
+     "source": "Le Figaro"
+    }
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 10,
+   "topic": "college baseball",
+   "traffic": "500+",
+   "news": [
+    {
+     "title": "Wheaton train accident: Community mourns Tomassino 'Tommy' Offer, Wheaton College student hit by train",
+     "url": "https://abc7chicago.com/post/wheaton-train-accident-community-mourns-tomassino-tommy-offer-college-student-hit/19933809/",
+     "source": "ABC7 Chicago"
+    },
+    {
+     "title": "‘Tragic accident’: Wheaton College baseball player hit, killed by train while crossing tracks",
+     "url": "https://www.dailyherald.com/20261013/news/tragic-accident-train-crash-victim-identified-as-wheaton-college-student-baseball-player/",
+     "source": "Daily Herald"
+    },
+    {
+     "title": "Notre Dame Prep mourning tragic death of 2026 graduate Tomassino Offer",
+     "url": "https://www.theoaklandpress.com/2026/10/13/notre-dame-prep-mourning-tragic-passing-of-2026-graduate-tomassino-offer/",
+     "source": "The Oakland Press"
+    }
+   ]
+  },
+  {
+   "source": "tiktok-7d",
+   "rank": 1,
+   "topic": "#hurricaneisaias",
+   "category": "",
+   "posts": "30K",
+   "views": "228.1M"
+  },
+  {
+   "source": "tiktok-7d",
+   "rank": 2,
+   "topic": "#marvelrivalsavengers",
+   "category": "Games",
+   "posts": "107.3K",
+   "views": "20.3M"
+  },
+  {
+   "source": "tiktok-7d",
+   "rank": 3,
+   "topic": "#tiktokscaryhorrorcontest",
+   "category": "",
+   "posts": "29.1K",
+   "views": "74.9M"
+  },
+  {
+   "source": "tiktok-30d",
+   "rank": 1,
+   "topic": "#citytastetest",
+   "category": "",
+   "posts": "2.7M",
+   "views": "3B"
+  },
+  {
+   "source": "tiktok-30d",
+   "rank": 2,
+   "topic": "#cornelluniversity",
+   "category": "",
+   "posts": "67.5K",
+   "views": "620.7M"
+  },
+  {
+   "source": "tiktok-30d",
+   "rank": 3,
+   "topic": "#patientzero",
+   "category": "News & Entertainment",
+   "posts": "63.5K",
+   "views": "267.6M"
+  }
+ ]
+}
