@@ -35,7 +35,8 @@ def post(L, raw_file, final):
 
 def main():
     src, out = sys.argv[1], sys.argv[2]; only = set(a for a in sys.argv[3:] if not a.startswith("--"))
-    lines = json.load(open(os.path.join(HERE, "lines.json")))["lines"]
+    lp = next((a.split("=", 1)[1] for a in sys.argv if a.startswith("--lines=")), os.path.join(HERE, "lines.json"))   # which script's lines to speak
+    lines = json.load(open(lp))["lines"]
     if "--post-only" in sys.argv:   # re-run just the pitch / level step on lines already generated
         for L in lines:
             if not only or L["id"] in only: post(L, os.path.join(out, "raw", L["id"] + ".wav"), os.path.join(out, "voice"))

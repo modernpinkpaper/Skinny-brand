@@ -15,7 +15,7 @@ def worker(args):
         if os.environ.get("CHROMIUM_PATH"): kw["executable_path"] = os.environ["CHROMIUM_PATH"]
         br = p.chromium.launch(**kw); pg = br.new_page(viewport=dict(width=1080, height=1920))
         pg.on("pageerror", lambda e: print("PAGE ERROR", e, flush=True))
-        pg.goto("file://" + os.path.join(HERE, "anim.html")); pg.evaluate("tl=>window.init(tl)", tl)
+        pg.goto("file://" + (os.environ.get("ANIM_HTML") or os.path.join(HERE, "anim.html"))); pg.evaluate("tl=>window.init(tl)", tl)
         for f in range(a, b):
             pg.evaluate("f=>window.frame(f)", f)
             pg.screenshot(path=os.path.join(work, "frames", f"{f:05d}.jpg"), type="jpeg", quality=92)
