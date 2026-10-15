@@ -28,7 +28,7 @@ Lines marked **[confirm]** are my guess from the logs. The logs show what was pr
 | 7 | She presses print, a counter climbs: 40, 40, 40. A mini progress bar fills. | "Step five: print the rest. Big orders go out in batches, about forty at a time, so nothing jams." | 120 = 1+34+5+40+40 |
 | 8 | Split screen: left printer running, right printer running, she sets up the next order at the desk. | "While one printer runs, set up the next one. Keep all three printers working." | jobs seconds apart on different printers |
 | 9 | A matching envelope prints with a small return address in the corner. She stacks card + envelope. | "Step six: print the matching envelopes. Same quantity, same order." | RA jobs match the card quantity |
-| 10 | Label printer spits out a 4x6 label. She presses it onto a box. Labels pop out one after another. | "Step seven: shipping labels. As boxes get packed, print the labels and stick them on." | label bursts, 25 in 48 min |
+| 10 | Label printer spits out a 4x6 label. She presses it onto a box. Labels pop out one after another. | "Step seven: shipping labels. As boxes get packed, print the labels and stick them on." | label bursts, 19 in 48 min |
 | 11 | She does a quick maintenance print again, then back to the desk. | "Every hour or two, run a maintenance print so a clogged nozzle never ruins an order." [confirm] | maintenance jobs through the morning |
 | 12 | Cart of finished boxes rolls away. She sits back, smiles. Counter on screen: "about 300 jobs today". | "That's the day: check, test, print, pack. Repeat. You'll do it all day, and you'll get fast at it." | ~297 jobs on Oct 14 |
 
