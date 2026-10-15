@@ -207,7 +207,8 @@
    "gap": 0.8,
    "expr": "poised",
    "pose": "point_up",
-   "emote": "hearts"
+   "emote": "hearts",
+   "seed": 11
   },
   {
    "id": "K13",

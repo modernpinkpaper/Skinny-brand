@@ -74,7 +74,7 @@ def word_times(path, words):
     return T
 
 class Track:
-    def __init__(s): s.a = np.zeros(SR * 120, np.float32)
+    def __init__(s): s.a = np.zeros(SR * 600, np.float32)
     def put(s, t, x, gain=1.0):
         i = int(t * SR); s.a[i:i + len(x)] += x * gain
 
