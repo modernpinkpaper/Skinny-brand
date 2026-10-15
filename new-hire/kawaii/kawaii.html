@@ -1,0 +1,67 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;background:#ffe3ee;width:1080px;height:1920px;overflow:hidden;font-family:"Nunito","Poppins","Arial Rounded MT Bold",Arial,sans-serif}
+svg{display:block}
+</style></head><body><svg id="s" width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+const NS="http://www.w3.org/2000/svg",S=document.getElementById("s"),INK="#5a3a2e",PINK="#ff8fb8",PALE="#ffd3e4",MINT="#bff0dc",SKY="#cdeaff",BUT="#fff1a8",LAV="#e3d4ff";
+let TL=null;
+const P={wave:{img:"sprites/pose2.png",w:363,h:670},present:{img:"sprites/pose1.png",w:334,h:667,m:[178,272,22],eyes:[[110,220],[239,214]]},point_up:{img:"sprites/pose3.png",w:352,h:664,m:[149,273,22],eyes:[[104,215],[230,214]]},walk:{img:"sprites/pose4.png",w:357,h:626},sit:{img:"sprites/pose5.png",w:348,h:564}};
+const E=(t,a={},k="")=>`<${t} ${Object.entries(a).map(([x,y])=>x+'="'+y+'"').join(" ")}>${k}</${t}>`;
+const R=(x,y,w,h,f,r=24,e={})=>E("rect",{x,y,width:w,height:h,rx:r,fill:f,stroke:INK,"stroke-width":5,...e});
+const C=(x,y,r,f,e={})=>E("circle",{cx:x,cy:y,r,fill:f,stroke:INK,"stroke-width":5,...e});
+const T=(x,y,s,t,e={})=>E("text",{x,y,"font-size":s,"font-weight":900,"text-anchor":"middle",fill:INK,...e},t);
+const G=(k,tr="")=>E("g",{transform:tr},k);
+const face=(x,y,s=1)=>G(C(-14,0,5,INK,{"stroke-width":0})+C(14,0,5,INK,{"stroke-width":0})+E("path",{d:"M-7 8 Q0 16 7 8",stroke:INK,"stroke-width":4,fill:"none","stroke-linecap":"round"})+C(-24,10,6,"#ff9ec0",{"stroke-width":0,opacity:.7})+C(24,10,6,"#ff9ec0",{"stroke-width":0,opacity:.7}),`translate(${x} ${y}) scale(${s})`);
+const spark=(x,y,s,c="#fff")=>E("path",{d:`M${x} ${y-s} Q${x} ${y} ${x+s} ${y} Q${x} ${y} ${x} ${y+s} Q${x} ${y} ${x-s} ${y} Q${x} ${y} ${x} ${y-s}Z`,fill:c,stroke:INK,"stroke-width":3});
+const heart=(x,y,s,c=PINK)=>E("path",{d:`M${x} ${y+s} C${x-2*s} ${y-s*.2} ${x-s} ${y-s*1.3} ${x} ${y-s*.4} C${x+s} ${y-s*1.3} ${x+2*s} ${y-s*.2} ${x} ${y+s}Z`,fill:c,stroke:INK,"stroke-width":4});
+function printer(x,y,s=1,col=PALE,t=0,extra=""){return G(R(-130,-70,260,140,col,30)+R(-100,-100,200,40,"#fff",14)+R(-90,20,180,18,"#fff",8)+face(0,-20,1)+extra+E("rect",{x:-70,y:38,width:140,height:34,rx:8,fill:"#fff",stroke:INK,"stroke-width":4}),`translate(${x} ${y}) scale(${s})`)}
+function sheet(x,y,w,h,rot=0,col="#fff",inner=""){return G(R(-w/2,-h/2,w,h,col,10)+inner,`translate(${x} ${y}) rotate(${rot})`)}
+function lines(x,y,w,n,gap=22,c="#d9c3cf"){let s="";for(let i=0;i<n;i++)s+=E("rect",{x:x,y:y+i*gap,width:w*(i==n-1?.6:1),height:9,rx:4,fill:c});return s}
+const bob=(t,a=6,p=1.6)=>Math.sin(t*6.28/p)*a;
+// ---- scene vignettes: each draws in a 900x640 card centred at 0,0 ----
+const SC={
+intro:t=>G(printer(-230,40,1,PALE)+printer(230,40,1,MINT)+G(heart(0,-120+bob(t,10),38)+spark(-60,-170,16,BUT)+spark(70,-160,12,BUT),"")+T(0,-230,70,"PRINT ROOM",{fill:PINK,stroke:INK,"stroke-width":2,"paint-order":"stroke"})),
+clean:t=>{let k=Math.min(1,(t%6)/3);return G(printer(-200,40,1.1,PALE))+G(R(60,-140,260,260,"#fff",18)+[0,1,2,3,4].map(i=>E("rect",{x:80,y:-110+i*44,width:i==2&&k<1?100*k:220,height:12,rx:6,fill:["#38c6e8","#ff5aa5","#ffd84a","#222","#8a6cff"][i]})).join("")+T(190,-168,28,"TEST PATTERN"))+(k>.95?spark(280,-120,18,BUT):"")+G(E("path",{d:"M-300 -130 q10 -40 40 -20",stroke:"#38c6e8","stroke-width":8,fill:"none"})+spark(-310,-120+bob(t,8),16,"#fff"),"")},
+alerts:t=>{let on=(Math.floor(t*1.5)%2);return G(printer(-250,40,1,PALE)+C(-250,-150,24,on?"#ff6f8e":"#fff"))+G(printer(250,40,1,MINT)+C(250,-150,24,on?"#ffcc33":"#fff"))+G(R(-60,-120,120,90,"#fff",14)+T(0,-60,64,"!",{fill:"#ff4f7a"}),`rotate(${bob(t,6,1)})`)+G(R(-90,40,180,110,"#fff7d1",14)+lines(-70,64,140,3),"")},
+orders:t=>G(R(-330,-230,660,470,"#fff",30)+T(0,-175,40,"TODAY'S ORDERS")+[0,1,2,3,4].map(i=>G(R(-290,-135+i*70,580,56,i==1?BUT:PALE,16)+C(-255,-107+i*70,14,i==1?"#ffcc33":"#fff")+E("rect",{x:-220,y:-114+i*70,width:200+((i*53)%120),height:12,rx:6,fill:INK,opacity:.35})+E("rect",{x:80,y:-114+i*70,width:150,height:12,rx:6,fill:INK,opacity:.18}),"")).join("")+(Math.floor(t*1.2)%2?spark(310,-210,18,BUT):"")),
+claim:t=>G(R(-330,-170,660,120,PALE,26)+lines(-290,-140,360,2)+G(R(110,-150,190,80,PINK,24)+T(205,-97,38,"CLAIM",{fill:"#fff"}),`scale(${1+Math.max(0,Math.sin(t*3))*.06})`))+G(sheet(0,80,300,160,0,"#fff",T(0,12,36,"MINE ♥")),"")+heart(250,100+bob(t,8),30)+spark(-250,100,18,BUT),
+checker:t=>{let k=Math.floor(t*1.2)%3;return G(R(-340,-230,430,470,"#fff",28)+T(-125,-180,34,"ORDER CHECKER")+["NAMES","RETURN ADDRESS","CARD ADDRESS"].map((n,i)=>G(R(-310,-140+i*88,370,68,i<=k?MINT:PALE,18)+T(-125,-95+i*88,28,n)+(i<=k?E("path",{d:`M20 ${-107+i*88} l16 16 l30 -34`,stroke:"#18a56b","stroke-width":9,fill:"none","stroke-linecap":"round"}):""))).join(""))+G(R(130,-120,200,100,"#ffd7a8",20)+T(230,-62,26,"FIXED!"),"")+G(sheet(230,100,190,150,3,"#fff",lines(-70,-40,140,4,26)+E("rect",{x:-70,y:-18,width:140,height:20,fill:"#ffb35c",opacity:.7})),"")},
+files:t=>G(R(-300,-170,260,200,"#fff",20)+T(-170,-60,36,"CARD")+E("rect",{x:-270,y:-20,width:200,height:12,rx:6,fill:PINK}),`translate(0 ${bob(t,6,1.8)})`)+G(R(20,-90,300,180,SKY,20)+T(170,10,34,"ENVELOPE")+E("path",{d:"M30 -80 L170 10 L310 -80",fill:"none",stroke:INK,"stroke-width":5}),`translate(0 ${bob(t+.5,6,1.8)})`)+spark(-300,-190,18,BUT)+spark(320,-130,20,BUT)+heart(0,150,30)+T(0,235,40,"built by a script"),
+review:t=>{let g=t>4;return G(R(-330,-220,420,460,"#fff",26)+lines(-290,-170,340,9)+E("rect",{x:-290,y:-40,width:340,height:34,fill:"#ffe27a",opacity:.8,rx:8}))+G(R(130,-150,200,200,g?MINT:BUT,24)+T(230,-80,26,"CHECK")+T(230,-48,26,"BEFORE")+T(230,-16,26,"PRINT")+(g?T(230,40,60,"✓",{fill:"#18a56b"}):""),"")+(g?heart(230,130,30):"")},
+print:t=>{let k=t%8;return printer(-250,60,1.1,PALE)+printer(250,60,1.1,MINT)+G(sheet(-250,-160+(k<3?-bob(t,0):0),150,100,-4,"#fff",lines(-60,-30,110,3)),"")+T(-250,-215,34,k<3?"ONE COPY FIRST":"THEN BATCHES")+T(250,-200,40,"× 40",{fill:PINK})+(k>3?spark(250,-150,18,BUT):"")+(k<3?G(C(-250,-10,0,"none")+T(-140,-70,34,"👀"),""):"")},
+env:t=>G(R(-310,-130,300,260,"#fff",20)+T(-160,-60,34,"R A")+T(-160,-14,26,"RETURN ADDRESS")+lines(-290,10,260,3))+G(R(40,-60,260,160,SKY,20)+E("path",{d:"M50 -50 L170 30 L290 -50",fill:"none",stroke:INK,"stroke-width":5})+lines(150,50,100,2,16),`translate(0 ${bob(t,6,1.8)})`)+T(0,200,40,"count out · extras go back"),
+pack:t=>G(R(-210,-30,420,230,"#e8c9a0",20)+E("path",{d:"M-210 -30 L-130 -90 L130 -90 L210 -30",fill:"#f4dcc0",stroke:INK,"stroke-width":5}))+G(sheet(0,-110+bob(t,10,2),180,110,0,"#fff",lines(-60,-30,120,3))+heart(0,-190,22),"")+G(C(150,110,40,PINK)+T(150,122,30,"MPP",{fill:"#fff"}),`rotate(${bob(t,10,2)})`)+spark(-240,-100,18,BUT)+spark(260,-120,18,BUT),
+label:t=>G(R(-180,-20,360,210,"#e8c9a0",20))+G(R(-110,20,220,130,"#fff",10)+[0,1,2].map(i=>E("rect",{x:-90,y:40+i*18,width:140,height:9,rx:4,fill:INK,opacity:.35})).join("")+E("rect",{x:-90,y:104,width:180,height:30,fill:INK,opacity:.8}),`translate(0 ${-Math.max(0,3-t%6)*20})`)+G(R(-130,-190,260,110,PALE,22)+T(0,-120,38,"SHIPPING")+T(0,-84,28,"LABEL"),"")+heart(250,0+bob(t,10),30)+spark(-250,-20,20,BUT),
+repeat:t=>{const lab=["PRINTERS","CLAIM","CHECK","FILES","PRINT","PACK","LABEL"],cols=[PALE,MINT,SKY,BUT,LAV,PALE,MINT];let a=Math.floor(t*1.4)%7;return lab.map((l,i)=>{const an=i*6.283/7-1.57,x=Math.cos(an)*230,y=Math.sin(an)*210;return G(R(-78,-30,156,60,i==a?PINK:cols[i],26)+T(0,9,24,l,{fill:i==a?"#fff":INK}),`translate(${x} ${y}) scale(${i==a?1.12:1})`)}).join("")+G(E("path",{d:"M-70 -10 a70 70 0 1 1 20 60",stroke:INK,"stroke-width":10,fill:"none","stroke-linecap":"round"})+E("path",{d:"M-60 60 l-12 -22 l30 4z",fill:INK}),`rotate(${t*60})`)+T(0,12,30,"AGAIN")},
+outro:t=>G(heart(0,-30+bob(t,12),90)+spark(-190,-140,26,BUT)+spark(210,-120,22,BUT)+spark(-150,100,18,BUT)+spark(180,110,24,BUT))+T(0,170,66,"YOU'VE GOT THIS!",{fill:PINK,stroke:INK,"stroke-width":2,"paint-order":"stroke"})
+};
+const ICON={hearts:(t)=>[0,1,2].map(i=>heart(0+i*46-46,-20-((t*60+i*30)%90),14+i*3)).join(""),"!":t=>T(0,-20-bob(t,6,.6),70,"!",{fill:"#ff4f7a"}),sparkles:t=>spark(-40,-30,16,BUT)+spark(30,-60+bob(t,6,1),20,BUT)+spark(60,-10,12,"#fff")};
+function bg(t){return E("rect",{width:1080,height:1920,fill:"#ffe3ee"})+E("rect",{y:1500,width:1080,height:420,fill:"#ffd0e0"})+E("rect",{y:1500,width:1080,height:8,fill:INK,opacity:.2})+[...Array(10)].map((_,i)=>spark(80+i*107,1560+(i%3)*90,10,"#fff")).join("")+
+""}
+function at(arr,t,key){let r=null;for(const e of arr)if(e.t<=t)r=e;return r}
+function frame(f){const t=f/TL.fps;let sc=TL.scenes.find(s=>t>=s.start&&t<s.end)||TL.scenes[TL.scenes.length-1];const k=t-sc.start;let h=bg(t);
+ // progress dots + chip
+ const idx=TL.scenes.indexOf(sc),n=TL.scenes.length;
+ h+=R(80,60,920,150,"#fff",60,{stroke:PINK})+T(540,148,46,sc.chip,{fill:INK});
+ h+=[...Array(n)].map((_,i)=>C(540+(i-(n-1)/2)*52,190,i==idx?12:8,i<=idx?PINK:"#fff",{"stroke-width":3})).join("");
+ // card
+ const pop=Math.min(1,k/0.35),ps=1-Math.pow(1-pop,3)*0+ (pop<1?-(1-pop)*.15:0);
+ h+=G(R(-450,-330,900,660,"#fff7fb",56,{stroke:INK})+G((SC[sc.look]||SC.intro)(k),"translate(0 20) scale(1.08)"),`translate(540 610) scale(${Math.max(.01,ps)})`);
+ // Sally
+ const pe=at(TL.poses,t)||{pose:"present"},p=P[pe.pose]||P.present,m=TL.mouth[f]||0;const sp=pe.pose;
+ const sx=540,fy=1900,scl=1.3,bobv=bob(t,5,1.4)+ (m>.3?-m*6:0),tilt=bob(t,1.6,2.3);
+ let s=`<image href="${p.img}" x="${-p.w/2}" y="${-p.h}" width="${p.w}" height="${p.h}"/>`;
+ if(p.m){const[mx,my,mw]=p.m,ox=mx-p.w/2,oy=my-p.h;s+=E("ellipse",{cx:ox,cy:oy+m*3,rx:mw*.22+m*3,ry:2+m*9,fill:"#b3304f",stroke:"#7a1d33","stroke-width":2,opacity:m>.08?1:0})+(m>.5?E("ellipse",{cx:ox,cy:oy+m*6,rx:mw*.12,ry:m*3,fill:"#ff8aa6",opacity:1}):"")}
+ // blink
+ const ph=(t*1000)%3300; if(p.eyes&&ph<130)for(const[ex,ey]of p.eyes){const ox=ex-p.w/2,oy=ey-p.h;s+=E("ellipse",{cx:ox,cy:oy,rx:34,ry:30,fill:"#ffcdb0"})+E("path",{d:`M${ox-30} ${oy+2} Q${ox} ${oy+16} ${ox+30} ${oy+2}`,stroke:"#3a1d17","stroke-width":5,fill:"none","stroke-linecap":"round"})}
+ h+=G(s,`translate(${sx} ${fy+bobv*.4}) rotate(${tilt}) scale(${scl})`);
+ // emote
+ const em=(TL.emotes&&at(TL.emotes,t));if(em&&em.emote&&ICON[em.emote]&&t<em.t+em.d)h+=G(ICON[em.emote](t),"translate(800 1260) scale(1.08)");
+ // captions
+ const ph2=TL.phrases.find(q=>t>=q.s-.05&&t<=q.e+.25);if(ph2){let x=0,txt="";const act=ph2.words.filter(w=>t>=w.s).length-1;const L=ph2.words.map(w=>w.w).join(" ");let fs=62;while(L.length*fs*.56>900&&fs>38)fs-=2;
+  h+=R(80,1660-fs*.2,920,fs+60,"#fff",50,{stroke:PINK})+E("text",{x:540,y:1660-fs*.2+fs+14,"font-size":fs,"font-weight":900,"text-anchor":"middle",fill:INK},ph2.words.map((w,i)=>E("tspan",{fill:i==act?"#ff3d8d":INK},w.w+(i<ph2.words.length-1?" ":""))).join(""))}
+ // transition flash
+ for(const tr of TL.transitions||[]){const d=t-tr.t;if(d>=0&&d<.35)h+=E("rect",{width:1080,height:1920,fill:"#fff",opacity:(1-d/.35)*.6})}
+ S.innerHTML=h}
+window.init=tl=>{TL=tl;window.TL=tl};window.frame=frame;
+</script></body></html>
