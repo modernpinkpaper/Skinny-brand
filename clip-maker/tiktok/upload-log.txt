@@ -18,3 +18,6 @@
 2026-10-19 09:28	videos-life-changing-sentences/096-nice-to-you-is-not-nice-about-you-hook13.mp4	v_inbox_file~v2.7698369732437051423	SEND_TO_USER_INBOX
 2026-10-20 07:45	videos-life-changing-sentences/097-they-know-your-worth-it-just-doesn-t-matter-hook3.mp4	v_inbox_file~v2.7698714355199264799	SEND_TO_USER_INBOX
 2026-10-20 07:46	videos-life-changing-sentences/098-you-choose-the-love-you-think-you-deserve-hook5.mp4	v_inbox_file~v2.7698714355199477791	SEND_TO_USER_INBOX
+2026-10-21 07:57	videos-life-changing-sentences/099-cringe-in-their-mind-or-caged-in-your-own-hook12.mp4	v_inbox_file~v2.7699088479971526686	SEND_TO_USER_INBOX
+2026-10-21 07:58	videos-life-changing-sentences/100-grief-doesn-t-shrink-you-grow-around-it-hook3.mp4	v_inbox_file~v2.7699088493594707998	SEND_TO_USER_INBOX
+2026-10-21 07:58	video-trend-robot-challenge-the-call/trend-robot-challenge-the-call.mp4	v_inbox_file~v2.7699088842493544479	SEND_TO_USER_INBOX
