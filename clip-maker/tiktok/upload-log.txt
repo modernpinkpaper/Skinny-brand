@@ -21,3 +21,6 @@
 2026-10-21 07:57	videos-life-changing-sentences/099-cringe-in-their-mind-or-caged-in-your-own-hook12.mp4	v_inbox_file~v2.7699088479971526686	SEND_TO_USER_INBOX
 2026-10-21 07:58	videos-life-changing-sentences/100-grief-doesn-t-shrink-you-grow-around-it-hook3.mp4	v_inbox_file~v2.7699088493594707998	SEND_TO_USER_INBOX
 2026-10-21 07:58	video-trend-robot-challenge-the-call/trend-robot-challenge-the-call.mp4	v_inbox_file~v2.7699088842493544479	SEND_TO_USER_INBOX
+2026-10-22 07:59	video-trend-robot-not-a-machine/trend-robot-not-a-machine.mp4	v_inbox_file~v2.7699460226415757342	SEND_TO_USER_INBOX
+2026-10-22 08:00	video-trend-door-always-open/trend-door-always-open.mp4	v_inbox_file~v2.7699460455797934110	SEND_TO_USER_INBOX
+2026-10-22 08:00	video-group-things-that-make-people-lose-respect/group-things-that-make-people-lose-respect.mp4	v_inbox_file~v2.7699460705401112606	SEND_TO_USER_INBOX
