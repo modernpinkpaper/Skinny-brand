@@ -1,0 +1,28 @@
+name: TikTok transcripts
+on:
+  workflow_dispatch:
+    inputs:
+      account: { description: "TikTok account (no @)", default: "connectingherdots" }
+  push:
+    paths: ["tools/tiktok_transcripts.py", ".github/workflows/tiktok-transcripts.yml"]
+permissions: { contents: write }
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install "yt-dlp[default,curl-cffi]" faster-whisper
+      - name: Get transcripts
+        run: python tools/tiktok_transcripts.py "${{ inputs.account || 'connectingherdots' }}" research/transcripts-connectingherdots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: transcripts, path: research/transcripts-connectingherdots, if-no-files-found: ignore }
+      - name: Save to the repo
+        run: |
+          git config user.name "github-actions"; git config user.email "actions@github.com"
+          git add research/transcripts-connectingherdots
+          git commit -m "Transcripts: connectingherdots" || exit 0
+          git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME"
