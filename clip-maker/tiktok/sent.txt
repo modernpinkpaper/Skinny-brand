@@ -73,3 +73,6 @@ video-trend-door-always-open/trend-door-always-open.mp4
 video-group-things-that-make-people-lose-respect/group-things-that-make-people-lose-respect.mp4
 video-let-time-do-the-talking/let-time-do-the-talking.mp4
 video-group-why-nice-people-get-walked-over/group-why-nice-people-get-walked-over.mp4
+video-group-never-let-people-see-you-do-these/group-never-let-people-see-you-do-these.mp4
+video-group-things-i-never-do/group-things-i-never-do.mp4
+video-my-absence-has-value/my-absence-has-value.mp4
