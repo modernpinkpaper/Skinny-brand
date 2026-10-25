@@ -76,3 +76,6 @@ video-group-why-nice-people-get-walked-over/group-why-nice-people-get-walked-ove
 video-group-never-let-people-see-you-do-these/group-never-let-people-see-you-do-these.mp4
 video-group-things-i-never-do/group-things-i-never-do.mp4
 video-my-absence-has-value/my-absence-has-value.mp4
+video-i-do-not-announce-my-plans/i-do-not-announce-my-plans.mp4
+video-i-do-not-explain-myself/i-do-not-explain-myself.mp4
+video-group-signs-someone-is-using-you/group-signs-someone-is-using-you.mp4
