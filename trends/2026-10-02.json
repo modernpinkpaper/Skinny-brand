@@ -1,0 +1,227 @@
+{
+ "date": "2026-10-02",
+ "trends": [
+  {
+   "source": "google",
+   "rank": 1,
+   "topic": "suriname vs guatemala",
+   "traffic": "1000+",
+   "news": [
+    "Guatemala takes over Central American clash in League A",
+    "Preview: Suriname vs Guatemala - prediction, team news, lineups",
+    "Suriname top table as Honduras and Guatemala stamp their credentials"
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 2,
+   "topic": "colombia vs paraguay",
+   "traffic": "500+",
+   "news": [
+    "Lorenzo habló de Rengifo, los arqueros y los cambios de Colombia vs. Paraguay",
+    "A qué hora juega HOY la Selección Colombia vs Paraguay y dónde ver EN VIVO en TV",
+    "Colombia, con once renovado, a mostrar juego y rebeldía: Paraguay, el segundo rival en el nuevo camino después del Mundial"
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 3,
+   "topic": "doing life",
+   "traffic": "500+",
+   "news": [
+    "‘Tyler Perry’s Doing Life’ Review: A Mysterious Hero",
+    "Meet the Cast of Tyler Perry’s ‘Doing Life’ on Netflix (with Pictures)",
+    "Dayton native stars in Tyler Perry’s Netflix drama ‘Doing Life,’ which is now streaming"
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 4,
+   "topic": "surinam - guatemala",
+   "traffic": "2000+",
+   "news": [
+    "Guatemala ante Surinam: este podría ser el once de Tena tras las ausencias de Lom y Santis",
+    "José Bolaños recibe primera convocatoria con Guatemala: \"Estoy realizado, desde niño lo soñé\"",
+    "Selección Nacional: La importancia de los puestos en la tabla de la Liga A"
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 5,
+   "topic": "penn state vs northwestern",
+   "traffic": "1000+",
+   "news": [
+    "Why the over 45.5 is the college football betting pick for Penn State vs. Northwestern tonight",
+    "How to watch Penn State vs. Northwestern on Friday: TV, livestream and odds",
+    "Game Notes: No. RV/22 Penn State vs. RV/RV Northwestern"
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 6,
+   "topic": "tony reno",
+   "traffic": "2000+",
+   "news": [
+    "Tony Reno, who guided Yale to 5 Ivy League titles, dies at 52",
+    "Former Yale football coach Tony Reno dies at 52",
+    "In Memoriam: Former Football Head Coach Tony Reno"
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 7,
+   "topic": "estados unidos",
+   "traffic": "1000+",
+   "news": [
+    "Rafael Márquez busca su primera victoria con México ante Estados Unidos en amistoso",
+    "Selección Mexicana llega a Phoenix con todo y Gil Mora para encarar a Estados Unidos",
+    "Entre Rafa Márquez y Estados Unidos ya todo es personal"
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 8,
+   "topic": "benny johnson",
+   "traffic": "2000+",
+   "news": [
+    "MAGA podcaster Benny Johnson sued for defamation over ICE ride-along videos calling protesters ‘terrorists’",
+    "Pro-Trump Influencer Benny Johnson is being sued for defamation by ICE protesters",
+    "ICE Protesters Just Sued One of Trump’s Biggest Cheerleaders"
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 9,
+   "topic": "luigi mangione",
+   "traffic": "2000+",
+   "news": [
+    "First on CNN: Newly unsealed footage shows Luigi Mangione’s arrest",
+    "Newly released footage shows arrest of Luigi Mangione",
+    "Body-cam footage shows moment Luigi Mangione was arrested at a McDonald’s"
+   ]
+  },
+  {
+   "source": "google",
+   "rank": 10,
+   "topic": "robot",
+   "traffic": "500+",
+   "news": [
+    {
+     "title": "Robot umpires flip 54% of challenged calls as Reds lead way",
+     "source": "ESPN",
+     "url": "https://www.espn.com/mlb/story/_/id/50084448/robot-umpires-flip-54-challenged-calls-reds-lead-way"
+    },
+    {
+     "title": "In October, every ABS challenge carries more weight — and teams are still adjusting",
+     "source": "The New York Times",
+     "url": "https://www.nytimes.com/athletic/7647581/2026/09/30/phillies-braves-abs-challenge-team-walk-off/"
+    },
+    {
+     "title": "MLB ABS Challenge Success Rate for 2026 Season Revealed, Full Rankings for Yankees, Dodgers, More",
+     "source": "Bleacher Report",
+     "url": "https://bleacherreport.com/articles/25505912-mlb-abs-challenge-success-rate-2026-season-revealed-full-rankings-yankees-dodgers-more"
+    }
+   ]
+  },
+  {
+   "source": "tiktok-7d",
+   "rank": 1,
+   "topic": "#reggie",
+   "category": "News & Entertainment",
+   "posts": "60.3K",
+   "views": "613.3M"
+  },
+  {
+   "source": "tiktok-7d",
+   "rank": 2,
+   "topic": "#cornell",
+   "category": "Education",
+   "posts": "39.9K",
+   "views": "471.6M"
+  },
+  {
+   "source": "tiktok-7d",
+   "rank": 3,
+   "topic": "#cornelluniversity",
+   "category": "",
+   "posts": "39.3K",
+   "views": "347M"
+  },
+  {
+   "source": "tiktok-30d",
+   "rank": 1,
+   "topic": "#citytastetest",
+   "category": "",
+   "posts": "1.3M",
+   "views": "1.3B"
+  },
+  {
+   "source": "tiktok-30d",
+   "rank": 2,
+   "topic": "#tiktokfantasymoviecontest",
+   "category": "",
+   "posts": "331.4K",
+   "views": "1.9B"
+  },
+  {
+   "source": "tiktok-30d",
+   "rank": 3,
+   "topic": "#patientzero",
+   "category": "News & Entertainment",
+   "posts": "47.1K",
+   "views": "176.5M"
+  }
+ ],
+ "picked_by": "Claude in this chat (no ANTHROPIC_API_KEY in this sandbox, so brand_filter.py did not run yet)",
+ "picked": [
+  {
+   "topic": "#citytastetest",
+   "source": "tiktok-30d",
+   "fit": 8,
+   "why": "People compare food from their own city; easy to turn into a calm 'comfort food and what it means to you' video.",
+   "hashtags": [
+    "#citytastetest",
+    "#foodtok",
+    "#comfortfood",
+    "#relatable",
+    "#fyp"
+   ]
+  },
+  {
+   "topic": "#reggie",
+   "source": "tiktok-7d",
+   "fit": 6,
+   "why": "Built on the 'I've been with Reggie for 30 days' joke about how quickly we get attached; fits a relationships/self-worth angle.",
+   "hashtags": [
+    "#reggie",
+    "#relationships",
+    "#selflove",
+    "#relatable",
+    "#fyp"
+   ]
+  },
+  {
+   "topic": "robot",
+   "source": "google",
+   "fit": 5,
+   "why": "Unclear what it is; only works as a 'feeling like you live on autopilot' angle. Check the news first.",
+   "hashtags": [
+    "#autopilot",
+    "#burnout",
+    "#mentalhealth",
+    "#relatable",
+    "#fyp"
+   ]
+  }
+ ],
+ "skipped": {
+  "luigi mangione": "real person's crime/drama",
+  "benny johnson": "politics",
+  "tony reno": "sports coach news",
+  "soccer/football matches": "sports scores",
+  "doing life": "unclear, likely crime/news",
+  "#cornell/#cornelluniversity": "school news, not a brand fit",
+  "#patientzero": "Taylor Swift song launch: real person/celebrity, weak fit",
+  "#tiktokfantasymoviecontest": "contest promo"
+ }
+}
